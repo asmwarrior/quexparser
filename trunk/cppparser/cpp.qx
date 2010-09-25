@@ -27,9 +27,10 @@ mode PROGRAM :
 <skip_range: "/*" "*/">
 <skip_range: "//" "\n">
 {
-    <<EOF>>          => QUEX_TKN_TERMINATION(Lexeme);
-	on_end_of_stream => QUEX_TKN_TERMINATION(LexemeNull);
-    on_failure       => QUEX_TKN_FAIL(Lexeme);
+    <<EOF>>          => QUEX_TKN_TERMINATION(LexemeNull);
+	//on_end_of_stream => QUEX_TKN_TERMINATION(LexemeNull);
+    //on_failure       => QUEX_TKN_FAIL(Lexeme);
+	on_failure       => QUEX_TKN_TERMINATION(Lexeme);
 
     "#"[ \t]*"include"[ \t]*{P_INCLUDE_FILE2} => QUEX_TKN_PP_INCLUDE(Lexeme);
     "#"[ \t]*"include"[ \t]*{P_INCLUDE_FILE1} => QUEX_TKN_PP_INCLUDE(Lexeme);
@@ -122,6 +123,7 @@ mode PROGRAM :
     {P_NUMBER}      => QUEX_TKN_NUMBER(Lexeme);
     {P_STRING}      => QUEX_TKN_STRING(Lexeme);
     {P_QUOTED_CHAR} => QUEX_TKN_QUOTED_CHAR(Lexeme);
+	//{P_WHITESPACE}    {}
 	
 	
 
