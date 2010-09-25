@@ -93,6 +93,8 @@ const int     QUEX_TKN_INLINE                  =         83            ;
 const int     QUEX_TKN_ENUM                    =         84            ;
 const int     QUEX_TKN_TYPEDEF                 =         85            ;
 const int     QUEX_TKN_VOLATILE                =         86            ;
+const int     QUEX_TKN_FAIL                    =         87            ;
+
                                              
 
 
