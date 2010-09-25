@@ -156,7 +156,7 @@ protected:
 
     /** handle class declration
       * @param ct specify type : struct or enum or class */
-    void HandleClass(EClassType ct, const cc_string& template_args = cc_text(""));
+    void HandleClass(EClassType ct);
 
     void HandleMacro(const cc_string & token, const cc_string & peek);
 

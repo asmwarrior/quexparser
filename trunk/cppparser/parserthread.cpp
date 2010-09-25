@@ -9,7 +9,7 @@
 
 #include "parserthread.h"
 
-#define PARSERTHREAD_DEBUG_OUTPUT 0
+#define PARSERTHREAD_DEBUG_OUTPUT 1
 
 #include <stdio.h>
 
@@ -294,6 +294,15 @@ void ParserThread::DoParse()
                 printf("handling for or while block\n");
                 SkipRoundBrace();
                 SkipStatementBlock();
+                break;
+            }
+        case QUEX_TKN_CLASS:
+            {
+                m_Str.clear();
+                if (m_Options.handleClasses)
+                    HandleClass(ctClass);
+                else
+                    SkipStatementBlock();
                 break;
             }
         default:
@@ -675,14 +684,23 @@ void ParserThread::ReadVarNames()
 
 }
 
-void ParserThread::HandleClass(EClassType ct, const cc_string& templateArgs)
+void ParserThread::HandleClass(EClassType ct)
 {
+    RawToken * current = m_Tokenizer.GetToken(); // read the class name;
+    RawToken * peek    = m_Tokenizer.PeekToken();
 
+    if(peek->id == QUEX_TKN_SEMICOLON)
+        return;
+
+    if(peek->id == QUEX_TKN_CURLY_BRACKET_O)
+        SkipStatementBlock();
+
+    TRACE(cc_text("handle class\n"));
 }
 
 void ParserThread::HandleFunction(const cc_string& name, bool isOperator)
 {
-    TRACE(cc_text("HandleFunction() : Adding function '")+name+cc_text("': m_Str='")+m_Str+cc_text("'"));
+    //TRACE(cc_text("HandleFunction() : Adding function '")+name+cc_text("': m_Str='")+m_Str+cc_text("'"));
 
 }
 

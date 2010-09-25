@@ -1,17 +1,21 @@
 
 
 
-for (int i = 0; xxx ;) 
- function();
- 
- 
-for (int i = 0; xxx ;) 
+//for (int i = 0; xxx ;)
+// function();
+//
+//
+//for (int i = 0; xxx ;)
+//{
+//  for (int i = 0; xxx ;)
+//  ;
+//};
+
+
+class AAA
 {
-  for (int i = 0; xxx ;)
-  ;
+    int a;
 };
-
-
 
 
 
