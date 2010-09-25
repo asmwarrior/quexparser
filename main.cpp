@@ -67,10 +67,10 @@ protected:
         in.read(buf,buf_size);
         buf[buf_size] = '\0';
 
-//        for(int i = 0;i<=buf_size;i++)
-//        {
-//            cout<< i<< " " << int(buf[i]) <<" " << char (buf[i])<<endl;
-//        }
+        for(int i = 0;i<=buf_size;i++)
+        {
+            cout<< i<< " " << int(buf[i]) <<" " << char (buf[i])<<endl;
+        }
 
     }
     const char *    name;
