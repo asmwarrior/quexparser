@@ -1,0 +1,182 @@
+// -*- C++ -*- vim: set syntax=cpp:
+start = PROGRAM;
+
+
+define {
+    // Pattern definitions for example application
+    P_WHITESPACE          [ \r\t\n]+
+    P_IDENTIFIER          [_a-zA-Z][_a-zA-Z0-9]*
+    P_NUMBER              [0-9]+
+    //
+    // String: 
+    //    Quote " followe by either \" or something different from " and then a final "
+    P_STRING              "\""(\\"\""|[^"])*"\""
+    P_QUOTED_CHAR_1       ("'\\''")|("'"[^']?"'")
+    P_QUOTED_CHAR_2       "'\\"[0-9abcfnrtv\\]"'"
+    P_QUOTED_CHAR         ({P_QUOTED_CHAR_1}|{P_QUOTED_CHAR_2})
+    P_INCLUDE_FILE1       "<"[^>]+">"
+    P_INCLUDE_FILE2       "\""[^"]+"\""
+	
+	P_DOUBLE_COLON        "::"
+}
+
+
+
+mode PROGRAM :
+<skip:       [ \r\n\t]>
+<skip_range: "/*" "*/">
+<skip_range: "//" "\n">
+{
+    <<EOF>>       => QUEX_TKN_TERMINATION(Lexeme);
+
+    "#"[ \t]*"include"[ \t]*{P_INCLUDE_FILE2} => QUEX_TKN_PP_INCLUDE(Lexeme);
+    "#"[ \t]*"include"[ \t]*{P_INCLUDE_FILE1} => QUEX_TKN_PP_INCLUDE(Lexeme);
+    "#"[ \t]*"define"  { self<<PREPROCESSOR; self_send1(QUEX_TKN_PP_DEFINE, Lexeme);}
+    "#"[ \t]*"if"      { self<<PREPROCESSOR; self_send1(QUEX_TKN_PP_IF, Lexeme);}
+    "#"[ \t]*"elif"    { self<<PREPROCESSOR; self_send1(QUEX_TKN_PP_ELIF, Lexeme);}
+    "#"[ \t]*"ifdef"   { self<<PREPROCESSOR; self_send1(QUEX_TKN_PP_IFDEF, Lexeme);}
+    "#"[ \t]*"ifndef"  { self<<PREPROCESSOR; self_send1(QUEX_TKN_PP_IFNDEF, Lexeme);}
+    "#"[ \t]*"endif"   { self<<PREPROCESSOR; self_send1(QUEX_TKN_PP_ENDIF, Lexeme);}
+    "#"[ \t]*"else"    { self<<PREPROCESSOR; self_send1(QUEX_TKN_PP_ELSE, Lexeme);}
+    "#"[ \t]*"pragma"  { self<<PREPROCESSOR; self_send1(QUEX_TKN_PP_PRAGMA, Lexeme);}
+    "#"[ \t]*"error"   { self<<PREPROCESSOR; self_send1(QUEX_TKN_PP_ERROR, Lexeme);}
+    defined            => QUEX_TKN_PP_DEFINED(Lexeme);
+    "\\\n"             {}
+
+
+    "#"           => QUEX_TKN_HASH(Lexeme);
+    "##"          => QUEX_TKN_DOUBLE_HASH(Lexeme);
+    "?"           => QUEX_TKN_QUESTION_MARK(Lexeme);
+    "~"           => QUEX_TKN_TILDE(Lexeme);
+    "("           => QUEX_TKN_BRACKET_O(Lexeme);
+    ")"           => QUEX_TKN_BRACKET_C(Lexeme);
+    "["           => QUEX_TKN_CORNER_BRACKET_O(Lexeme);
+    "]"           => QUEX_TKN_CORNER_BRACKET_C(Lexeme);
+    "{"           => QUEX_TKN_CURLY_BRACKET_O(Lexeme);
+    "}"           => QUEX_TKN_CURLY_BRACKET_C(Lexeme);
+    "="           => QUEX_TKN_OP_ASSIGNMENT(Lexeme);
+    "+"           => QUEX_TKN_PLUS(Lexeme);
+    "-"           => QUEX_TKN_MINUS(Lexeme);
+    "*"           => QUEX_TKN_MULT(Lexeme);
+    "/"           => QUEX_TKN_DIV(Lexeme);
+    "%"           => QUEX_TKN_MODULO(Lexeme);
+    "+="          => QUEX_TKN_ASSIGN_PLUS(Lexeme);
+    "-="          => QUEX_TKN_ASSIGN_MINUS(Lexeme);
+    "*="          => QUEX_TKN_ASSIGN_MULT(Lexeme);
+    "/="          => QUEX_TKN_ASSIGN_DIV(Lexeme);
+    "=="          => QUEX_TKN_EQ(Lexeme);
+    "!="          => QUEX_TKN_NOT_EQ(Lexeme);
+    ">"           => QUEX_TKN_GREATER(Lexeme);
+    ">="          => QUEX_TKN_GR_EQ(Lexeme);
+    "<"           => QUEX_TKN_LESS(Lexeme);
+    "<="          => QUEX_TKN_LE_EQ(Lexeme);
+    "!"           => QUEX_TKN_NOT(Lexeme);
+    "|"           => QUEX_TKN_LOGICAL_OR(Lexeme);
+    "^"           => QUEX_TKN_EXCLUSIVE_OR(Lexeme);
+    "||"          => QUEX_TKN_OR(Lexeme);
+    "&"           => QUEX_TKN_AMPERSANT(Lexeme);
+    "&&"          => QUEX_TKN_AND(Lexeme);
+	":"           => QUEX_TKN_COLON(Lexeme);
+    "::"          => QUEX_TKN_DOUBLE_COLON(Lexeme);
+
+    struct        => QUEX_TKN_STRUCT(Lexeme);
+    const         => QUEX_TKN_CONST(Lexeme);
+    if            => QUEX_TKN_IF(Lexeme);
+    else          => QUEX_TKN_ELSE(Lexeme);
+    switch        => QUEX_TKN_SWITCH(Lexeme);
+    for           => QUEX_TKN_FOR(Lexeme);
+    do            => QUEX_TKN_DO(Lexeme);
+    while         => QUEX_TKN_WHILE(Lexeme);
+    break         => QUEX_TKN_BREAK(Lexeme);
+    continue      => QUEX_TKN_CONTINUE(Lexeme);
+	class         => QUEX_TKN_CLASS(Lexeme);
+	template      => QUEX_TKN_TEMPLATE(Lexeme);
+	extern        => QUEX_TKN_EXTERN(Lexeme);
+    ";"           => QUEX_TKN_SEMICOLON(Lexeme);
+    "."           => QUEX_TKN_DOT(Lexeme);
+    ","           => QUEX_TKN_COMMA(Lexeme);
+	return		  => QUEX_TKN_RETURN(Lexeme);
+	public        => QUEX_TKN_PUBLIC(Lexeme);
+	protect       => QUEX_TKN_PROTECT(Lexeme);
+	private       => QUEX_TKN_PRIVATE(Lexeme);
+	delete        => QUEX_TKN_DELETE(Lexeme);
+	friend        => QUEX_TKN_FRIEND(Lexeme);
+	namespace     => QUEX_TKN_NAMESPACE(Lexeme);
+	new           => QUEX_TKN_NEW(Lexeme);
+	__asm         => QUEX_TKN_ASM(Lexeme);
+	union         => QUEX_TKN_UNION(Lexeme);
+	virtual       => QUEX_TKN_VIRTUAL(Lexeme);
+	typename      => QUEX_TKN_TYPENAME(Lexeme);  
+	using         => QUEX_TKN_USING(Lexeme);
+    static        => QUEX_TKN_STATIC(Lexeme);
+    operator      => QUEX_TKN_OPERATOR(Lexeme);
+    inline        => QUEX_TKN_INLINE(Lexeme);
+	enum          => QUEX_TKN_ENUM(Lexeme);
+	typedef       => QUEX_TKN_TYPEDEF(Lexeme);
+	volatile      => QUEX_TKN_VOLATILE(Lexeme);
+	
+
+    {P_IDENTIFIER}  => QUEX_TKN_IDENTIFIER(Lexeme);
+    {P_NUMBER}      => QUEX_TKN_NUMBER(Lexeme);
+    {P_STRING}      => QUEX_TKN_STRING(Lexeme);
+    {P_QUOTED_CHAR} => QUEX_TKN_QUOTED_CHAR(Lexeme);
+	
+	
+
+}
+
+mode PREPROCESSOR:
+
+<skip:       [ \r\t]>
+<skip_range: "/*" "*/">
+{
+    <<EOF>>       => QUEX_TKN_TERMINATION(Lexeme);
+    defined            => QUEX_TKN_PP_DEFINED(Lexeme);
+
+    "#"           => QUEX_TKN_HASH(Lexeme);
+    "##"          => QUEX_TKN_DOUBLE_HASH(Lexeme);
+    "?"           => QUEX_TKN_QUESTION_MARK(Lexeme);
+    "~"           => QUEX_TKN_TILDE(Lexeme);
+    "("           => QUEX_TKN_BRACKET_O(Lexeme);
+    ")"           => QUEX_TKN_BRACKET_C(Lexeme);
+    "["           => QUEX_TKN_CORNER_BRACKET_O(Lexeme);
+    "]"           => QUEX_TKN_CORNER_BRACKET_C(Lexeme);
+    "{"           => QUEX_TKN_CURLY_BRACKET_O(Lexeme);
+    "}"           => QUEX_TKN_CURLY_BRACKET_C(Lexeme);
+    "="           => QUEX_TKN_OP_ASSIGNMENT(Lexeme);
+    "+"           => QUEX_TKN_PLUS(Lexeme);
+    "-"           => QUEX_TKN_MINUS(Lexeme);
+    "*"           => QUEX_TKN_MULT(Lexeme);
+    "/"           => QUEX_TKN_DIV(Lexeme);
+    "%"           => QUEX_TKN_MODULO(Lexeme);
+    "+="          => QUEX_TKN_ASSIGN_PLUS(Lexeme);
+    "-="          => QUEX_TKN_ASSIGN_MINUS(Lexeme);
+    "*="          => QUEX_TKN_ASSIGN_MULT(Lexeme);
+    "/="          => QUEX_TKN_ASSIGN_DIV(Lexeme);
+    "=="          => QUEX_TKN_EQ(Lexeme);
+    "!="          => QUEX_TKN_NOT_EQ(Lexeme);
+    ">"           => QUEX_TKN_GREATER(Lexeme);
+    ">="          => QUEX_TKN_GR_EQ(Lexeme);
+    "<"           => QUEX_TKN_LESS(Lexeme);
+    "<="          => QUEX_TKN_LE_EQ(Lexeme);
+    "!"           => QUEX_TKN_NOT(Lexeme);
+    "|"           => QUEX_TKN_LOGICAL_OR(Lexeme);
+    "^"           => QUEX_TKN_EXCLUSIVE_OR(Lexeme);
+    "||"          => QUEX_TKN_OR(Lexeme);
+    "&"           => QUEX_TKN_AMPERSANT(Lexeme);
+    "&&"          => QUEX_TKN_AND(Lexeme);
+    ":"           => QUEX_TKN_COLON(Lexeme);
+	"::"          => QUEX_TKN_DOUBLE_COLON(Lexeme);
+    ";"           => QUEX_TKN_SEMICOLON(Lexeme);
+    "."           => QUEX_TKN_DOT(Lexeme);
+    ","           => QUEX_TKN_COMMA(Lexeme);
+
+    {P_IDENTIFIER}  => QUEX_TKN_IDENTIFIER(Lexeme);
+    {P_NUMBER}      => QUEX_TKN_NUMBER(Lexeme);
+    {P_STRING}      => QUEX_TKN_STRING(Lexeme);
+    {P_QUOTED_CHAR} => QUEX_TKN_QUOTED_CHAR(Lexeme);
+
+    "//"[^\n]*"\n"      { self<<PROGRAM; self_send1(QUEX_TKN_PP_FINISH, Lexeme);}
+	"\n"                { self<<PROGRAM; self_send1(QUEX_TKN_PP_FINISH, Lexeme);}
+	"\\\n"              {}
+}

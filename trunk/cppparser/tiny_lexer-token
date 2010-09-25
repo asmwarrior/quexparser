@@ -1,0 +1,369 @@
+/* -*- C++ -*-   vim: set syntax=cpp: 
+ * (C) 2004-2009 Frank-Rene Schaefer
+ * ABSOLUTELY NO WARRANTY
+ */
+#ifndef __QUEX_INCLUDE_GUARD__TOKEN__GENERATED____QUEX____TOKEN
+#define __QUEX_INCLUDE_GUARD__TOKEN__GENERATED____QUEX____TOKEN
+
+#include <quex/code_base/definitions>
+
+
+#line 2 "E:/code/quex/quex-0.50.1/quex/code_base/token/CppDefault.qx"
+
+       #include <iostream>
+       #include <string>
+
+       #include <quex/code_base/definitions>
+       #include <quex/code_base/asserts>
+       #include <quex/code_base/unicode>
+       #include <quex/code_base/compatibility/inttypes.h>
+
+       /* Different codecs may have different converters, the name of the converter
+        * is to be defined in the configuration file using the. All converters 
+        * follow the function signature below.                                       */
+       QUEX_NAMESPACE_MAIN_OPEN
+       QUEX_INLINE uint8_t*
+       QUEX_CONVERTER_OF_TEXT_TO_UTF8(const QUEX_TYPE_CHARACTER*  Source, 
+                                      size_t                      SourceSize, 
+                                      uint8_t*                    Drain, 
+                                      size_t                      DrainSize);
+       QUEX_NAMESPACE_MAIN_CLOSE
+   
+
+#line 34 "tiny_lexer-token"
+
+ 
+namespace quex {
+
+
+class Token;
+
+/* NOTE: The following function might have to be defined by the user if one
+ *       does not rely on quex's function generation.                        */
+extern const char*  QUEX_NAME_TOKEN(map_id_to_name)(const QUEX_TYPE_TOKEN_ID);
+
+inline void  QUEX_NAME_TOKEN(copy)(Token* me, const Token* That);
+inline bool  QUEX_NAME_TOKEN(take_text)(Token*            __this, 
+                                        QUEX_TYPE_ANALYZER*         analyzer, 
+                                        const QUEX_TYPE_CHARACTER*  Begin, 
+                                        const QUEX_TYPE_CHARACTER*  End);
+
+class Token {
+public:
+    Token();
+    Token(const Token& That);
+    /* operator=(..): USE WITH CAUTION--POSSIBLE MAJOR PERFORMANCE DECREASE! 
+     *                BETTER USE __copy(That)                                */
+    Token& operator=(const Token& That) 
+    { QUEX_NAME_TOKEN(copy)(this, &That); return *this; }
+    virtual ~Token();
+
+
+#line 26 "E:/code/quex/quex-0.50.1/quex/code_base/token/CppDefault.qx"
+    std::basic_string<QUEX_TYPE_CHARACTER> text;
+#line 27 "E:/code/quex/quex-0.50.1/quex/code_base/token/CppDefault.qx"
+    size_t                                 number;
+#line 67 "tiny_lexer-token"
+
+
+public:
+
+#line 26 "E:/code/quex/quex-0.50.1/quex/code_base/token/CppDefault.qx"
+    std::basic_string<QUEX_TYPE_CHARACTER> get_text() const                                         { return text; }
+#line 26 "E:/code/quex/quex-0.50.1/quex/code_base/token/CppDefault.qx"
+    void                                   set_text(std::basic_string<QUEX_TYPE_CHARACTER>& Value)  { text = Value; }
+#line 27 "E:/code/quex/quex-0.50.1/quex/code_base/token/CppDefault.qx"
+    size_t                                 get_number() const                                       { return number; }
+#line 27 "E:/code/quex/quex-0.50.1/quex/code_base/token/CppDefault.qx"
+    void                                   set_number(size_t Value)                                 { number = Value; }
+#line 80 "tiny_lexer-token"
+
+    void set(const QUEX_TYPE_TOKEN_ID ID) { _id = ID; }
+    void set(const QUEX_TYPE_TOKEN_ID ID, const std::basic_string<QUEX_TYPE_CHARACTER>& Value0)
+    { _id = ID; text = Value0; }
+    void set(const QUEX_TYPE_TOKEN_ID ID, const size_t& Value0)
+    { _id = ID; number = Value0; }
+    void set(const QUEX_TYPE_TOKEN_ID ID, const std::basic_string<QUEX_TYPE_CHARACTER>& Value0, const size_t& Value1)
+    { _id = ID; text = Value0; number = Value1; }
+
+
+    public:
+        /* _line_n, _column_n, and _id are public, so that the token policy 
+         * can access it. making it private would imply complications for 
+         * user customized token classes. The token policies should be the
+         * same for C and Cpp.                                               */
+        QUEX_TYPE_TOKEN_ID    _id;
+        QUEX_TYPE_TOKEN_ID    type_id() const                             { return _id; }
+        const char*           map_id_to_name(QUEX_TYPE_TOKEN_ID ID) const { return QUEX_NAME_TOKEN(map_id_to_name)(ID); }
+        const std::string     type_id_name() const                        { return map_id_to_name(_id); }
+
+#   ifdef     QUEX_OPTION_TOKEN_STAMPING_WITH_LINE_AND_COLUMN
+#       ifdef QUEX_OPTION_LINE_NUMBER_COUNTING
+    public:
+        QUEX_TYPE_TOKEN_LINE_N    _line_n;
+        QUEX_TYPE_TOKEN_LINE_N    line_number() const                                 { return _line_n; }
+        void                      set_line_number(const QUEX_TYPE_TOKEN_LINE_N Value) { _line_n = Value; }
+#       endif
+#       ifdef  QUEX_OPTION_COLUMN_NUMBER_COUNTING
+    public:
+        QUEX_TYPE_TOKEN_COLUMN_N  _column_n;
+        QUEX_TYPE_TOKEN_COLUMN_N  column_number() const                                   { return _column_n; }
+        void                      set_column_number(const QUEX_TYPE_TOKEN_COLUMN_N Value) { _column_n = Value; }
+#       endif
+#   endif
+    public:
+#   define self (*this)
+
+#line 48 "E:/code/quex/quex-0.50.1/quex/code_base/token/CppDefault.qx"
+
+        typedef std::basic_string<QUEX_TYPE_CHARACTER> __string;
+
+        operator 
+        const std::string() const
+        { return get_utf8_string(); }
+
+        const std::string
+        get_string() const 
+        {
+            std::string             tmp;
+            // The following conversion can go terribly wrong in case of 
+            // multi-byte encodings. For a safe ride, use: get_utf8_string().
+            std::string             tmp2((const char*)self.text.c_str());
+            std::string::size_type  pos  = 0;
+
+            tmp = map_id_to_name(self._id);
+
+            tmp += " '" + tmp2 + "' ";
+
+            while( (pos = tmp.find("\n") ) != __string::npos )
+                tmp.replace(pos, 1, std::string("\\n"));
+            while( (pos = tmp.find("\t") ) != __string::npos ) 
+                tmp.replace(pos, 1, std::string("\\t"));
+
+            return tmp;
+        }
+
+        const std::string
+        get_utf8_string() const 
+        {
+            std::string             tmp;
+            std::string::size_type  pos  = 0;
+
+            tmp = map_id_to_name(self._id);
+
+            tmp += " '" + utf8_text() + "' ";
+
+            while( (pos = tmp.find("\n") ) != __string::npos )
+                tmp.replace(pos, 1, std::string("\\n"));
+            while( (pos = tmp.find("\t") ) != __string::npos ) 
+                tmp.replace(pos, 1, std::string("\\t"));
+
+            return tmp;
+        }
+    
+        const std::string 
+        utf8_text() const
+        {
+            uint8_t                    utf8_buffer[QUEX_SETTING_OUTPUT_TEMPORARY_UTF8_STRING_BUFFER_SIZE];
+            std::string                tmp;
+            QUEX_TYPE_TOKEN::__string  tmp2 = self.text;
+
+            uint8_t* end = QUEX_CONVERTER_OF_TEXT_TO_UTF8((QUEX_TYPE_CHARACTER*)tmp2.c_str(),
+                                                          tmp2.length(),
+                                                          utf8_buffer, 
+                                                          QUEX_SETTING_OUTPUT_TEMPORARY_UTF8_STRING_BUFFER_SIZE);
+            *end = '\0'; /* terminating zero */
+
+            return std::string((char*)utf8_buffer);
+        }
+   
+
+#line 182 "tiny_lexer-token"
+
+#   undef  self
+
+    private:
+        friend void QUEX_NAME_TOKEN(copy)(Token* me, const Token* That);
+        friend bool QUEX_NAME_TOKEN(take_text)(Token*            __this, 
+                                               QUEX_TYPE_ANALYZER*         analyzer, 
+                                               const QUEX_TYPE_CHARACTER*  Begin, 
+                                               const QUEX_TYPE_CHARACTER*  End);
+};
+
+inline
+/* NOTE: If you get an error here, then your configuration
+ *       file does not declare QUEX_TYPE0_TOKEN as Token. 
+ *       The following weirdly typed constructor shall break in
+ *       this particular case.                                        */
+Token::QUEX_TYPE0_TOKEN()
+/*****************************************************/
+{
+#   define self (*this)
+
+#   undef  self
+}
+
+inline
+Token::Token(const Token& Other)
+{
+   QUEX_NAME_TOKEN(copy)(this, &Other);
+#  define self (*this)
+
+#  undef  self
+}
+
+inline
+Token::~Token()
+{
+#  define self (*this)
+
+#  undef  self
+}
+
+inline void
+QUEX_NAME_TOKEN(construct)(Token* __this)
+{
+    /* Explicit constructor call by 'placement new' */
+    new ((void*)__this) QUEX_TYPE_TOKEN;
+}
+
+inline void
+QUEX_NAME_TOKEN(destruct)(Token* __this)
+{
+    __this->QUEX_TYPE0_TOKEN::~QUEX_TYPE0_TOKEN();  
+}
+
+inline void
+QUEX_NAME_TOKEN(copy)(Token* __this, const Token* __That)
+{
+#  define self  (*__this)
+#  define Other (*__That)
+
+#line 34 "E:/code/quex/quex-0.50.1/quex/code_base/token/CppDefault.qx"
+
+        self._id    = Other._id;
+        self.text   = Other.text;
+        self.number = Other.number;
+    #   ifdef     QUEX_OPTION_TOKEN_STAMPING_WITH_LINE_AND_COLUMN
+    #       ifdef QUEX_OPTION_LINE_NUMBER_COUNTING
+            self._line_n = Other._line_n;
+    #       endif
+    #       ifdef  QUEX_OPTION_COLUMN_NUMBER_COUNTING
+            self._column_n = Other._column_n;
+    #       endif
+    #   endif
+   
+
+#line 258 "tiny_lexer-token"
+
+#  undef Other
+#  undef self
+   /* If the user even misses to copy the token id, then there's
+    * something seriously wrong.                                 */
+   __quex_assert(__this->_id == __That->_id);
+#ifdef     QUEX_OPTION_TOKEN_STAMPING_WITH_LINE_AND_COLUMN
+#  ifdef QUEX_OPTION_LINE_NUMBER_COUNTING
+   __quex_assert(__this->_line_n == __That->_line_n);
+#  endif
+#  ifdef  QUEX_OPTION_COLUMN_NUMBER_COUNTING
+   __quex_assert(__this->_column_n == __That->_column_n);
+#  endif
+#endif
+}
+
+QUEX_INLINE bool 
+QUEX_NAME_TOKEN(take_text)(Token*           __this, 
+                           QUEX_TYPE_ANALYZER*        __analyzer, 
+                           const QUEX_TYPE_CHARACTER* Begin, 
+                           const QUEX_TYPE_CHARACTER* End)
+{
+#  define self      (*__this)
+#  define analyzer  (*__analyzer)
+
+#line 111 "E:/code/quex/quex-0.50.1/quex/code_base/token/CppDefault.qx"
+
+#       if 0
+        {
+            /* Hint for debug: To check take_text change "#if 0" to "#if 1". */
+            QUEX_TYPE_CHARACTER* it = 0x0;
+            printf("%lX ", (long)__this);
+            printf("previous:  '");
+            for(it = (QUEX_TYPE_CHARACTER*)self.text.c_str(); *it ; ++it) printf("%04X.", (int)*it);
+            printf("'\n");
+            printf("take_text: '");
+            for(it = (QUEX_TYPE_CHARACTER*)Begin; it != End; ++it) printf("%04X.", (int)*it);
+            printf("'\n");
+        }
+#       endif
+
+        /* It cannot be assumed that the lexeme is zero terminated. */
+        self.text.assign(Begin, End-Begin);
+
+#       if 0
+        {
+            /* Hint for debug: To check take_text change "#if 0" to "#if 1". */
+            QUEX_TYPE_CHARACTER* it = 0x0;
+            printf("after:     '");
+            for(it = (QUEX_TYPE_CHARACTER*)self.text.c_str(); *it ; ++it) printf("%04X.", (int)*it);
+            printf("'\n");
+        }
+#       endif
+
+        /* This token copied the text from the chunk into the string, 
+         * so we do not claim owneship over it.                       */
+        return false;      
+   
+
+#line 318 "tiny_lexer-token"
+
+#  undef analyzer
+#  undef self
+}
+
+#ifdef QUEX_OPTION_TOKEN_REPETITION_SUPPORT
+QUEX_INLINE size_t 
+QUEX_NAME_TOKEN(repetition_n_get)(QUEX_TYPE_TOKEN* __this)
+{
+#   define self      (*__this)
+    
+#line 148 "E:/code/quex/quex-0.50.1/quex/code_base/token/CppDefault.qx"
+
+       return self.number;
+   
+
+#line 335 "tiny_lexer-token"
+
+#   undef  self
+}
+
+QUEX_INLINE void 
+QUEX_NAME_TOKEN(repetition_n_set)(QUEX_TYPE_TOKEN* __this, size_t N)
+{
+#   define self      (*__this)
+    
+#line 144 "E:/code/quex/quex-0.50.1/quex/code_base/token/CppDefault.qx"
+
+       self.number = N;
+   
+
+#line 350 "tiny_lexer-token"
+
+#   undef  self
+}
+#endif /* QUEX_OPTION_TOKEN_REPETITION_SUPPORT */
+
+
+#line 152 "E:/code/quex/quex-0.50.1/quex/code_base/token/CppDefault.qx"
+
+        inline std::ostream&
+        operator<<(std::ostream& ostr, const QUEX_TYPE_TOKEN& Tok)
+        { ostr << std::string(Tok); return ostr; }
+   
+
+#line 364 "tiny_lexer-token"
+
+
+} /* Closing Namespace 'quex' */
+
+
+#endif /* __QUEX_INCLUDE_GUARD__TOKEN__GENERATED____QUEX____TOKEN */
