@@ -17,31 +17,34 @@
  *       from a configuration file. This allows users to define some
  *       configuration options on the command line without being immediately
  *       deleted by "configuration/undefine".                                  */
-#ifdef     __QUEX_INCLUDE_INDICATOR__ANALYZER__CONFIGURATION
-#   include   <quex/code_base/analyzer/configuration/undefine>
+#ifdef __QUEX_INCLUDE_INDICATOR__ANALYZER__CONFIGURATION
+#   include <quex/code_base/analyzer/configuration/undefine>
 #else
 #   define __QUEX_INCLUDE_INDICATOR__ANALYZER__CONFIGURATION
 #endif
 
-#define QUEX_SETTING_VERSION           "0.50.1"
-#define QUEX_SETTING_BUILD_DATE        "Fri Sep 24 22:30:33 2010"
+#define QUEX_SETTING_VERSION           "0.52.1"
+#define QUEX_SETTING_BUILD_DATE        "Sat Sep 25 16:29:45 2010"
 #define QUEX_SETTING_ANALYZER_VERSION  "0.0.0-pre-release"
 
 #ifndef    __QUEX_OPTION_PLAIN_C
 /* #define __QUEX_OPTION_PLAIN_C */
 #endif
 
+/* NOTE: The check for the 'C++/C' version and the Assert derivation
+ *       are not to be located in 'quex/code_base/configuration/validation'
+ *       or 'quex/code_base/configuration/derived' -- errors would be hard to find .*/ 
 #if ! defined(__QUEX_OPTION_PLAIN_C) && ! defined(__cplusplus)
 #   error "__QUEX_OPTION_PLAIN_C must be defined if no C++ compiler is used! Call quex with option '--language C'."
 #endif
 
-/* By default ASSERTS are enabled ! */
 #if defined(__QUEX_INCLUDE_INDICATOR__ASSERTS)
 #   error "Asserts have been adapted before the inclusion of the configuration file."
 #endif
+#
 #if           defined(QUEX_OPTION_ASSERTS_DISABLED) || defined(NDEBUG)
 #   ifdef     QUEX_OPTION_ASSERTS
-#      undef  QUEX_OPTION_ASSERTS
+#      undef  QUEX_OPTION_ASSERTSmacro-check.py
 #   endif
 #else
 #   ifndef    QUEX_OPTION_ASSERTS
@@ -49,12 +52,21 @@
 #   endif
 #endif
 
+#ifndef  QUEX_OPTION_COMPUTED_GOTOS
+/* #define QUEX_OPTION_COMPUTED_GOTOS */
+#endif
+
 #define    __QUEX_SETTING_MAX_MODE_CLASS_N         (2)
-#define    __QUEX_SETTING_INITIAL_LEXER_MODE_ID    (QUEX_NAME(ModeID_PROGRAM))
+#ifndef    __QUEX_SETTING_INITIAL_LEXER_MODE_ID
+#   define __QUEX_SETTING_INITIAL_LEXER_MODE_ID    (QUEX_NAME(ModeID_PROGRAM))
+#endif
 /* NOTE: QUEX_TYPE_TOKEN_ID is later on defined inside the token class header. */
-#define    __QUEX_SETTING_TOKEN_ID_TERMINATION     ((QUEX_TYPE_TOKEN_ID)QUEX_TKN_TERMINATION)
-#define    __QUEX_SETTING_TOKEN_ID_UNINITIALIZED   ((QUEX_TYPE_TOKEN_ID)QUEX_TKN_UNINITIALIZED)
-#define    __QUEX_SETTING_TOKEN_ID_REPETITION_TEST(TokenID) 
+#define    __QUEX_SETTING_TOKEN_ID_TERMINATION       ((QUEX_TYPE_TOKEN_ID)QUEX_TKN_TERMINATION)
+#define    __QUEX_SETTING_TOKEN_ID_UNINITIALIZED     ((QUEX_TYPE_TOKEN_ID)QUEX_TKN_UNINITIALIZED)
+#define    __QUEX_SETTING_TOKEN_ID_INDENT            ((QUEX_TYPE_TOKEN_ID)QUEX_TKN_INDENT)
+#define    __QUEX_SETTING_TOKEN_ID_DEDENT            ((QUEX_TYPE_TOKEN_ID)QUEX_TKN_DEDENT)
+#define    __QUEX_SETTING_TOKEN_ID_NODENT            ((QUEX_TYPE_TOKEN_ID)QUEX_TKN_NODENT)
+#define    __QUEX_SETTING_TOKEN_ID_REPETITION_TEST(TokenID) ()
 
 #ifndef    __QUEX_OPTION_LITTLE_ENDIAN
 #define    __QUEX_OPTION_LITTLE_ENDIAN
@@ -66,10 +78,10 @@
 #define    __QUEX_OPTION_SYSTEM_ENDIAN
 #endif
 
-#ifndef QUEX_OPTION_TOKEN_POLICY_QUEUE_DISABLED
+#ifndef QUEX_OPTION_TOKEN_POLICY_QUEUE
 /* #define QUEX_OPTION_TOKEN_POLICY_QUEUE */
 #endif
-#ifndef QUEX_OPTION_TOKEN_POLICY_SINGLE_DISABLED
+#ifndef QUEX_OPTION_TOKEN_POLICY_SINGLE
 #define    QUEX_OPTION_TOKEN_POLICY_SINGLE
 #endif
 
@@ -91,7 +103,7 @@
 #   define QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN() RETURN
 #endif
 
-#ifndef QUEX_OPTION_TOKEN_REPETITION_SUPPORT_DISABLED
+#ifndef QUEX_OPTION_TOKEN_REPETITION_SUPPORT
 /* #define QUEX_OPTION_TOKEN_REPETITION_SUPPORT */
 #endif
 
@@ -107,21 +119,12 @@
 #ifndef    QUEX_OPTION_LINE_NUMBER_COUNTING            
 #define    QUEX_OPTION_LINE_NUMBER_COUNTING         
 #endif
-#ifdef    QUEX_OPTION_LINE_NUMBER_COUNTING_DISABLED
-#   undef QUEX_OPTION_LINE_NUMBER_COUNTING
-#endif
 #ifndef    QUEX_OPTION_COLUMN_NUMBER_COUNTING          
 #define    QUEX_OPTION_COLUMN_NUMBER_COUNTING       
-#endif
-#ifdef    QUEX_OPTION_COLUMN_NUMBER_COUNTING_DISABLED
-#   undef QUEX_OPTION_COLUMN_NUMBER_COUNTING
 #endif
 
 #ifndef QUEX_OPTION_POST_CATEGORIZER
 /* #define QUEX_OPTION_POST_CATEGORIZER */
-#endif
-#ifdef    QUEX_OPTION_RUNTIME_MODE_TRANSITION_CHECK_DISABLED
-#   undef QUEX_OPTION_POST_CATEGORIZER
 #endif
 
 /* Mode Transitions:
@@ -130,9 +133,6 @@
  *    by commenting the following option out.                                  */
 #ifndef QUEX_OPTION_RUNTIME_MODE_TRANSITION_CHECK
 #define    QUEX_OPTION_RUNTIME_MODE_TRANSITION_CHECK
-#endif
-#ifdef    QUEX_OPTION_RUNTIME_MODE_TRANSITION_CHECK_DISABLED
-#   undef QUEX_OPTION_RUNTIME_MODE_TRANSITION_CHECK
 #endif
 
 #ifndef    QUEX_SETTING_MODE_STACK_SIZE 
@@ -149,31 +149,16 @@
 #ifndef QUEX_OPTION_DEBUG_TOKEN_SENDING
 /* #define QUEX_OPTION_DEBUG_TOKEN_SENDING */
 #endif
-#ifdef    QUEX_OPTION_DEBUG_TOKEN_SENDING_DISABLED
-#   undef QUEX_OPTION_DEBUG_TOKEN_SENDING
-#endif
-#ifndef    QUEX_OPTION_AUTOMATIC_ANALYSIS_CONTINUATION_ON_MODE_CHANGE_DISABLED
-#   define QUEX_OPTION_AUTOMATIC_ANALYSIS_CONTINUATION_ON_MODE_CHANGE
-#endif
 #ifndef QUEX_OPTION_DEBUG_MODE_TRANSITIONS
 /* #define QUEX_OPTION_DEBUG_MODE_TRANSITIONS */
 #endif
-#ifdef    QUEX_OPTION_DEBUG_MODE_TRANSITIONS_DISABLED
-#   undef QUEX_OPTION_DEBUG_MODE_TRANSITIONS
-#endif
 #ifndef QUEX_OPTION_DEBUG_QUEX_PATTERN_MATCHES
 /* #define QUEX_OPTION_DEBUG_QUEX_PATTERN_MATCHES */
-#endif
-#ifdef QUEX_OPTION_DEBUG_QUEX_PATTERN_MATCHES_DISABLED
-#   undef QUEX_OPTION_DEBUG_QUEX_PATTERN_MATCHES
 #endif
 
 /* Include Stack Support                                                  */
 #ifndef   QUEX_OPTION_INCLUDE_STACK
 #define    QUEX_OPTION_INCLUDE_STACK
-#endif
-#ifdef    QUEX_OPTION_INCLUDE_STACK_DISABLED
-#   undef QUEX_OPTION_INCLUDE_STACK
 #endif
 
 /* BLC -- Buffer Limit Code:
@@ -205,11 +190,6 @@
 #ifndef     QUEX_SETTING_BUFFER_SIZE
 #    define QUEX_SETTING_BUFFER_SIZE  (/*(size_t)*/65536)
 #endif
-/* The fallback number of bytes can either be defined here, or left for
- * an automatic definition below in the 'Derived' section.                */
-#ifndef        QUEX_SETTING_BUFFER_MIN_FALLBACK_N
-/* #    define QUEX_SETTING_BUFFER_MIN_FALLBACK_N ... left for auto def.  */
-#endif
 
 #ifndef    QUEX_SETTING_BUFFER_FILLER_SEEK_TEMP_BUFFER_SIZE
 #   define QUEX_SETTING_BUFFER_FILLER_SEEK_TEMP_BUFFER_SIZE  ((const size_t)(512))
@@ -222,39 +202,39 @@
 #define    QUEX_OPTION_STRING_ACCUMULATOR
 #endif 
 /* Initial size of the character accumulator. */
-#define  QUEX_SETTING_ACCUMULATOR_INITIAL_SIZE        (256)
+#ifndef     QUEX_SETTING_ACCUMULATOR_INITIAL_SIZE
+#   define  QUEX_SETTING_ACCUMULATOR_INITIAL_SIZE        (256)
+#endif
 /* Granularity, if new memory has to be allocated. The new
  * memory will be by this factor greater than the previous.
  * Example: At start, memory contains 256 characters; then 
  * new allocation becomes necessary; if factor = 0.5, then
  * the new memory will contain (256 + 128) = 384 characters. The
  * next time, the new memory of size (384 + 192) = 576 characters.      */
-#define  QUEX_SETTING_ACCUMULATOR_GRANULARITY_FACTOR  (0.8)
+#ifndef     QUEX_SETTING_ACCUMULATOR_GRANULARITY_FACTOR
+#   define  QUEX_SETTING_ACCUMULATOR_GRANULARITY_FACTOR  (0.8)
+#endif
 
 /* If one mode requires indentation support, then the lexical analyser
  * class must be setup for indentation counting. The following flag is
  * defined or undefined by the lexical analyser generator quex.         */
-/* #define __QUEX_OPTION_INDENTATION_TRIGGER_SUPPORT */
+/* #define QUEX_OPTION_INDENTATION_TRIGGER */
+#if    defined(QUEX_OPTION_INDENTATION_TRIGGER)
+#   ifndef    QUEX_SETTING_INDENTATION_STACK_SIZE
+#      define QUEX_SETTING_INDENTATION_STACK_SIZE  (64)
+#   endif
+#   ifndef    QUEX_TYPE_INDENTATION
+#      define QUEX_TYPE_INDENTATION  size_t
+#   endif
+#endif
   
 /* Quex can determine whether certain handlers are not used at all.
  * If so, computation time can be spared and quex comments the following
  * options out.                                                         */
 /* #define __QUEX_OPTION_ON_ENTRY_HANDLER_PRESENT */
-#ifdef    __QUEX_OPTION_ON_ENTRY_HANDLER_PRESENT_DISABLED
-#   undef __QUEX_OPTION_ON_ENTRY_HANDLER_PRESENT
-#endif
 /* #define __QUEX_OPTION_ON_EXIT_HANDLER_PRESENT */
-#ifdef    __QUEX_OPTION_ON_EXIT_HANDLER_PRESENT_DISABLED
-#   undef __QUEX_OPTION_ON_EXIT_HANDLER_PRESENT
-#endif
 /* #define QUEX_OPTION_ENABLE_ICONV */
-#ifdef    QUEX_OPTION_ENABLE_ICONV_DISABLED
-#   undef QUEX_OPTION_ENABLE_ICONV
-#endif
 /* #define QUEX_OPTION_ENABLE_ICU */
-#ifdef    QUEX_OPTION_ENABLE_ICU_DISABLED
-#   undef QUEX_OPTION_ENABLE_ICU
-#endif
 #if defined(QUEX_OPTION_ENABLE_ICONV) || defined(QUEX_OPTION_ENABLE_ICU)
 #    ifndef     QUEX_SETTING_TRANSLATION_BUFFER_SIZE
 #        define QUEX_SETTING_TRANSLATION_BUFFER_SIZE ((size_t)65536)
@@ -271,97 +251,17 @@
 /* #   define QUEX_SETTING_BUFFER_FILLERS_CONVERTER_NEW  */
 #endif
 
-#ifndef          QUEX_SETTING_BUFFER_FILLERS_CONVERTER_NEW 
-#   if   defined (QUEX_OPTION_ENABLE_ICONV)
-#        define  QUEX_SETTING_BUFFER_FILLERS_CONVERTER_NEW  QUEX_NAME(Converter_IConv_new)
-#   elif defined (QUEX_OPTION_ENABLE_ICU)
-#        define  QUEX_SETTING_BUFFER_FILLERS_CONVERTER_NEW  QUEX_NAME(Converter_ICU_new)
-#   else
-#        define  QUEX_SETTING_BUFFER_FILLERS_CONVERTER_NEW  QUEX_NAME(__Converter_EMPTY_new)
-#   endif
-#endif
-
 /* Begin of line pre-condition requires an extra flag in the buffer
  * structure. Only out-comment this in case of tough memory restrictions,
  * if no begin of line pre-condition is required.                            */
 /* #define __QUEX_OPTION_SUPPORT_BEGIN_OF_LINE_PRE_CONDITION */
-#ifdef     __QUEX_OPTION_SUPPORT_BEGIN_OF_LINE_PRE_CONDITION_DISABLED
-#   undef  __QUEX_OPTION_SUPPORT_BEGIN_OF_LINE_PRE_CONDITION
-#endif
 
-#define QUEX_SETTING_OUTPUT_TEMPORARY_UTF8_STRING_BUFFER_SIZE  (280)
-
-/* Derived */
-#if  ! defined (QUEX_SETTING_BUFFER_MIN_FALLBACK_N)
-#   if ! defined (QUEX_SETTING_BUFFER_SIZE) 
-#      error "QUEX_SETTING_BUFFER_SIZE not defined at this place."
-#   endif
-    /* If your compiler brings you here to this position, then this may be because
-     * you defined the QUEX_SETTING_BUFFER_SIZE with something different than just
-     * an integer number. Indeed something like
-     *
-     *   #define QUEX_SETTING_BUFFER_SIZE  (size_t)4096
-     *
-     * would be propper, but does not allow to do some math. So, please erase whatever
-     * is not a number in the definition (e.g. delete the '(size_t)' type cast.        */
-#   if   QUEX_SETTING_BUFFER_SIZE >= 1024
-#      define QUEX_SETTING_BUFFER_MIN_FALLBACK_N  (256)
-#   elif QUEX_SETTING_BUFFER_SIZE >= 8
-#      define QUEX_SETTING_BUFFER_MIN_FALLBACK_N  (size_t)((float)(QUEX_SETTING_BUFFER_SIZE)/16.0)
-#   else
-#      define QUEX_SETTING_BUFFER_MIN_FALLBACK_N  (0)
-#   endif
-#endif
-
-/* Special Case MinGW: At the time of this writing (2009y09m23d) it does 
- * not support 'wchart_t'.                                                */
-#if      (defined (__GLIBCPP__) || defined(__GLIBCXX__)) \
-    && ! defined  (_GLIBCXX_USE_WCHAR_T)
-#   define  __QUEX_OPTION_WCHAR_T_DISABLED
-#endif
-#ifndef     __QUEX_OPTION_WCHAR_T_DISABLED
-#   define  __QUEX_OPTION_WCHAR_T
-#endif
-
-#if    defined(QUEX_OPTION_LINE_NUMBER_COUNTING)   \
-    || defined(QUEX_OPTION_COLUMN_NUMBER_COUNTING)        
-#   define __QUEX_OPTION_LINE_COLUMN_COUNTER
-#   define __QUEX_OPTION_COUNTER
-#elif  defined(__QUEX_OPTION_INDENTATION_TRIGGER_SUPPORT)
-#   define __QUEX_OPTION_COUNTER
-#endif
-
-/* Tokens may be 'stamped' with the line an column number automatically.
- * This happens by means of the option 
- *      
- *       QUEX_OPTION_TOKEN_STAMPING_WITH_LINE_AND_COLUMN_DISABLED
- *
- * It is active by default only for queue token policies, because after
- * a call to .receive(), the lexical analyzer maintains only the position
- * of the last token in the queue. The positions of other tokens would
- * not be accessible once they are in the queue. 
- * 
- * The token policy 'users_token' only communicates one token at a time
- * and the line and column numbers in the lexical analyzer are those
- * of the last token. Thus, in this case the tokens do not need to be 
- * stamped with the position in the file.                                */
-#ifndef     QUEX_OPTION_TOKEN_STAMPING_WITH_LINE_AND_COLUMN_DISABLED
-#    ifndef    QUEX_OPTION_TOKEN_STAMPING_WITH_LINE_AND_COLUMN
-#       define QUEX_OPTION_TOKEN_STAMPING_WITH_LINE_AND_COLUMN
-#    endif
-#else
-#    ifdef     QUEX_OPTION_TOKEN_STAMPING_WITH_LINE_AND_COLUMN
-#        undef QUEX_OPTION_TOKEN_STAMPING_WITH_LINE_AND_COLUMN
-#    endif
+#ifndef    QUEX_SETTING_OUTPUT_TEMPORARY_UTF8_STRING_BUFFER_SIZE 
+#   define QUEX_SETTING_OUTPUT_TEMPORARY_UTF8_STRING_BUFFER_SIZE  (280)
 #endif
 
 /* Following switch is also set, if a user defined converter is defined.     */
 /* #define __QUEX_OPTION_CONVERTER_ENABLED */
-#if defined(QUEX_OPTION_ENABLE_ICONV) || defined(QUEX_OPTION_ENABLE_ICU)
-#   ifndef    __QUEX_OPTION_CONVERTER_ENABLED
-#      define __QUEX_OPTION_CONVERTER_ENABLED
-#   endif
-#endif
 
 /* Type Definitions 
  *
@@ -411,10 +311,10 @@
 #   define QUEX_MEMBER(NAME)           tiny_lexer::NAME                
 #endif
 
-#if defined (QUEX_OPTION_ASSERTS) && ! defined(__QUEX_OPTION_PLAIN_C)
-#    define QUEX_TYPE_CHARACTER_POSITION     QUEX_NAME(MemoryPositionMimiker)
-#else
-#    define QUEX_TYPE_CHARACTER_POSITION     QUEX_TYPE_CHARACTER*
+/* For the utf8 printing: Name the function that converts the 
+ * specific codec to utf8 representation.                       */
+#ifndef    QUEX_CONVERTER_OF_TEXT_TO_UTF8   
+#   define QUEX_CONVERTER_OF_TEXT_TO_UTF8   QUEX_NAME(unicode_to_utf8_string)
 #endif
 
 /* QUEX_TYPE_X  --> Type of X in global namespace 
@@ -439,50 +339,17 @@
 #   define QUEX_TYPE0_TOKEN                  Token
 #endif
 
-#define QUEX_TYPE_TOKEN_ID                   uint32_t
-#define QUEX_TYPE_TOKEN_LINE_N               size_t
-#define QUEX_TYPE_TOKEN_COLUMN_N             size_t
-
-#if    defined(__QUEX_OPTION_INDENTATION_TRIGGER_SUPPORT)
-#   define     QUEX_TYPE_COUNTER             QUEX_NAME(CounterLineColumnIndentation)
-#   define     QUEX_TYPE_COUNTER_CONSTRUCTOR QUEX_NAME(CounterLineColumnIndentation_construct)
-#   define     QUEX_TYPE_COUNTER_RESET       QUEX_NAME(CounterLineColumnIndentation_reset)
-#   define     QUEX_TYPE_COUNTER_PRINT_THIS  QUEX_NAME(CounterLineColumnIndentation_print_this)
-#elif  defined(__QUEX_OPTION_COUNTER)
-#   define     QUEX_TYPE_COUNTER             QUEX_NAME(CounterLineColumn)
-#   define     QUEX_TYPE_COUNTER_CONSTRUCTOR QUEX_NAME(CounterLineColumn_construct)
-#   define     QUEX_TYPE_COUNTER_RESET       QUEX_NAME(CounterLineColumn_reset)
-#   define     QUEX_TYPE_COUNTER_PRINT_THIS  QUEX_NAME(CounterLineColumn_print_this)
-#else
-#   define     QUEX_TYPE_COUNTER             void*
-#   define     QUEX_TYPE_COUNTER_CONSTRUCTOR /* empty */
-#   define     QUEX_TYPE_COUNTER_RESET       /* empty */
-#   define     QUEX_TYPE_COUNTER_PRINT_THIS  /* empty */
+#ifndef    QUEX_TYPE_TOKEN_ID
+#   define QUEX_TYPE_TOKEN_ID        uint32_t
+#endif
+#ifndef    QUEX_TYPE_TOKEN_LINE_N
+#   define QUEX_TYPE_TOKEN_LINE_N    size_t
+#endif
+#ifndef    QUEX_TYPE_TOKEN_COLUMN_N
+#   define QUEX_TYPE_TOKEN_COLUMN_N  size_t
 #endif
 
-/* For the utf8 printing: Name the function that converts the 
- * specific codec to utf8 representation.                       */
-#define QUEX_CONVERTER_OF_TEXT_TO_UTF8   QUEX_NAME(unicode_to_utf8_string)
+#include <quex/code_base/analyzer/configuration/derived>
 
-/* Decide about computed gotos */
-#if defined(QUEX_OPTION_ALLOW_COMPUTED_GOTOS)
-#   if    defined(__GNUC__) \
-       && ((__GNUC__ > 2) || (__GNUC__ == 2 && __GNUC_MINOR__ >= 3))
-#       if ! defined(__QUEX_OPTION_USE_COMPUTED_GOTOS)
-#           define __QUEX_OPTION_USE_COMPUTED_GOTOS
-#       endif
-#   endif
-#endif
- 
-QUEX_NAMESPACE_MAIN_OPEN 
-    struct QUEX_NAME(Engine_tag);
-    struct QUEX_NAME(Memento_tag);
-#   ifdef __QUEX_OPTION_PLAIN_C
-    struct tiny_lexer_tag;
-#   else
-    class  tiny_lexer; /* Derived Class if different from lexer class. */
-    class  tiny_lexer;
-#   endif
-QUEX_NAMESPACE_MAIN_CLOSE
 
 #endif /* __QUEX_INCLUDE_GUARD__ANALYZER__CONFIGURATION____QUEX____TINY_LEXER */
