@@ -48,15 +48,30 @@ public:
 protected:
     void load()
     {
-        ifstream in(name, ios::in);
+        ifstream in(name, ios::binary);
         if (!in.is_open())
             return;
+
+//        int begin = in.tellg();
+//        in.seekg (0, ios::end);
+//        int end = in.tellg();
+//        int filelength = end - begin;
+//        printf ("d",filelength);
+
+
+
         in.seekg(0,std::ios::end);
         buf_size = in.tellg();
         in.seekg(0);
         buf = new char[buf_size+1];
         in.read(buf,buf_size);
         buf[buf_size] = '\0';
+
+//        for(int i = 0;i<=buf_size;i++)
+//        {
+//            cout<< i<< " " << int(buf[i]) <<" " << char (buf[i])<<endl;
+//        }
+
     }
     const char *    name;
     char*           buf;
