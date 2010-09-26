@@ -31,7 +31,7 @@ Tokenizer::Tokenizer(const cc_string& filename)
     m_BufferLen(0),
     m_PeekAvailable(false),
     m_IsOK(false),
-    m_Quex((ELEMENT_TYPE*)0x0,0)
+    m_Quex((ELEMENT_TYPE*)0x0,65536,(ELEMENT_TYPE*)0x0+1)
 
 {
 
@@ -109,8 +109,12 @@ bool Tokenizer::ReadFile()
     if (m_pLoader)
     {
         fileName = m_pLoader->fileName();
-        m_Buffer = m_pLoader->data();
+
+        const char * pBuffer = m_pLoader->data();
+        //m_Buffer = m_pLoader->data();
         m_BufferLen = m_pLoader->length();
+
+
         success = (m_BufferLen != 0);
 
         const char* start = m_Buffer.c_str();
@@ -118,7 +122,17 @@ bool Tokenizer::ReadFile()
 
         m_Quex.buffer_fill_region_finish(m_BufferLen-1);
 
-        m_Quex.buffer_input_pointer_set((uint8_t*)start);
+        m_Quex.buffer_input_pointer_set((uint8_t*)pBuffer+1);
+
+
+        for(int i = 0;i<m_BufferLen + 1;i++ )
+        {
+            cout<< i<< " "<< int(pBuffer[i])<< " "<< char(pBuffer[i]) <<endl;
+        }
+
+        cout<< "start from index 1" <<endl;
+        cout<< "number = "<< m_BufferLen-1 <<endl;
+
 
         (void)m_Quex.token_p_switch(&m_QuexToken);
 
@@ -247,6 +261,7 @@ void Tokenizer::DoGetToken(RawToken & tk)
 {
     QUEX_TYPE_TOKEN_ID id = m_Quex.receive();
 
+
     if( id == QUEX_TKN_TERMINATION )
     {
         m_IsEOF = true;
@@ -262,6 +277,8 @@ void Tokenizer::DoGetToken(RawToken & tk)
     }
     tk.id = id;
     tk.line = m_QuexToken.line_number();
+
+    cout<<m_QuexToken<< " line=" << m_QuexToken.line_number() << "colunm=" << m_QuexToken.column_number()<<endl;
 }
 
 
@@ -269,4 +286,25 @@ cc_string Tokenizer::MacroReplace(const cc_string str)
 {
     return str;
 }
+
+
+void Tokenizer::RunTest()
+{
+    QUEX_TYPE_TOKEN_ID id;
+
+    while(1)
+    {
+        id = m_Quex.receive();
+
+        cout<<m_QuexToken<< " line=" << m_QuexToken.line_number() << "colunm=" << m_QuexToken.column_number()<<endl;
+
+        if( id == QUEX_TKN_TERMINATION )
+        {
+            break;
+        }
+
+    }
+
+}
+
 

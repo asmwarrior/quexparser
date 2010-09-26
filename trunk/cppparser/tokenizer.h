@@ -96,6 +96,9 @@ private:
 
 
 public:
+
+     void RunTest();
+
     //static functions
     static void SetReplacementString(const cc_string& from, const cc_string& to)
     {
