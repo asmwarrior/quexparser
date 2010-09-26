@@ -63,14 +63,16 @@ protected:
         in.seekg(0,std::ios::end);
         buf_size = in.tellg();
         in.seekg(0);
-        buf = new char[buf_size+1];
-        in.read(buf,buf_size);
+        buf = new char[buf_size+2];
+
+        buf[0] = 0;
+        in.read(buf+1,buf_size);
         buf[buf_size] = '\0';
 
-//        for(int i = 0;i<=buf_size;i++)
-//        {
-//            cout<< i<< " " << int(buf[i]) <<" " << char (buf[i])<<endl;
-//        }
+        for(int i = 0;i<=buf_size;i++)
+        {
+            cout<< i<< " " << int(buf[i]) <<" " << char (buf[i])<<endl;
+        }
 
     }
     const char *    name;
