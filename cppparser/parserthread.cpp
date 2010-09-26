@@ -265,51 +265,54 @@ void ParserThread::DoParse()
         m_EncounteredNamespaces.pop();
 
 
-    while (m_Tokenizer.NotEOF())
-    {
-        if (!m_pTokensTree || TestDestroy())
-            break;
+    m_Tokenizer.RunTest();
 
-        RawToken* tk = m_Tokenizer.GetToken();
 
-        switch (tk->id)
-        {
-        case QUEX_TKN_CURLY_BRACKET_O :
-            {
-                int idArray[1] = {QUEX_TKN_CURLY_BRACKET_C};
-                SkipToOneOfId(idArray,1);
-                printf("Skiping {}\n");
-                break;
-            }
-        case QUEX_TKN_BRACKET_O :
-            {
-                int idArray[1] = {QUEX_TKN_BRACKET_C};
-                SkipToOneOfId(idArray,1);
-                printf("Skiping ()\n");
-                break;
-            }
-        case QUEX_TKN_FOR:
-        case QUEX_TKN_WHILE:
-            {
-                printf("handling for or while block\n");
-                SkipRoundBrace();
-                SkipStatementBlock();
-                break;
-            }
-        case QUEX_TKN_CLASS:
-            {
-                m_Str.clear();
-                if (m_Options.handleClasses)
-                    HandleClass(ctClass);
-                else
-                    SkipStatementBlock();
-                break;
-            }
-        default:
-            printf("%s\n",tk->text.c_str());
-            break;
-        }
-    }
+//    while (m_Tokenizer.NotEOF())
+//    {
+//        if (!m_pTokensTree || TestDestroy())
+//            break;
+//
+//        RawToken* tk = m_Tokenizer.GetToken();
+//
+//        switch (tk->id)
+//        {
+//        case QUEX_TKN_CURLY_BRACKET_O :
+//            {
+//                int idArray[1] = {QUEX_TKN_CURLY_BRACKET_C};
+//                SkipToOneOfId(idArray,1);
+//                printf("Skiping {}\n");
+//                break;
+//            }
+//        case QUEX_TKN_BRACKET_O :
+//            {
+//                int idArray[1] = {QUEX_TKN_BRACKET_C};
+//                SkipToOneOfId(idArray,1);
+//                printf("Skiping ()\n");
+//                break;
+//            }
+//        case QUEX_TKN_FOR:
+//        case QUEX_TKN_WHILE:
+//            {
+//                printf("handling for or while block\n");
+//                SkipRoundBrace();
+//                SkipStatementBlock();
+//                break;
+//            }
+//        case QUEX_TKN_CLASS:
+//            {
+//                m_Str.clear();
+//                if (m_Options.handleClasses)
+//                    HandleClass(ctClass);
+//                else
+//                    SkipStatementBlock();
+//                break;
+//            }
+//        default:
+//            printf("%s\n",tk->text.c_str());
+//            break;
+//        }
+//    }
 
 }
 
