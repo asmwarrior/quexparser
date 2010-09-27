@@ -84,11 +84,12 @@ private:
     RawToken         m_UndoToken;
 
     bool  m_IsOK;
-    bool m_IsEOF;
+    bool  m_IsEOF;
 
-    LoaderBase*      m_pLoader;
-    quex::tiny_lexer   m_Quex;
-    quex::Token        m_QuexToken;
+    LoaderBase*         m_pLoader;
+    quex::tiny_lexer    m_Quex;
+    quex::Token         m_QuexToken;
+    QUEX_TYPE_CHARACTER m_QuexBuffer[65536]; // max size is 64K
 
 
     void RemovePP(RawToken & tk);

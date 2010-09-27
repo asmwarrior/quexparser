@@ -31,7 +31,6 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
-			<Add option="-DQUEX_OPTION_ASSERTS_DISABLED" />
 			<Add directory="$(#quex)" />
 		</Compiler>
 		<Unit filename="cppparser\cchelper.h" />

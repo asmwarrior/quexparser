@@ -31,7 +31,7 @@ Tokenizer::Tokenizer(const cc_string& filename)
     m_BufferLen(0),
     m_PeekAvailable(false),
     m_IsOK(false),
-    m_Quex((ELEMENT_TYPE*)0x0,65536,(ELEMENT_TYPE*)0x0+1)
+    m_Quex(m_QuexBuffer,65536,m_QuexBuffer+1)
 
 {
 
@@ -111,24 +111,26 @@ bool Tokenizer::ReadFile()
         fileName = m_pLoader->fileName();
 
         const char * pBuffer = m_pLoader->data();
-        //m_Buffer = m_pLoader->data();
         m_BufferLen = m_pLoader->length();
 
+        //as quex should be initialized pointing to some memory, so we used this method
+        // hopefully quex can support dynamically memory buffer in the future.
+        if(m_BufferLen>65536)
+        {
+            m_BufferLen = 65536;
+        }
+        memcpy(m_QuexBuffer,pBuffer,m_BufferLen);
 
         success = (m_BufferLen != 0);
 
-        const char* start = m_Buffer.c_str();
-
-
-        m_Quex.buffer_end_file_pointer_set((uint8_t*)pBuffer+1);
+        m_Quex.buffer_end_file_pointer_set((uint8_t*)m_QuexBuffer+1);
         m_Quex.buffer_fill_region_finish(m_BufferLen-1);
-        m_Quex.buffer_input_pointer_set((uint8_t*)pBuffer+1);
+        m_Quex.buffer_input_pointer_set((uint8_t*)m_QuexBuffer+1);
 
-
-        for(int i = 0;i<m_BufferLen + 1;i++ )
-        {
-            cout<< i<< " "<< int(pBuffer[i])<< " "<< char(pBuffer[i]) <<endl;
-        }
+//        for(int i = 0;i<m_BufferLen + 1;i++ )
+//        {
+//            cout<< i<< " "<< int(m_QuexBuffer[i])<< " "<< char(m_QuexBuffer[i]) <<endl;
+//        }
 
         cout<< "start from index 1" <<endl;
         cout<< "number = "<< m_BufferLen-1 <<endl;
