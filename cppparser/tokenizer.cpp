@@ -120,8 +120,8 @@ bool Tokenizer::ReadFile()
         const char* start = m_Buffer.c_str();
 
 
+        m_Quex.buffer_end_file_pointer_set((uint8_t*)pBuffer+1);
         m_Quex.buffer_fill_region_finish(m_BufferLen-1);
-
         m_Quex.buffer_input_pointer_set((uint8_t*)pBuffer+1);
 
 
