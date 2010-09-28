@@ -31,7 +31,7 @@ Tokenizer::Tokenizer(const cc_string& filename)
     m_BufferLen(0),
     m_PeekAvailable(false),
     m_IsOK(false),
-    m_Quex(m_QuexBuffer,65536,m_QuexBuffer+1)
+    m_pQuex(0)
 
 {
 
@@ -41,6 +41,8 @@ Tokenizer::Tokenizer(const cc_string& filename)
 
 Tokenizer::~Tokenizer()
 {
+    if(m_pQuex)
+        delete m_pQuex;
 }
 
 bool Tokenizer::Init(const cc_string& filename, LoaderBase* loader)
@@ -113,30 +115,41 @@ bool Tokenizer::ReadFile()
         const char * pBuffer = m_pLoader->data();
         m_BufferLen = m_pLoader->length();
 
+        for(int i = 0;i<m_BufferLen + 2;i++ )
+        {
+            cout<< i<< " "<< int(pBuffer[i])<< " "<< char(pBuffer[i]) <<endl;
+        }
+
         //as quex should be initialized pointing to some memory, so we used this method
         // hopefully quex can support dynamically memory buffer in the future.
-        if(m_BufferLen>65536)
-        {
-            m_BufferLen = 65536;
-        }
-        memcpy(m_QuexBuffer,pBuffer,m_BufferLen);
+//        if(m_BufferLen>65536)
+//        {
+//            m_BufferLen = 65536;
+//        }
+//        memcpy(m_QuexBuffer,pBuffer,m_BufferLen);
+    if(m_pQuex)
+        delete m_pQuex;
 
-        success = (m_BufferLen != 0);
+    m_pQuex = new quex::tiny_lexer((QUEX_TYPE_CHARACTER*)pBuffer,
+                                   m_BufferLen,
+                                   (QUEX_TYPE_CHARACTER*)pBuffer+m_BufferLen-1);
 
-        m_Quex.buffer_end_file_pointer_set((uint8_t*)m_QuexBuffer+1);
-        m_Quex.buffer_fill_region_finish(m_BufferLen-1);
-        m_Quex.buffer_input_pointer_set((uint8_t*)m_QuexBuffer+1);
+    //    success = (m_BufferLen != 0);
+
+        //m_Quex.buffer_end_file_pointer_set((uint8_t*)m_QuexBuffer+1);
+        //m_Quex.buffer_fill_region_finish(m_BufferLen-1);
+        //m_Quex.buffer_input_pointer_set((uint8_t*)m_QuexBuffer+1);
 
 //        for(int i = 0;i<m_BufferLen + 1;i++ )
 //        {
 //            cout<< i<< " "<< int(m_QuexBuffer[i])<< " "<< char(m_QuexBuffer[i]) <<endl;
 //        }
 
-        cout<< "start from index 1" <<endl;
-        cout<< "number = "<< m_BufferLen-1 <<endl;
+        //cout<< "start from index 1" <<endl;
+        //cout<< "number = "<< m_BufferLen-1 <<endl;
 
 
-        (void)m_Quex.token_p_switch(&m_QuexToken);
+        (void)m_pQuex->token_p_switch(&m_QuexToken);
 
         return true;
 
@@ -261,7 +274,7 @@ void Tokenizer::UngetToken()
 
 void Tokenizer::DoGetToken(RawToken & tk)
 {
-    QUEX_TYPE_TOKEN_ID id = m_Quex.receive();
+    QUEX_TYPE_TOKEN_ID id = m_pQuex->receive();
 
 
     if( id == QUEX_TKN_TERMINATION )
@@ -296,7 +309,7 @@ void Tokenizer::RunTest()
 
     while(1)
     {
-        id = m_Quex.receive();
+        id = m_pQuex->receive();
 
         cout<<m_QuexToken<< " line=" << m_QuexToken.line_number() << "colunm=" << m_QuexToken.column_number()<<endl;
 
