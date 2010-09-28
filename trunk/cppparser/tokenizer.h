@@ -86,8 +86,8 @@ private:
     bool  m_IsOK;
     bool  m_IsEOF;
 
-    LoaderBase*         m_pLoader;
-    quex::tiny_lexer    m_Quex;
+    LoaderBase         *m_pLoader;
+    quex::tiny_lexer   *m_pQuex;
     quex::Token         m_QuexToken;
     QUEX_TYPE_CHARACTER m_QuexBuffer[65536]; // max size is 64K
 
