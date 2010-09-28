@@ -115,10 +115,10 @@ bool Tokenizer::ReadFile()
         const char * pBuffer = m_pLoader->data();
         m_BufferLen = m_pLoader->length();
 
-        for(int i = 0;i<m_BufferLen + 2;i++ )
-        {
-            cout<< i<< " "<< int(pBuffer[i])<< " "<< char(pBuffer[i]) <<endl;
-        }
+//        for(int i = 0;i<m_BufferLen + 2;i++ )
+//        {
+//            cout<< i<< " "<< int(pBuffer[i])<< " "<< char(pBuffer[i]) <<endl;
+//        }
 
         //as quex should be initialized pointing to some memory, so we used this method
         // hopefully quex can support dynamically memory buffer in the future.
@@ -293,7 +293,7 @@ void Tokenizer::DoGetToken(RawToken & tk)
     tk.id = id;
     tk.line = m_QuexToken.line_number();
 
-    cout<<m_QuexToken<< " line=" << m_QuexToken.line_number() << "colunm=" << m_QuexToken.column_number()<<endl;
+    //cout<<m_QuexToken<< " line=" << m_QuexToken.line_number() << "colunm=" << m_QuexToken.column_number()<<endl;
 }
 
 
