@@ -115,44 +115,19 @@ bool Tokenizer::ReadFile()
         const char * pBuffer = m_pLoader->data();
         m_BufferLen = m_pLoader->length();
 
-//        for(int i = 0;i<m_BufferLen + 2;i++ )
-//        {
-//            cout<< i<< " "<< int(pBuffer[i])<< " "<< char(pBuffer[i]) <<endl;
-//        }
+        if( m_BufferLen != 0)
+            success = true;
 
-        //as quex should be initialized pointing to some memory, so we used this method
-        // hopefully quex can support dynamically memory buffer in the future.
-//        if(m_BufferLen>65536)
-//        {
-//            m_BufferLen = 65536;
-//        }
-//        memcpy(m_QuexBuffer,pBuffer,m_BufferLen);
-    if(m_pQuex)
-        delete m_pQuex;
+        if(m_pQuex)
+            delete m_pQuex;
 
-    m_pQuex = new quex::tiny_lexer((QUEX_TYPE_CHARACTER*)pBuffer,
-                                   m_BufferLen,
-                                   (QUEX_TYPE_CHARACTER*)pBuffer+m_BufferLen-1);
-
-    //    success = (m_BufferLen != 0);
-
-        //m_Quex.buffer_end_file_pointer_set((uint8_t*)m_QuexBuffer+1);
-        //m_Quex.buffer_fill_region_finish(m_BufferLen-1);
-        //m_Quex.buffer_input_pointer_set((uint8_t*)m_QuexBuffer+1);
-
-//        for(int i = 0;i<m_BufferLen + 1;i++ )
-//        {
-//            cout<< i<< " "<< int(m_QuexBuffer[i])<< " "<< char(m_QuexBuffer[i]) <<endl;
-//        }
-
-        //cout<< "start from index 1" <<endl;
-        //cout<< "number = "<< m_BufferLen-1 <<endl;
-
+        m_pQuex = new quex::tiny_lexer((QUEX_TYPE_CHARACTER*)pBuffer,
+                                       m_BufferLen,
+                                       (QUEX_TYPE_CHARACTER*)pBuffer+m_BufferLen-1);
 
         (void)m_pQuex->token_p_switch(&m_QuexToken);
 
         return true;
-
 
     }
     else
@@ -183,8 +158,8 @@ RawToken* Tokenizer::GetToken()
         m_Token  = m_PeekToken;
     }
     else
-        //DoAdvanceGetToken(m_Token);
-        RemovePP(m_Token);
+
+        DoAdvanceGetToken(m_Token);
 
 
     m_PeekAvailable = false;
@@ -193,31 +168,7 @@ RawToken* Tokenizer::GetToken()
 }
 
 
-
-void Tokenizer::DoAdvanceGetToken(RawToken & tk)
-{
-    RemovePP(tk);
-    cc_string str;
-
-    if (tk.id == QUEX_TKN_BRACKET_O)
-    {
-        do
-        {
-            str<<tk.text;
-            RemovePP(tk);
-
-        }
-        while(tk.id != QUEX_TKN_BRACKET_C);
-
-        str<<tk.text;
-        tk.text = str;
-    }
-
-}
-
-
-
-void  Tokenizer::RemovePP(RawToken & tk)
+void  Tokenizer::DoAdvanceGetToken(RawToken & tk)
 {
     while (true)
     {
@@ -237,7 +188,7 @@ void  Tokenizer::RemovePP(RawToken & tk)
             // read to the QUEX_TKN_PP_FINISH
             do
             {
-                str << tk.text;
+                str << tk.text << " ";
                 DoGetToken(tk);
             }while(QUEX_TKN_PP_FINISH != tk.id);
             str << tk.text;
@@ -259,8 +210,7 @@ RawToken* Tokenizer::PeekToken()
     if(!m_PeekAvailable)
     {
         m_PeekAvailable = true;
-        //DoAdvanceGetToken(m_PeekToken);
-        RemovePP(m_PeekToken);
+        DoAdvanceGetToken(m_PeekToken);
     }
     return &m_PeekToken;
 }
@@ -284,7 +234,7 @@ void Tokenizer::DoGetToken(RawToken & tk)
     }
     else if (id == QUEX_TKN_PP_FINISH)
     {
-        tk.text = "End of PP\n";
+        tk.text = "[EndOfPP]\n";
     }
     else
     {
