@@ -57,10 +57,6 @@ protected:
     cc_string FixArgument(cc_string src);
     bool ReadFile();
 
-    void HandleConditionPreprocessor();
-    void  DoAdvanceGetToken(RawToken & tk);
-
-
 private:
 
     inline const cc_string& ThisOrReplacement(const cc_string& str) const
@@ -89,12 +85,9 @@ private:
     LoaderBase         *m_pLoader;
     quex::tiny_lexer   *m_pQuex;
     quex::Token         m_QuexToken;
-    QUEX_TYPE_CHARACTER m_QuexBuffer[65536]; // max size is 64K
 
-
-    void RemovePP(RawToken & tk);
-
-
+    /** Internally handle and strip all the preprocessor directive*/
+    void DoAdvanceGetToken(RawToken & tk);
 
 public:
 
