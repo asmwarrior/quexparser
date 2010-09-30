@@ -689,16 +689,73 @@ void ParserThread::ReadVarNames()
 
 void ParserThread::HandleClass(EClassType ct)
 {
-    RawToken * current = m_Tokenizer.GetToken(); // read the class name;
-    RawToken * peek    = m_Tokenizer.PeekToken();
+//    RawToken * current = m_Tokenizer.GetToken(); // read the class name;
+//    RawToken * peek    = m_Tokenizer.PeekToken();
+//
+//    if(peek->id == QUEX_TKN_SEMICOLON)
+//        return;
+//
+//    if(peek->id == QUEX_TKN_CURLY_BRACKET_O)
+//        SkipStatementBlock();
+//
+//    TRACE(cc_text("handle class\n"));
 
-    if(peek->id == QUEX_TKN_SEMICOLON)
-        return;
 
-    if(peek->id == QUEX_TKN_CURLY_BRACKET_O)
-        SkipStatementBlock();
+    while (!TestDestroy())
+    {
+        RawToken * current = m_Tokenizer.GetToken();      // class name
+        RawToken * next   = m_Tokenizer.PeekToken();
 
-    TRACE(cc_text("handle class\n"));
+        TRACE("HandleClass() : Found class '%s'", current->text.c_str() );
+
+        if (!current->id == QUEX_TKN_TERMINATION && !next->id == QUEX_TKN_TERMINATION)  //Thich means were were not at EOF
+        {
+            // Check current firstly
+            if (current->id == QUEX_TKN_CURLY_BRACKET_O)  // unnamed class/struct/union
+            {
+//                cc_string unnamedTmp;
+//                unnamedTmp.Printf(_T("%s%s%d"),
+//                                  ParserConsts::unnamed.wx_str(),
+//                                  ct == ctClass ? _T("Class") :
+//                                  ct == ctUnion ? _T("Union") :
+//                                                  _T("Struct"), ++m_pTokensTree->m_StructUnionUnnamedCount);
+//
+//                Token* newToken = DoAddToken(tkClass, unnamedTmp, lineNr);
+//
+//                PushContext();
+//                m_Context.Clear();
+//                m_Context.lastParent = newToken;
+//                m_Context.lastScope  = ct == ctClass ? tsPrivate : tsPublic; // struct has default public scope
+//
+//				newToken->m_ImplLine = lineNr;
+//				newToken->m_ImplLineStart = m_Tokenizer.GetLineNumber();
+//
+//                DoParse();
+//
+//                PopContext();
+            }
+            else if (current->id == QUEX_TKN_IDENTIFIER) //OK, we need to check the next
+            {
+                if ( next->id == QUEX_TKN_CURLY_BRACKET_O)   // class AAA {, we find the "{" here
+                {
+                    PushContext();
+
+                    //DoParse();
+
+                    SkipStatementBlock();
+
+                    PopContext();
+                    break;
+                }
+
+            }
+        }
+        else   //we were at EOF, so break!
+            break;
+    }
+
+    // restore tokenizer's functionality
+
 }
 
 void ParserThread::HandleFunction(const cc_string& name, bool isOperator)
@@ -722,6 +779,15 @@ void ParserThread::ReadClsNames(cc_string& ancestor)
 }
 
 void ParserThread::HandleMacro(const cc_string &token, const cc_string &peek)
+{
+
+}
+
+void ParserThread::PushContext()
+{
+
+}
+void ParserThread::PopContext()
 {
 
 }
