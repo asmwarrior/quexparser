@@ -16,7 +16,8 @@
 #if PARSERTHREAD_DEBUG_OUTPUT
 
 #define TRACE(format, args...)\
-    printf(format , ## args)
+    printf(format , ## args);\
+    printf("\n")
 #else
 #define TRACE(format, ...)
 #define DebugLog(format,...)
@@ -147,14 +148,14 @@ void ParserThread::SkipStatementBlock()
     printf("Skip statement block End line(%d) column(%d)\n",tk->line,tk->column);
 }
 
-void ParserThread::SkipRoundBrace()
+void ParserThread::SkipParentheses()
 {
     //TKN_BRACKET_O
 
     RawToken * tk = m_Tokenizer.GetToken();//remove the first TKN_BRACKET_O
     int id = tk->id;
     int level = 1;
-    printf("Skip RoundBrace at line(%d)\n",tk->line);
+    printf("Skip Parentheses Start at line(%d)column(%d)\n",tk->line,tk->column);
     while(id!=TKN_TERMINATION)
     {
         tk = m_Tokenizer.GetToken();
@@ -167,6 +168,8 @@ void ParserThread::SkipRoundBrace()
         if (level ==0)
             break;
     }
+    printf("Skip Parentheses End at line(%d)column(%d)\n",tk->line,tk->column);
+
 }
 
 void ParserThread::SkipBlock()
@@ -277,7 +280,7 @@ void ParserThread::DoParse()
         case TKN_WHILE:
         {
             printf("handling for or while block\n");
-            SkipRoundBrace();
+            SkipParentheses();
             SkipStatementBlock();
             break;
         }
@@ -294,21 +297,60 @@ void ParserThread::DoParse()
         {
             if (m_Context.typeStr.empty())
                 m_Context.typeStr<< tk->text;
-            else
+
+            // we are interested in the following token.
+
+            RawToken * peek = m_Tokenizer.PeekToken();
+            if( peek->id == TKN_BRACKET_O ) // This is a function definition or declration, because it has AAA BBB (
             {
-                RawToken * peek = m_Tokenizer.PeekToken();
-                if( peek->id == TKN_BRACKET_O ) // This is a function definition or declration, because it has AAA BBB (
-                {
-                    HandleFunction();
-                }
+                cc_string functionName = tk->text;
+                HandleFunction(functionName);
             }
+            else if( peek->id == TKN_IDENTIFIER )
+            {
+                m_Context.typeStr<< tk->text;
+                tk = m_Tokenizer.GetToken();
+            }
+            else if (peek->id == TKN_SEMICOLON )// a variable
+            {
+                cc_string variableName = tk->text;
+                cc_string variableType = m_Context.typeStr;
+                //Add variable to tokenstree
+                //consume the semicolon
+                m_Tokenizer.GetToken();
+                m_Context.ResetStateInfo();
+            }
+            else if (peek->id == TKN_DOUBLE_COLON)
+            {
+                if (m_Context.typeStr.empty())
+                    m_Context.typeNamespace.push(tk->text); // it's a type's namespace
+                else
+                    m_Context.stackNamepsace.push(tk->text);
+                m_Tokenizer.GetToken(); //eat ::
+            }
+            else if (  peek->id == TKN_AMPERSANT
+                     ||peek->id == TKN_MULT)
+            {
+                m_Context.typeStr<< peek->text;
+                m_Tokenizer.GetToken();
+            }
+            break;
+        }
+        case TKN_SEMICOLON:
+        {
+            m_Context.ResetStateInfo();
+            break;
+        }
+        case TKN_AMPERSANT:
+        case TKN_MULT:
+        {
+            m_Context.typeStr<< tk->text;
             break;
         }
         default:
         {
             printf("%s\n",tk->text.c_str());
             break;
-
         }
         }
     }
@@ -705,7 +747,7 @@ void ParserThread::HandleClass(EClassType ct)
         RawToken * current = m_Tokenizer.GetToken();      // class name
         RawToken * next   = m_Tokenizer.PeekToken();
 
-        TRACE("HandleClass() : Found class '%s'\n", current->text.c_str() );
+        TRACE("HandleClass() : Found class '%s'", current->text.c_str() );
 
         if (!current->id == TKN_TERMINATION && !next->id == TKN_TERMINATION)   //Thich means were were not at EOF
         {
@@ -757,23 +799,24 @@ void ParserThread::HandleClass(EClassType ct)
 
 }
 
-void ParserThread::HandleFunction()
+void ParserThread::HandleFunction(cc_string & name)
 {
-    //TRACE(cc_text("HandleFunction() : Adding function '")+name+cc_text("': m_Str='")+m_Str+cc_text("'"));
-    SkipRoundBrace();  //parameter
+    TRACE("HandleFunction() : %s %s()",m_Context.typeStr.c_str(),name.c_str());
+    SkipParentheses();  //parameter
 
     RawToken * peek = m_Tokenizer.PeekToken();
 
     if (peek->id == TKN_CURLY_BRACKET_O)   // function definition
     {
-        TRACE("Function definition\n");
+        TRACE("Function definition");
         SkipStatementBlock();
     }
     else if (peek->id == TKN_SEMICOLON)
     {
-        TRACE("Function declaration\n");
+        TRACE("Function declaration");
         m_Tokenizer.GetToken();
     }
+    m_Context.Reset();
 }
 
 void ParserThread::HandleEnum()
