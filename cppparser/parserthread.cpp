@@ -15,41 +15,27 @@
 
 #if PARSERTHREAD_DEBUG_OUTPUT
 
-    #define TRACE(format, args...)\
+#define TRACE(format, args...)\
     printf(format , ## args)
 #else
-    #define TRACE(format, ...)
-	#define DebugLog(format,...)
+#define TRACE(format, ...)
+#define DebugLog(format,...)
 #endif
 
-namespace ParserConsts
-{
-
-
-};
 
 ParserThread::ParserThread(Parser* parent,
-                            const cc_string& bufferOrFilename,
-                            bool isLocal,
-                            ParserThreadOptions& parserThreadOptions,
-                            TokensTree* tokensTree) :
+                           const cc_string& bufferOrFilename,
+                           bool isLocal,
+                           ParserThreadOptions& parserThreadOptions,
+                           TokensTree* tokensTree) :
     m_Tokenizer(),
     m_pParent(parent),
     m_pTokensTree(tokensTree),
-    m_pLastParent(0),
-    m_LastScope(tsUndefined),
     m_Filename(cc_text("")),
     m_FileSize(0),
     m_File(0),
     m_IsLocal(isLocal),
-    m_Str(cc_text("")),
-    m_LastToken(cc_text("")),
     m_Options(parserThreadOptions),
-    m_EncounteredNamespaces(),
-    m_EncounteredTypeNamespaces(),
-    m_LastUnnamedTokenName(cc_text("")),
-    m_ParsingTypedef(false),
-    m_PreprocessorIfCount(0),
     m_IsBuffer(parserThreadOptions.useBuffer),
     m_Buffer(bufferOrFilename)
 {
@@ -64,11 +50,11 @@ ParserThread::~ParserThread()
     if (m_Options.loader)
     {
         m_Options.loader->Sync();
-		if (m_Options.loader)
-		{
-			delete m_Options.loader;
-			m_Options.loader = NULL;
-		}
+        if (m_Options.loader)
+        {
+            delete m_Options.loader;
+            m_Options.loader = NULL;
+        }
     }
 }
 
@@ -90,8 +76,8 @@ void* ParserThread::DoRun()
 
 cc_char ParserThread::SkipToOneOfChars(const cc_string& cc_chars, bool supportNesting)
 {
-   cc_char a;
-   return a;
+    cc_char a;
+    return a;
 }
 
 void ParserThread::SkipToOneOfId(const int * idArray, const int num)
@@ -104,7 +90,7 @@ void ParserThread::SkipToOneOfId(const int * idArray, const int num)
     while(id!=QUEX_TKN_TERMINATION)
     {
         //check the id is in idArray
-        for(int i = 0;i<num;i++)
+        for(int i = 0; i<num; i++)
         {
             if(id==idArray[i])
             {
@@ -114,7 +100,7 @@ void ParserThread::SkipToOneOfId(const int * idArray, const int num)
         }
         if(find==true)
         {
-           break;
+            break;
         }
         //go step again
         tk = m_Tokenizer.GetToken();
@@ -127,7 +113,7 @@ void ParserThread::SkipStatementBlock()
 {
     RawToken * tk = m_Tokenizer.GetToken();
     int id = tk->id;
-    printf("Skip statement block at line(%d)\n",tk->line);
+    printf("Skip statement block Start line(%d) column(%d)\n",tk->line,tk->column);
     if (id == QUEX_TKN_CURLY_BRACKET_O)
     {
         //SkipToId(QUEX_TKN_CURLY_BRACKET_C);
@@ -158,6 +144,7 @@ void ParserThread::SkipStatementBlock()
             id = tk->id;
         }
     }
+    printf("Skip statement block End line(%d) column(%d)\n",tk->line,tk->column);
 }
 
 void ParserThread::SkipRoundBrace()
@@ -210,7 +197,7 @@ bool ParserThread::InitTokenizer()
 
             bool ret = m_Tokenizer.Init(m_Filename, m_Options.loader);
             delete m_Options.loader;
-			m_Options.loader = 0;
+            m_Options.loader = 0;
             return ret;
         }
 
@@ -225,14 +212,15 @@ bool ParserThread::Parse()
     if (!InitTokenizer())
         return false;
     bool result = false;
-    m_ParsingTypedef = false;
+
+    m_Context.inTypedef = false;
 
     do
     {
         if (!m_pTokensTree || !m_Tokenizer.IsOK())
             break;
 
-        if (!m_Options.useBuffer) // Parse a file
+        if (!m_Options.useBuffer)   // Parse a file
         {
             s_MutexProtection.Enter();
             m_File = m_pTokensTree->ReserveFileForParsing(m_Filename);
@@ -243,27 +231,21 @@ bool ParserThread::Parse()
 
         DoParse();
 
-        if (!m_Options.useBuffer) // Parsing a file
+        if (!m_Options.useBuffer)   // Parsing a file
         {
             s_MutexProtection.Enter();
             m_pTokensTree->FlagFileAsParsed(m_Filename);
             s_MutexProtection.Leave();
         }
         result = true;
-    } while(false);
+    }
+    while(false);
 
     return result;
 }
 
 void ParserThread::DoParse()
 {
-
-    m_Str.clear();
-    m_LastToken.clear();
-    m_LastUnnamedTokenName.clear();
-    while (!m_EncounteredNamespaces.empty())
-        m_EncounteredNamespaces.pop();
-
 
     //m_Tokenizer.RunTest();
 
@@ -278,39 +260,56 @@ void ParserThread::DoParse()
         switch (tk->id)
         {
         case QUEX_TKN_CURLY_BRACKET_O :
-            {
-                int idArray[1] = {QUEX_TKN_CURLY_BRACKET_C};
-                SkipToOneOfId(idArray,1);
-                printf("Skiping {}\n");
-                break;
-            }
+        {
+            int idArray[1] = {QUEX_TKN_CURLY_BRACKET_C};
+            SkipToOneOfId(idArray,1);
+            printf("Skiping {}\n");
+            break;
+        }
         case QUEX_TKN_BRACKET_O :
-            {
-                int idArray[1] = {QUEX_TKN_BRACKET_C};
-                SkipToOneOfId(idArray,1);
-                printf("Skiping ()\n");
-                break;
-            }
+        {
+            int idArray[1] = {QUEX_TKN_BRACKET_C};
+            SkipToOneOfId(idArray,1);
+            printf("Skiping ()\n");
+            break;
+        }
         case QUEX_TKN_FOR:
         case QUEX_TKN_WHILE:
-            {
-                printf("handling for or while block\n");
-                SkipRoundBrace();
-                SkipStatementBlock();
-                break;
-            }
+        {
+            printf("handling for or while block\n");
+            SkipRoundBrace();
+            SkipStatementBlock();
+            break;
+        }
         case QUEX_TKN_CLASS:
+        {
+            m_Context.typeStr.clear();
+            if (m_Options.handleClasses)
+                HandleClass(ctClass);
+            else
+                SkipStatementBlock();
+            break;
+        }
+        case QUEX_TKN_IDENTIFIER:
+        {
+            if (m_Context.typeStr.empty())
+                m_Context.typeStr<< tk->text;
+            else
             {
-                m_Str.clear();
-                if (m_Options.handleClasses)
-                    HandleClass(ctClass);
-                else
-                    SkipStatementBlock();
-                break;
+                RawToken * peek = m_Tokenizer.PeekToken();
+                if( peek->id == QUEX_TKN_BRACKET_O ) // This is a function definition or declration, because it has AAA BBB (
+                {
+                    HandleFunction();
+                }
             }
+            break;
+        }
         default:
+        {
             printf("%s\n",tk->text.c_str());
             break;
+
+        }
         }
     }
 
@@ -333,49 +332,49 @@ cc_string ParserThread::GetActualTokenType()
     // we will compensate for spaces between
     // namespaces (e.g. NAMESPACE :: SomeType) wich is valid C++ construct
     // we 'll remove spaces that follow a semicolon
-    int pos = 0;
-    while (pos < (int)m_Str.length())
-    {
-        if (m_Str.at(pos) == ' ' &&
-            (
-                (pos > 0 && m_Str.at(pos - 1) == ':') ||
-                (pos < (int)m_Str.length() - 1 && m_Str.at(pos + 1) == ':')
-            )
-           )
-        {
-            m_Str.erase(pos, 1);
-        }
-        else
-            ++pos;
-    }
-
-    // m_Str contains the full text before the token's declaration
-    // an example m_Str value would be: const string&
-    // what we do here is locate the actual return value (string in this example)
-    // it will be needed by code completion code ;)
-    pos = m_Str.length() - 1;
-    // we walk m_Str backwards until we find a non-space cc_character which also is
-    // not * or &
-    //                        const string&
-    // in this example, we would stop here ^
-    while (pos >= 0 &&
-            (isspace(m_Str.at(pos)) ||
-            m_Str.at(pos) == '*' ||
-            m_Str.at(pos) == '&'))
-        --pos;
-    if (pos >= 0)
-    {
-        // we have the end of the word we 're interested in
-        int end = pos;
-        // continue walking backwards until we find the start of the word
-        //                               const string&
-        // in this example, we would stop here ^
-        while (pos >= 0 && (isalnum(m_Str.at(pos)) || m_Str.at(pos) == '_' || m_Str.at(pos) == ':'))
-            --pos;
-        return m_Str.substr(pos + 1, end - pos);
-    }
-    else
-        return m_Str; // token ends at start of phrase
+//    int pos = 0;
+//    while (pos < (int)m_Str.length())
+//    {
+//        if (m_Str.at(pos) == ' ' &&
+//            (
+//                (pos > 0 && m_Str.at(pos - 1) == ':') ||
+//                (pos < (int)m_Str.length() - 1 && m_Str.at(pos + 1) == ':')
+//            )
+//           )
+//        {
+//            m_Str.erase(pos, 1);
+//        }
+//        else
+//            ++pos;
+//    }
+//
+//    // m_Str contains the full text before the token's declaration
+//    // an example m_Str value would be: const string&
+//    // what we do here is locate the actual return value (string in this example)
+//    // it will be needed by code completion code ;)
+//    pos = m_Str.length() - 1;
+//    // we walk m_Str backwards until we find a non-space cc_character which also is
+//    // not * or &
+//    //                        const string&
+//    // in this example, we would stop here ^
+//    while (pos >= 0 &&
+//            (isspace(m_Str.at(pos)) ||
+//            m_Str.at(pos) == '*' ||
+//            m_Str.at(pos) == '&'))
+//        --pos;
+//    if (pos >= 0)
+//    {
+//        // we have the end of the word we 're interested in
+//        int end = pos;
+//        // continue walking backwards until we find the start of the word
+//        //                               const string&
+//        // in this example, we would stop here ^
+//        while (pos >= 0 && (isalnum(m_Str.at(pos)) || m_Str.at(pos) == '_' || m_Str.at(pos) == ':'))
+//            --pos;
+//        return m_Str.substr(pos + 1, end - pos);
+//    }
+//    else
+//        return m_Str; // token ends at start of phrase
     return cc_text(""); // never reaches here
 }
 
@@ -547,117 +546,117 @@ Token* ParserThread::DoAddToken(TokenKind kind,
         return 0; // oops!
 
     s_MutexProtection.Enter();
-    Token* newToken = 0;
+//    Token* newToken = 0;
     cc_string newname(name);
-    cc_trimRight(m_Str);
-    if (kind == tkDestructor)
-    {
-        // special class destructors case
-        //newname.insert(0,ParserConsts::tilde);
-        m_Str.clear();
-    }
-
-    cc_string realArgs = cc_text("");
-    if (kind & tkAnyFunction)
-        realArgs = GetRealArgs(args);
-
-    Token* localParent = 0;
-
-    // preserve m_EncounteredTypeNamespaces; needed further down this function
-    std::queue<cc_string> q = m_EncounteredTypeNamespaces;
-    if ((kind == tkDestructor || kind == tkConstructor) && !q.empty())
-    {
-        // look in m_EncounteredTypeNamespaces
-        localParent = FindTokenFromQueue(q, 0, true, m_pLastParent);
-        if (localParent)
-            newToken = TokenExists(newname, localParent);
-    }
-
-    // check for implementation member function
-    if (!newToken && !m_EncounteredNamespaces.empty())
-    {
-        localParent = FindTokenFromQueue(m_EncounteredNamespaces, 0, true, m_pLastParent);
-        if (localParent)
-            newToken = TokenExists(newname, localParent);
-    }
-
-    // none of the above; check for token under parent (but not if we 're parsing a temp buffer)
-    if (!newToken && !m_Options.isTemp)
-        newToken = TokenExists(name, m_pLastParent, kind);
-
-
-    cc_string newTokenArgs = (newToken) ? (newToken->m_Args) : cc_text("");
-//    if (newToken && newToken->m_TokenKind == kind && newTokenArgs == args)
-       if (   newToken
-        && (newToken->m_TokenKind == kind)
-        && (   (newTokenArgs == args)
-            || (kind & tkAnyFunction && newToken->m_RealArgs == realArgs) ) )
-    {
-        m_pTokensTree->m_modified = true;
-    }
-    else
-    {
-        Token* finalParent = localParent ? localParent : m_pLastParent;
-        newToken = new Token(newname,m_File,line);
-        newToken->m_ParentIndex = finalParent ? finalParent->GetSelf() : -1;
-        newToken->m_TokenKind   = kind;
-        newToken->m_Scope       = m_LastScope;
-        newToken->m_RealArgs    = realArgs;
-
-        if (newToken->m_TokenKind == tkClass)
-            newToken->m_RealArgs = args;    //save template args
-        else
-            newToken->m_Args = args;
-        int newidx = m_pTokensTree->insert(newToken);
-        if (finalParent)
-            finalParent->AddChild(newidx);
-    }
-
-    if (!(kind & (tkConstructor | tkDestructor)))
-    {
-        cc_string readType = m_Str;
-        cc_string actualType = GetActualTokenType();
-        if (actualType.find(cc_text(' ')) == cc_string::npos)
-        {
-            // token type must contain all namespaces
-            actualType.insert(0,GetQueueAsNamespaceString(m_EncounteredTypeNamespaces));
-        }
-        newToken->m_Type       = readType;
-        newToken->m_ActualType = actualType;
-    }
-    newToken->m_IsLocal    = m_IsLocal;
-    newToken->m_IsTemp     = m_Options.isTemp;
-    newToken->m_IsOperator = isOperator;
-
-    if (!isImpl)
-    {
-
-        newToken->m_File = m_File;
-        newToken->m_Line = line;
-        TRACE(cc_text("DoAddToken() : Added/updated token '%s' (%d), type '%s', actual '%s'. Parent is %s (%d)"),
-              name.c_str(),
-              newToken->GetSelf(),
-              newToken->m_Type.c_str(),
-              newToken->m_ActualType.c_str(),
-              newToken->GetParentName().c_str(),
-              newToken->m_ParentIndex);
-
-    }
-    else
-    {
-        newToken->m_ImplFile = m_File;
-        newToken->m_ImplLine = line;
-        newToken->m_ImplLineStart = implLineStart;
-        newToken->m_ImplLineEnd = implLineEnd;
-        m_pTokensTree->m_FilesMap[newToken->m_ImplFile].insert(newToken->GetSelf());
-    }
-
-    while (!m_EncounteredNamespaces.empty())
-        m_EncounteredNamespaces.pop();
-
-    while (!m_EncounteredTypeNamespaces.empty())
-        m_EncounteredTypeNamespaces.pop();
-
+//    cc_trimRight(m_Context.typeStr);
+//    if (kind == tkDestructor)
+//    {
+//        // special class destructors case
+//        //newname.insert(0,ParserConsts::tilde);
+//        m_Str.clear();
+//    }
+//
+//    cc_string realArgs = cc_text("");
+//    if (kind & tkAnyFunction)
+//        realArgs = GetRealArgs(args);
+//
+//    Token* localParent = 0;
+//
+//    // preserve m_EncounteredTypeNamespaces; needed further down this function
+//    std::queue<cc_string> q = m_Context.typeNamespace;
+//    if ((kind == tkDestructor || kind == tkConstructor) && !q.empty())
+//    {
+//        // look in m_EncounteredTypeNamespaces
+//        localParent = FindTokenFromQueue(q, 0, true, m_pLastParent);
+//        if (localParent)
+//            newToken = TokenExists(newname, localParent);
+//    }
+//
+//    // check for implementation member function
+//    if (!newToken && !m_EncounteredNamespaces.empty())
+//    {
+//        localParent = FindTokenFromQueue(m_EncounteredNamespaces, 0, true, m_pLastParent);
+//        if (localParent)
+//            newToken = TokenExists(newname, localParent);
+//    }
+//
+//    // none of the above; check for token under parent (but not if we 're parsing a temp buffer)
+//    if (!newToken && !m_Options.isTemp)
+//        newToken = TokenExists(name, m_pLastParent, kind);
+//
+//
+//    cc_string newTokenArgs = (newToken) ? (newToken->m_Args) : cc_text("");
+////    if (newToken && newToken->m_TokenKind == kind && newTokenArgs == args)
+//       if (   newToken
+//        && (newToken->m_TokenKind == kind)
+//        && (   (newTokenArgs == args)
+//            || (kind & tkAnyFunction && newToken->m_RealArgs == realArgs) ) )
+//    {
+//        m_pTokensTree->m_modified = true;
+//    }
+//    else
+//    {
+//        Token* finalParent = localParent ? localParent : m_pLastParent;
+//        newToken = new Token(newname,m_File,line);
+//        newToken->m_ParentIndex = finalParent ? finalParent->GetSelf() : -1;
+//        newToken->m_TokenKind   = kind;
+//        newToken->m_Scope       = m_LastScope;
+//        newToken->m_RealArgs    = realArgs;
+//
+//        if (newToken->m_TokenKind == tkClass)
+//            newToken->m_RealArgs = args;    //save template args
+//        else
+//            newToken->m_Args = args;
+//        int newidx = m_pTokensTree->insert(newToken);
+//        if (finalParent)
+//            finalParent->AddChild(newidx);
+//    }
+//
+//    if (!(kind & (tkConstructor | tkDestructor)))
+//    {
+//        cc_string readType = m_Str;
+//        cc_string actualType = GetActualTokenType();
+//        if (actualType.find(cc_text(' ')) == cc_string::npos)
+//        {
+//            // token type must contain all namespaces
+//            actualType.insert(0,GetQueueAsNamespaceString(m_EncounteredTypeNamespaces));
+//        }
+//        newToken->m_Type       = readType;
+//        newToken->m_ActualType = actualType;
+//    }
+//    newToken->m_IsLocal    = m_IsLocal;
+//    newToken->m_IsTemp     = m_Options.isTemp;
+//    newToken->m_IsOperator = isOperator;
+//
+//    if (!isImpl)
+//    {
+//
+//        newToken->m_File = m_File;
+//        newToken->m_Line = line;
+//        TRACE(cc_text("DoAddToken() : Added/updated token '%s' (%d), type '%s', actual '%s'. Parent is %s (%d)"),
+//              name.c_str(),
+//              newToken->GetSelf(),
+//              newToken->m_Type.c_str(),
+//              newToken->m_ActualType.c_str(),
+//              newToken->GetParentName().c_str(),
+//              newToken->m_ParentIndex);
+//
+//    }
+//    else
+//    {
+//        newToken->m_ImplFile = m_File;
+//        newToken->m_ImplLine = line;
+//        newToken->m_ImplLineStart = implLineStart;
+//        newToken->m_ImplLineEnd = implLineEnd;
+//        m_pTokensTree->m_FilesMap[newToken->m_ImplFile].insert(newToken->GetSelf());
+//    }
+//
+//    while (!m_EncounteredNamespaces.empty())
+//        m_EncounteredNamespaces.pop();
+//
+//    while (!m_EncounteredTypeNamespaces.empty())
+//        m_EncounteredTypeNamespaces.pop();
+    Token* newToken = new Token(newname,m_File,line);
     s_MutexProtection.Leave();
     return newToken;
 }
@@ -706,12 +705,12 @@ void ParserThread::HandleClass(EClassType ct)
         RawToken * current = m_Tokenizer.GetToken();      // class name
         RawToken * next   = m_Tokenizer.PeekToken();
 
-        TRACE("HandleClass() : Found class '%s'", current->text.c_str() );
+        TRACE("HandleClass() : Found class '%s'\n", current->text.c_str() );
 
-        if (!current->id == QUEX_TKN_TERMINATION && !next->id == QUEX_TKN_TERMINATION)  //Thich means were were not at EOF
+        if (!current->id == QUEX_TKN_TERMINATION && !next->id == QUEX_TKN_TERMINATION)   //Thich means were were not at EOF
         {
             // Check current firstly
-            if (current->id == QUEX_TKN_CURLY_BRACKET_O)  // unnamed class/struct/union
+            if (current->id == QUEX_TKN_CURLY_BRACKET_O)   // unnamed class/struct/union
             {
 //                cc_string unnamedTmp;
 //                unnamedTmp.Printf(_T("%s%s%d"),
@@ -734,7 +733,7 @@ void ParserThread::HandleClass(EClassType ct)
 //
 //                PopContext();
             }
-            else if (current->id == QUEX_TKN_IDENTIFIER) //OK, we need to check the next
+            else if (current->id == QUEX_TKN_IDENTIFIER)     //OK, we need to check the next
             {
                 if ( next->id == QUEX_TKN_CURLY_BRACKET_O)   // class AAA {, we find the "{" here
                 {
@@ -758,10 +757,23 @@ void ParserThread::HandleClass(EClassType ct)
 
 }
 
-void ParserThread::HandleFunction(const cc_string& name, bool isOperator)
+void ParserThread::HandleFunction()
 {
     //TRACE(cc_text("HandleFunction() : Adding function '")+name+cc_text("': m_Str='")+m_Str+cc_text("'"));
+    SkipRoundBrace();  //parameter
 
+    RawToken * peek = m_Tokenizer.PeekToken();
+
+    if (peek->id == QUEX_TKN_CURLY_BRACKET_O)   // function definition
+    {
+        TRACE("Function definition\n");
+        SkipStatementBlock();
+    }
+    else if (peek->id == QUEX_TKN_SEMICOLON)
+    {
+        TRACE("Function declaration\n");
+        m_Tokenizer.GetToken();
+    }
 }
 
 void ParserThread::HandleEnum()

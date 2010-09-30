@@ -240,8 +240,9 @@ void Tokenizer::DoGetToken(RawToken & tk)
     {
         tk.text = (char*)(m_QuexToken.get_text().c_str());
     }
-    tk.id = id;
-    tk.line = m_QuexToken.line_number();
+    tk.id     = id;
+    tk.line   = m_QuexToken.line_number();
+    tk.column = m_QuexToken.column_number();
 
     //cout<<m_QuexToken<< " line=" << m_QuexToken.line_number() << "colunm=" << m_QuexToken.column_number()<<endl;
 }
