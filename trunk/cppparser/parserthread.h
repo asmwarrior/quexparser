@@ -197,6 +197,8 @@ private:
 
     void SkipStatementBlock();
     void SkipRoundBrace();
+    void PushContext();
+    void PopContext();
 
     /** no usage ??? */
     void Log(const cc_string& log);
