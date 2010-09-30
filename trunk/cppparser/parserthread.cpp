@@ -87,7 +87,7 @@ void ParserThread::SkipToOneOfId(const int * idArray, const int num)
     bool find = false;
     int id = tk->id;
 
-    while(id!=QUEX_TKN_TERMINATION)
+    while(id!=TKN_TERMINATION)
     {
         //check the id is in idArray
         for(int i = 0; i<num; i++)
@@ -114,18 +114,18 @@ void ParserThread::SkipStatementBlock()
     RawToken * tk = m_Tokenizer.GetToken();
     int id = tk->id;
     printf("Skip statement block Start line(%d) column(%d)\n",tk->line,tk->column);
-    if (id == QUEX_TKN_CURLY_BRACKET_O)
+    if (id == TKN_CURLY_BRACKET_O)
     {
-        //SkipToId(QUEX_TKN_CURLY_BRACKET_C);
+        //SkipToId(TKN_CURLY_BRACKET_C);
         int level = 1;
 
-        while(id!=QUEX_TKN_TERMINATION)
+        while(id!=TKN_TERMINATION)
         {
             tk = m_Tokenizer.GetToken();
             id = tk->id;
-            if (id == QUEX_TKN_CURLY_BRACKET_O)
+            if (id == TKN_CURLY_BRACKET_O)
                 level++;
-            else if (id == QUEX_TKN_CURLY_BRACKET_C)
+            else if (id == TKN_CURLY_BRACKET_C)
                 level--;
 
             if (level ==0)
@@ -134,11 +134,11 @@ void ParserThread::SkipStatementBlock()
     }
     else
     {
-        //SkipToId(QUEX_TKN_SEMICOLON);
+        //SkipToId(TKN_SEMICOLON);
         id = tk->id;
-        while(id!=QUEX_TKN_TERMINATION)
+        while(id!=TKN_TERMINATION)
         {
-            if (id == QUEX_TKN_SEMICOLON)
+            if (id == TKN_SEMICOLON)
                 break;
             tk = m_Tokenizer.GetToken();
             id = tk->id;
@@ -149,19 +149,19 @@ void ParserThread::SkipStatementBlock()
 
 void ParserThread::SkipRoundBrace()
 {
-    //QUEX_TKN_BRACKET_O
+    //TKN_BRACKET_O
 
-    RawToken * tk = m_Tokenizer.GetToken();//remove the first QUEX_TKN_BRACKET_O
+    RawToken * tk = m_Tokenizer.GetToken();//remove the first TKN_BRACKET_O
     int id = tk->id;
     int level = 1;
     printf("Skip RoundBrace at line(%d)\n",tk->line);
-    while(id!=QUEX_TKN_TERMINATION)
+    while(id!=TKN_TERMINATION)
     {
         tk = m_Tokenizer.GetToken();
         id = tk->id;
-        if (id == QUEX_TKN_BRACKET_O)
+        if (id == TKN_BRACKET_O)
             level++;
-        else if (id == QUEX_TKN_BRACKET_C)
+        else if (id == TKN_BRACKET_C)
             level--;
 
         if (level ==0)
@@ -259,29 +259,29 @@ void ParserThread::DoParse()
 
         switch (tk->id)
         {
-        case QUEX_TKN_CURLY_BRACKET_O :
+        case TKN_CURLY_BRACKET_O :
         {
-            int idArray[1] = {QUEX_TKN_CURLY_BRACKET_C};
+            int idArray[1] = {TKN_CURLY_BRACKET_C};
             SkipToOneOfId(idArray,1);
             printf("Skiping {}\n");
             break;
         }
-        case QUEX_TKN_BRACKET_O :
+        case TKN_BRACKET_O :
         {
-            int idArray[1] = {QUEX_TKN_BRACKET_C};
+            int idArray[1] = {TKN_BRACKET_C};
             SkipToOneOfId(idArray,1);
             printf("Skiping ()\n");
             break;
         }
-        case QUEX_TKN_FOR:
-        case QUEX_TKN_WHILE:
+        case TKN_FOR:
+        case TKN_WHILE:
         {
             printf("handling for or while block\n");
             SkipRoundBrace();
             SkipStatementBlock();
             break;
         }
-        case QUEX_TKN_CLASS:
+        case TKN_CLASS:
         {
             m_Context.typeStr.clear();
             if (m_Options.handleClasses)
@@ -290,14 +290,14 @@ void ParserThread::DoParse()
                 SkipStatementBlock();
             break;
         }
-        case QUEX_TKN_IDENTIFIER:
+        case TKN_IDENTIFIER:
         {
             if (m_Context.typeStr.empty())
                 m_Context.typeStr<< tk->text;
             else
             {
                 RawToken * peek = m_Tokenizer.PeekToken();
-                if( peek->id == QUEX_TKN_BRACKET_O ) // This is a function definition or declration, because it has AAA BBB (
+                if( peek->id == TKN_BRACKET_O ) // This is a function definition or declration, because it has AAA BBB (
                 {
                     HandleFunction();
                 }
@@ -691,10 +691,10 @@ void ParserThread::HandleClass(EClassType ct)
 //    RawToken * current = m_Tokenizer.GetToken(); // read the class name;
 //    RawToken * peek    = m_Tokenizer.PeekToken();
 //
-//    if(peek->id == QUEX_TKN_SEMICOLON)
+//    if(peek->id == TKN_SEMICOLON)
 //        return;
 //
-//    if(peek->id == QUEX_TKN_CURLY_BRACKET_O)
+//    if(peek->id == TKN_CURLY_BRACKET_O)
 //        SkipStatementBlock();
 //
 //    TRACE(cc_text("handle class\n"));
@@ -707,10 +707,10 @@ void ParserThread::HandleClass(EClassType ct)
 
         TRACE("HandleClass() : Found class '%s'\n", current->text.c_str() );
 
-        if (!current->id == QUEX_TKN_TERMINATION && !next->id == QUEX_TKN_TERMINATION)   //Thich means were were not at EOF
+        if (!current->id == TKN_TERMINATION && !next->id == TKN_TERMINATION)   //Thich means were were not at EOF
         {
             // Check current firstly
-            if (current->id == QUEX_TKN_CURLY_BRACKET_O)   // unnamed class/struct/union
+            if (current->id == TKN_CURLY_BRACKET_O)   // unnamed class/struct/union
             {
 //                cc_string unnamedTmp;
 //                unnamedTmp.Printf(_T("%s%s%d"),
@@ -733,9 +733,9 @@ void ParserThread::HandleClass(EClassType ct)
 //
 //                PopContext();
             }
-            else if (current->id == QUEX_TKN_IDENTIFIER)     //OK, we need to check the next
+            else if (current->id == TKN_IDENTIFIER)     //OK, we need to check the next
             {
-                if ( next->id == QUEX_TKN_CURLY_BRACKET_O)   // class AAA {, we find the "{" here
+                if ( next->id == TKN_CURLY_BRACKET_O)   // class AAA {, we find the "{" here
                 {
                     PushContext();
 
@@ -764,12 +764,12 @@ void ParserThread::HandleFunction()
 
     RawToken * peek = m_Tokenizer.PeekToken();
 
-    if (peek->id == QUEX_TKN_CURLY_BRACKET_O)   // function definition
+    if (peek->id == TKN_CURLY_BRACKET_O)   // function definition
     {
         TRACE("Function definition\n");
         SkipStatementBlock();
     }
-    else if (peek->id == QUEX_TKN_SEMICOLON)
+    else if (peek->id == TKN_SEMICOLON)
     {
         TRACE("Function declaration\n");
         m_Tokenizer.GetToken();
