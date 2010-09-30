@@ -42,6 +42,17 @@ struct ParserThreadContext
             stackNamepsace.pop();
     }
 
+    void ResetStateInfo()
+    {
+        typeStr.clear();
+        lastToken.clear();
+        lastUnnamedTokenName.clear();
+        while (!stackNamepsace.empty())
+            stackNamepsace.pop();
+        while (!typeNamespace.empty())
+            typeNamespace.pop();
+    }
+
     /** this is a very important member variables! it serves as a return type stack,
       * eg: int string const varA; in this time, we should find the last ';" to determine this
       * is a Token named 'vara', every token before 'varA' will be pushed to m_Str, at this time
@@ -224,7 +235,7 @@ protected:
     /** handle function declearation or definition
       * @param name is the function name
       * @param isOperator if true, means it is a operato override function */
-    void HandleFunction();
+    void HandleFunction(cc_string & name);
 
     /** handle enum declearation */
     void HandleEnum();
@@ -257,7 +268,7 @@ protected:
 private:
 
     void SkipStatementBlock();
-    void SkipRoundBrace();
+    void SkipParentheses();
     void PushContext();
     void PopContext();
 
