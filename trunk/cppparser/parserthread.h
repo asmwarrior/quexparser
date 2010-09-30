@@ -18,6 +18,67 @@ extern int FILE_NEEDS_PARSING;
 class Parser;
 static wxCriticalSection s_mutexListProtection;
 
+struct ParserThreadContext
+{
+
+    ParserThreadContext():
+        lastScope(tsUndefined) ,
+        typeStr(cc_text("")),
+        lastToken(cc_text("")),
+        stackNamepsace(),
+        typeNamespace(),
+        lastUnnamedTokenName(cc_text("")),
+        inTypedef(false)
+    {
+
+    };
+
+    void Reset()
+    {
+        typeStr.clear();
+        lastToken.clear();
+        lastUnnamedTokenName.clear();
+        while (!stackNamepsace.empty())
+            stackNamepsace.pop();
+    }
+
+    /** this is a very important member variables! it serves as a return type stack,
+      * eg: int string const varA; in this time, we should find the last ';" to determine this
+      * is a Token named 'vara', every token before 'varA' will be pushed to m_Str, at this time
+      * m_Str = "int string const" */
+    cc_string typeStr;
+
+    /** for member funcs implementation or a function declaration below
+      * int ClassA::FunctionB();
+      * EncounteredNamespaces will be 'ClassA' */
+    std::queue<cc_string> stackNamepsace;
+
+    /** namespaces in function return types
+      * for a function declaration below:
+      * ClassC::returnValue ClassA::FunctionB();
+      * m_EncounteredTypeNamespaces is 'ClassC' */
+    std::queue<cc_string> typeNamespace;
+
+    /** parent Token, for example, you are parsing in the class declearation, then this member
+      * keep the pointer to the current class Token */
+    Token*               lastParent;
+
+    /** this member define the scope type of member variables, which is: public or private
+      * protected or undefined */
+    TokenScope           lastScope;
+
+    /**  unknow ....?? */
+    cc_string            lastToken;
+
+        /** this makes a difference in unnamed class/struct/enum handling */
+    bool                 inTypedef;
+
+
+    /** unknown ....?? */
+    cc_string             lastUnnamedTokenName;
+
+};
+
 struct ParserThreadOptions
 {
     ParserThreadOptions() :
@@ -163,7 +224,7 @@ protected:
     /** handle function declearation or definition
       * @param name is the function name
       * @param isOperator if true, means it is a operato override function */
-    void HandleFunction(const cc_string& name, bool isOperator = false);
+    void HandleFunction();
 
     /** handle enum declearation */
     void HandleEnum();
@@ -228,17 +289,8 @@ private:
     /** a pointer to the Token trie, all the Tokens will be add to that trie */
     TokensTree*          m_pTokensTree;
 
-    /** parent Token, for example, you are parsing in the class declearation, then this member
-      * keep the pointer to the current class Token */
-    Token*               m_pLastParent;
-
-    /** this member define the scope type of member variables, which is: public or private
-      * protected or undefined */
-    TokenScope           m_LastScope;
-
     /** the file name of the parsing source */
     cc_string             m_Filename;
-
     /** file size */
     unsigned int         m_FileSize;
 
@@ -248,46 +300,26 @@ private:
     /** determine whether we are parsing the local files or buffer already in memory */
     bool                 m_IsLocal;
 
-    /** this is a very important member variables! it serves as a return type stack,
-      * eg: int string const varA; in this time, we should find the last ';" to determine this
-      * is a Token named 'vara', every token before 'varA' will be pushed to m_Str, at this time
-      * m_Str = "int string const" */
-    cc_string             m_Str;
 
-    /**  unknow ....?? */
-    cc_string             m_LastToken;
+
+
 
     /** parser options, see the ParserThreadOptions struc */
     ParserThreadOptions  m_Options;
 
-    /** for member funcs implementation or a function declaration below
-      * int ClassA::FunctionB();
-      * EncounteredNamespaces will be 'ClassA' */
-    std::queue<cc_string> m_EncounteredNamespaces;
 
-    /** namespaces in function return types
-      * for a function declaration below:
-      * ClassC::returnValue ClassA::FunctionB();
-      * m_EncounteredTypeNamespaces is 'ClassC' */
-    std::queue<cc_string> m_EncounteredTypeNamespaces;
 
-    /** unknown ....?? */
-    cc_string             m_LastUnnamedTokenName;
 
-    /** this makes a difference in unnamed class/struct/enum handling */
-    bool                 m_ParsingTypedef;
-
-    /** handle nesting of #if...#if...#else...#endif...#endif */
-    int                  m_PreprocessorIfCount;
-
-    /**  unknown ...??? */
+    /**  whether the tokenizer use a buffer */
     bool                 m_IsBuffer;
 
-    /**  unknown ...???*/
+    /**  buffer string */
     cc_string             m_Buffer;
 
     /** initialze the m_Buffer member? */
     bool InitTokenizer();
+
+    ParserThreadContext m_Context;
 };
 
 #endif // PARSERTHREAD_H

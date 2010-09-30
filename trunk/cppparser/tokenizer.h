@@ -14,6 +14,7 @@ struct RawToken
 {
     cc_string text;
     int line;
+    int column;
     int id;
 };
 
