@@ -266,20 +266,23 @@ void ParserThread::DoParse()
         {
             int idArray[1] = {TKN_CURLY_BRACKET_C};
             SkipToOneOfId(idArray,1);
-            printf("Skiping {}\n");
+            TRACE("Skiping {}");
             break;
         }
         case TKN_BRACKET_O :
         {
             int idArray[1] = {TKN_BRACKET_C};
             SkipToOneOfId(idArray,1);
-            printf("Skiping ()\n");
+            TRACE("Skiping ()");
             break;
         }
         case TKN_FOR:
         case TKN_WHILE:
+        case TKN_SWITCH:
+        case TKN_IF:
+        case TKN_ELSE:
         {
-            printf("handling for or while block\n");
+            TRACE("handling for or while block");
             SkipParentheses();
             SkipStatementBlock();
             break;
@@ -295,8 +298,6 @@ void ParserThread::DoParse()
         }
         case TKN_IDENTIFIER:
         {
-            if (m_Context.typeStr.empty())
-                m_Context.typeStr<< tk->text;
 
             // we are interested in the following token.
 
@@ -306,15 +307,16 @@ void ParserThread::DoParse()
                 cc_string functionName = tk->text;
                 HandleFunction(functionName);
             }
-            else if( peek->id == TKN_IDENTIFIER )
-            {
-                m_Context.typeStr<< tk->text;
-                tk = m_Tokenizer.GetToken();
-            }
+//            else if( peek->id == TKN_IDENTIFIER )
+//            {
+//                m_Context.typeStr<< tk->text;
+//                tk = m_Tokenizer.GetToken();
+//            }
             else if (peek->id == TKN_SEMICOLON )// a variable
             {
                 cc_string variableName = tk->text;
                 cc_string variableType = m_Context.typeStr;
+                TRACE("Variable Find name(%s) type(%s)",variableName.c_str(),variableType.c_str());
                 //Add variable to tokenstree
                 //consume the semicolon
                 m_Tokenizer.GetToken();
@@ -323,16 +325,21 @@ void ParserThread::DoParse()
             else if (peek->id == TKN_DOUBLE_COLON)
             {
                 if (m_Context.typeStr.empty())
-                    m_Context.typeNamespace.push(tk->text); // it's a type's namespace
+                    m_Context.typeNamespace.push(tk->text);
                 else
-                    m_Context.stackNamepsace.push(tk->text);
-                m_Tokenizer.GetToken(); //eat ::
+                    m_Context.stackNamespace.push(tk->text); // it's a type's namespace
+
+                GetToken();//eat ::
             }
             else if (  peek->id == TKN_AMPERSANT
                      ||peek->id == TKN_MULT)
             {
                 m_Context.typeStr<< peek->text;
                 m_Tokenizer.GetToken();
+            }
+            else if (peek->id == TKN_IDENTIFIER )
+            {
+                m_Context.typeStr<< tk->text;
             }
             break;
         }
@@ -341,10 +348,61 @@ void ParserThread::DoParse()
             m_Context.ResetStateInfo();
             break;
         }
-        case TKN_AMPERSANT:
-        case TKN_MULT:
+        case TKN_AMPERSANT:  //&
+        case TKN_MULT:       //*
         {
             m_Context.typeStr<< tk->text;
+            break;
+        }
+        case TKN_PUBLIC:
+        {
+            RawToken * peek = PeekToken();
+            if(peek->id == TKN_COLON)
+            {
+                m_Context.lastScope = tsPublic;
+                m_Context.ResetStateInfo();
+                GetToken();
+            }
+            break;
+        }
+        case TKN_PRIVATE:
+        {
+            RawToken * peek = PeekToken();
+            if(peek->id == TKN_COLON)
+            {
+                m_Context.lastScope = tsPrivate;
+                m_Context.ResetStateInfo();
+                GetToken();
+            }
+            break;
+        }
+        case TKN_PROTECT:
+        {
+            RawToken * peek = PeekToken();
+            if(peek->id == TKN_COLON)
+            {
+                m_Context.lastScope = tsProtected;
+                m_Context.ResetStateInfo();
+                GetToken();
+            }
+            break;
+        }
+        case TKN_USING:
+        {
+            RawToken * peek = PeekToken();
+            if(peek->id == TKN_NAMESPACE)
+            {
+                //Handleing using space directive
+                SkipStatementBlock();
+            }
+            break;
+        }
+        case TKN_DELETE:
+        case TKN_NEW:
+        case TKN_RETURN:
+        case TKN_FRIEND:
+        {
+            SkipStatementBlock();
             break;
         }
         default:
