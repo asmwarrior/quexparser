@@ -174,23 +174,23 @@ void  Tokenizer::DoAdvanceGetToken(RawToken & tk)
     {
         DoGetToken(tk);
 
-        if( QUEX_TKN_PP_IF <= tk.id && tk.id <= QUEX_TKN_PP_ERROR)
+        if( TKN_PP_IF <= tk.id && tk.id <= TKN_PP_ERROR)
         {
-            //loop until we find a QUEX_TKN_QUEX_TKN_PP_FINISH
+            //loop until we find a TKN_TKN_PP_FINISH
             do
             {
                 DoGetToken(tk);
-            }while(QUEX_TKN_PP_FINISH != tk.id);
+            }while(TKN_PP_FINISH != tk.id);
         }
-        else if (tk.id == QUEX_TKN_PP_DEFINE)
+        else if (tk.id == TKN_PP_DEFINE)
         {
             cc_string str;
-            // read to the QUEX_TKN_PP_FINISH
+            // read to the TKN_PP_FINISH
             do
             {
                 str << tk.text << " ";
                 DoGetToken(tk);
-            }while(QUEX_TKN_PP_FINISH != tk.id);
+            }while(TKN_PP_FINISH != tk.id);
             str << tk.text;
             tk.text = str;
             break;
@@ -227,12 +227,12 @@ void Tokenizer::DoGetToken(RawToken & tk)
     QUEX_TYPE_TOKEN_ID id = m_pQuex->receive();
 
 
-    if( id == QUEX_TKN_TERMINATION )
+    if( id == TKN_TERMINATION )
     {
         m_IsEOF = true;
         tk.text = "";
     }
-    else if (id == QUEX_TKN_PP_FINISH)
+    else if (id == TKN_PP_FINISH)
     {
         tk.text = "[EndOfPP]\n";
     }
@@ -264,7 +264,7 @@ void Tokenizer::RunTest()
 
         cout<<m_QuexToken<< " line=" << m_QuexToken.line_number() << "colunm=" << m_QuexToken.column_number()<<endl;
 
-        if( id == QUEX_TKN_TERMINATION )
+        if( id == TKN_TERMINATION )
         {
             break;
         }
