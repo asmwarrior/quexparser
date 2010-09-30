@@ -25,7 +25,7 @@ struct ParserThreadContext
         lastScope(tsUndefined) ,
         typeStr(cc_text("")),
         lastToken(cc_text("")),
-        stackNamepsace(),
+        stackNamespace(),
         typeNamespace(),
         lastUnnamedTokenName(cc_text("")),
         inTypedef(false)
@@ -38,8 +38,8 @@ struct ParserThreadContext
         typeStr.clear();
         lastToken.clear();
         lastUnnamedTokenName.clear();
-        while (!stackNamepsace.empty())
-            stackNamepsace.pop();
+        while (!stackNamespace.empty())
+            stackNamespace.pop();
     }
 
     void ResetStateInfo()
@@ -47,8 +47,8 @@ struct ParserThreadContext
         typeStr.clear();
         lastToken.clear();
         lastUnnamedTokenName.clear();
-        while (!stackNamepsace.empty())
-            stackNamepsace.pop();
+        while (!stackNamespace.empty())
+            stackNamespace.pop();
         while (!typeNamespace.empty())
             typeNamespace.pop();
     }
@@ -62,7 +62,7 @@ struct ParserThreadContext
     /** for member funcs implementation or a function declaration below
       * int ClassA::FunctionB();
       * EncounteredNamespaces will be 'ClassA' */
-    std::queue<cc_string> stackNamepsace;
+    std::queue<cc_string> stackNamespace;
 
     /** namespaces in function return types
       * for a function declaration below:
@@ -271,6 +271,9 @@ private:
     void SkipParentheses();
     void PushContext();
     void PopContext();
+
+    inline RawToken * GetToken()  {return m_Tokenizer.GetToken();}
+    inline RawToken * PeekToken() {return m_Tokenizer.PeekToken();}
 
     /** no usage ??? */
     void Log(const cc_string& log);
