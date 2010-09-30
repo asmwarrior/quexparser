@@ -32,7 +32,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 			<Add option="-DQUEX_SETTING_BUFFER_SIZE=8" />
-			<Add directory="$(#quex)" />
+			<Add directory="$(QUEX_PATH)" />
 		</Compiler>
 		<Unit filename="cppparser\cchelper.h" />
 		<Unit filename="cppparser\parserthread.cpp" />
