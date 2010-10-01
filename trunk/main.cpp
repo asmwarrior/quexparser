@@ -65,7 +65,7 @@ protected:
 
         buf[0] = 0;
         in.read(buf+1,buf_size);
-        buf[buf_size] = '\0';
+        buf[buf_size+1] = '\0';
 
 //        for(int i = 0;i<=buf_size;i++)
 //        {

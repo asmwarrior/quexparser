@@ -122,8 +122,8 @@ bool Tokenizer::ReadFile()
             delete m_pQuex;
 
         m_pQuex = new quex::tiny_lexer((QUEX_TYPE_CHARACTER*)pBuffer,
-                                       m_BufferLen,
-                                       (QUEX_TYPE_CHARACTER*)pBuffer+m_BufferLen-1);
+                                       m_BufferLen+2,
+                                       (QUEX_TYPE_CHARACTER*)pBuffer+m_BufferLen+1);
 
         (void)m_pQuex->token_p_switch(&m_QuexToken);
 
