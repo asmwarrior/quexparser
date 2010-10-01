@@ -217,6 +217,7 @@ bool ParserThread::Parse()
     bool result = false;
 
     m_Context.inTypedef = false;
+    m_Context.lastParent = 0;
 
     do
     {
@@ -258,18 +259,18 @@ void ParserThread::DoParse()
         if (!m_pTokensTree || TestDestroy())
             break;
 
-        RawToken* tk = m_Tokenizer.GetToken();
+        RawToken* tk = GetToken();
 
         switch (tk->id)
         {
-        case TKN_CURLY_BRACKET_O :
+        case TKN_CURLY_BRACKET_O : //{
         {
             int idArray[1] = {TKN_CURLY_BRACKET_C};
             SkipToOneOfId(idArray,1);
             TRACE("Skiping {}");
             break;
         }
-        case TKN_BRACKET_O :
+        case TKN_BRACKET_O :       // (
         {
             int idArray[1] = {TKN_BRACKET_C};
             SkipToOneOfId(idArray,1);
@@ -307,11 +308,6 @@ void ParserThread::DoParse()
                 cc_string functionName = tk->text;
                 HandleFunction(functionName);
             }
-//            else if( peek->id == TKN_IDENTIFIER )
-//            {
-//                m_Context.typeStr<< tk->text;
-//                tk = m_Tokenizer.GetToken();
-//            }
             else if (peek->id == TKN_SEMICOLON )// a variable
             {
                 cc_string variableName = tk->text;
@@ -646,117 +642,20 @@ Token* ParserThread::DoAddToken(TokenKind kind,
         return 0; // oops!
 
     s_MutexProtection.Enter();
-//    Token* newToken = 0;
+    Token* newToken = 0;
     cc_string newname(name);
-//    cc_trimRight(m_Context.typeStr);
-//    if (kind == tkDestructor)
-//    {
-//        // special class destructors case
-//        //newname.insert(0,ParserConsts::tilde);
-//        m_Str.clear();
-//    }
-//
-//    cc_string realArgs = cc_text("");
-//    if (kind & tkAnyFunction)
-//        realArgs = GetRealArgs(args);
-//
-//    Token* localParent = 0;
-//
-//    // preserve m_EncounteredTypeNamespaces; needed further down this function
-//    std::queue<cc_string> q = m_Context.typeNamespace;
-//    if ((kind == tkDestructor || kind == tkConstructor) && !q.empty())
-//    {
-//        // look in m_EncounteredTypeNamespaces
-//        localParent = FindTokenFromQueue(q, 0, true, m_pLastParent);
-//        if (localParent)
-//            newToken = TokenExists(newname, localParent);
-//    }
-//
-//    // check for implementation member function
-//    if (!newToken && !m_EncounteredNamespaces.empty())
-//    {
-//        localParent = FindTokenFromQueue(m_EncounteredNamespaces, 0, true, m_pLastParent);
-//        if (localParent)
-//            newToken = TokenExists(newname, localParent);
-//    }
-//
-//    // none of the above; check for token under parent (but not if we 're parsing a temp buffer)
-//    if (!newToken && !m_Options.isTemp)
-//        newToken = TokenExists(name, m_pLastParent, kind);
-//
-//
-//    cc_string newTokenArgs = (newToken) ? (newToken->m_Args) : cc_text("");
-////    if (newToken && newToken->m_TokenKind == kind && newTokenArgs == args)
-//       if (   newToken
-//        && (newToken->m_TokenKind == kind)
-//        && (   (newTokenArgs == args)
-//            || (kind & tkAnyFunction && newToken->m_RealArgs == realArgs) ) )
-//    {
-//        m_pTokensTree->m_modified = true;
-//    }
-//    else
-//    {
-//        Token* finalParent = localParent ? localParent : m_pLastParent;
-//        newToken = new Token(newname,m_File,line);
-//        newToken->m_ParentIndex = finalParent ? finalParent->GetSelf() : -1;
-//        newToken->m_TokenKind   = kind;
-//        newToken->m_Scope       = m_LastScope;
-//        newToken->m_RealArgs    = realArgs;
-//
-//        if (newToken->m_TokenKind == tkClass)
-//            newToken->m_RealArgs = args;    //save template args
-//        else
-//            newToken->m_Args = args;
-//        int newidx = m_pTokensTree->insert(newToken);
-//        if (finalParent)
-//            finalParent->AddChild(newidx);
-//    }
-//
-//    if (!(kind & (tkConstructor | tkDestructor)))
-//    {
-//        cc_string readType = m_Str;
-//        cc_string actualType = GetActualTokenType();
-//        if (actualType.find(cc_text(' ')) == cc_string::npos)
-//        {
-//            // token type must contain all namespaces
-//            actualType.insert(0,GetQueueAsNamespaceString(m_EncounteredTypeNamespaces));
-//        }
-//        newToken->m_Type       = readType;
-//        newToken->m_ActualType = actualType;
-//    }
-//    newToken->m_IsLocal    = m_IsLocal;
-//    newToken->m_IsTemp     = m_Options.isTemp;
-//    newToken->m_IsOperator = isOperator;
-//
-//    if (!isImpl)
-//    {
-//
-//        newToken->m_File = m_File;
-//        newToken->m_Line = line;
-//        TRACE(cc_text("DoAddToken() : Added/updated token '%s' (%d), type '%s', actual '%s'. Parent is %s (%d)"),
-//              name.c_str(),
-//              newToken->GetSelf(),
-//              newToken->m_Type.c_str(),
-//              newToken->m_ActualType.c_str(),
-//              newToken->GetParentName().c_str(),
-//              newToken->m_ParentIndex);
-//
-//    }
-//    else
-//    {
-//        newToken->m_ImplFile = m_File;
-//        newToken->m_ImplLine = line;
-//        newToken->m_ImplLineStart = implLineStart;
-//        newToken->m_ImplLineEnd = implLineEnd;
-//        m_pTokensTree->m_FilesMap[newToken->m_ImplFile].insert(newToken->GetSelf());
-//    }
-//
-//    while (!m_EncounteredNamespaces.empty())
-//        m_EncounteredNamespaces.pop();
-//
-//    while (!m_EncounteredTypeNamespaces.empty())
-//        m_EncounteredTypeNamespaces.pop();
-    Token* newToken = new Token(newname,m_File,line);
+    Token * finalParent = m_Context.lastParent;
+
+    newToken = new Token(newname,m_File,line);
+    newToken->m_ParentIndex = finalParent ? finalParent->GetSelf() : -1;
+
+    int newidx = m_pTokensTree->insert(newToken);
+    if (finalParent)
+        finalParent->AddChild(newidx);
+
+    TRACE("Adding Token name(%s)line(%d)",newname.c_str(),line);
+
+
     s_MutexProtection.Leave();
     return newToken;
 }
@@ -788,22 +687,10 @@ void ParserThread::ReadVarNames()
 
 void ParserThread::HandleClass(EClassType ct)
 {
-//    RawToken * current = m_Tokenizer.GetToken(); // read the class name;
-//    RawToken * peek    = m_Tokenizer.PeekToken();
-//
-//    if(peek->id == TKN_SEMICOLON)
-//        return;
-//
-//    if(peek->id == TKN_CURLY_BRACKET_O)
-//        SkipStatementBlock();
-//
-//    TRACE(cc_text("handle class\n"));
-
-
     while (!TestDestroy())
     {
-        RawToken * current = m_Tokenizer.GetToken();      // class name
-        RawToken * next   = m_Tokenizer.PeekToken();
+        RawToken * current = GetToken();      // class name
+        RawToken * next    =  PeekToken();
 
         TRACE("HandleClass() : Found class '%s'", current->text.c_str() );
 
@@ -837,13 +724,12 @@ void ParserThread::HandleClass(EClassType ct)
             {
                 if ( next->id == TKN_CURLY_BRACKET_O)   // class AAA {, we find the "{" here
                 {
-                    PushContext();
-
-                    //DoParse();
-
-                    SkipStatementBlock();
-
-                    PopContext();
+                    Token* newToken = DoAddToken(tkClass, current->text, current->line);
+                    ParserThreadContext savedContext = m_Context;
+                    m_Context.Reset();
+                    m_Context.lastParent = newToken;
+                    DoParse();
+                    m_Context = savedContext;
                     break;
                 }
 
@@ -867,11 +753,17 @@ void ParserThread::HandleFunction(cc_string & name)
     if (peek->id == TKN_CURLY_BRACKET_O)   // function definition
     {
         TRACE("Function definition");
+        TokenKind tokenKind = tkFunction ;
+        cc_string functionName(name);
+        Token* newToken =  DoAddToken(tokenKind, functionName,peek->line);
         SkipStatementBlock();
     }
     else if (peek->id == TKN_SEMICOLON)
     {
         TRACE("Function declaration");
+        TokenKind tokenKind = tkFunction ;
+        cc_string functionName(name);
+        Token* newToken =  DoAddToken(tokenKind, functionName,peek->line);
         m_Tokenizer.GetToken();
     }
     m_Context.Reset();
