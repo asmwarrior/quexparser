@@ -320,6 +320,9 @@ void ParserThread::DoParse()
                 cc_string variableType = m_Context.typeStr;
                 TRACE("Variable Find name(%s) type(%s)",variableName.c_str(),variableType.c_str());
                 //Add variable to tokenstree
+                if (m_Options.handleVars)
+                        DoAddToken(tkVariable, tk->text, tk->line);
+
                 //consume the semicolon
                 m_Tokenizer.GetToken();
                 m_Context.ResetStateInfo();
