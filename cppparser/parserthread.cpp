@@ -662,6 +662,7 @@ Token* ParserThread::DoAddToken(TokenKind kind,
 
     newToken = new Token(newname,m_File,line);
     newToken->m_ParentIndex = finalParent ? finalParent->GetSelf() : -1;
+    newToken->m_TokenKind = kind;
 
     int newidx = m_pTokensTree->insert(newToken);
     if (finalParent)
@@ -673,6 +674,12 @@ Token* ParserThread::DoAddToken(TokenKind kind,
     {
         newToken->m_TemplateArgument = m_Context.templateArgument;
         m_Context.templateArgument.clear();
+    }
+
+    if(!m_Context.typeStr.empty())
+    {
+        newToken->m_Type = m_Context.typeStr;
+        m_Context.typeStr.clear();
     }
 
 

@@ -152,12 +152,11 @@ public:
     void printTokenDetail(std::ostream & f, int n)
     {
         Token * tk = tree->at(n);
-        //printToken(f, tk);
-        f << tk->GetTokenKindString();
+        f << tk->GetTokenKindString()<<endl;
         if (!tk->m_Children.empty())
             f << "+";
         if (tk->m_TokenKind == tkFunction)
-            f << tk->m_Name << tk->m_Args << "\t";
+            f << tk->m_Type << " "<< tk->m_Name << tk->m_Args << "\t";
         else
             f << tk->DisplayName() << "\t";
         f << "[" << tk->m_Line << "," << tk->m_ImplLine << "]" << endl;
