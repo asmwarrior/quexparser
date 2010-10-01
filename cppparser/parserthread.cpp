@@ -270,6 +270,12 @@ void ParserThread::DoParse()
             TRACE("Skiping {}");
             break;
         }
+        case TKN_CURLY_BRACKET_C: //}
+        {
+            // the only time we get to find a } is when recursively called by e.g. HandleClass
+            // we have to return now...
+            return;
+        }
         case TKN_BRACKET_O :       // (
         {
             int idArray[1] = {TKN_BRACKET_C};
@@ -728,6 +734,7 @@ void ParserThread::HandleClass(EClassType ct)
                     ParserThreadContext savedContext = m_Context;
                     m_Context.Reset();
                     m_Context.lastParent = newToken;
+                    GetToken();// consume {
                     DoParse();
                     m_Context = savedContext;
                     break;
