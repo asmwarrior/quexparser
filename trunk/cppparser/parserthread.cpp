@@ -410,6 +410,11 @@ void ParserThread::DoParse()
             SkipStatementBlock();
             break;
         }
+        case TKN_TEMPLATE:
+        {
+            GetTemplateArgs();
+            break;
+        }
         default:
         {
             printf("%s\n",tk->text.c_str());
@@ -664,6 +669,13 @@ Token* ParserThread::DoAddToken(TokenKind kind,
 
     TRACE("Adding Token name(%s)line(%d)",newname.c_str(),line);
 
+    if(!m_Context.templateArgument.empty())
+    {
+        newToken->m_TemplateArgument = m_Context.templateArgument;
+        m_Context.templateArgument.clear();
+    }
+
+
 
     s_MutexProtection.Leave();
     return newToken;
@@ -804,5 +816,47 @@ void ParserThread::PushContext()
 }
 void ParserThread::PopContext()
 {
+
+}
+
+void ParserThread::GetTemplateArgs()
+{
+    m_Context.templateArgument.clear();
+    int nestLvl = 0;
+    // NOTE: only exit this loop with 'break' so the tokenizer's state can
+    // be reset afterwards (i.e. don't use 'return')
+    while (!TestDestroy())
+    {
+        RawToken * tk = GetToken();
+
+        if (tk->id == TKN_LESS)
+        {
+            ++nestLvl;
+            m_Context.templateArgument << tk->text << " ";
+
+        }
+        else if (tk->id == TKN_GREATER)
+        {
+            --nestLvl;
+            m_Context.templateArgument << tk->text << " ";
+        }
+        else if (tk->id==TKN_SEMICOLON)
+        {
+            // unget token - leave ; on the stack
+            m_Context.templateArgument.clear();
+            break;
+        }
+        else if (tk->id == TKN_TERMINATION)
+            break;
+        else
+            m_Context.templateArgument << tk->text << " ";
+
+        if (nestLvl <= 0)
+        {
+            TRACE("ParserThread::GetTemplateArgs() %s", m_Context.templateArgument.c_str());
+            break;
+        }
+
+    }
 
 }
