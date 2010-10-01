@@ -88,6 +88,8 @@ struct ParserThreadContext
     /** unknown ....?? */
     cc_string             lastUnnamedTokenName;
 
+    cc_string             templateArgument;
+
 };
 
 struct ParserThreadOptions
@@ -271,6 +273,7 @@ private:
     void SkipParentheses();
     void PushContext();
     void PopContext();
+    void GetTemplateArgs();
 
     inline RawToken * GetToken()  {return m_Tokenizer.GetToken();}
     inline RawToken * PeekToken() {return m_Tokenizer.PeekToken();}
