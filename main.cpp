@@ -149,6 +149,23 @@ public:
         }
     }
 
+    void printTokenDetail(std::ostream & f, int n)
+    {
+        Token * tk = tree->at(n);
+        //printToken(f, tk);
+        f << tk->GetTokenKindString();
+        if (!tk->m_Children.empty())
+            f << "+";
+        if (tk->m_TokenKind == tkFunction)
+            f << tk->m_Name << tk->m_Args << "\t";
+        else
+            f << tk->DisplayName() << "\t";
+        f << "[" << tk->m_Line << "," << tk->m_ImplLine << "]" << endl;
+
+        if (!tk->m_TemplateArgument.empty())
+            f << "template argument " << tk->m_TemplateArgument << endl;
+    }
+
     void printList(std::ostream & f)
     {
         f.setf(ios::left);
@@ -156,7 +173,7 @@ public:
         for (TokenList::iterator it = tokens.begin(); it != tokens.end(); it++)
         {
             Token * tk = *it;
-            f << std::setw(15) << tk->GetTokenKindString() << tk->DisplayName() << "\t[" << tk->m_Line << "," << tk->m_ImplLine << "]" << endl;
+            f << std::setw(15) << tk->GetSelf()<< "\t"<< tk->GetTokenKindString() << tk->DisplayName() << "\t[" << tk->m_Line << "," << tk->m_ImplLine << "]" <<tk->m_TemplateArgument<< endl;
         }
     }
 
@@ -207,6 +224,7 @@ void showHelp(std::string & logname)
     cout << "-> cmd: (load,files,clear)  (list,tree,show,dump) (log,logoff) (help,exit) log=" << logname << endl;
     cout << setw(30) << "\tload  filename" << "load c++ file path" << endl
          << setw(30) << "\tfiles" << "show load files" << endl
+         << setw(30) << "\tprint  TokenIndex" << "print token information" << endl
          << setw(30) << "\tclear"<< "clear all files" << endl
          << setw(30) << "\tlist" << "show token by list" << endl
          << setw(30) << "\ttree" << "show token by tree" << endl
@@ -251,6 +269,22 @@ int main()
             {
                 cout << "error load filename! " << opts << endl;
             }
+        }
+        else if ( cmd == "print")
+        {
+            int n = -1;
+            cin >> n;
+            if (n >= 0 && n < client.tree->size())
+            {
+                client.printTokenDetail(cout,n);
+                if (log)
+                    client.printTokenDetail(*log,n);
+            }
+            else
+            {
+                cout << "-> error input token index " << n << endl;
+            }
+
         }
         else if (cmd == "files")
         {
