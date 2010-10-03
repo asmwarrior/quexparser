@@ -113,7 +113,7 @@ bool LoadTokenIdxSetFromFile(std::istream& f,TokenIdxSet* data)
 
 Token::Token()
     :
-    m_File(0),
+    m_FileIdx(0),
     m_Line(0),
     m_ImplFile(0),
     m_ImplLine(0),
@@ -134,7 +134,7 @@ Token::Token()
 
 Token::Token(const cc_string& name, unsigned int file, unsigned int line)
     : m_Name(name),
-    m_File(file),
+    m_FileIdx(file),
     m_Line(line),
     m_ImplFile(0),
     m_ImplLine(0),
@@ -235,7 +235,7 @@ cc_string Token::GetFilename() const
 {
     if(!m_pTree)
         return cc_string(cc_text(""));
-    return m_pTree->GetFilename(m_File);
+    return m_pTree->GetFilename(m_FileIdx);
 }
 
 cc_string Token::GetImplFilename() const
@@ -249,9 +249,9 @@ bool Token::MatchesFiles(const TokenFilesSet& files)
 {
     if(!files.size())
         return true;
-    if(!m_File && !m_ImplFile)
+    if(!m_FileIdx && !m_ImplFile)
         return true;
-    if((m_File && files.count(m_File)) || (m_ImplFile && files.count(m_ImplFile)))
+    if((m_FileIdx && files.count(m_FileIdx)) || (m_ImplFile && files.count(m_ImplFile)))
         return true;
     return false;
 }
@@ -300,18 +300,19 @@ cc_string Token::GetTokenKindString() const
 {
     switch (m_TokenKind)
     {
-        case tkClass:        return cc_text("class");
-        case tkNamespace:    return cc_text("namespace");
-        case tkTypedef:      return cc_text("typedef");
-        case tkEnum:         return cc_text("enum");
-        case tkEnumerator:   return cc_text("enumerator");
-        case tkFunction:     return cc_text("function");
-        case tkConstructor:  return cc_text("constructor");
-        case tkDestructor:   return cc_text("destructor");
-        case tkPreprocessor: return cc_text("preprocessor");
-                case tkMacro:		 return cc_text("macro");
-        case tkVariable:     return cc_text("variable");
-        default:             return cc_text(""); // tkUndefined
+        case tkClass:         return cc_text("class");
+        case tkNamespace:     return cc_text("namespace");
+        case tkTypedef:       return cc_text("typedef");
+        case tkEnum:          return cc_text("enum");
+        case tkEnumerator:    return cc_text("enumerator");
+        case tkFunction:      return cc_text("function");
+        case tkConstructor:   return cc_text("constructor");
+        case tkDestructor:    return cc_text("destructor");
+        case tkPreprocessor:  return cc_text("preprocessor");
+        case tkMacro:		  return cc_text("macro");
+        case tkVariable:      return cc_text("variable");
+        case tkUsingNamespace: return cc_text("using namespace");
+        default:              return cc_text(""); // tkUndefined
     }
 }
 
@@ -369,7 +370,7 @@ bool Token::SerializeIn(std::istream& f)
             result = false;
             break;
         }
-        if (!LoadIntFromFile(f, (int*)&m_File))
+        if (!LoadIntFromFile(f, (int*)&m_FileIdx))
         {
             result = false;
             break;
@@ -437,7 +438,7 @@ bool Token::SerializeOut(std::ostream& f)
     SaveStringToFile(f, m_Name);
     SaveStringToFile(f, m_Args);
     SaveStringToFile(f, m_AncestorsString);
-    SaveIntToFile(f, m_File);
+    SaveIntToFile(f, m_FileIdx);
     SaveIntToFile(f, m_Line);
     SaveIntToFile(f, m_ImplFile);
     SaveIntToFile(f, m_ImplLine);
@@ -623,7 +624,7 @@ int TokensTree::AddToken(Token* newToken,int forceidx)
 
     int newitem = AddTokenToList(newToken,forceidx);
     curlist.insert(newitem);
-    m_FilesMap[newToken->m_File].insert(newitem);
+    m_FilesMap[newToken->m_FileIdx].insert(newitem);
 
     // Add Token (if applicable) to the namespaces indexes
     if(newToken->m_ParentIndex < 0)
@@ -776,7 +777,7 @@ void TokensTree::eraseTokenFromList(int idx)
     {
         m_Tokens[idx] = 0;
         m_FreeTokens.push_back(idx);
-        m_FilesToBeReparsed.insert(oldToken->m_File);
+        m_FilesToBeReparsed.insert(oldToken->m_FileIdx);
         delete oldToken;
     }
 }
@@ -808,7 +809,7 @@ void TokensTree::eraseFile(int index)
         // if one of those filenames do not match the above criteria
         // just clear the relevant info, leaving the token where it is...
 
-        bool match1 = the_token->m_File == 0 || (int)the_token->m_File == index;
+        bool match1 = the_token->m_FileIdx == 0 || (int)the_token->m_FileIdx == index;
         bool match2 = the_token->m_ImplFile == 0 || (int)the_token->m_ImplFile == index;
         if (match1 && match2)
             eraseToken(the_token); // safe to erase the token
@@ -817,7 +818,7 @@ void TokensTree::eraseFile(int index)
             // do not erase token, just clear the matching info
             if (match1)
             {
-                the_token->m_File = 0;
+                the_token->m_FileIdx = 0;
                 the_token->m_Line = 0;
             }
             else if (match2)

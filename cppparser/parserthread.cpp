@@ -34,7 +34,7 @@ ParserThread::ParserThread(Parser* parent,
     m_pTokensTree(tokensTree),
     m_Filename(cc_text("")),
     m_FileSize(0),
-    m_File(0),
+    m_FileIdx(0),
     m_IsLocal(isLocal),
     m_Options(parserThreadOptions),
     m_IsBuffer(parserThreadOptions.useBuffer),
@@ -227,9 +227,9 @@ bool ParserThread::Parse()
         if (!m_Options.useBuffer)   // Parse a file
         {
             s_MutexProtection.Enter();
-            m_File = m_pTokensTree->ReserveFileForParsing(m_Filename);
+            m_FileIdx = m_pTokensTree->ReserveFileForParsing(m_Filename);
             s_MutexProtection.Leave();
-            if (!m_File)
+            if (!m_FileIdx)
                 break;
         }
 
@@ -398,7 +398,14 @@ void ParserThread::DoParse()
             if(peek->id == TKN_NAMESPACE)
             {
                 //Handleing using space directive
-                SkipStatementBlock();
+                GetToken(); //consume "namespace"
+                // simply handling mode: using namespace AAA
+                tk = GetToken();
+                if (tk->id == TKN_IDENTIFIER)
+                    DoAddToken(tkUsingNamespace,tk->text,tk->line);
+                else
+                    SkipStatementBlock();
+
             }
             break;
         }
@@ -510,7 +517,7 @@ Token* ParserThread::FindTokenFromQueue(std::queue<cc_string>& q, Token* parent,
 
     if (!result && createIfNotExist)
     {
-        result = new Token(ns, m_File, 0);
+        result = new Token(ns, m_FileIdx, 0);
         result->m_TokenKind = q.empty() ? tkClass : tkNamespace;
         result->m_IsLocal = m_IsLocal;
         result->m_ParentIndex = parentIfCreated ? parentIfCreated->GetSelf() : -1;
@@ -660,7 +667,7 @@ Token* ParserThread::DoAddToken(TokenKind kind,
     cc_string newname(name);
     Token * finalParent = m_Context.lastParent;
 
-    newToken = new Token(newname,m_File,line);
+    newToken = new Token(newname,m_FileIdx,line);
     newToken->m_ParentIndex = finalParent ? finalParent->GetSelf() : -1;
     newToken->m_TokenKind = kind;
 
@@ -681,6 +688,11 @@ Token* ParserThread::DoAddToken(TokenKind kind,
         newToken->m_Type = m_Context.typeStr;
         m_Context.typeStr.clear();
     }
+    newToken->m_FileIdx = m_FileIdx;
+    newToken->m_Line    = line;
+    TRACE(cc_text("DoAddToken() : Added/updated token '%s' (%d), type '%s', actual '%s'. Parent is %s (%d)"),
+              name.c_str(),                   newToken->GetSelf(),                newToken->m_Type.c_str(),
+              newToken->m_ActualType.c_str(), newToken->GetParentName().c_str(), newToken->m_ParentIndex);
 
 
 

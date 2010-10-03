@@ -55,6 +55,7 @@ enum TokenKind
     tkEnumerator    = 0x0100,
     tkPreprocessor  = 0x0200,
     tkMacro 	    = 0x0400,
+    tkUsingNamespace= 0x0800,
 
     // convenient masks
     tkAnyContainer  = tkClass | tkNamespace | tkTypedef,
@@ -99,7 +100,7 @@ class Token
         cc_string m_RealArgs;
         cc_string m_AncestorsString; // all ancestors comma-separated list
         cc_string m_TemplateArgument;
-        unsigned int m_File;
+        unsigned int m_FileIdx;
         unsigned int m_Line;
         unsigned int m_ImplFile;
         unsigned int m_ImplLine; // where the token was met
