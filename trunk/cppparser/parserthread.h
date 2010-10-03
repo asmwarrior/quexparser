@@ -312,7 +312,7 @@ private:
     unsigned int         m_FileSize;
 
     /** source file index on the Token trie */
-    unsigned int         m_File;
+    unsigned int         m_FileIdx;
 
     /** determine whether we are parsing the local files or buffer already in memory */
     bool                 m_IsLocal;

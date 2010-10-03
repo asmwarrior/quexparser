@@ -172,7 +172,7 @@ public:
         for (TokenList::iterator it = tokens.begin(); it != tokens.end(); it++)
         {
             Token * tk = *it;
-            f << std::setw(15) << tk->GetSelf()<< "\t"<< tk->GetTokenKindString() << tk->DisplayName() << "\t[" << tk->m_Line << "," << tk->m_ImplLine << "]" <<tk->m_TemplateArgument<< endl;
+            f << std::setw(15) << tk->GetSelf()<< " "<< tk->GetTokenKindString() << "\t" << tk->DisplayName() << "\t[" << tk->m_Line << "," << tk->m_ImplLine << "]" <<tk->m_TemplateArgument<< endl;
         }
     }
 
