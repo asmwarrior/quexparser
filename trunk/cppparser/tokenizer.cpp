@@ -31,7 +31,8 @@ Tokenizer::Tokenizer(const cc_string& filename)
     m_BufferLen(0),
     m_PeekAvailable(false),
     m_IsOK(false),
-    m_pQuex(0)
+    m_pQuex(0),
+    m_IsEOF(false)
 
 {
 
