@@ -309,23 +309,39 @@ void ParserThread::DoParse()
             // we are interested in the following token.
 
             RawToken * peek = m_Tokenizer.PeekToken();
+
             if( peek->id == TKN_BRACKET_O ) // This is a function definition or declration, because it has AAA BBB (
             {
-                cc_string functionName = tk->text;
-                HandleFunction(functionName);
+                if(m_Context.typeStr.empty())   // AAA(
+                {
+                    //HandleMacro();
+                    SkipParentheses();
+                }
+                else                            // AAA BBB(
+                {
+                    cc_string functionName = tk->text;
+                     HandleFunction(functionName);
+                }
             }
             else if (peek->id == TKN_SEMICOLON )// a variable
             {
-                cc_string variableName = tk->text;
-                cc_string variableType = m_Context.typeStr;
-                TRACE("Variable Find name(%s) type(%s)",variableName.c_str(),variableType.c_str());
-                //Add variable to tokenstree
-                if (m_Options.handleVars)
-                        DoAddToken(tkVariable, tk->text, tk->line);
+                if(m_Context.typeStr.empty())   // AAA;
+                {
+                    SkipStatementBlock();
+                }
+                else                            // AAA BBB;
+                {
+                    cc_string variableName = tk->text;
+                    cc_string variableType = m_Context.typeStr;
+                    TRACE("Variable Find name(%s) type(%s)",variableName.c_str(),variableType.c_str());
+                    //Add variable to tokenstree
+                    if (m_Options.handleVars)
+                            DoAddToken(tkVariable, tk->text, tk->line);
 
-                //consume the semicolon
-                m_Tokenizer.GetToken();
-                m_Context.ResetStateInfo();
+                    //consume the semicolon
+                    m_Tokenizer.GetToken();
+                    m_Context.ResetStateInfo();
+                }
             }
             else if (peek->id == TKN_DOUBLE_COLON)
             {
@@ -344,7 +360,8 @@ void ParserThread::DoParse()
             }
             else if (peek->id == TKN_IDENTIFIER )
             {
-                m_Context.typeStr<< tk->text;
+                // AAA BBB
+                m_Context.typeStr<< tk->text<<" ";
             }
             break;
         }
