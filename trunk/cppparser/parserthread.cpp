@@ -308,7 +308,7 @@ void ParserThread::DoParse()
 
             // we are interested in the following token.
 
-            RawToken * peek = m_Tokenizer.PeekToken();
+            RawToken * peek = PeekToken();
 
             if( peek->id == TKN_BRACKET_O ) // This is a function definition or declration, because it has AAA BBB (
             {
@@ -339,11 +339,11 @@ void ParserThread::DoParse()
                             DoAddToken(tkVariable, tk->text, tk->line);
 
                     //consume the semicolon
-                    m_Tokenizer.GetToken();
+                    GetToken();
                     m_Context.ResetStateInfo();
                 }
             }
-            else if (peek->id == TKN_DOUBLE_COLON)
+            else if (peek->id == TKN_DOUBLE_COLON)  //::
             {
                 if (m_Context.typeStr.empty())
                     m_Context.typeNamespace.push(tk->text);
@@ -352,11 +352,11 @@ void ParserThread::DoParse()
 
                 GetToken();//eat ::
             }
-            else if (  peek->id == TKN_AMPERSANT
-                     ||peek->id == TKN_MULT)
+            else if (  peek->id == TKN_AMPERSANT //&
+                     ||peek->id == TKN_MULT)     //*
             {
                 m_Context.typeStr<< peek->text;
-                m_Tokenizer.GetToken();
+                GetToken();
             }
             else if (peek->id == TKN_IDENTIFIER )
             {
@@ -441,7 +441,7 @@ void ParserThread::DoParse()
         }
         default:
         {
-            printf("%s\n",tk->text.c_str());
+            TRACE("Skip unhandled token(%s)",tk->text.c_str());
             break;
         }
         }
