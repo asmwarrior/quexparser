@@ -25,13 +25,14 @@
 
 // static
 std::map<cc_string,cc_string> Tokenizer::s_Replacements;
+QUEX_TYPE_CHARACTER Tokenizer::s_QuexBuffer[4] = {0,0,0,0};
 
 Tokenizer::Tokenizer(const cc_string& filename)
     : m_Filename(filename),
     m_BufferLen(0),
     m_PeekAvailable(false),
     m_IsOK(false),
-    m_pQuex(0),
+    m_Quex((QUEX_TYPE_CHARACTER*)s_QuexBuffer,4,(QUEX_TYPE_CHARACTER*)s_QuexBuffer+1),
     m_IsEOF(false)
 
 {
@@ -42,8 +43,8 @@ Tokenizer::Tokenizer(const cc_string& filename)
 
 Tokenizer::~Tokenizer()
 {
-    if(m_pQuex)
-        delete m_pQuex;
+//    if(m_pQuex)
+//        delete m_pQuex;
 }
 
 bool Tokenizer::Init(const cc_string& filename, LoaderBase* loader)
@@ -119,14 +120,14 @@ bool Tokenizer::ReadFile()
         if( m_BufferLen != 0)
             success = true;
 
-        if(m_pQuex)
-            delete m_pQuex;
+//        if(m_pQuex)
+//            delete m_pQuex;
 
-        m_pQuex = new quex::tiny_lexer((QUEX_TYPE_CHARACTER*)pBuffer,
+        m_Quex.reset_buffer((QUEX_TYPE_CHARACTER*)pBuffer,
                                        m_BufferLen+2,
                                        (QUEX_TYPE_CHARACTER*)pBuffer+m_BufferLen+1);
 
-        (void)m_pQuex->token_p_switch(&m_QuexToken);
+        (void)m_Quex.token_p_switch(&m_QuexToken);
 
         return true;
 
@@ -225,7 +226,7 @@ void Tokenizer::UngetToken()
 
 void Tokenizer::DoGetToken(RawToken & tk)
 {
-    QUEX_TYPE_TOKEN_ID id = m_pQuex->receive();
+    QUEX_TYPE_TOKEN_ID id = m_Quex.receive();
 
 
     if( id == TKN_TERMINATION )
@@ -261,7 +262,7 @@ void Tokenizer::RunTest()
 
     while(1)
     {
-        id = m_pQuex->receive();
+        id = m_Quex.receive();
 
         cout<<m_QuexToken<< " line=" << m_QuexToken.line_number() << "colunm=" << m_QuexToken.column_number()<<endl;
 

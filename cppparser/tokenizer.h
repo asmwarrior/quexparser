@@ -84,8 +84,9 @@ private:
     bool  m_IsEOF;
 
     LoaderBase         *m_pLoader;
-    quex::tiny_lexer   *m_pQuex;
+    quex::tiny_lexer   m_Quex;
     quex::Token         m_QuexToken;
+    static QUEX_TYPE_CHARACTER s_QuexBuffer[4];
 
     /** Internally handle and strip all the preprocessor directive*/
     void DoAdvanceGetToken(RawToken & tk);
