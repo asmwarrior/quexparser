@@ -17,7 +17,16 @@ define {
     P_INCLUDE_FILE1       "<"[^>]+">"
     P_INCLUDE_FILE2       "\""[^"]+"\""
 	
-	P_DOUBLE_COLON        "::"
+    exponent_part             [eE][\-+]?[0-9]+
+    fractional_constant       ([0-9]*"."[0-9]+)|([0-9]+".")
+    floating_constant         (({fractional_constant}{exponent_part}?)|([0-9]+{exponent_part}))[FfLl]?
+
+	integer_suffix_opt ([uU]?[lL]?)|([lL][uU])
+	decimal_constant [1-9][0-9]*{integer_suffix_opt}
+	octal_constant "0"[0-7]*{integer_suffix_opt}
+	hex_constant "0"[xX][0-9a-fA-F]+{integer_suffix_opt}
+	
+	
 }
 
 
@@ -123,6 +132,11 @@ mode PROGRAM :
     {P_STRING}      => TKN_STRING(Lexeme);
     {P_QUOTED_CHAR} => TKN_QUOTED_CHAR(Lexeme);
 	//{P_WHITESPACE}    {}
+	
+	{decimal_constant}  => TKN_NUMBER(Lexeme);
+    {octal_constant}    => TKN_NUMBER(Lexeme);
+    {hex_constant}      => TKN_NUMBER(Lexeme);
+    {floating_constant} => TKN_NUMBER(Lexeme);
 	
 	
 
