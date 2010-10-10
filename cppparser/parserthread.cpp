@@ -439,6 +439,14 @@ void ParserThread::DoParse()
             GetTemplateArgs();
             break;
         }
+        case TKN_ENUM:
+        {
+            if (m_Options.handleEnums)
+                HandleEnum();
+            else
+                SkipStatementBlock();
+            break;
+        }
         default:
         {
             TRACE("Skip unhandled token(%s)",tk->text.c_str());
@@ -827,8 +835,70 @@ void ParserThread::HandleFunction(cc_string & name)
     m_Context.Reset();
 }
 
+void ParserThread::ReadEnumList()
+{
+    //anchor function
+
+    RawToken *tk;
+    do
+    {
+        tk = GetToken();
+    }while(tk->id != TKN_CURLY_BRACKET_C);
+
+}
 void ParserThread::HandleEnum()
 {
+    // enums have the following rough definition:
+    // enum [xxx] { type1 name1 [= 1][, [type2 name2 [= 2]]] };
+
+
+    RawToken * tk = GetToken();    // the token after "enum"
+    if (tk->id == TKN_TERMINATION) // this indecate the end of file
+        return;
+    if (tk->id == TKN_IDENTIFIER)           // enum XXX
+    {
+        RawToken *pk = PeekToken();
+        if(pk->id == TKN_CURLY_BRACKET_O )  //enum XXX {
+        {
+            // Do Add Token of enum
+            TRACE("find enum %s at line(%d)",tk->text.c_str(),tk->line);
+            GetToken();                     //consume {
+            ReadEnumList();
+        }
+        else
+        {
+            SkipStatementBlock();          //something wrong
+            return;
+        }
+    }
+    else if (tk->id== TKN_CURLY_BRACKET_O) //  enum {
+    {
+        // // Do Add Token of enum
+            TRACE("find unnamed enum at line(%d)",tk->line);
+            GetToken();                    //consume {
+            ReadEnumList();
+    }
+
+    // Token's implement End line information added
+
+    //we are now after the }
+
+    // if we find a ;, good, end of definition of enum
+    // if we find an id, then this is something like enum XXX{...} A,B;
+    // A,B were the instant of the enum
+
+    tk = GetToken();
+    if(tk->id == TKN_IDENTIFIER)
+    {
+        //Add variables list
+        return;
+    }
+    else if(tk->id == TKN_SEMICOLON)
+    {
+        //OK, end of enum definition
+        return;
+    }
+
 }
 
 void ParserThread::HandleTypedef()

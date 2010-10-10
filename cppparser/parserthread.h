@@ -274,9 +274,11 @@ private:
     void PushContext();
     void PopContext();
     void GetTemplateArgs();
+    void ReadEnumList();
 
     inline RawToken * GetToken()  {return m_Tokenizer.GetToken();}
     inline RawToken * PeekToken() {return m_Tokenizer.PeekToken();}
+    inline void       UngetToken() {m_Tokenizer.UngetToken();}
 
     /** no usage ??? */
     void Log(const cc_string& log);
