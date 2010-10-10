@@ -31,7 +31,8 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
-			<Add option="-DQUEX_SETTING_BUFFER_SIZE=8" />
+			<Add option="-DQUEX_SETTING_BUFFER_SIZE=0" />
+			<Add option="-DQUEX_SETTING_BUFFER_MIN_FALLBACK_N=0" />
 			<Add directory="$(QUEX_PATH)" />
 		</Compiler>
 		<Unit filename="cppparser\cchelper.h" />
