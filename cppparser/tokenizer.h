@@ -18,6 +18,12 @@ struct RawToken
     int id;
 };
 
+class ParserException
+{
+    int type;
+    cc_string text;
+};
+
 class Tokenizer
 {
 public:

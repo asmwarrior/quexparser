@@ -232,6 +232,7 @@ void Tokenizer::DoGetToken(RawToken & tk)
     {
         m_IsEOF = true;
         tk.text = "";
+        throw ParserException();
     }
     else if (id == TKN_PP_FINISH)
     {
