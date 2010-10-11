@@ -232,8 +232,15 @@ bool ParserThread::Parse()
             if (!m_FileIdx)
                 break;
         }
+        try
+        {
+            DoParse();
+        }
+        catch(ParserException& e)
+        {
+            cout<< "end of file" <<endl;
+        }
 
-        DoParse();
 
         if (!m_Options.useBuffer)   // Parsing a file
         {
