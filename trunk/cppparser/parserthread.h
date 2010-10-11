@@ -276,9 +276,30 @@ private:
     void GetTemplateArgs();
     void ReadEnumList();
 
-    inline RawToken * GetToken()  {return m_Tokenizer.GetToken();}
-    inline RawToken * PeekToken() {return m_Tokenizer.PeekToken();}
-    inline void       UngetToken() {m_Tokenizer.UngetToken();}
+    inline RawToken * GetToken()
+    {
+        if (TestDestroy())
+        {
+            throw ParserException();
+        }
+        return m_Tokenizer.GetToken();
+    }
+    inline RawToken * PeekToken()
+    {
+        if (TestDestroy())
+        {
+            throw ParserException();
+        }
+        return m_Tokenizer.PeekToken();
+    }
+    inline void     UngetToken()
+    {
+        if (TestDestroy())
+        {
+            throw ParserException();
+        }
+        m_Tokenizer.UngetToken();
+    }
 
     /** no usage ??? */
     void Log(const cc_string& log);
