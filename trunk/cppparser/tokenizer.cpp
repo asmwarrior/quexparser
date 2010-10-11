@@ -43,8 +43,7 @@ Tokenizer::Tokenizer(const cc_string& filename)
 
 Tokenizer::~Tokenizer()
 {
-//    if(m_pQuex)
-//        delete m_pQuex;
+
 }
 
 bool Tokenizer::Init(const cc_string& filename, LoaderBase* loader)
@@ -120,14 +119,14 @@ bool Tokenizer::ReadFile()
         if( m_BufferLen != 0)
             success = true;
 
-//        if(m_pQuex)
-//            delete m_pQuex;
 
         m_Quex.reset_buffer((QUEX_TYPE_CHARACTER*)pBuffer,
                                        m_BufferLen+2,
                                        (QUEX_TYPE_CHARACTER*)pBuffer+m_BufferLen+1);
 
         (void)m_Quex.token_p_switch(&m_QuexToken);
+
+        cout<< "set buffer size" << (int)QUEX_SETTING_BUFFER_SIZE <<endl;
 
         return true;
 
