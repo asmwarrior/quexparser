@@ -839,11 +839,35 @@ void ParserThread::ReadEnumList()
 {
     //anchor function
 
-    RawToken *tk;
+    RawToken *current;
+    RawToken *peek;
     do
     {
-        tk = GetToken();
-    }while(tk->id != TKN_CURLY_BRACKET_C);
+        current = GetToken();
+        peek    = PeekToken();
+        if(current->id == TKN_IDENTIFIER )
+        {
+            if (peek->id == TKN_OP_ASSIGNMENT)     // a = b,
+            {
+                //Add variable
+                DoAddToken(tkVariable, current->text, current->line);
+                GetToken(); //comsume "="
+                GetToken(); //comsume the id after "="
+            }
+            else if (peek->id == TKN_CURLY_BRACKET_C)  //a}
+            {
+                //Add variable
+                DoAddToken(tkVariable, current->text, current->line);
+                break;
+            }
+            else if (peek->id == TKN_COMMA)     // a,....
+            {
+                //Add variable
+                DoAddToken(tkVariable, current->text, current->line);
+                GetToken(); //comsume ","
+            }
+        }
+    }while(peek->id != TKN_CURLY_BRACKET_C);
 
 }
 void ParserThread::HandleEnum()
@@ -853,6 +877,7 @@ void ParserThread::HandleEnum()
 
 
     RawToken * tk = GetToken();    // the token after "enum"
+    Token * newToken = 0;
     if (tk->id == TKN_TERMINATION) // this indecate the end of file
         return;
     if (tk->id == TKN_IDENTIFIER)           // enum XXX
@@ -862,8 +887,13 @@ void ParserThread::HandleEnum()
         {
             // Do Add Token of enum
             TRACE("find enum %s at line(%d)",tk->text.c_str(),tk->line);
+            newToken = DoAddToken(tkEnum, tk->text, tk->line);
+            newToken->m_ImplLineStart = pk->line;
             GetToken();                     //consume {
+            ParserThreadContext savedContext = m_Context;
+            m_Context.lastParent = newToken;
             ReadEnumList();
+            m_Context = savedContext;
         }
         else
         {
@@ -875,13 +905,21 @@ void ParserThread::HandleEnum()
     {
         // // Do Add Token of enum
             TRACE("find unnamed enum at line(%d)",tk->line);
+            newToken = DoAddToken(tkEnum, "UnnamedEnum", tk->line);
             GetToken();                    //consume {
+            ParserThreadContext savedContext = m_Context;
+            m_Context.lastParent = newToken;
             ReadEnumList();
+            m_Context = savedContext;
     }
 
     // Token's implement End line information added
-
+    tk = GetToken();
     //we are now after the }
+    if(newToken)
+    {
+        newToken->m_ImplLineEnd = tk->line;
+    }
 
     // if we find a ;, good, end of definition of enum
     // if we find an id, then this is something like enum XXX{...} A,B;
