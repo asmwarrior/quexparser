@@ -757,20 +757,20 @@ void ParserThread::ReadVarNames()
 
 }
 
-void ParserThread::HandleClass(EClassType ct)
-{
-    while (!TestDestroy())
-    {
-        RawToken * current = GetToken();      // class name
-        RawToken * next    =  PeekToken();
+void ParserThread::HandleClass(EClassType ct) {
 
-        TRACE("HandleClass() : Found class '%s'", current->text.c_str() );
+    // class xxx {   or class {
+    // the keyworkd "class" is already comsumed
 
-        if (!current->id == TKN_TERMINATION && !next->id == TKN_TERMINATION)   //Thich means were were not at EOF
-        {
-            // Check current firstly
-            if (current->id == TKN_CURLY_BRACKET_O)   // unnamed class/struct/union
-            {
+
+    RawToken * current = GetToken();      // class name
+    RawToken * next    =  PeekToken();
+
+    TRACE("HandleClass() : Found class '%s'", current->text.c_str() );
+
+
+    // Check current firstly
+    if (current->id == TKN_CURLY_BRACKET_O) { // unnamed class/struct/union
 //                cc_string unnamedTmp;
 //                unnamedTmp.Printf(_T("%s%s%d"),
 //                                  ParserConsts::unnamed.wx_str(),
@@ -791,26 +791,26 @@ void ParserThread::HandleClass(EClassType ct)
 //                DoParse();
 //
 //                PopContext();
-            }
-            else if (current->id == TKN_IDENTIFIER)     //OK, we need to check the next
-            {
-                if ( next->id == TKN_CURLY_BRACKET_O)   // class AAA {, we find the "{" here
-                {
-                    Token* newToken = DoAddToken(tkClass, current->text, current->line);
-                    ParserThreadContext savedContext = m_Context;
-                    m_Context.Reset();
-                    m_Context.lastParent = newToken;
-                    GetToken();// consume {
-                    DoParse();
-                    m_Context = savedContext;
-                    break;
-                }
+    } else if (current->id == TKN_IDENTIFIER) { //OK, we need to check the next
+        if ( next->id == TKN_CURLY_BRACKET_O) { // class AAA {, we find the "{" here
+            Token* newToken = DoAddToken(tkClass, current->text, current->line);
+            ParserThreadContext savedContext = m_Context;
+            m_Context.Reset();
+            m_Context.lastParent = newToken;
+            GetToken();// consume {
+            DoParse();
+            m_Context = savedContext;
 
-            }
         }
-        else   //we were at EOF, so break!
-            break;
+
     }
+    else
+    {
+        // something wrong, should be skip to a semicolon
+        SkipStatementBlock();
+    }
+
+
 
     // restore tokenizer's functionality
 
