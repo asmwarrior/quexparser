@@ -120,7 +120,7 @@ void ParserThread::SkipStatementBlock()
         //SkipToId(TKN_CURLY_BRACKET_C);
         int level = 1;
 
-        while(level<=0)
+        while(level>0)
         {
             tk = m_Tokenizer.GetToken();
             id = tk->id;
@@ -151,7 +151,7 @@ void ParserThread::SkipParentheses()
     int id = tk->id;
     int level = 1;
     printf("Skip Parentheses Start at line(%d)column(%d)\n",tk->line,tk->column);
-    while(level<=0)
+    while(level>0)
     {
         tk = m_Tokenizer.GetToken();
         id = tk->id;
@@ -271,8 +271,11 @@ void ParserThread::DoParse()
         }
         case TKN_CURLY_BRACKET_C: //}
         {
+
+
             // the only time we get to find a } is when recursively called by e.g. HandleClass
             // we have to return now...
+            TRACE("return from a }");
             return;
         }
         case TKN_BRACKET_O :       // (
