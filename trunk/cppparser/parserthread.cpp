@@ -109,7 +109,12 @@ void ParserThread::SkipToOneOfId(const int * idArray, const int num)
     };
 
 }
-/** for () xxx; or for () {xxx;}*/
+/** for () xxx  ;
+         ^
+or
+for () {xxx;}
+     ^
+*/
 void ParserThread::SkipStatementBlock()
 {
     RawToken * tk = m_Tokenizer.GetToken();
@@ -138,6 +143,21 @@ void ParserThread::SkipStatementBlock()
         {
             tk = m_Tokenizer.GetToken();
             id = tk->id;
+            if (id == TKN_CURLY_BRACKET_O)  // {     ---> skip { xxx } block
+            {
+                //SkipToId(TKN_CURLY_BRACKET_C);
+                int level = 1;
+
+                while(level>0)
+                {
+                    tk = m_Tokenizer.GetToken();
+                    id = tk->id;
+                    if (id == TKN_CURLY_BRACKET_O)
+                        level++;
+                    else if (id == TKN_CURLY_BRACKET_C)
+                        level--;
+                }
+            }
         }
     }
     printf("Skip statement block End line(%d) column(%d)\n",tk->line,tk->column);
@@ -444,6 +464,16 @@ void ParserThread::DoParse()
                 HandleEnum();
             else
                 SkipStatementBlock();
+            break;
+        }
+        case TKN_TYPEDEF:
+        {
+            if (m_Options.handleTypedefs)
+                HandleTypedef();
+            else
+                SkipStatementBlock();
+            m_Context.typeStr.clear();
+
             break;
         }
         default:
@@ -834,8 +864,6 @@ void ParserThread::HandleFunction(cc_string & name)
 
 void ParserThread::ReadEnumList()
 {
-    //anchor function
-
     RawToken *current;
     RawToken *peek;
     do
@@ -937,6 +965,8 @@ void ParserThread::HandleEnum()
 void ParserThread::HandleTypedef()
 {
 
+    TRACE("Typedef find");
+    SkipStatementBlock();
 }
 
 void ParserThread::ReadClsNames(cc_string& ancestor)
