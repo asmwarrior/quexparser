@@ -88,7 +88,7 @@ void ParserThread::SkipToOneOfId(const int * idArray, const int num)
     bool find = false;
     int id = tk->id;
 
-    while(id!=TKN_TERMINATION)
+    while(true)
     {
         //check the id is in idArray
         for(int i = 0; i<num; i++)
@@ -120,7 +120,7 @@ void ParserThread::SkipStatementBlock()
         //SkipToId(TKN_CURLY_BRACKET_C);
         int level = 1;
 
-        while(id!=TKN_TERMINATION)
+        while(level<=0)
         {
             tk = m_Tokenizer.GetToken();
             id = tk->id;
@@ -128,19 +128,14 @@ void ParserThread::SkipStatementBlock()
                 level++;
             else if (id == TKN_CURLY_BRACKET_C)
                 level--;
-
-            if (level ==0)
-                break;
         }
     }
     else
     {
         //SkipToId(TKN_SEMICOLON);
         id = tk->id;
-        while(id!=TKN_TERMINATION)
+        while(id!=TKN_SEMICOLON)
         {
-            if (id == TKN_SEMICOLON)
-                break;
             tk = m_Tokenizer.GetToken();
             id = tk->id;
         }
@@ -156,7 +151,7 @@ void ParserThread::SkipParentheses()
     int id = tk->id;
     int level = 1;
     printf("Skip Parentheses Start at line(%d)column(%d)\n",tk->line,tk->column);
-    while(id!=TKN_TERMINATION)
+    while(level<=0)
     {
         tk = m_Tokenizer.GetToken();
         id = tk->id;
@@ -164,9 +159,6 @@ void ParserThread::SkipParentheses()
             level++;
         else if (id == TKN_BRACKET_C)
             level--;
-
-        if (level ==0)
-            break;
     }
     printf("Skip Parentheses End at line(%d)column(%d)\n",tk->line,tk->column);
 
@@ -688,8 +680,6 @@ Token* ParserThread::DoAddToken(TokenKind kind,
                                 bool isOperator,
                                 bool isImpl)
 {
-    if (TestDestroy())
-        return 0;
 
     if (name.empty())
         return 0; // oops!
@@ -976,7 +966,7 @@ void ParserThread::GetTemplateArgs()
     int nestLvl = 0;
     // NOTE: only exit this loop with 'break' so the tokenizer's state can
     // be reset afterwards (i.e. don't use 'return')
-    while (!TestDestroy())
+    while (true)
     {
         RawToken * tk = GetToken();
 
@@ -997,8 +987,6 @@ void ParserThread::GetTemplateArgs()
             m_Context.templateArgument.clear();
             break;
         }
-        else if (tk->id == TKN_TERMINATION)
-            break;
         else
             m_Context.templateArgument << tk->text << " ";
 
