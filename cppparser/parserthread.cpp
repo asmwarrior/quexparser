@@ -255,9 +255,6 @@ void ParserThread::DoParse()
 
     while (m_Tokenizer.NotEOF())
     {
-        if (!m_pTokensTree || TestDestroy())
-            break;
-
         RawToken* tk = GetToken();
 
         switch (tk->id)
@@ -878,8 +875,6 @@ void ParserThread::HandleEnum()
 
     RawToken * tk = GetToken();    // the token after "enum"
     Token * newToken = 0;
-    if (tk->id == TKN_TERMINATION) // this indecate the end of file
-        return;
     if (tk->id == TKN_IDENTIFIER)           // enum XXX
     {
         RawToken *pk = PeekToken();
