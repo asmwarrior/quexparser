@@ -88,8 +88,8 @@ mode VAR_LEXEMES :
 }
 
 
-mode PROGRAM : OPERATORS 
-               VAR_LEXEMES 
+mode PROGRAM : OPERATORS, 
+               VAR_LEXEMES, 
                EOF_AND_FAILURE
 <skip:       [ \r\n\t]>
 <skip_range: "/*" "*/">
@@ -148,8 +148,8 @@ mode PROGRAM : OPERATORS
 	{P_IDENTIFIER}  PRIORITY-MARK;
 }
 
-mode PREPROCESSOR : OPERATORS 
-                    VAR_LEXEMES 
+mode PREPROCESSOR : OPERATORS, 
+                    VAR_LEXEMES, 
                     EOF_AND_FAILURE
 <skip:       [ \r\t]>
 <skip_range: "/*" "*/">
