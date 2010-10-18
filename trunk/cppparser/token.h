@@ -43,25 +43,23 @@ enum TokenScope
 
 enum TokenKind
 {
-    // changed order to reflect the priority
-    tkNamespace     = 0x0001,
-    tkClass         = 0x0002,
-    tkEnum          = 0x0004,
-    tkTypedef       = 0x0008, // typedefs are stored as classes inheriting from the typedef'd type (taking advantage of existing inheritance code)
-    tkConstructor   = 0x0010,
-    tkDestructor    = 0x0020,
-    tkFunction      = 0x0040,
-    tkVariable      = 0x0080,
-    tkEnumerator    = 0x0100,
-    tkPreprocessor  = 0x0200,
-    tkMacro 	    = 0x0400,
-    tkUsingNamespace= 0x0800,
 
-    // convenient masks
-    tkAnyContainer  = tkClass | tkNamespace | tkTypedef,
-    tkAnyFunction   = tkFunction | tkConstructor | tkDestructor,
+    tkUndefined        = 0,
+    tkNamespace           ,
+    tkClass               ,
+    tkTemplateClass       ,
+    tkEnum                ,
+    tkTypedef             ,
+    tkConstructor         ,
+    tkDestructor          ,
+    tkFunction            ,
+    tkTemplateFunction    ,
+    tkVariable            ,
+    tkEnumerator          ,
+    tkMacroDefine         ,
+    tkMacroUsage 	      ,
+    tkUsingNamespace
 
-    tkUndefined     = 0xFFFF,
 };
 
 
@@ -74,7 +72,7 @@ class Token
         ~Token();
 
         void AddChild(int child);
-        void eraseChild(int child);
+        void EraseChild(int child);
         cc_string GetNamespace() const;
         bool InheritsFrom(int idx) const;
         cc_string DisplayName() const;
@@ -119,7 +117,7 @@ class Token
         TokenIdxSet m_DirectAncestors;
         TokenIdxSet m_Descendants;
 
-                vector<cc_string> m_Aliases; // used for namespace aliases
+        vector<cc_string> m_Aliases; // used for namespace aliases
 
         void* m_pUserData; // custom user-data (the classbrowser expects it to be a pointer to a cbProject)
     protected:
