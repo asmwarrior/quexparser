@@ -229,7 +229,7 @@ bool ParserThread::Parse()
     bool result = false;
 
     m_Context.inTypedef = false;
-    m_Context.lastParent = 0;
+    m_Context.parentToken = 0;
 
     do
     {
@@ -400,7 +400,7 @@ void ParserThread::DoParse()
             RawToken * peek = PeekToken();
             if(peek->id == TKN_COLON)
             {
-                m_Context.lastScope = tsPublic;
+                m_Context.accessScope = tsPublic;
                 m_Context.ResetStateInfo();
                 GetToken();
             }
@@ -411,7 +411,7 @@ void ParserThread::DoParse()
             RawToken * peek = PeekToken();
             if(peek->id == TKN_COLON)
             {
-                m_Context.lastScope = tsPrivate;
+                m_Context.accessScope = tsPrivate;
                 m_Context.ResetStateInfo();
                 GetToken();
             }
@@ -422,7 +422,7 @@ void ParserThread::DoParse()
             RawToken * peek = PeekToken();
             if(peek->id == TKN_COLON)
             {
-                m_Context.lastScope = tsProtected;
+                m_Context.accessScope = tsProtected;
                 m_Context.ResetStateInfo();
                 GetToken();
             }
@@ -717,7 +717,7 @@ Token* ParserThread::DoAddToken(TokenKind kind,
     s_MutexProtection.Enter();
     Token* newToken = 0;
     cc_string newname(name);
-    Token * finalParent = m_Context.lastParent;
+    Token * finalParent = m_Context.parentToken;
 
     newToken = new Token(newname,m_FileIdx,line);
     newToken->m_ParentIndex = finalParent ? finalParent->GetSelf() : -1;
@@ -802,8 +802,8 @@ void ParserThread::HandleClass(EClassType ct) {
 //
 //                PushContext();
 //                m_Context.Clear();
-//                m_Context.lastParent = newToken;
-//                m_Context.lastScope  = ct == ctClass ? tsPrivate : tsPublic; // struct has default public scope
+//                m_Context.parentToken = newToken;
+//                m_Context.accessScope  = ct == ctClass ? tsPrivate : tsPublic; // struct has default public scope
 //
 //				newToken->m_ImplLine = lineNr;
 //				newToken->m_ImplLineStart = m_Tokenizer.GetLineNumber();
@@ -816,7 +816,7 @@ void ParserThread::HandleClass(EClassType ct) {
             Token* newToken = DoAddToken(tkClass, current->text, current->line);
             ParserThreadContext savedContext = m_Context;
             m_Context.Reset();
-            m_Context.lastParent = newToken;
+            m_Context.parentToken = newToken;
             GetToken();// consume {
             DoParse();
             m_Context = savedContext;
@@ -914,7 +914,7 @@ void ParserThread::HandleEnum()
             newToken->m_ImplLineStart = pk->line;
             GetToken();                     //consume {
             ParserThreadContext savedContext = m_Context;
-            m_Context.lastParent = newToken;
+            m_Context.parentToken = newToken;
             ReadEnumList();
             m_Context = savedContext;
         }
@@ -931,7 +931,7 @@ void ParserThread::HandleEnum()
             newToken = DoAddToken(tkEnum, "UnnamedEnum", tk->line);
             GetToken();                    //consume {
             ParserThreadContext savedContext = m_Context;
-            m_Context.lastParent = newToken;
+            m_Context.parentToken = newToken;
             ReadEnumList();
             m_Context = savedContext;
     }

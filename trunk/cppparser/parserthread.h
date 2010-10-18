@@ -22,12 +22,10 @@ struct ParserThreadContext
 {
 
     ParserThreadContext():
-        lastScope(tsUndefined) ,
+        accessScope(tsUndefined) ,
         typeStr(cc_text("")),
-        lastToken(cc_text("")),
         stackNamespace(),
         typeNamespace(),
-        lastUnnamedTokenName(cc_text("")),
         inTypedef(false)
     {
 
@@ -36,8 +34,6 @@ struct ParserThreadContext
     void Reset()
     {
         typeStr.clear();
-        lastToken.clear();
-        lastUnnamedTokenName.clear();
         while (!stackNamespace.empty())
             stackNamespace.pop();
     }
@@ -45,8 +41,6 @@ struct ParserThreadContext
     void ResetStateInfo()
     {
         typeStr.clear();
-        lastToken.clear();
-        lastUnnamedTokenName.clear();
         while (!stackNamespace.empty())
             stackNamespace.pop();
         while (!typeNamespace.empty())
@@ -72,21 +66,17 @@ struct ParserThreadContext
 
     /** parent Token, for example, you are parsing in the class declearation, then this member
       * keep the pointer to the current class Token */
-    Token*               lastParent;
+    Token*               parentToken;
 
     /** this member define the scope type of member variables, which is: public or private
       * protected or undefined */
-    TokenScope           lastScope;
+    TokenScope           accessScope;
 
-    /**  unknow ....?? */
-    cc_string            lastToken;
+
 
         /** this makes a difference in unnamed class/struct/enum handling */
     bool                 inTypedef;
 
-
-    /** unknown ....?? */
-    cc_string             lastUnnamedTokenName;
 
     cc_string             templateArgument;
 
