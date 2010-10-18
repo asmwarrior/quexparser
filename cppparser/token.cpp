@@ -205,7 +205,7 @@ cc_string Token::DisplayName() const
         }
         return result << cc_text(" ") << m_Name;
     }
-    else if (m_TokenKind == tkPreprocessor)
+    else if (m_TokenKind == tkMacroDefine)
     {
         result << cc_text("#define ") << m_Name << m_Args;
         if (!m_Type.empty())
@@ -300,20 +300,23 @@ cc_string Token::GetTokenKindString() const
 {
     switch (m_TokenKind)
     {
-        case tkClass:         return cc_text("class");
-        case tkNamespace:     return cc_text("namespace");
-        case tkTypedef:       return cc_text("typedef");
-        case tkEnum:          return cc_text("enum");
-        case tkEnumerator:    return cc_text("enumerator");
-        case tkFunction:      return cc_text("function");
-        case tkConstructor:   return cc_text("constructor");
-        case tkDestructor:    return cc_text("destructor");
-        case tkPreprocessor:  return cc_text("preprocessor");
-        case tkMacro:		  return cc_text("macro");
-        case tkVariable:      return cc_text("variable");
-        case tkUsingNamespace: return cc_text("using namespace");
-        default:              return cc_text(""); // tkUndefined
+        case tkClass:            return cc_text("class");
+        case tkTemplateClass:    return cc_text("template class");
+        case tkNamespace:        return cc_text("namespace");
+        case tkTypedef:          return cc_text("typedef");
+        case tkEnum:             return cc_text("enum");
+        case tkEnumerator:       return cc_text("enumerator");
+        case tkFunction:         return cc_text("function");
+        case tkTemplateFunction: return cc_text("template function");
+        case tkConstructor:      return cc_text("constructor");
+        case tkDestructor:       return cc_text("destructor");
+        case tkMacroDefine:      return cc_text("macro define");
+        case tkMacroUsage:       return cc_text("macro usage");
+        case tkVariable:         return cc_text("variable");
+        case tkUsingNamespace:   return cc_text("using namespace");
+        default:                 return cc_text("undefined");
     }
+
 }
 
 cc_string Token::GetTokenScopeString() const
