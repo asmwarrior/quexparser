@@ -38,7 +38,7 @@ struct ParserThreadContext
             stackNamespace.pop();
     }
 
-    void ResetStateInfo()
+    void EndStatement()
     {
         typeStr.clear();
         while (!stackNamespace.empty())

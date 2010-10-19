@@ -1,4 +1,9 @@
 #include <iostream>
+/*
+ * This file is part of the Code::Blocks IDE and licensed under the GNU General Public License, version 3
+ * http://www.gnu.org/licenses/gpl-3.0.html
+ */
+
 #include <fstream>
 #include <ostream>
 #include <stdio.h>
@@ -9,14 +14,6 @@
 
 #include "cppparser/parserthread.h"
 
-/*
-Thanks:
-CB Project: CodeBlocks project Team : http://www.codeblocks.org
-CC Source : code completion plugin: Yiannis An. Mandravellos
-
-Make :  visualfc@gmail.com
-Time :  2009.12.7
-*/
 
 
 using namespace std;
