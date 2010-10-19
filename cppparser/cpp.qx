@@ -40,11 +40,9 @@ mode OPERATORS:
     "~"   => TKN_TILDE();
     "("   => TKN_BRACKET_O();
     ")"   => TKN_BRACKET_C();
-
     "{"   => TKN_CURLY_BRACKET_O();
     "}"   => TKN_CURLY_BRACKET_C();
 	"*"   => TKN_MULT();
-	
 	"["   => TKN_CORNER_BRACKET_O();
     "]"   => TKN_CORNER_BRACKET_C();
     "="   => TKN_OP_ASSIGNMENT();
@@ -57,7 +55,8 @@ mode OPERATORS:
     "*="  => TKN_ASSIGN_MULT();
     "/="  => TKN_ASSIGN_DIV();
 	"."   => TKN_DOT();
-	
+	"<<"  => TKN_LEFT_SHIFT();             
+    ">>"  => TKN_RIGHT_SHIFT();            
     "=="  => TKN_EQ();
     "!="  => TKN_NOT_EQ();
     ">"   => TKN_GREATER();
@@ -110,12 +109,10 @@ mode PROGRAM : OPERATORS,
     "#"[ \t]*"pragma"                         => GOTO(PREPROCESSOR, TKN_PP_PRAGMA());
     "#"[ \t]*"error"                          => GOTO(PREPROCESSOR, TKN_PP_ERROR());
     "#"[ \t]*"undef"                          => GOTO(PREPROCESSOR, TKN_PP_UNDEF());
-    defined                                   => TKN_PP_DEFINED();
     "\\\n"        {}
 
     "#"           => TKN_HASH();
     "##"          => TKN_DOUBLE_HASH();
-
     struct        => TKN_STRUCT();
     const         => TKN_CONST();
     if            => TKN_IF();
