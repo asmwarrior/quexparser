@@ -342,7 +342,7 @@ void ParserThread::DoParse()
                      HandleFunction(functionName);
                 }
             }
-            else if (peek->id == TKN_SEMICOLON )// a variable
+            else if (peek->id == TKN_SEMICOLON)                // A B;
             {
                 if(m_Context.typeStr.empty())   // AAA;
                 {
@@ -377,12 +377,13 @@ void ParserThread::DoParse()
                 m_Context.typeStr<< peek->text;
                 GetToken();
             }
-            else if (TKN_OP_ASSIGNMENT < peek->id  &&  peek->id < TKN_ASSIGN_DIV  )
+            else if (TKN_PLUS <= peek->id  &&  peek->id <= TKN_RIGHT_SHIFT  )
             {
-                // AAA +
-                // AAA =
-                // AAA -GetToken();
-                // AAA /
+                // AAA + ...;
+                // AAA = ...;
+                // AAA - ...;
+                // AAA / ...;
+                // AAA << .... ;
                 GetToken();
                 SkipStatementBlock();
             }
@@ -390,6 +391,39 @@ void ParserThread::DoParse()
             {
                 // AAA BBB
                 m_Context.typeStr<< tk->text<<" ";
+            }
+            else if (peek->id == TKN_COMMA   || peek->id == TKN_OP_ASSIGNMENT )
+            {
+                // A B = ....;
+                // A B,C,D=2;
+                if(m_Context.typeStr.empty())   // A,
+                {
+                    TRACE("Something wrong in mode A, ");
+                    SkipStatementBlock();
+                }
+                else                            // A B,
+                {
+                    cc_string variableName = tk->text;
+                    cc_string variableType = m_Context.typeStr;
+                    TRACE("Variable Find name(%s) type(%s)",variableName.c_str(),variableType.c_str());
+                    //Add variable to tokenstree
+                    if (m_Options.handleVars)
+                            DoAddToken(tkVariable, tk->text, tk->line);
+
+
+                    GetToken();       //consume , or =
+                    // tk is updated
+                    if(tk->id  == TKN_OP_ASSIGNMENT)
+                    {
+                        int idArray[2] = {TKN_COMMA,TKN_SEMICOLON};
+                        SkipToOneOfId(idArray,2);
+
+                        if(tk->id == TKN_SEMICOLON)
+                            m_Context.ResetStateInfo();
+                    }
+
+                }
+
             }
             break;
         }
@@ -747,7 +781,7 @@ Token* ParserThread::DoAddToken(TokenKind kind,
     if(!m_Context.typeStr.empty())
     {
         newToken->m_Type = m_Context.typeStr;
-        m_Context.typeStr.clear();
+        //m_Context.typeStr.clear();
     }
     newToken->m_FileIdx = m_FileIdx;
     newToken->m_Line    = line;
