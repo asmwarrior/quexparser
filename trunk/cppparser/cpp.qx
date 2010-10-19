@@ -26,6 +26,24 @@ define {
 	hex_constant          "0"[xX][0-9a-fA-F]+{integer_suffix_opt}
 }
 
+token {
+
+CORNER_BRACKET_O = 20;
+CORNER_BRACKET_C = 21;
+OP_ASSIGNMENT =22;
+PLUS = 23;
+MINUS = 24;
+DIV = 25;
+MODULO = 26;
+ASSIGN_PLUS =27;
+ASSIGN_MINUS = 28;
+ASSIGN_MULT= 29;
+ASSIGN_DIV= 30;
+DOT= 31;
+LEFT_SHIFT = 32;        
+RIGHT_SHIFT =33;
+}
+
 mode EOF_AND_FAILURE:
 <inheritable: only>
 {

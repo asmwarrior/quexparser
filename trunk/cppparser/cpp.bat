@@ -1,1 +1,1 @@
-quex -i cpp.qx --engine tiny_lexer --buffer-based --token-policy single --token-memory-management-by-user --foreign-token-id-file tokenizer_id.h --token-prefix TKN_  >> result.txt
+quex -i cpp.qx --engine tiny_lexer --buffer-based --token-policy single --token-memory-management-by-user --token-id-offset 2 --token-prefix TKN_  >> result.txt
