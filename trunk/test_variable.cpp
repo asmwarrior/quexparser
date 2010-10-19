@@ -1,8 +1,3 @@
 
-
-a;
-e f;
-u e f;
-
-
-AAA::BBB x;
+A B,C,D;
+E G=5,H=6,W,Z;
