@@ -2,9 +2,6 @@
  * This file is part of the Code::Blocks IDE and licensed under the GNU General Public License, version 3
  * http://www.gnu.org/licenses/gpl-3.0.html
  *
- * $Revision: 5945 $
- * $Id: parserthread.cpp 5945 2009-12-01 13:06:54Z mortenmacfly $
- * $HeadURL: svn://svn.berlios.de/codeblocks/trunk/src/plugins/codecompletion/parser/parserthread.cpp $
  */
 
 #include "parserthread.h"
@@ -359,7 +356,7 @@ void ParserThread::DoParse()
 
                     //consume the semicolon
                     GetToken();
-                    m_Context.ResetStateInfo();
+                    m_Context.EndStatement();
                 }
             }
             else if (peek->id == TKN_DOUBLE_COLON)  //::
@@ -419,7 +416,7 @@ void ParserThread::DoParse()
                         SkipToOneOfId(idArray,2);
 
                         if(tk->id == TKN_SEMICOLON)
-                            m_Context.ResetStateInfo();
+                            m_Context.EndStatement();
                     }
 
                 }
@@ -429,7 +426,7 @@ void ParserThread::DoParse()
         }
         case TKN_SEMICOLON:
         {
-            m_Context.ResetStateInfo();
+            m_Context.EndStatement();
             break;
         }
         case TKN_AMPERSANT:  //&
@@ -444,7 +441,7 @@ void ParserThread::DoParse()
             if(peek->id == TKN_COLON)
             {
                 m_Context.accessScope = tsPublic;
-                m_Context.ResetStateInfo();
+                m_Context.EndStatement();
                 GetToken();
             }
             break;
@@ -455,7 +452,7 @@ void ParserThread::DoParse()
             if(peek->id == TKN_COLON)
             {
                 m_Context.accessScope = tsPrivate;
-                m_Context.ResetStateInfo();
+                m_Context.EndStatement();
                 GetToken();
             }
             break;
@@ -466,7 +463,7 @@ void ParserThread::DoParse()
             if(peek->id == TKN_COLON)
             {
                 m_Context.accessScope = tsProtected;
-                m_Context.ResetStateInfo();
+                m_Context.EndStatement();
                 GetToken();
             }
             break;

@@ -2,9 +2,6 @@
  * This file is part of the Code::Blocks IDE and licensed under the GNU General Public License, version 3
  * http://www.gnu.org/licenses/gpl-3.0.html
  *
- * $Revision: 5777 $
- * $Id: searchtree.cpp 5777 2009-09-13 19:17:15Z mortenmacfly $
- * $HeadURL: svn://svn.berlios.de/codeblocks/trunk/src/plugins/codecompletion/parser/searchtree.cpp $
  */
 
 #include "searchtree.h"
