@@ -377,6 +377,15 @@ void ParserThread::DoParse()
                 m_Context.typeStr<< peek->text;
                 GetToken();
             }
+            else if (TKN_OP_ASSIGNMENT < peek->id  &&  peek->id < TKN_ASSIGN_DIV  )
+            {
+                // AAA +
+                // AAA =
+                // AAA -GetToken();
+                // AAA /
+                GetToken();
+                SkipStatementBlock();
+            }
             else if (peek->id == TKN_IDENTIFIER )
             {
                 // AAA BBB
