@@ -54,43 +54,43 @@ mode EOF_AND_FAILURE:
 mode OPERATORS:
 <inheritable: only>
 {
-    "?"   => TKN_QUESTION_MARK();
-    "~"   => TKN_TILDE();
-    "("   => TKN_BRACKET_O();
-    ")"   => TKN_BRACKET_C();
-    "{"   => TKN_CURLY_BRACKET_O();
-    "}"   => TKN_CURLY_BRACKET_C();
-	"*"   => TKN_MULT();
-	"["   => TKN_CORNER_BRACKET_O();
-    "]"   => TKN_CORNER_BRACKET_C();
-    "="   => TKN_OP_ASSIGNMENT();
-    "+"   => TKN_PLUS();
-    "-"   => TKN_MINUS();
-    "/"   => TKN_DIV();
-    "%"   => TKN_MODULO();
-    "+="  => TKN_ASSIGN_PLUS();
-    "-="  => TKN_ASSIGN_MINUS();
-    "*="  => TKN_ASSIGN_MULT();
-    "/="  => TKN_ASSIGN_DIV();
-	"."   => TKN_DOT();
-	"<<"  => TKN_LEFT_SHIFT();             
-    ">>"  => TKN_RIGHT_SHIFT();            
-    "=="  => TKN_EQ();
-    "!="  => TKN_NOT_EQ();
-    ">"   => TKN_GREATER();
-    ">="  => TKN_GR_EQ();
-    "<"   => TKN_LESS();
-    "<="  => TKN_LE_EQ();
-    "!"   => TKN_NOT();
-    "|"   => TKN_LOGICAL_OR();
-    "^"   => TKN_EXCLUSIVE_OR();
-    "||"  => TKN_OR();
-    "&"   => TKN_AMPERSANT();
-    "&&"  => TKN_AND();
-    ":"   => TKN_COLON();
-	"::"  => TKN_DOUBLE_COLON();
-    ";"   => TKN_SEMICOLON();
-    ","   => TKN_COMMA();
+    "?"   => TKN_QUESTION_MARK(LexemeNull);
+    "~"   => TKN_TILDE(LexemeNull);
+    "("   => TKN_BRACKET_O(LexemeNull);
+    ")"   => TKN_BRACKET_C(LexemeNull);
+    "{"   => TKN_CURLY_BRACKET_O(LexemeNull);
+    "}"   => TKN_CURLY_BRACKET_C(LexemeNull);
+	"*"   => TKN_MULT(LexemeNull);
+	"["   => TKN_CORNER_BRACKET_O(LexemeNull);
+    "]"   => TKN_CORNER_BRACKET_C(LexemeNull);
+    "="   => TKN_OP_ASSIGNMENT(LexemeNull);
+    "+"   => TKN_PLUS(LexemeNull);
+    "-"   => TKN_MINUS(LexemeNull);
+    "/"   => TKN_DIV(LexemeNull);
+    "%"   => TKN_MODULO(LexemeNull);
+    "+="  => TKN_ASSIGN_PLUS(LexemeNull);
+    "-="  => TKN_ASSIGN_MINUS(LexemeNull);
+    "*="  => TKN_ASSIGN_MULT(LexemeNull);
+    "/="  => TKN_ASSIGN_DIV(LexemeNull);
+	"."   => TKN_DOT(LexemeNull);
+	"<<"  => TKN_LEFT_SHIFT(LexemeNull);             
+    ">>"  => TKN_RIGHT_SHIFT(LexemeNull);            
+    "=="  => TKN_EQ(LexemeNull);
+    "!="  => TKN_NOT_EQ(LexemeNull);
+    ">"   => TKN_GREATER(LexemeNull);
+    ">="  => TKN_GR_EQ(LexemeNull);
+    "<"   => TKN_LESS(LexemeNull);
+    "<="  => TKN_LE_EQ(LexemeNull);
+    "!"   => TKN_NOT(LexemeNull);
+    "|"   => TKN_LOGICAL_OR(LexemeNull);
+    "^"   => TKN_EXCLUSIVE_OR(LexemeNull);
+    "||"  => TKN_OR(LexemeNull);
+    "&"   => TKN_AMPERSANT(LexemeNull);
+    "&&"  => TKN_AND(LexemeNull);
+    ":"   => TKN_COLON(LexemeNull);
+	"::"  => TKN_DOUBLE_COLON(LexemeNull);
+    ";"   => TKN_SEMICOLON(LexemeNull);
+    ","   => TKN_COMMA(LexemeNull);
 }
 
 mode VAR_LEXEMES :
@@ -117,52 +117,52 @@ mode PROGRAM : OPERATORS,
 {
     "#"[ \t]*"include"[ \t]*{P_INCLUDE_FILE2} => TKN_PP_INCLUDE(Lexeme);
     "#"[ \t]*"include"[ \t]*{P_INCLUDE_FILE1} => TKN_PP_INCLUDE(Lexeme);
-    "#"[ \t]*"define"                         => GOTO(PREPROCESSOR, TKN_PP_DEFINE());
-    "#"[ \t]*"if"                             => GOTO(PREPROCESSOR, TKN_PP_IF());
-    "#"[ \t]*"elif"                           => GOTO(PREPROCESSOR, TKN_PP_ELIF());
-    "#"[ \t]*"ifdef"                          => GOTO(PREPROCESSOR, TKN_PP_IFDEF());
-    "#"[ \t]*"ifndef"                         => GOTO(PREPROCESSOR, TKN_PP_IFNDEF());
-    "#"[ \t]*"endif"                          => GOTO(PREPROCESSOR, TKN_PP_ENDIF());
-    "#"[ \t]*"else"                           => GOTO(PREPROCESSOR, TKN_PP_ELSE());
-    "#"[ \t]*"pragma"                         => GOTO(PREPROCESSOR, TKN_PP_PRAGMA());
-    "#"[ \t]*"error"                          => GOTO(PREPROCESSOR, TKN_PP_ERROR());
-    "#"[ \t]*"undef"                          => GOTO(PREPROCESSOR, TKN_PP_UNDEF());
+    "#"[ \t]*"define"                         => GOTO(PREPROCESSOR, TKN_PP_DEFINE(LexemeNull));
+    "#"[ \t]*"if"                             => GOTO(PREPROCESSOR, TKN_PP_IF(LexemeNull));
+    "#"[ \t]*"elif"                           => GOTO(PREPROCESSOR, TKN_PP_ELIF(LexemeNull));
+    "#"[ \t]*"ifdef"                          => GOTO(PREPROCESSOR, TKN_PP_IFDEF(LexemeNull));
+    "#"[ \t]*"ifndef"                         => GOTO(PREPROCESSOR, TKN_PP_IFNDEF(LexemeNull));
+    "#"[ \t]*"endif"                          => GOTO(PREPROCESSOR, TKN_PP_ENDIF(LexemeNull));
+    "#"[ \t]*"else"                           => GOTO(PREPROCESSOR, TKN_PP_ELSE(LexemeNull));
+    "#"[ \t]*"pragma"                         => GOTO(PREPROCESSOR, TKN_PP_PRAGMA(LexemeNull));
+    "#"[ \t]*"error"                          => GOTO(PREPROCESSOR, TKN_PP_ERROR(LexemeNull));
+    "#"[ \t]*"undef"                          => GOTO(PREPROCESSOR, TKN_PP_UNDEF(LexemeNull));
     "\\\n"        {}
 
-    "#"           => TKN_HASH();
-    "##"          => TKN_DOUBLE_HASH();
-    struct        => TKN_STRUCT();
-    const         => TKN_CONST();
-    if            => TKN_IF();
-    else          => TKN_ELSE();
-    switch        => TKN_SWITCH();
-    for           => TKN_FOR();
-    do            => TKN_DO();
-    while         => TKN_WHILE();
-    break         => TKN_BREAK();
-    continue      => TKN_CONTINUE();
-	class         => TKN_CLASS();
-	template      => TKN_TEMPLATE();
-	extern        => TKN_EXTERN();
-	return		  => TKN_RETURN();
-	public        => TKN_PUBLIC();
-	protect       => TKN_PROTECT();
-	private       => TKN_PRIVATE();
-	delete        => TKN_DELETE();
-	friend        => TKN_FRIEND();
-	namespace     => TKN_NAMESPACE();
-	new           => TKN_NEW();
-	__asm         => TKN_ASM();
-	union         => TKN_UNION();
-	virtual       => TKN_VIRTUAL();
-	typename      => TKN_TYPENAME();  
-	using         => TKN_USING();
-    static        => TKN_STATIC();
-    operator      => TKN_OPERATOR();
-    inline        => TKN_INLINE();
-	enum          => TKN_ENUM();
-	typedef       => TKN_TYPEDEF();
-	volatile      => TKN_VOLATILE();
+    "#"           => TKN_HASH(LexemeNull);
+    "##"          => TKN_DOUBLE_HASH(LexemeNull);
+    struct        => TKN_STRUCT(LexemeNull);
+    const         => TKN_CONST(LexemeNull);
+    if            => TKN_IF(LexemeNull);
+    else          => TKN_ELSE(LexemeNull);
+    switch        => TKN_SWITCH(LexemeNull);
+    for           => TKN_FOR(LexemeNull);
+    do            => TKN_DO(LexemeNull);
+    while         => TKN_WHILE(LexemeNull);
+    break         => TKN_BREAK(LexemeNull);
+    continue      => TKN_CONTINUE(LexemeNull);
+	class         => TKN_CLASS(LexemeNull);
+	template      => TKN_TEMPLATE(LexemeNull);
+	extern        => TKN_EXTERN(LexemeNull);
+	return		  => TKN_RETURN(LexemeNull);
+	public        => TKN_PUBLIC(LexemeNull);
+	protect       => TKN_PROTECT(LexemeNull);
+	private       => TKN_PRIVATE(LexemeNull);
+	delete        => TKN_DELETE(LexemeNull);
+	friend        => TKN_FRIEND(LexemeNull);
+	namespace     => TKN_NAMESPACE(LexemeNull);
+	new           => TKN_NEW(LexemeNull);
+	__asm         => TKN_ASM(LexemeNull);
+	union         => TKN_UNION(LexemeNull);
+	virtual       => TKN_VIRTUAL(LexemeNull);
+	typename      => TKN_TYPENAME(LexemeNull);  
+	using         => TKN_USING(LexemeNull);
+    static        => TKN_STATIC(LexemeNull);
+    operator      => TKN_OPERATOR(LexemeNull);
+    inline        => TKN_INLINE(LexemeNull);
+	enum          => TKN_ENUM(LexemeNull);
+	typedef       => TKN_TYPEDEF(LexemeNull);
+	volatile      => TKN_VOLATILE(LexemeNull);
 	{P_IDENTIFIER}  PRIORITY-MARK;
 }
 
@@ -172,10 +172,10 @@ mode PREPROCESSOR : OPERATORS,
 <skip:       [ \r\t]>
 <skip_range: "/*" "*/">
 {
-    defined          => TKN_PP_DEFINED();
+    defined          => TKN_PP_DEFINED(LexemeNull);
 
-    "#"              => TKN_HASH();
-    "##"             => TKN_DOUBLE_HASH();
+    "#"              => TKN_HASH(LexemeNull);
+    "##"             => TKN_DOUBLE_HASH(LexemeNull);
 
     "//"[^\n]*"\n"  => GOTO(PROGRAM, TKN_PP_FINISH);
 	"\n"            => GOTO(PROGRAM, TKN_PP_FINISH); 
