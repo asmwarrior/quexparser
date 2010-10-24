@@ -222,6 +222,7 @@ void Tokenizer::UngetToken()
 
 void Tokenizer::DoGetToken(RawToken & tk)
 {
+    m_QuexToken.get_text().clear();
     QUEX_TYPE_TOKEN_ID id = m_Quex.receive();
 
 
