@@ -16,6 +16,7 @@ struct RawToken
     int line;
     int column;
     int id;
+    int index;
 };
 
 class ParserException
