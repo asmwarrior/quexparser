@@ -243,6 +243,7 @@ void Tokenizer::DoGetToken(RawToken & tk)
     tk.id     = id;
     tk.line   = m_QuexToken.line_number();
     tk.column = m_QuexToken.column_number();
+    tk.index  = m_Quex.tell();
 
     //cout<<m_QuexToken<< " line=" << m_QuexToken.line_number() << "colunm=" << m_QuexToken.column_number()<<endl;
 }
