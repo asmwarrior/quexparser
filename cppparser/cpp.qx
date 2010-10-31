@@ -41,7 +41,19 @@ token {
     ASSIGN_DIV         = 30;
     DOT                = 31;
     LEFT_SHIFT         = 32;
-    RIGHT_SHIFT        =33;
+    RIGHT_SHIFT        = 33;
+    
+    
+    PP_DEFINE          = 50;
+    PP_IF              = 51;
+    PP_ELIF            = 52;
+    PP_IFDEF           = 53;
+    PP_IFNDEF          = 54;
+    PP_ENDIF           = 55;
+    PP_ELSE            = 56;
+    PP_PRAGMA          = 57;
+    PP_ERROR           = 58;
+    PP_UNDEF           = 59;
 }
 
 mode EOF_AND_FAILURE:
