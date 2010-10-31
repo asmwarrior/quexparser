@@ -268,11 +268,15 @@ private:
 
     inline RawToken * GetToken()
     {
+
         if (TestDestroy())
         {
             throw ParserException();
         }
-        return m_Tokenizer.GetToken();
+        RawToken  * tk = m_Tokenizer.GetToken();
+        FillOutMacroDefine(tk);
+        return tk;
+
     }
     inline RawToken * PeekToken()
     {
@@ -289,6 +293,18 @@ private:
             throw ParserException();
         }
         m_Tokenizer.UngetToken();
+    }
+
+    void FillOutMacroDefine(RawToken * tk)
+    {
+        if( TKN_PP_IF <= tk->type_id() && tk->type_id() <= TKN_PP_ERROR)
+        {
+            //loop until we find a TKN_TKN_PP_FINISH
+            do
+            {
+                tk = m_Tokenizer.GetToken();
+            }while(TKN_PP_FINISH != tk->type_id());
+        }
     }
 
     /** no usage ??? */

@@ -30,7 +30,8 @@ Tokenizer::Tokenizer(const cc_string& filename)
     m_PeekAvailable(false),
     m_IsOK(false),
     m_Quex((QUEX_TYPE_CHARACTER*)s_QuexBuffer,4,(QUEX_TYPE_CHARACTER*)s_QuexBuffer+1),
-    m_IsEOF(false)
+    m_IsEOF(false),
+    m_Index(0)
 
 {
 
@@ -121,7 +122,7 @@ bool Tokenizer::ReadFile()
                                        m_BufferLen+2,
                                        (QUEX_TYPE_CHARACTER*)pBuffer+m_BufferLen+1);
 
-        (void)m_Quex.token_p_switch(&m_QuexToken);
+        (void)m_Quex.token_p_switch(&m_TokenBuffer[0]);
 
         cout<< "set buffer size" << (int)QUEX_SETTING_BUFFER_SIZE <<endl;
 
@@ -149,102 +150,62 @@ bool Tokenizer::ReadFile()
 
 RawToken* Tokenizer::GetToken()
 {
-    m_UndoToken = m_Token;
+    //m_UndoToken = m_Token;
+        // move a forward step
+        m_Index++;
+        m_Index%=TOKEN_BUFFER_SIZE;
 
     if(m_PeekAvailable)
     {
-        m_Token  = m_PeekToken;
+        ;
     }
     else
 
-        DoAdvanceGetToken(m_Token);
-
+        DoAdvanceGetToken(m_Index);
 
     m_PeekAvailable = false;
 
-    return &m_Token;
+    return &m_TokenBuffer[m_Index];
 }
 
 
-void  Tokenizer::DoAdvanceGetToken(RawToken & tk)
+void  Tokenizer::DoAdvanceGetToken(int n)
 {
-    while (true)
-    {
-        DoGetToken(tk);
-
-        if( TKN_PP_IF <= tk.id && tk.id <= TKN_PP_ERROR)
-        {
-            //loop until we find a TKN_TKN_PP_FINISH
-            do
-            {
-                DoGetToken(tk);
-            }while(TKN_PP_FINISH != tk.id);
-        }
-        else if (tk.id == TKN_PP_DEFINE)
-        {
-            cc_string str;
-            // read to the TKN_PP_FINISH
-            do
-            {
-                str << tk.text << " ";
-                DoGetToken(tk);
-            }while(TKN_PP_FINISH != tk.id);
-            str << tk.text;
-            tk.text = str;
-            break;
-        }
-        else
-        {
-            break;
-        }
-    }
+    DoGetToken(n);
 }
-
-
 
 
 RawToken* Tokenizer::PeekToken()
 {
+    int n = (++m_Index)%TOKEN_BUFFER_SIZE;
     if(!m_PeekAvailable)
     {
         m_PeekAvailable = true;
-        DoAdvanceGetToken(m_PeekToken);
+        DoAdvanceGetToken(n);
     }
-    return &m_PeekToken;
+    return &m_TokenBuffer[n];
 }
 
 void Tokenizer::UngetToken()
 {
-    m_Token      = m_UndoToken;
-    m_PeekToken  = m_Token;
-    m_PeekAvailable  = true;
+
 }
 
-void Tokenizer::DoGetToken(RawToken & tk)
+void Tokenizer::DoGetToken(int n)
 {
-    m_QuexToken.get_text().clear();
-    QUEX_TYPE_TOKEN_ID id = m_Quex.receive();
 
+    //fill the m_TokenBuffer[n];
+
+    (void)m_Quex.token_p_switch(&m_TokenBuffer[n]);
+    m_TokenBuffer[n].get_text().clear();
+
+    QUEX_TYPE_TOKEN_ID id = m_Quex.receive();
 
     if( id == TKN_TERMINATION )
     {
         m_IsEOF = true;
-        tk.text = "";
         throw ParserException();
     }
-    else if (id == TKN_PP_FINISH)
-    {
-        tk.text = "[EndOfPP]\n";
-    }
-    else
-    {
-        tk.text = (char*)(m_QuexToken.get_text().c_str());
-    }
-    tk.id     = id;
-    tk.line   = m_QuexToken.line_number();
-    tk.column = m_QuexToken.column_number();
-    tk.index  = m_Quex.tell();
-
     //cout<<m_QuexToken<< " line=" << m_QuexToken.line_number() << "colunm=" << m_QuexToken.column_number()<<endl;
 }
 
@@ -263,7 +224,7 @@ void Tokenizer::RunTest()
     {
         id = m_Quex.receive();
 
-        cout<<m_QuexToken<< " line=" << m_QuexToken.line_number() << "colunm=" << m_QuexToken.column_number()<<endl;
+        //cout<<m_QuexToken<< " line=" << m_QuexToken.line_number() << "colunm=" << m_QuexToken.column_number()<<endl;
 
         if( id == TKN_TERMINATION )
         {
