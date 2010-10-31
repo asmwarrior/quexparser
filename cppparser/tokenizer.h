@@ -10,14 +10,7 @@
 #include "tiny_lexer"
 using namespace std;
 
-struct RawToken
-{
-    cc_string text;
-    int line;
-    int column;
-    int id;
-    int index;
-};
+typedef quex::Token RawToken;
 
 class ParserException
 {
@@ -61,7 +54,7 @@ public:
 
 protected:
     void BaseInit();
-    void DoGetToken(RawToken & tk);
+    void DoGetToken(int n);
     cc_string FixArgument(cc_string src);
     bool ReadFile();
 
@@ -83,20 +76,24 @@ private:
     unsigned int     m_BufferLen;
 
     bool             m_PeekAvailable;
-    RawToken         m_Token;
-    RawToken         m_PeekToken;
-    RawToken         m_UndoToken;
 
     bool  m_IsOK;
     bool  m_IsEOF;
 
     LoaderBase         *m_pLoader;
     quex::tiny_lexer   m_Quex;
-    quex::Token         m_QuexToken;
+
+
+    //quex::Token         m_QuexToken;
+    #define TOKEN_BUFFER_SIZE 4
+
+
+    quex::Token      m_TokenBuffer[TOKEN_BUFFER_SIZE];
+    int              m_Index;
     static QUEX_TYPE_CHARACTER s_QuexBuffer[4];
 
     /** Internally handle and strip all the preprocessor directive*/
-    void DoAdvanceGetToken(RawToken & tk);
+    void DoAdvanceGetToken(int n);
 
 public:
 
