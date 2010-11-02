@@ -197,9 +197,9 @@ void Tokenizer::DoGetToken(int n)
 {
 
     //fill the m_TokenBuffer[n];
-
+    m_TokenBuffer[n].text.clear();
     (void)m_Quex.token_p_switch(&m_TokenBuffer[n]);
-    m_TokenBuffer[n].get_text().clear();
+
 
     QUEX_TYPE_TOKEN_ID id = m_Quex.receive();
 

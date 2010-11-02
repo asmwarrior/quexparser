@@ -386,8 +386,8 @@ void ParserThread::DoParse()
             }
             else if (peek->type_id() == TKN_IDENTIFIER )
             {
-                // AAA BBB
-                m_Context.typeStr<< tk->get_text()<<" ";
+                // A B
+                m_Context.typeStr<< tk->get_text()<<" "; // pushing A to the typeStr
             }
             else if (peek->type_id() == TKN_COMMA   || peek->type_id() == TKN_OP_ASSIGNMENT )
             {
@@ -421,6 +421,11 @@ void ParserThread::DoParse()
 
                 }
 
+            }
+            else if (peek->type_id() == TKN_LESS )   // A< ....> or   A<.....;
+            {
+                GetTemplateArgs();
+                m_Context.typeStr<< tk->get_text()<<" ";  // pushing A to the typeStr
             }
             break;
         }
