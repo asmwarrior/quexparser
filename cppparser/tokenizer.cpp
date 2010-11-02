@@ -27,7 +27,7 @@ QUEX_TYPE_CHARACTER Tokenizer::s_QuexBuffer[4] = {0,0,0,0};
 Tokenizer::Tokenizer(const cc_string& filename)
     : m_Filename(filename),
     m_BufferLen(0),
-    m_PeekAvailable(false),
+    m_PeekAvailable(0),
     m_IsOK(false),
     m_Quex((QUEX_TYPE_CHARACTER*)s_QuexBuffer,4,(QUEX_TYPE_CHARACTER*)s_QuexBuffer+1),
     m_IsEOF(false),
@@ -155,15 +155,15 @@ RawToken* Tokenizer::GetToken()
         m_Index++;
         m_Index%=TOKEN_BUFFER_SIZE;
 
-    if(m_PeekAvailable)
+    if(m_PeekAvailable>0)
     {
-        ;
+        m_PeekAvailable--;
+        assert(m_PeekAvailable>=0);
     }
     else
 
         DoAdvanceGetToken(m_Index);
 
-    m_PeekAvailable = false;
 
     return &m_TokenBuffer[m_Index];
 }
@@ -175,12 +175,14 @@ void  Tokenizer::DoAdvanceGetToken(int n)
 }
 
 
-RawToken* Tokenizer::PeekToken()
+RawToken* Tokenizer::PeekToken(int step)
 {
-    int n = (++m_Index)%TOKEN_BUFFER_SIZE;
-    if(!m_PeekAvailable)
+    assert(step<=2);
+    int n = (m_Index+step)%TOKEN_BUFFER_SIZE;;
+    while(m_PeekAvailable<step)
     {
-        m_PeekAvailable = true;
+        m_PeekAvailable++;
+        n = (m_Index+m_PeekAvailable)%TOKEN_BUFFER_SIZE;
         DoAdvanceGetToken(n);
     }
     return &m_TokenBuffer[n];

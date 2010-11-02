@@ -278,13 +278,13 @@ private:
         return tk;
 
     }
-    inline RawToken * PeekToken()
+    inline RawToken * PeekToken(int step = 1)
     {
         if (TestDestroy())
         {
             throw ParserException();
         }
-        return m_Tokenizer.PeekToken();
+        return m_Tokenizer.PeekToken(step);
     }
     inline void     UngetToken()
     {
