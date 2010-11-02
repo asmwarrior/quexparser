@@ -925,6 +925,12 @@ void ParserThread::ReadEnumList()
                 DoAddToken(tkVariable, current->get_text(), current->line_number());
                 break;
             }
+            else if (peek->type_id() == TKN_IDENTIFIER)      // id p1 p2
+            {
+                RawToken * peek2 = PeekToken(2);
+
+
+            }
             else if (peek->type_id() == TKN_COMMA)     // a,....
             {
                 //Add variable

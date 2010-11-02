@@ -28,7 +28,7 @@ public:
     bool InitFromBuffer(const cc_string& buffer);
 
     RawToken*  GetToken();
-    RawToken*  PeekToken();
+    RawToken*  PeekToken(int step = 1);
     void UngetToken();
 
 
@@ -75,7 +75,7 @@ private:
     cc_string         m_Buffer;
     unsigned int     m_BufferLen;
 
-    bool             m_PeekAvailable;
+    int             m_PeekAvailable;
 
     bool  m_IsOK;
     bool  m_IsEOF;
