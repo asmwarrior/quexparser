@@ -424,12 +424,33 @@ void ParserThread::DoParse()
             }
             else if (peek->type_id() == TKN_LESS )
             {
-                m_Context.typeStr<< tk->get_text()<<" ";  // pushing A to the typeStr
+                //m_Context.typeStr<< tk->get_text()<<" ";  // pushing A to the typeStr
                 // add the tk->text first, otherwize the tk will point to another variable when
                 // GetTemplateArgs() finished.
+                cc_string current = tk->get_text();
                 if(GetTemplateArgs())          // A< ....>
                 {
+                    current<<"<" << m_Context.templateArgument << ">";
+                    RawToken* peek = PeekToken();
+                    if(peek->type_id() == TKN_DOUBLE_COLON)
+                    {
 
+                        if (m_Context.typeStr.empty())
+                            m_Context.typeNamespace.push(current);
+                        else
+                            m_Context.stackNamespace.push(current); // it's a type's namespace
+                        GetToken();//eat ::
+                    }
+                    else   // next is an ID, push it to the typeStr
+                    {
+                        if (m_Context.typeStr.length()==0)   //A<> b
+                            m_Context.typeStr<< current ;
+                        else                                 // a A<> b
+                        {
+                            m_Context.typeStr<< current ;    // do the same thing
+                        }
+                    }
+                    m_Context.templateArgument.clear();
                 }
                 else                           // A<.....;
                 {
@@ -1061,19 +1082,23 @@ bool ParserThread::GetTemplateArgs()
         if (tk->type_id() == TKN_LESS) // <
         {
             ++nestLvl;
-            m_Context.templateArgument << tk->get_text() << " ";
+            //m_Context.templateArgument << tk->get_text() << " ";
 
         }
         else if (tk->type_id() == TKN_GREATER) // >
         {
             --nestLvl;
-            m_Context.templateArgument << tk->get_text() << " ";
+            //m_Context.templateArgument << tk->get_text() << " ";
         }
         else if (tk->type_id()==TKN_SEMICOLON) // ;
         {
             // unget token - leave ; on the stack
             m_Context.templateArgument.clear();
             return false;
+        }
+        else if( tk->type_id() == TKN_COMMA)
+        {
+            m_Context.templateArgument << ",";
         }
         else
             m_Context.templateArgument << tk->get_text() << " ";
