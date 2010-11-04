@@ -422,10 +422,20 @@ void ParserThread::DoParse()
                 }
 
             }
-            else if (peek->type_id() == TKN_LESS )   // A< ....> or   A<.....;
+            else if (peek->type_id() == TKN_LESS )
             {
-                GetTemplateArgs();
                 m_Context.typeStr<< tk->get_text()<<" ";  // pushing A to the typeStr
+                // add the tk->text first, otherwize the tk will point to another variable when
+                // GetTemplateArgs() finished.
+                if(GetTemplateArgs())          // A< ....>
+                {
+
+                }
+                else                           // A<.....;
+                {
+                    m_Context.EndStatement();
+                }
+
             }
             break;
         }
@@ -500,7 +510,7 @@ void ParserThread::DoParse()
         }
         case TKN_TEMPLATE:
         {
-            GetTemplateArgs();
+            GetTemplateArgs();   // should return true
             break;
         }
         case TKN_ENUM:
@@ -1039,32 +1049,31 @@ void ParserThread::PopContext()
 
 }
 
-void ParserThread::GetTemplateArgs()
+bool ParserThread::GetTemplateArgs()
 {
     m_Context.templateArgument.clear();
     int nestLvl = 0;
-    // NOTE: only exit this loop with 'break' so the tokenizer's state can
-    // be reset afterwards (i.e. don't use 'return')
+
     while (true)
     {
         RawToken * tk = GetToken();
 
-        if (tk->type_id() == TKN_LESS)
+        if (tk->type_id() == TKN_LESS) // <
         {
             ++nestLvl;
             m_Context.templateArgument << tk->get_text() << " ";
 
         }
-        else if (tk->type_id() == TKN_GREATER)
+        else if (tk->type_id() == TKN_GREATER) // >
         {
             --nestLvl;
             m_Context.templateArgument << tk->get_text() << " ";
         }
-        else if (tk->type_id()==TKN_SEMICOLON)
+        else if (tk->type_id()==TKN_SEMICOLON) // ;
         {
             // unget token - leave ; on the stack
             m_Context.templateArgument.clear();
-            break;
+            return false;
         }
         else
             m_Context.templateArgument << tk->get_text() << " ";
@@ -1076,5 +1085,6 @@ void ParserThread::GetTemplateArgs()
         }
 
     }
+    return true;
 
 }
