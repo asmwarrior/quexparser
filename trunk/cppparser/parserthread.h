@@ -263,7 +263,7 @@ private:
     void SkipParentheses();
     void PushContext();
     void PopContext();
-    void GetTemplateArgs();
+    bool GetTemplateArgs();
     void ReadEnumList();
 
     inline RawToken * GetToken()
