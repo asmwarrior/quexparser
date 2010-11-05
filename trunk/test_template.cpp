@@ -1,21 +1,25 @@
-template < typename T>
-class BBB
-{
-T f3();
+// class templates
+#include <iostream>
+using namespace std;
+
+template <class T>
+class mypair {
+    T a, b;
+  public:
+    mypair (T first, T second)
+      {a=first; b=second;}
+    T getmax ();
 };
 
-
-template < typename T>
-T func()
+template <class T>
+T mypair<T>::getmax ()
 {
+  T retval;
+  retval = a>b? a : b;
+  return retval;
 }
 
 
-int a;
-int b;
+mypair <int> myobject (100, 75);
 
 
-A::B::C<d,e> g;
-A::B::C<d,e> H::G();
-
-A B<ccc>::D();

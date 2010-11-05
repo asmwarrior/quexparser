@@ -28,32 +28,39 @@ define {
 
 token {
 
-    CORNER_BRACKET_O   = 20;
-    CORNER_BRACKET_C   = 21;
-    OP_ASSIGNMENT      = 22;
-    PLUS               = 23;
-    MINUS              = 24;
-    DIV                = 25;
-    MODULO             = 26;
-    ASSIGN_PLUS        = 27;
-    ASSIGN_MINUS       = 28;
-    ASSIGN_MULT        = 29;
-    ASSIGN_DIV         = 30;
-    DOT                = 31;
-    LEFT_SHIFT         = 32;
-    RIGHT_SHIFT        = 33;
+    CORNER_BRACKET_O    = 20;    
+    CORNER_BRACKET_C    = 21;
+    OP_ASSIGNMENT       = 22;
+    PLUS                = 23;
+    ASSIGN_PLUS         = 24;
+    DOUBLE_PLUS         = 25;    
+    MINUS               = 26;                   
+    DOUBLE_MINUS        = 27;                   
+    ASSIGN_MINUS        = 28;                   
+    ARROW               = 29;                   
+    ASSIGN_AND          = 30;                   
+    ASSIGN_EXCLUSIVE    = 31;                   
+    ASSIGN_OR           = 32;                   
+    DIV                 = 33;                   
+    ASSIGN_DIV          = 34;                   
+    MODULO              = 35;                   
+    ASSIGN_MODULO       = 36;                   
+    ASSIGN_MULT         = 37;                   
+    DOT                 = 38;                   
+    LEFT_SHIFT          = 39;
+    RIGHT_SHIFT         = 40;
     
     
-    PP_DEFINE          = 50;
-    PP_IF              = 51;
-    PP_ELIF            = 52;
-    PP_IFDEF           = 53;
-    PP_IFNDEF          = 54;
-    PP_ENDIF           = 55;
-    PP_ELSE            = 56;
-    PP_PRAGMA          = 57;
-    PP_ERROR           = 58;
-    PP_UNDEF           = 59;
+    PP_DEFINE           = 50;
+    PP_IF               = 51;
+    PP_ELIF             = 52;
+    PP_IFDEF            = 53;
+    PP_IFNDEF           = 54;
+    PP_ENDIF            = 55;
+    PP_ELSE             = 56;
+    PP_PRAGMA           = 57;
+    PP_ERROR            = 58;
+    PP_UNDEF            = 59;
 }
 
 mode EOF_AND_FAILURE:
@@ -73,20 +80,30 @@ mode OPERATORS:
     "{"   => TKN_CURLY_BRACKET_O();
     "}"   => TKN_CURLY_BRACKET_C();
     "*"   => TKN_MULT();
+    
+    
     "["   => TKN_CORNER_BRACKET_O();
     "]"   => TKN_CORNER_BRACKET_C();
     "="   => TKN_OP_ASSIGNMENT();
     "+"   => TKN_PLUS();
-    "-"   => TKN_MINUS();
-    "/"   => TKN_DIV();
-    "%"   => TKN_MODULO();
     "+="  => TKN_ASSIGN_PLUS();
+    "++"  => TKN_DOUBLE_PLUS();
+    "-"   => TKN_MINUS();
+    "--"  => TKN_DOUBLE_MINUS();
     "-="  => TKN_ASSIGN_MINUS();
-    "*="  => TKN_ASSIGN_MULT();
+    "->"  => TKN_ARROW();
+    "&="  => TKN_ASSIGN_AND();
+    "^="  => TKN_ASSIGN_EXCLUSIVE();
+    "|="  => TKN_ASSIGN_OR();    
+    "/"   => TKN_DIV();
     "/="  => TKN_ASSIGN_DIV();
+    "%"   => TKN_MODULO();
+    "%="  => TKN_ASSIGN_MODULO();
+    "*="  => TKN_ASSIGN_MULT();
     "."   => TKN_DOT();
     "<<"  => TKN_LEFT_SHIFT();
     ">>"  => TKN_RIGHT_SHIFT();
+
     "=="  => TKN_EQ();
     "!="  => TKN_NOT_EQ();
     ">"   => TKN_GREATER();
@@ -103,6 +120,7 @@ mode OPERATORS:
     "::"  => TKN_DOUBLE_COLON();
     ";"   => TKN_SEMICOLON();
     ","   => TKN_COMMA();
+    "..." => TKN_ELLIPSIS();
 }
 
 mode VAR_LEXEMES :
