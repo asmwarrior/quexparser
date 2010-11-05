@@ -374,13 +374,25 @@ void ParserThread::DoParse()
                 m_Context.typeStr<< peek->get_text();
                 GetToken();
             }
-            else if (TKN_PLUS <= peek->type_id()  &&  peek->type_id() <= TKN_RIGHT_SHIFT  )
+            else if (TKN_CORNER_BRACKET_O <= peek->type_id()  &&  peek->type_id() <= TKN_RIGHT_SHIFT  )
             {
-                // AAA + ...;
-                // AAA = ...;
-                // AAA - ...;
-                // AAA / ...;
-                // AAA << .... ;
+
+             /* skip some statement like A op
+                the op should be
+                PLUS +
+                MINUS -
+                DIV  /
+                MODULO %
+                ASSIGN_PLUS  +=
+                ASSIGN_MINUS -=
+                ASSIGN_MULT  *=
+                ASSIGN_DIV   /=
+                DOT          .
+                LEFT_SHIFT   <<
+                RIGHT_SHIFT  >>
+                see cpp.qx for the range id
+            */
+
                 GetToken();
                 SkipStatementBlock();
             }
@@ -389,7 +401,7 @@ void ParserThread::DoParse()
                 // A B
                 m_Context.typeStr<< tk->get_text()<<" "; // pushing A to the typeStr
             }
-            else if (peek->type_id() == TKN_COMMA   || peek->type_id() == TKN_OP_ASSIGNMENT )
+            else if (peek->type_id() == TKN_COMMA   || peek->type_id() == TKN_OP_ASSIGNMENT ) //A; A=
             {
                 // A B = ....;
                 // A B,C,D=2;
@@ -422,7 +434,7 @@ void ParserThread::DoParse()
                 }
 
             }
-            else if (peek->type_id() == TKN_LESS )
+            else if (peek->type_id() == TKN_LESS )  // A <
             {
                 //m_Context.typeStr<< tk->get_text()<<" ";  // pushing A to the typeStr
                 // add the tk->text first, otherwize the tk will point to another variable when
