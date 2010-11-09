@@ -319,6 +319,22 @@ void ParserThread::DoParse()
                 SkipStatementBlock();
             break;
         }
+
+
+        case  TKN_EXPLICIT:
+        case  TKN_CONST:
+        case  TKN_FRIEND:
+        case  TKN_VIRTUAL:
+        case  TKN_VOLATILE:
+        case  TKN_STATIC:
+        case  TKN_INLINE:
+        case  TKN_AUTO:
+        case  TKN_REGISTER:
+        case  TKN_MUTABLE:
+        {
+            m_Context.typeQualifier = tk->type_id();
+            break;
+        }
         case TKN_IDENTIFIER:
         {
 
@@ -536,7 +552,8 @@ void ParserThread::DoParse()
         case TKN_DELETE:
         case TKN_NEW:
         case TKN_RETURN:
-        case TKN_FRIEND:
+        case TKN_EXTERN:
+        case TKN_GOTO:
         {
             SkipStatementBlock();
             break;

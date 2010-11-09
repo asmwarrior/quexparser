@@ -26,7 +26,8 @@ struct ParserThreadContext
         typeStr(cc_text("")),
         stackNamespace(),
         typeNamespace(),
-        inTypedef(false)
+        inTypedef(false),
+        typeQualifier(0)
     {
 
     };
@@ -34,6 +35,7 @@ struct ParserThreadContext
     void Reset()
     {
         typeStr.clear();
+        typeQualifier = 0;
         while (!stackNamespace.empty())
             stackNamespace.pop();
     }
@@ -45,6 +47,7 @@ struct ParserThreadContext
             stackNamespace.pop();
         while (!typeNamespace.empty())
             typeNamespace.pop();
+        typeQualifier = 0;
     }
 
     /** this is a very important member variables! it serves as a return type stack,
@@ -70,9 +73,9 @@ struct ParserThreadContext
 
     /** this member define the scope type of member variables, which is: public or private
       * protected or undefined */
-    TokenScope           accessScope;
+    TokenScope      accessScope;
 
-
+    int           typeQualifier;
 
         /** this makes a difference in unnamed class/struct/enum handling */
     bool                 inTypedef;
