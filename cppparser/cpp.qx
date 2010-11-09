@@ -126,6 +126,63 @@ mode OPERATORS:
 mode VAR_LEXEMES :
 <inheritable: only>
 {
+
+    "#"           => TKN_HASH();
+    "##"          => TKN_DOUBLE_HASH();
+    
+    extern        => TKN_EXTERN();
+    explicit      => TKN_EXPLICIT();
+    const         => TKN_CONST();
+    friend        => TKN_FRIEND();
+    virtual       => TKN_VIRTUAL();
+    volatile      => TKN_VOLATILE();
+    static        => TKN_STATIC();
+    inline        => TKN_INLINE();
+    auto          => TKN_AUTO();
+    register      => TKN_REGISTER();
+    mutable       => TKN_MUTABLE();
+    
+    if            => TKN_IF();
+    else          => TKN_ELSE();
+    switch        => TKN_SWITCH();
+    for           => TKN_FOR();
+    do            => TKN_DO();
+    while         => TKN_WHILE();
+    
+    namespace     => TKN_NAMESPACE();
+    class         => TKN_CLASS();
+    struct        => TKN_STRUCT();
+    template      => TKN_TEMPLATE();
+    union         => TKN_UNION();
+    enum          => TKN_ENUM();
+    try           => TKN_TRY();
+    catch         => TKN_CATCH();
+        
+    public        => TKN_PUBLIC();
+    protect       => TKN_PROTECT();
+    private       => TKN_PRIVATE();
+   
+    new           => TKN_NEW();
+    delete        => TKN_DELETE();
+    continue      => TKN_CONTINUE();
+    return        => TKN_RETURN();
+    case          => TKN_CASE();
+    default       => TKN_DEFAULT();
+    break         => TKN_BREAK();
+    goto          => TKN_GOTO(); 
+    sizeof        => TKN_SIZEOF();
+    throw         => TKN_THROW();
+    
+    using         => TKN_USING();
+    asm           => TKN_ASM();
+    __asm         => TKN_ASM_EXT();
+    typedef       => TKN_TYPEDEF();
+    typeid        => TKN_TYPEID();
+    this          => TKN_THIS();
+    
+    typename      => TKN_TYPENAME();
+    operator      => TKN_OPERATOR();
+    
     {P_IDENTIFIER}      => TKN_IDENTIFIER(Lexeme);
     {P_NUMBER}          => TKN_NUMBER(Lexeme);
     {P_STRING}          => TKN_STRING(Lexeme);
@@ -159,40 +216,7 @@ EOF_AND_FAILURE
     "#"[ \t]*"undef"                          => GOTO(PREPROCESSOR, TKN_PP_UNDEF());
     "\\\n"        {}
 
-    "#"           => TKN_HASH();
-    "##"          => TKN_DOUBLE_HASH();
-    struct        => TKN_STRUCT();
-    const         => TKN_CONST();
-    if            => TKN_IF();
-    else          => TKN_ELSE();
-    switch        => TKN_SWITCH();
-    for           => TKN_FOR();
-    do            => TKN_DO();
-    while         => TKN_WHILE();
-    break         => TKN_BREAK();
-    continue      => TKN_CONTINUE();
-    class         => TKN_CLASS();
-    template      => TKN_TEMPLATE();
-    extern        => TKN_EXTERN();
-    return        => TKN_RETURN();
-    public        => TKN_PUBLIC();
-    protect       => TKN_PROTECT();
-    private       => TKN_PRIVATE();
-    delete        => TKN_DELETE();
-    friend        => TKN_FRIEND();
-    namespace     => TKN_NAMESPACE();
-    new           => TKN_NEW();
-    __asm         => TKN_ASM();
-    union         => TKN_UNION();
-    virtual       => TKN_VIRTUAL();
-    typename      => TKN_TYPENAME();
-    using         => TKN_USING();
-    static        => TKN_STATIC();
-    operator      => TKN_OPERATOR();
-    inline        => TKN_INLINE();
-    enum          => TKN_ENUM();
-    typedef       => TKN_TYPEDEF();
-    volatile      => TKN_VOLATILE();
+    
     {P_IDENTIFIER}  PRIORITY-MARK;
 }
 
@@ -203,9 +227,6 @@ EOF_AND_FAILURE
 <skip_range: "/*" "*/">
 {
     defined          => TKN_PP_DEFINED();
-
-    "#"              => TKN_HASH();
-    "##"             => TKN_DOUBLE_HASH();
 
     "//"[^\n]*"\n"   => GOTO(PROGRAM, TKN_PP_FINISH);
     "\n"             => GOTO(PROGRAM, TKN_PP_FINISH);
