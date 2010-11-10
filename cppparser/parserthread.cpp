@@ -117,18 +117,18 @@ void ParserThread::SkipStatementBlock()
     RawToken * tk = m_Tokenizer.GetToken();
     int id = tk->type_id();
     printf("Skip statement block Start line(%d) column(%d)\n",tk->line_number(),tk->column_number());
-    if (id == TKN_CURLY_BRACKET_O)
+    if (id == TKN_L_BRACE)
     {
-        //SkipToId(TKN_CURLY_BRACKET_C);
+        //SkipToId(TKN_R_BRACE);
         int level = 1;
 
         while(level>0)
         {
             tk = m_Tokenizer.GetToken();
             id = tk->type_id();
-            if (id == TKN_CURLY_BRACKET_O)
+            if (id == TKN_L_BRACE)
                 level++;
-            else if (id == TKN_CURLY_BRACKET_C)
+            else if (id == TKN_R_BRACE)
                 level--;
         }
     }
@@ -140,18 +140,18 @@ void ParserThread::SkipStatementBlock()
         {
             tk = m_Tokenizer.GetToken();
             id = tk->type_id();
-            if (id == TKN_CURLY_BRACKET_O)  // {     ---> skip { xxx } block
+            if (id == TKN_L_BRACE)  // {     ---> skip { xxx } block
             {
-                //SkipToId(TKN_CURLY_BRACKET_C);
+                //SkipToId(TKN_R_BRACE);
                 int level = 1;
 
                 while(level>0)
                 {
                     tk = m_Tokenizer.GetToken();
                     id = tk->type_id();
-                    if (id == TKN_CURLY_BRACKET_O)
+                    if (id == TKN_L_BRACE)
                         level++;
-                    else if (id == TKN_CURLY_BRACKET_C)
+                    else if (id == TKN_R_BRACE)
                         level--;
                 }
             }
@@ -162,9 +162,9 @@ void ParserThread::SkipStatementBlock()
 
 void ParserThread::SkipParentheses()
 {
-    //TKN_BRACKET_O
+    //TKN_L_PAREN
 
-    RawToken * tk = m_Tokenizer.GetToken();//remove the first TKN_BRACKET_O
+    RawToken * tk = m_Tokenizer.GetToken();//remove the first TKN_L_PAREN
     int id = tk->type_id();
     int level = 1;
     printf("Skip Parentheses Start at line(%d)column(%d)\n",tk->line_number(),tk->column_number());
@@ -172,9 +172,9 @@ void ParserThread::SkipParentheses()
     {
         tk = m_Tokenizer.GetToken();
         id = tk->type_id();
-        if (id == TKN_BRACKET_O)
+        if (id == TKN_L_PAREN)
             level++;
-        else if (id == TKN_BRACKET_C)
+        else if (id == TKN_R_PAREN)
             level--;
     }
     printf("Skip Parentheses End at line(%d)column(%d)\n",tk->line_number(),tk->column_number());
@@ -276,14 +276,14 @@ void ParserThread::DoParse()
 
         switch (tk->type_id())
         {
-        case TKN_CURLY_BRACKET_O : //{
+        case TKN_L_BRACE : //{
         {
-            int idArray[1] = {TKN_CURLY_BRACKET_C};
+            int idArray[1] = {TKN_R_BRACE};
             SkipToOneOfId(idArray,1);
             TRACE("Skiping {}");
             break;
         }
-        case TKN_CURLY_BRACKET_C: //}
+        case TKN_R_BRACE: //}
         {
 
 
@@ -292,9 +292,9 @@ void ParserThread::DoParse()
             TRACE("return from a }");
             return;
         }
-        case TKN_BRACKET_O :       // (
+        case TKN_L_PAREN :       // (
         {
-            int idArray[1] = {TKN_BRACKET_C};
+            int idArray[1] = {TKN_R_PAREN};
             SkipToOneOfId(idArray,1);
             TRACE("Skiping ()");
             break;
@@ -341,9 +341,11 @@ void ParserThread::DoParse()
             // we are interested in the following token.
 
             RawToken * peek = PeekToken();
-
-            if( peek->type_id() == TKN_BRACKET_O ) // This is a function definition or declration, because it has AAA BBB (
+            int peekID = peek-> type_id();
+            switch (peekID)
             {
+            case TKN_L_PAREN:      // This is a function definition or declration, because it has AAA BBB (
+
                 if(m_Context.typeStr.empty())   // AAA(
                 {
                     //HandleMacro();
@@ -352,11 +354,10 @@ void ParserThread::DoParse()
                 else                            // AAA BBB(
                 {
                     cc_string functionName = tk->get_text();
-                     HandleFunction(functionName);
+                    HandleFunction(functionName);
                 }
-            }
-            else if (peek->type_id() == TKN_SEMICOLON)                // A B;
-            {
+                break;
+            case  TKN_SEMICOLON:     // A B;
                 if(m_Context.typeStr.empty())   // AAA;
                 {
                     SkipStatementBlock();
@@ -368,57 +369,53 @@ void ParserThread::DoParse()
                     TRACE("Variable Find name(%s) type(%s)",variableName.c_str(),variableType.c_str());
                     //Add variable to tokenstree
                     if (m_Options.handleVars)
-                            DoAddToken(tkVariable, tk->get_text(), tk->line_number());
+                        DoAddToken(tkVariable, tk->get_text(), tk->line_number());
 
                     //consume the semicolon
                     GetToken();
                     m_Context.EndStatement();
                 }
-            }
-            else if (peek->type_id() == TKN_DOUBLE_COLON)  //::
-            {
+                break;
+            case TKN_DOUBLE_COLON: //::
                 if (m_Context.typeStr.empty())
                     m_Context.typeNamespace.push(tk->get_text());
                 else
                     m_Context.stackNamespace.push(tk->get_text()); // it's a type's namespace
 
                 GetToken();//eat ::
-            }
-            else if (  peek->type_id() == TKN_AMPERSANT //&
-                     ||peek->type_id() == TKN_MULT)     //*
-            {
+                break;
+            case TKN_BITAND://&
+            case TKN_MULT:  //*
                 m_Context.typeStr<< peek->get_text();
                 GetToken();
-            }
-            else if (TKN_CORNER_BRACKET_O <= peek->type_id()  &&  peek->type_id() <= TKN_RIGHT_SHIFT  )
-            {
-
-             /* skip some statement like A op
-                the op should be
-                PLUS +
-                MINUS -
-                DIV  /
-                MODULO %
-                ASSIGN_PLUS  +=
-                ASSIGN_MINUS -=
-                ASSIGN_MULT  *=
-                ASSIGN_DIV   /=
-                DOT          .
-                LEFT_SHIFT   <<
-                RIGHT_SHIFT  >>
-                see cpp.qx for the range id
-            */
+                break;
+            case TKN_L_SQUARE:
+            case TKN_PLUS:
+            case TKN_PLUS_ASSIGN:
+            case TKN_DOUBLE_PLUS:
+            case TKN_MINUS:
+            case TKN_DOUBLE_MINUS:
+            case TKN_MINUS_ASSIGN:
+            case TKN_MULT_ASSIGN:
+            case TKN_DIV:
+            case TKN_DIV_ASSIGN:
+            case TKN_MODULO:
+            case TKN_MODULO_ASSIGN:
+            case TKN_L_SHIFT:
+            case TKN_L_SHIFT_ASSIGN:
+            case TKN_R_SHIFT:
+            case TKN_R_SHIFT_ASSIGN:
 
                 GetToken();
                 SkipStatementBlock();
-            }
-            else if (peek->type_id() == TKN_IDENTIFIER )
-            {
+                break;
+            case TKN_IDENTIFIER:
+
                 // A B
                 m_Context.typeStr<< tk->get_text()<<" "; // pushing A to the typeStr
-            }
-            else if (peek->type_id() == TKN_COMMA   || peek->type_id() == TKN_OP_ASSIGNMENT ) //A; A=
-            {
+                break;
+            case TKN_COMMA://A; A=
+            case TKN_ASSIGN:
                 // A B = ....;
                 // A B,C,D=2;
                 if(m_Context.typeStr.empty())   // A,
@@ -433,12 +430,12 @@ void ParserThread::DoParse()
                     TRACE("Variable Find name(%s) type(%s)",variableName.c_str(),variableType.c_str());
                     //Add variable to tokenstree
                     if (m_Options.handleVars)
-                            DoAddToken(tkVariable, tk->get_text(), tk->line_number());
+                        DoAddToken(tkVariable, tk->get_text(), tk->line_number());
 
 
                     GetToken();       //consume , or =
                     // tk is updated
-                    if(tk->type_id()  == TKN_OP_ASSIGNMENT)
+                    if(tk->type_id()  == TKN_ASSIGN)
                     {
                         int idArray[2] = {TKN_COMMA,TKN_SEMICOLON};
                         SkipToOneOfId(idArray,2);
@@ -448,13 +445,14 @@ void ParserThread::DoParse()
                     }
 
                 }
+                break;
+            case TKN_LESS :  // A <
 
-            }
-            else if (peek->type_id() == TKN_LESS )  // A <
-            {
                 //m_Context.typeStr<< tk->get_text()<<" ";  // pushing A to the typeStr
                 // add the tk->text first, otherwize the tk will point to another variable when
                 // GetTemplateArgs() finished.
+            {
+
                 cc_string current = tk->get_text();
                 if(GetTemplateArgs())          // A< ....>
                 {
@@ -484,6 +482,9 @@ void ParserThread::DoParse()
                 {
                     m_Context.EndStatement();
                 }
+            }
+            break;
+
 
             }
             break;
@@ -493,7 +494,7 @@ void ParserThread::DoParse()
             m_Context.EndStatement();
             break;
         }
-        case TKN_AMPERSANT:  //&
+        case TKN_BITAND:  //&
         case TKN_MULT:       //*
         {
             m_Context.typeStr<< tk->get_text();
@@ -848,8 +849,8 @@ Token* ParserThread::DoAddToken(TokenKind kind,
     newToken->m_FileIdx = m_FileIdx;
     newToken->m_Line    = line;
     TRACE(cc_text("DoAddToken() : Added/updated token '%s' (%d), type '%s', actual '%s'. Parent is %s (%d)"),
-              name.c_str(),                   newToken->GetSelf(),                newToken->m_Type.c_str(),
-              newToken->m_ActualType.c_str(), newToken->GetParentName().c_str(), newToken->m_ParentIndex);
+          name.c_str(),                   newToken->GetSelf(),                newToken->m_Type.c_str(),
+          newToken->m_ActualType.c_str(), newToken->GetParentName().c_str(), newToken->m_ParentIndex);
 
 
 
@@ -882,7 +883,8 @@ void ParserThread::ReadVarNames()
 
 }
 
-void ParserThread::HandleClass(EClassType ct) {
+void ParserThread::HandleClass(EClassType ct)
+{
 
     // class xxx {   or class {
     // the keyworkd "class" is already comsumed
@@ -895,7 +897,8 @@ void ParserThread::HandleClass(EClassType ct) {
 
 
     // Check current firstly
-    if (current->type_id() == TKN_CURLY_BRACKET_O) { // unnamed class/struct/union
+    if (current->type_id() == TKN_L_BRACE)   // unnamed class/struct/union
+    {
 //                cc_string unnamedTmp;
 //                unnamedTmp.Printf(_T("%s%s%d"),
 //                                  ParserConsts::unnamed.wx_str(),
@@ -916,8 +919,11 @@ void ParserThread::HandleClass(EClassType ct) {
 //                DoParse();
 //
 //                PopContext();
-    } else if (current->type_id() == TKN_IDENTIFIER) { //OK, we need to check the next
-        if ( next->type_id() == TKN_CURLY_BRACKET_O) { // class AAA {, we find the "{" here
+    }
+    else if (current->type_id() == TKN_IDENTIFIER)     //OK, we need to check the next
+    {
+        if ( next->type_id() == TKN_L_BRACE)   // class AAA {, we find the "{" here
+        {
             Token* newToken = DoAddToken(tkClass, current->get_text(), current->line_number());
             ParserThreadContext savedContext = m_Context;
             m_Context.Reset();
@@ -948,7 +954,7 @@ void ParserThread::HandleFunction(cc_string & name)
 
     RawToken * peek = m_Tokenizer.PeekToken();
 
-    if (peek->type_id() == TKN_CURLY_BRACKET_O)   // function definition
+    if (peek->type_id() == TKN_L_BRACE)   // function definition
     {
         TRACE("Function definition");
         TokenKind tokenKind = tkFunction ;
@@ -977,14 +983,14 @@ void ParserThread::ReadEnumList()
         peek    = PeekToken();
         if(current->type_id() == TKN_IDENTIFIER )
         {
-            if (peek->type_id() == TKN_OP_ASSIGNMENT)     // a = b,
+            if (peek->type_id() == TKN_ASSIGN)     // a = b,
             {
                 //Add variable
                 DoAddToken(tkVariable, current->get_text(), current->line_number());
                 GetToken(); //comsume "="
                 GetToken(); //comsume the id after "="
             }
-            else if (peek->type_id() == TKN_CURLY_BRACKET_C)  //a}
+            else if (peek->type_id() == TKN_R_BRACE)  //a}
             {
                 //Add variable
                 DoAddToken(tkVariable, current->get_text(), current->line_number());
@@ -1003,7 +1009,8 @@ void ParserThread::ReadEnumList()
                 GetToken(); //comsume ","
             }
         }
-    }while(peek->type_id() != TKN_CURLY_BRACKET_C);
+    }
+    while(peek->type_id() != TKN_R_BRACE);
 
 }
 void ParserThread::HandleEnum()
@@ -1017,7 +1024,7 @@ void ParserThread::HandleEnum()
     if (tk->type_id() == TKN_IDENTIFIER)           // enum XXX
     {
         RawToken *pk = PeekToken();
-        if(pk->type_id() == TKN_CURLY_BRACKET_O )  //enum XXX {
+        if(pk->type_id() == TKN_L_BRACE )  //enum XXX {
         {
             // Do Add Token of enum
             TRACE("find enum %s at line(%d)",tk->get_text().c_str(),tk->line_number());
@@ -1035,16 +1042,16 @@ void ParserThread::HandleEnum()
             return;
         }
     }
-    else if (tk->type_id()== TKN_CURLY_BRACKET_O) //  enum {
+    else if (tk->type_id()== TKN_L_BRACE) //  enum {
     {
         // // Do Add Token of enum
-            TRACE("find unnamed enum at line(%d)",tk->line_number());
-            newToken = DoAddToken(tkEnum, "UnnamedEnum", tk->line_number());
-            GetToken();                    //consume {
-            ParserThreadContext savedContext = m_Context;
-            m_Context.parentToken = newToken;
-            ReadEnumList();
-            m_Context = savedContext;
+        TRACE("find unnamed enum at line(%d)",tk->line_number());
+        newToken = DoAddToken(tkEnum, "UnnamedEnum", tk->line_number());
+        GetToken();                    //consume {
+        ParserThreadContext savedContext = m_Context;
+        m_Context.parentToken = newToken;
+        ReadEnumList();
+        m_Context = savedContext;
     }
 
     // Token's implement End line information added
