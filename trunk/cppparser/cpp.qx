@@ -1,4 +1,9 @@
 // -*- C++ -*- vim: set syntax=cpp:
+// reference website: 
+// keyword:      http://www.cppreference.com/wiki/keywords/start
+// preprocessor: http://www.cppreference.com/wiki/preprocessor/start
+// operator:     http://www.cppreference.com/wiki/operator_precedence
+// other   :     clang source code:  llvm\tools\clang\include\clang\Basic\TokenKinds.def
 start = PROGRAM;
 
 define {
@@ -28,29 +33,7 @@ define {
 
 token {
 
-    CORNER_BRACKET_O    = 20;    
-    CORNER_BRACKET_C    = 21;
-    OP_ASSIGNMENT       = 22;
-    PLUS                = 23;
-    ASSIGN_PLUS         = 24;
-    DOUBLE_PLUS         = 25;    
-    MINUS               = 26;                   
-    DOUBLE_MINUS        = 27;                   
-    ASSIGN_MINUS        = 28;                   
-    ARROW               = 29;                   
-    ASSIGN_AND          = 30;                   
-    ASSIGN_EXCLUSIVE    = 31;                   
-    ASSIGN_OR           = 32;                   
-    DIV                 = 33;                   
-    ASSIGN_DIV          = 34;                   
-    MODULO              = 35;                   
-    ASSIGN_MODULO       = 36;                   
-    ASSIGN_MULT         = 37;                   
-    DOT                 = 38;                   
-    LEFT_SHIFT          = 39;
-    RIGHT_SHIFT         = 40;
-    
-    
+ 
     PP_DEFINE           = 50;
     PP_IF               = 51;
     PP_ELIF             = 52;
@@ -73,63 +56,88 @@ mode EOF_AND_FAILURE:
 mode OPERATORS:
 <inheritable: only>
 {
-    "?"   => TKN_QUESTION_MARK();
-    "~"   => TKN_TILDE();
-    "("   => TKN_BRACKET_O();
-    ")"   => TKN_BRACKET_C();
-    "{"   => TKN_CURLY_BRACKET_O();
-    "}"   => TKN_CURLY_BRACKET_C();
-    "*"   => TKN_MULT();
-    
-    
-    "["   => TKN_CORNER_BRACKET_O();
-    "]"   => TKN_CORNER_BRACKET_C();
-    "="   => TKN_OP_ASSIGNMENT();
-    "+"   => TKN_PLUS();
-    "+="  => TKN_ASSIGN_PLUS();
-    "++"  => TKN_DOUBLE_PLUS();
-    "-"   => TKN_MINUS();
-    "--"  => TKN_DOUBLE_MINUS();
-    "-="  => TKN_ASSIGN_MINUS();
-    "->"  => TKN_ARROW();
-    "&="  => TKN_ASSIGN_AND();
-    "^="  => TKN_ASSIGN_EXCLUSIVE();
-    "|="  => TKN_ASSIGN_OR();    
-    "/"   => TKN_DIV();
-    "/="  => TKN_ASSIGN_DIV();
-    "%"   => TKN_MODULO();
-    "%="  => TKN_ASSIGN_MODULO();
-    "*="  => TKN_ASSIGN_MULT();
-    "."   => TKN_DOT();
-    "<<"  => TKN_LEFT_SHIFT();
-    ">>"  => TKN_RIGHT_SHIFT();
 
-    "=="  => TKN_EQ();
-    "!="  => TKN_NOT_EQ();
-    ">"   => TKN_GREATER();
-    ">="  => TKN_GR_EQ();
-    "<"   => TKN_LESS();
-    "<="  => TKN_LE_EQ();
-    "!"   => TKN_NOT();
-    "|"   => TKN_LOGICAL_OR();
-    "^"   => TKN_EXCLUSIVE_OR();
-    "||"  => TKN_OR();
-    "&"   => TKN_AMPERSANT();
-    "&&"  => TKN_AND();
-    ":"   => TKN_COLON();
-    "::"  => TKN_DOUBLE_COLON();
-    ";"   => TKN_SEMICOLON();
-    ","   => TKN_COMMA();
-    "..." => TKN_ELLIPSIS();
+    "("       =>     TKN_L_PAREN();
+    ")"       =>     TKN_R_PAREN();
+    "{"       =>     TKN_L_BRACE();
+    "}"       =>     TKN_R_BRACE();
+    "["       =>     TKN_L_SQUARE();
+    "]"       =>     TKN_R_SQUARE(); 
+                     
+    "."       =>     TKN_DOT();
+    "..."     =>     TKN_ELLIPSIS();
+    ":"       =>     TKN_COLON();
+    "::"      =>     TKN_DOUBLE_COLON();
+    ";"       =>     TKN_SEMICOLON();
+    ","       =>     TKN_COMMA();
+    "?"       =>     TKN_QUESTION();
+    "->"      =>     TKN_ARROW();
+
+    //assignment
+    "="       =>     TKN_ASSIGN();
+    "+"       =>     TKN_PLUS();
+    "+="      =>     TKN_PLUS_ASSIGN();
+    "++"      =>     TKN_DOUBLE_PLUS();
+    "-"       =>     TKN_MINUS();
+    "--"      =>     TKN_DOUBLE_MINUS();
+    "-="      =>     TKN_MINUS_ASSIGN();
+                     
+    "*"       =>     TKN_MULT();
+    "*="      =>     TKN_MULT_ASSIGN();
+    "/"       =>     TKN_DIV();
+    "/="      =>     TKN_DIV_ASSIGN();
+    "%"       =>     TKN_MODULO();
+    "%="      =>     TKN_MODULO_ASSIGN();
+    
+    // shift
+    "<<"      =>     TKN_L_SHIFT();
+    "<<="     =>     TKN_L_SHIFT_ASSIGN();
+    ">>"      =>     TKN_R_SHIFT();
+    ">>="     =>     TKN_R_SHIFT_ASSIGN();
+    
+    // bitwise or logic operator
+    "=="      =>     TKN_EQ();
+    eq        =>     TKN_EQ();
+                     
+    ">"       =>     TKN_GREATER();
+    ">="      =>     TKN_GR_EQ();
+    "<"       =>     TKN_LESS();
+    "<="      =>     TKN_LE_EQ();
+                     
+    "!"       =>     TKN_NOT();
+    not       =>     TKN_NOT();
+    "!="      =>     TKN_NOT_EQ();
+    not_eq    =>     TKN_NOT_EQ();
+              
+    "|"       =>     TKN_BITOR();
+    bitor     =>     TKN_BITOR();
+    "||"      =>     TKN_OR();
+    or        =>     TKN_OR();
+    "|="      =>     TKN_OR_EQ(); 
+    or_eq     =>     TKN_OR_EQ();
+                     
+    "^"       =>     TKN_XOR();
+    xor       =>     TKN_XOR();
+    "^="      =>     TKN_XOR_EQ();
+    xor_equ   =>     TKN_XOR_EQ();
+                     
+    "~"       =>     TKN_COMPL();
+    compl     =>     TKN_COMPL();
+    
+    "&"       =>     TKN_BITAND();
+    bitand    =>     TKN_BITAND();
+    "&&"      =>     TKN_AND();
+    and       =>     TKN_AND();
+    "&="      =>     TKN_AND_EQ();
+    and_eq    =>     TKN_AND_EQ();
+    
+
 }
 
 mode VAR_LEXEMES :
 <inheritable: only>
 {
 
-    "#"           => TKN_HASH();
-    "##"          => TKN_DOUBLE_HASH();
-    
     extern        => TKN_EXTERN();
     explicit      => TKN_EXPLICIT();
     const         => TKN_CONST();
@@ -227,7 +235,8 @@ EOF_AND_FAILURE
 <skip_range: "/*" "*/">
 {
     defined          => TKN_PP_DEFINED();
-
+    "#"              => TKN_PP_HASH();
+    "##"             => TKN_PP_DOUBLE_HASH();
     "//"[^\n]*"\n"   => GOTO(PROGRAM, TKN_PP_FINISH);
     "\n"             => GOTO(PROGRAM, TKN_PP_FINISH);
     "\\\n"           {}
