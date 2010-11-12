@@ -208,7 +208,17 @@ void Tokenizer::DoGetToken(int n)
         m_IsEOF = true;
         throw ParserException();
     }
-    //cout<<m_QuexToken<< " line=" << m_QuexToken.line_number() << "colunm=" << m_QuexToken.column_number()<<endl;
+    else if ( id == TKN_FAILURE )
+    {
+        cout<< "fail" << " line=" << m_TokenBuffer[n].line_number() << "colunm=" << m_TokenBuffer[n].column_number()<<endl;
+    }
+    else if( id == TKN_FAILURE_STRING )
+    {
+        cout<< "fail string" << " line=" << m_TokenBuffer[n].line_number() << "colunm=" << m_TokenBuffer[n].column_number()<<endl;
+    }
+
+    //cout<< "DoGetToken(): " << "line=" << m_TokenBuffer[n].line_number() << "colunm=" << m_TokenBuffer[n].column_number();
+    //cout<<m_TokenBuffer[n].get_text()<<endl;
 }
 
 
