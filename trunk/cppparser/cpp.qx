@@ -44,13 +44,31 @@ token {
     PP_PRAGMA           = 57;
     PP_ERROR            = 58;
     PP_UNDEF            = 59;
+    
+    FAILURE_STRING;
+    FAILURE;
+    
+    
+    
 }
 
 mode EOF_AND_FAILURE:
 <inheritable: only>
 {
     on_end_of_stream => TKN_TERMINATION(LexemeNull);
-    on_failure       => TKN_TERMINATION(Lexeme);
+    on_failure {
+                for(QUEX_TYPE_CHARACTER * iterator = LexemeEnd;
+                    iterator >= LexemeBegin && *iterator != '\n';
+                    --iterator) { 
+                    //std::cout<<"current char = "<<*iterator<<std::endl;
+                    if( *iterator == '\"' ){ 
+                        self_send(TKN_FAILURE_STRING);
+                        RETURN;
+                    } 
+                }
+                self_send(TKN_FAILURE);
+                RETURN;
+    }
 }
 
 mode OPERATORS:
