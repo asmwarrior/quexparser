@@ -584,7 +584,8 @@ void ParserThread::DoParse()
         }
         default:
         {
-            TRACE("Skip unhandled token(%s)",tk->get_text().c_str());
+            TRACE("Skip unhandled\
+                   token=%s",tk->get_text().c_str());
             break;
         }
         }
