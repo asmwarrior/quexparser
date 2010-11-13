@@ -14,7 +14,7 @@ define {
     //
     // String:
     //    Quote " followe by either \" or something different from " and then a final "
-    P_STRING              "\""(\\"\""|[^"])*"\""
+    P_STRING              "\""(\\"\""|\\\r\n|\\\n|[^"\n])*"\""
     P_QUOTED_CHAR_1       ("'\\''")|("'"[^']?"'")
     P_QUOTED_CHAR_2       "'\\"[0-9abcfnrtv\\]"'"
     P_QUOTED_CHAR         ({P_QUOTED_CHAR_1}|{P_QUOTED_CHAR_2})
@@ -47,6 +47,7 @@ token {
     
     FAILURE_STRING;
     FAILURE;
+    STRING;
     
     
     
@@ -60,7 +61,7 @@ mode EOF_AND_FAILURE:
                 for(QUEX_TYPE_CHARACTER * iterator = LexemeEnd;
                     iterator >= LexemeBegin && *iterator != '\n';
                     --iterator) { 
-                    //std::cout<<"current char = "<<*iterator<<std::endl;
+                    std::cout<<"current char = "<<*iterator<<std::endl;
                     if( *iterator == '\"' ){ 
                         self_send(TKN_FAILURE_STRING);
                         RETURN;
