@@ -458,7 +458,7 @@ void ParserThread::DoParse()
                 {
                     current<<"<" << m_Context.templateArgument << ">";
                     RawToken* peek = PeekToken();
-                    if(peek->type_id() == TKN_DOUBLE_COLON)
+                    if(peek->type_id() == TKN_DOUBLE_COLON) //A< ....>::
                     {
 
                         if (m_Context.typeStr.empty())
