@@ -15,13 +15,13 @@ define {
     simple_escape [abfnrtv'"?\\]
     octal_escape  [0-7]{1,3}
     hex_escape "x"[0-9a-fA-F]+
-    backslash_newline    [ \t]*(\r\n|\n)
-    escape_sequence      [\\]({simple_escape}|{octal_escape}|{hex_escape}|{backslash_newline})
+    backslash_newline    [ \t]*\r?\n
+    escape_sequence      \\({simple_escape}|{octal_escape}|{hex_escape}|{backslash_newline})
     
     
     c_char [^'\\\n]|{escape_sequence} 
     s_char [^"\\\n]|{escape_sequence} 
-    
+
     
     P_STRING              L?\"{s_char}*\" 
 
@@ -71,13 +71,13 @@ mode EOF_AND_FAILURE:
                 for(QUEX_TYPE_CHARACTER * iterator = LexemeEnd;
                     iterator >= LexemeBegin && *iterator != '\n';
                     --iterator) { 
-                    std::cout<<"current char = "<<*iterator<<std::endl;
+                    //std::cout<<"current char = "<<*iterator<<std::endl;
                     if( *iterator == '\"' ){ 
-                        self_send(TKN_FAILURE_STRING);
+                        self_send1(TKN_FAILURE_STRING,Lexeme);
                         RETURN;
                     } 
                 }
-                self_send(TKN_FAILURE);
+                self_send1(TKN_FAILURE,Lexeme);
                 RETURN;
     }
 }
@@ -251,11 +251,9 @@ EOF_AND_FAILURE
     "#"[ \t]*"error"                          => GOTO(PREPROCESSOR, TKN_PP_ERROR());
     "#"[ \t]*"undef"                          => GOTO(PREPROCESSOR, TKN_PP_UNDEF());
     
-    "//"([^\\\n]|\\([ \\\t]*(\r\n|\n)|[^\\\r\n\t]*))*"\n"   => TKN_PP_CPPCOMMENT(Lexeme);  // cpp comment
-    
-    //"\\\n"        {}
+    "//"([^\n]|\\[ \t]*\r?\n)*\r?\n    => TKN_PP_CPPCOMMENT(Lexeme);
+    \\[ \t]*\r?\n       {}
 
-    
     {P_IDENTIFIER}  PRIORITY-MARK;
 }
 
@@ -268,9 +266,8 @@ EOF_AND_FAILURE
     defined          => TKN_PP_DEFINED();
     "#"              => TKN_HASH();         // # and ## only exist in preprocessor
     "##"             => TKN_DOUBLE_HASH();
-    "//"[^\n]*"\n"   => GOTO(PROGRAM, TKN_PP_FINISH);
+    "//"[^\n]*\n     => GOTO(PROGRAM, TKN_PP_FINISH);
     "\n"             => GOTO(PROGRAM, TKN_PP_FINISH);
-    "\\\n"           {}
-    "\\\r\n"         {}
+    \\[ \t]*\r?\n         {}
     {P_IDENTIFIER}   PRIORITY-MARK;
 }

@@ -230,15 +230,15 @@ cc_string Tokenizer::MacroReplace(const cc_string str)
 
 void Tokenizer::RunTest()
 {
-    QUEX_TYPE_TOKEN_ID id;
+    RawToken* token;
 
     while(1)
     {
-        id = m_Quex.receive();
+        token = GetToken();
 
-        //cout<<m_QuexToken<< " line=" << m_QuexToken.line_number() << "colunm=" << m_QuexToken.column_number()<<endl;
+        cout<<*token<< " line=" << token->line_number() << "colunm=" << token->column_number()<<endl;
 
-        if( id == TKN_TERMINATION )
+        if( token->type_id()== TKN_TERMINATION )
         {
             break;
         }
