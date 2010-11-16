@@ -585,7 +585,9 @@ void ParserThread::DoParse()
         }
         default:
         {
-           cout<<"Skip unhandled"<<*tk<<endl;
+            //cout<<"Skip unhandled"<<*tk<<endl;
+            // As the tk is only a pointer to the RawToken buffer, so it may changed by
+            // some function calling on GetToken or PeekToken
             break;
         }
         }

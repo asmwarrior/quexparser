@@ -251,7 +251,7 @@ EOF_AND_FAILURE
     "#"[ \t]*"error"                          => GOTO(PREPROCESSOR, TKN_PP_ERROR());
     "#"[ \t]*"undef"                          => GOTO(PREPROCESSOR, TKN_PP_UNDEF());
     
-    "//"([^\n]|\\[ \t]*\r?\n)*\r?\n           => TKN_PP_CPPCOMMENT(Lexeme);
+    "//"([^\n]|\\[ \t]*\r?\n)*\r?\n           {} // skip cpp_comment => TKN_PP_CPPCOMMENT(Lexeme);
     
     \\[ \t]*\r?\n       {}                   // backslash spaces* newline should be skipped
 
