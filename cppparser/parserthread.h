@@ -298,65 +298,7 @@ private:
         m_Tokenizer.UngetToken();
     }
 
-    void FillOutMacroDefine(RawToken * tk)
-    {
-        if( TKN_PP_IF <= tk->type_id() && tk->type_id() <= TKN_PP_ERROR)
-        {
-            //loop until we find a TKN_TKN_PP_FINISH
-            switch (tk->type_id())
-            {
-
-            case TKN_PP_DEFINE:
-                {
-                    // read the macro definition.
-                    do
-                    {
-                        tk = m_Tokenizer.GetToken();
-                    }while(TKN_PP_FINISH != tk->type_id());
-                    break;
-                }
-            case TKN_PP_IF:
-                {
-                    break;
-                }
-            case TKN_PP_ELIF:
-                {
-                    break;
-                }
-            case TKN_PP_IFDEF :
-                {
-                    break;
-                }
-            case TKN_PP_IFNDEF:
-                {
-                    break;
-                }
-            case TKN_PP_ENDIF:
-                {
-                    break;
-                }
-            case TKN_PP_ELSE:
-                {
-                    break;
-                }
-            case TKN_PP_PRAGMA:
-                {
-                    break;
-                }
-            case TKN_PP_ERROR:
-                {
-                    break;
-                }
-            case TKN_PP_UNDEF:
-                {
-                    break;
-                }
-
-            }
-
-
-        }
-    }
+    void FillOutMacroDefine(RawToken * tk);
 
     /** no usage ??? */
     void Log(const cc_string& log);
