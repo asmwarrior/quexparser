@@ -18,9 +18,11 @@ define {
     backslash_newline    [ \t]*\r?\n
     escape_sequence      \\({simple_escape}|{octal_escape}|{hex_escape}|{backslash_newline})
     
+    loose_escape   [ _a-zA-Z0-9'"?\\]
+    loose_escape_sequence \\({loose_escape}|{backslash_newline})
     
     c_char [^'\\\n]|{escape_sequence} 
-    s_char [^"\\\n]|{escape_sequence} 
+    s_char [^"\\\n]|{loose_escape_sequence} 
 
     
     P_STRING              L?\"{s_char}*\" 
