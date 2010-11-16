@@ -251,8 +251,9 @@ EOF_AND_FAILURE
     "#"[ \t]*"error"                          => GOTO(PREPROCESSOR, TKN_PP_ERROR());
     "#"[ \t]*"undef"                          => GOTO(PREPROCESSOR, TKN_PP_UNDEF());
     
-    "//"([^\n]|\\[ \t]*\r?\n)*\r?\n    => TKN_PP_CPPCOMMENT(Lexeme);
-    \\[ \t]*\r?\n       {}
+    "//"([^\n]|\\[ \t]*\r?\n)*\r?\n           => TKN_PP_CPPCOMMENT(Lexeme);
+    
+    \\[ \t]*\r?\n       {}                   // backslash spaces* newline should be skipped
 
     {P_IDENTIFIER}  PRIORITY-MARK;
 }
@@ -266,8 +267,8 @@ EOF_AND_FAILURE
     defined          => TKN_PP_DEFINED();
     "#"              => TKN_HASH();         // # and ## only exist in preprocessor
     "##"             => TKN_DOUBLE_HASH();
-    "//"[^\n]*\n     => GOTO(PROGRAM, TKN_PP_FINISH);
-    "\n"             => GOTO(PROGRAM, TKN_PP_FINISH);
-    \\[ \t]*\r?\n         {}
+    "//"([^\n]|\\[ \t]*\r?\n)*\r?\n    => GOTO(PROGRAM, TKN_PP_FINISH);  // end with c++ style comment will 
+    "\n"                               => GOTO(PROGRAM, TKN_PP_FINISH);  // end with normal newline 
+    \\[ \t]*\r?\n         {}                // backslash spaces* newline should be skipped
     {P_IDENTIFIER}   PRIORITY-MARK;
 }
