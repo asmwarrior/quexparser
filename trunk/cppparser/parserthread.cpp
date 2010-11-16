@@ -1150,3 +1150,73 @@ bool ParserThread::GetTemplateArgs()
     return true;
 
 }
+
+
+void ParserThread::FillOutMacroDefine(RawToken * tk)
+{
+    if( TKN_PP_DEFINE <= tk->type_id() && tk->type_id() <= TKN_PP_ERROR)
+    {
+        //loop until we find a TKN_TKN_PP_FINISH
+        switch (tk->type_id())
+        {
+
+        case TKN_PP_DEFINE:
+            {
+                tk = m_Tokenizer.GetToken();
+                cout<<"Macro definition name="<<tk->get_text()<<endl; //should be an ID
+                // read the macro definition.
+                RawToken* peek = PeekToken();
+                if(peek->type_id()==TKN_L_PAREN) // this is a function like macro definition
+                {
+                    SkipParentheses();
+                }
+                do
+                {
+                    tk = m_Tokenizer.GetToken();
+                    cout<<*tk<<endl; //should be an ID
+
+                }while(TKN_PP_FINISH != tk->type_id());
+                break;
+            }
+        case TKN_PP_IF:
+            {
+                break;
+            }
+        case TKN_PP_ELIF:
+            {
+                break;
+            }
+        case TKN_PP_IFDEF :
+            {
+                break;
+            }
+        case TKN_PP_IFNDEF:
+            {
+                break;
+            }
+        case TKN_PP_ENDIF:
+            {
+                break;
+            }
+        case TKN_PP_ELSE:
+            {
+                break;
+            }
+        case TKN_PP_PRAGMA:
+            {
+                break;
+            }
+        case TKN_PP_ERROR:
+            {
+                break;
+            }
+        case TKN_PP_UNDEF:
+            {
+                break;
+            }
+
+        }
+
+
+    }
+}
