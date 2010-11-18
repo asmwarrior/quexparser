@@ -9,19 +9,18 @@
 // *** SearchTreeIterator ***
 
 BasicSearchTreeIterator::BasicSearchTreeIterator()
-    : m_CurNode(0),
-    m_eof(false),
+    : m_NodeIdx(0),
+    m_Eof(false),
     m_pTree(0),
     m_LastTreeSize(0),
     m_LastAddedNode(0)
 {
-    m_Stack.clear();
-    m_Stack2.clear();
+
 }
 
 BasicSearchTreeIterator::BasicSearchTreeIterator(BasicSearchTree* tree)
-    : m_CurNode(0),
-    m_eof(false),
+    : m_NodeIdx(0),
+    m_Eof(false),
     m_pTree(tree),
     m_LastTreeSize(0),
     m_LastAddedNode(0)
@@ -32,8 +31,7 @@ BasicSearchTreeIterator::BasicSearchTreeIterator(BasicSearchTree* tree)
         if(m_LastTreeSize)
             m_LastAddedNode = m_pTree->GetNode(m_LastTreeSize - 1);
     }
-    m_Stack.clear();
-    m_Stack2.clear();
+
 }
 
 bool BasicSearchTreeIterator::IsValid()
@@ -53,21 +51,21 @@ bool BasicSearchTreeIterator::FindPrev(bool includechildren)
     {
         if(!IsValid())
             break;
-        SearchTreeNode* curnode = m_pTree->GetNode(m_CurNode);
+        SearchTreeNode* curnode = m_pTree->GetNode(m_NodeIdx);
         if(!curnode)
             break;
 
         result = true;
-        while(m_CurNode)
+        while(m_NodeIdx)
         {
-            m_eof = false;
+            m_Eof = false;
             result = FindPrevSibling();
             if(!result)
                 return false;
-            if(!m_eof)
+            if(!m_Eof)
                 break;
-            m_CurNode = curnode->m_parent;
-            curnode = m_pTree->GetNode(m_CurNode);
+            m_NodeIdx = curnode->m_parent;
+            curnode = m_pTree->GetNode(m_NodeIdx);
             if(!curnode)
                 return false;
         }
@@ -78,13 +76,13 @@ bool BasicSearchTreeIterator::FindPrev(bool includechildren)
             {
                 it = curnode->m_Children.end();
                 --it;
-                m_CurNode = it->second;
-                curnode = m_pTree->GetNode(m_CurNode,true);
+                m_NodeIdx = it->second;
+                curnode = m_pTree->GetNode(m_NodeIdx,true);
                 if(!curnode)
                     return false;
             }
         }
-        m_eof = false;
+        m_Eof = false;
         break;
     }while(true);
     return result;
@@ -99,36 +97,39 @@ bool BasicSearchTreeIterator::FindNext(bool includechildren)
     do
     {
         if(!IsValid())
-            break;
-        SearchTreeNode* curnode = m_pTree->GetNode(m_CurNode);
-        if(!curnode)
-            break;
+            break; // return false;
 
+        SearchTreeNode* pNode = m_pTree->GetNode(m_NodeIdx);
+        if(!pNode)
+            break; // return false;
+
+        //now, the Node pointer is OK
         result = true;
         if(includechildren)
         {
-            it = curnode->m_Children.begin();
-            if(it != curnode->m_Children.end())
-            {
-                m_CurNode = it->second;
-                curnode = m_pTree->GetNode(m_CurNode);
-                if(!curnode)
+            it = pNode->m_Children.begin();   // try to find the first child
+            if(it != pNode->m_Children.end())
+            {                                 // find it!
+                m_NodeIdx = it->second;       // update the node Idx
+                pNode = m_pTree->GetNode(m_NodeIdx);
+
+                if(!pNode)
                 {
-                    return false;
+                    return false;             // the child is invalid, return false
                 }
-                break;
+                break;                        // OK, return true, the child node idx
             }
         }
-        m_eof = true;
-        while(m_CurNode)
+        m_Eof = true;
+        while(m_NodeIdx)
         {
-            m_eof = false;
+            m_Eof = false;
             result = FindNextSibling();
-            if(!m_eof)
+            if(!m_Eof)
                 break;
-            m_CurNode = curnode->m_parent;
-            curnode = m_pTree->GetNode(m_CurNode);
-            if(!curnode)
+            m_NodeIdx = pNode->m_parent;      // update the m_NodeIdx, more upward
+            pNode = m_pTree->GetNode(m_NodeIdx);
+            if(!pNode)
                 return false;
         }
         break;
@@ -140,27 +141,31 @@ bool BasicSearchTreeIterator::FindNextSibling()
 {
     if(!IsValid())
         return false;
-    if(!m_CurNode /* || !m_Stack.size() */)
-        m_eof = true;
+    if(!m_NodeIdx)
+        m_Eof = true;
 
-    SearchTreeNode* node = m_pTree->GetNode(m_CurNode);
-    if(!node)
+    SearchTreeNode* pNode = m_pTree->GetNode(m_NodeIdx);
+    if(!pNode)
         return false;
-    char ch = node->GetChar(m_pTree);
-    node = node->GetParent(m_pTree);
-    if(!node)
+
+    //pNode is OK now, read the first char
+    char ch = pNode->GetChar(m_pTree);
+    pNode = pNode->GetParent(m_pTree);
+    if(!pNode)
         return false;
-    SearchTreeLinkMap* the_map = &node->m_Children;
-    SearchTreeLinkMap::iterator it = the_map->find(ch);
-    if(it == the_map->end())
-        m_eof = true;
+    // pNode now moving upward to the parent Node
+    SearchTreeLinkMap* pLinkMap = &pNode->m_Children;
+    SearchTreeLinkMap::iterator it = pLinkMap->find(ch);
+    // search on the parent's link map
+    if(it == pLinkMap->end())
+        m_Eof = true;
     else
     {
-        ++it;
-        if(it == the_map->end())
-            m_eof = true;
+        ++it;    // go to the next element (this is the sibling node) of the link map
+        if(it == pLinkMap->end())
+            m_Eof = true;
         else
-            m_CurNode = it->second;
+            m_NodeIdx = it->second; // OK, now m_NodeIdx is updated!!!
     }
     return true;
 }
@@ -169,28 +174,28 @@ bool BasicSearchTreeIterator::FindPrevSibling()
 {
     if(!IsValid())
         return false;
-    if(!m_CurNode /* || !m_Stack.size() */)
-        m_eof = true;
+    if(!m_NodeIdx)
+        m_Eof = true;
 
-    SearchTreeNode* node = m_pTree->GetNode(m_CurNode);
-    if(!node)
+    SearchTreeNode* pNode = m_pTree->GetNode(m_NodeIdx);
+    if(!pNode)
         return false;
-    char ch = node->GetChar(m_pTree);
-    node = node->GetParent(m_pTree);
-    if(!node)
+    char ch = pNode->GetChar(m_pTree);
+    pNode = pNode->GetParent(m_pTree);
+    if(!pNode)
         return false;
-    SearchTreeLinkMap* the_map = &node->m_Children;
+    SearchTreeLinkMap* the_map = &pNode->m_Children;
     SearchTreeLinkMap::iterator it = the_map->find(ch);
     if(it == the_map->end())
-        m_eof = true;
+        m_Eof = true;
     else
     {
         if(it == the_map->begin())
-            m_eof = true;
+            m_Eof = true;
         else
         {
             --it;
-            m_CurNode = it->second;
+            m_NodeIdx = it->second;
         }
     }
     return true;
@@ -200,10 +205,10 @@ bool BasicSearchTreeIterator::FindSibling(char ch)
 {
     if(!IsValid())
         return false;
-    if(!m_CurNode /* || !m_Stack.size() */)
-        m_eof = true;
+    if(!m_NodeIdx)
+        m_Eof = true;
 
-    SearchTreeNode* node = m_pTree->GetNode(m_CurNode);
+    SearchTreeNode* node = m_pTree->GetNode(m_NodeIdx);
     if(!node)
         return false;
     node = node->GetParent(m_pTree);
@@ -213,10 +218,10 @@ bool BasicSearchTreeIterator::FindSibling(char ch)
     SearchTreeLinkMap* the_map = &node->m_Children;
     SearchTreeLinkMap::iterator it = the_map->find(ch);
     if(it == the_map->end())
-        m_eof = true;
+        m_Eof = true;
     else
     {
-        m_CurNode = it->second;
+        m_NodeIdx = it->second;
     }
     return true;
 }
@@ -762,7 +767,7 @@ size_t BasicSearchTree::FindMatches(const cc_string& s,set<size_t> &result,bool 
     else
         s2 = s;
 
-    while(!it.eof())
+    while(!it.Eof())
     {
         matches = false;
         ncurnode = *it;
