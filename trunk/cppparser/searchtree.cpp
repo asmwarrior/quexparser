@@ -856,17 +856,17 @@ size_t BasicSearchTree::insert(const cc_string& s)
 {
     size_t itemno = m_Points.size();
     size_t result = 0;
-    SearchTreePoint resultpos;
-    resultpos = AddNode(s, 0);
-    result = m_pNodes[resultpos.n]->AddItemNo(resultpos.depth,itemno);
+    SearchTreePoint point;
+    point = AddNode(s, 0);
+    result = m_pNodes[point.n]->AddItemNo(point.depth,itemno);
     if(m_Points.size() < result)
     {
         m_Points.resize(result,SearchTreePoint(0,0));
-        m_Points[result] = resultpos;
+        m_Points[result] = point;
     }
     else if(m_Points.size() == result)
     {
-        m_Points.push_back(resultpos);
+        m_Points.push_back(point);
     }
     return result;
 }
