@@ -13,8 +13,8 @@
 
 using namespace std;
 
-typedef size_t nSearchTreeNode;
-typedef size_t nSearchTreeLabel;
+typedef size_t NodeIdx;
+typedef size_t LabelIdx;
 
 class SearchTreeNode;
 class BasicSearchTree;
@@ -23,21 +23,24 @@ class SearchTreePoint;
 
 /** SearchTreeLinkMap is the list of the edges towards other nodes. The character is the
 key, and the node is the value */
-typedef map<char,nSearchTreeNode,less<char> > SearchTreeLinkMap;
+typedef map<char,NodeIdx,less<char> >             SearchTreeLinkMap;
 
-typedef vector<SearchTreeLinkMap::iterator> SearchTreeStack;
+typedef vector<SearchTreeLinkMap::iterator>       SearchTreeStack;
 
-/** SearchTreeNodesArray contains all the nodes for a search tree */
-typedef vector<SearchTreeNode*> SearchTreeNodesArray;
+/** SearchTreeNodeArray contains all the nodes for a search tree */
+typedef vector<SearchTreeNode*>                   SearchTreeNodeArray;
 
-/** SearchTreePointsArray contains a list of tree points defining strings */
-typedef vector<SearchTreePoint> SearchTreePointsArray;
+/** SearchTreePointArray contains a list of tree points defining strings */
+typedef vector<SearchTreePoint>                   SearchTreePointArray;
 
-/** SearchTreeItemsMap contains all the items belonging to an edge */
-typedef map<size_t,size_t,less<size_t> > SearchTreeItemsMap;
+/** SearchTreeItemMap contains all the items belonging to an edge */
+typedef map<size_t,size_t,less<size_t> >          SearchTreeItemMap;
 
-/** SearchTreeLabelsArray contains the labels used by the nodes */
-typedef vector<cc_string> SearchTreeLabelsArray;
+/** SearchTreeLabelArray contains the labels used by the nodes */
+typedef vector<cc_string>                         SearchTreeLabelArray;
+
+
+
 
 /** SearchTreeIterator lets us iterate through the nodes of a BasicSearchTree */
 class BasicSearchTreeIterator
@@ -49,7 +52,7 @@ public:
     bool IsValid();
     bool FindPrev(bool includechildren = true);
     bool FindNext(bool includechildren = true);
-    const nSearchTreeNode& operator* () const
+    const NodeIdx& operator* () const
     {
         return m_CurNode;
     }
@@ -70,7 +73,7 @@ public:
     {
         return (!IsValid() || m_eof);
     }
-    nSearchTreeNode m_CurNode;
+    NodeIdx m_CurNode;
     bool m_eof; // Reached end of tree
 protected:
     BasicSearchTree* m_pTree;
@@ -83,10 +86,10 @@ protected:
 class SearchTreePoint
 {
 public:
-    nSearchTreeNode n; /// Which node are we pointing to?
+    NodeIdx n; /// Which node are we pointing to?
     size_t depth; /// At what depth is the string's end located?
     SearchTreePoint ():n(0),depth(0) {}
-    SearchTreePoint (nSearchTreeNode nn, size_t dd)
+    SearchTreePoint (NodeIdx nn, size_t dd)
     {
         n = nn;
         depth = dd;
@@ -99,17 +102,17 @@ class SearchTreeNode
     friend class BasicSearchTreeIterator;
 public:
     SearchTreeNode();
-    SearchTreeNode(unsigned int depth,nSearchTreeNode parent,nSearchTreeLabel label, unsigned int labelstart, unsigned int labellen);
+    SearchTreeNode(unsigned int depth,NodeIdx parent,LabelIdx label, unsigned int labelstart, unsigned int labellen);
     virtual ~SearchTreeNode();
-    nSearchTreeNode GetParent() const
+    NodeIdx GetParent() const
     {
         return m_parent;
     }
-    void SetParent(nSearchTreeNode newparent)
+    void SetParent(NodeIdx newparent)
     {
         m_parent = newparent;
     }
-    nSearchTreeNode GetChild(char ch);
+    NodeIdx GetChild(char ch);
     size_t GetItemNo(size_t depth);
     size_t AddItemNo(size_t depth,size_t itemno);
     SearchTreeNode* GetParent(const BasicSearchTree* tree) const;
@@ -117,7 +120,7 @@ public:
     cc_string GetLabel(const BasicSearchTree* tree) const;
     char GetChar(const BasicSearchTree* tree) const;
     const cc_string& GetActualLabel(const BasicSearchTree* tree) const;
-    nSearchTreeLabel GetLabelNo() const
+    LabelIdx GetLabelNo() const
     {
         return m_label;
     }
@@ -129,7 +132,7 @@ public:
     {
         return m_labellen;
     }
-    void SetLabel(nSearchTreeLabel label, unsigned int labelstart, unsigned int labellen);
+    void SetLabel(LabelIdx label, unsigned int labelstart, unsigned int labellen);
     unsigned int GetDepth() const
     {
         return m_depth;
@@ -149,8 +152,8 @@ public:
         0 for 0 characters in the tree matched, 1 for 1 character matched, etc.
         */
     unsigned int GetDeepestMatchingPosition(BasicSearchTree* tree, const cc_string& s,unsigned int StringStartDepth);
-    cc_string Serialize(BasicSearchTree* tree,nSearchTreeNode node_id,bool withchildren = false);
-    void dump(BasicSearchTree* tree,nSearchTreeNode node_id,const cc_string& prefix,cc_string& result);
+    cc_string Serialize(BasicSearchTree* tree,NodeIdx node_id,bool withchildren = false);
+    void dump(BasicSearchTree* tree,NodeIdx node_id,const cc_string& prefix,cc_string& result);
 
 
     static cc_string SerializeString(const cc_string& s);
@@ -161,11 +164,11 @@ public:
     static bool s2i(const cc_string& s,int& i);
 protected:
     unsigned int m_depth;
-    nSearchTreeNode m_parent;
-    nSearchTreeLabel m_label;
+    NodeIdx m_parent;
+    LabelIdx m_label;
     unsigned int m_labelstart, m_labellen;
     SearchTreeLinkMap m_Children;
-    SearchTreeItemsMap m_Items;
+    SearchTreeItemMap m_Items;
 };
 
 class BasicSearchTree
@@ -202,7 +205,7 @@ public:
     size_t GetItemNo(const cc_string& s);
 
     /// Gets the key string for item n
-    const cc_string GetString(size_t n) const;
+    const cc_string GetString(size_t pointIdx) const;
 
     /** Finds items that match a given string.
         if is_prefix==true, it finds items that start with the string.
@@ -218,30 +221,30 @@ protected:
 
     /** Creates a new node. Function is virtual so the nodes can be extended
         and customized, or to improve the memory management. */
-    virtual SearchTreeNode* CreateNode(unsigned int depth,nSearchTreeNode parent,nSearchTreeLabel label, unsigned int labelstart, unsigned int labellen);
+    virtual SearchTreeNode* CreateNode(unsigned int depth,NodeIdx parent,LabelIdx label, unsigned int labelstart, unsigned int labellen);
 
     /** Gets the string corresponding to the tree point 'nn'.
         If 'top' is specified, it gets the string that goes from node 'top' to point 'nn'. */
-    cc_string GetString(const SearchTreePoint &point,nSearchTreeNode topNode = 0) const;
+    cc_string GetString(const SearchTreePoint &point,NodeIdx topNode = 0) const;
 
     /** Obtains the node with number n,NULL if n is invalid.
         If NullOnZero == true, returns NULL if n is 0. */
-    SearchTreeNode* GetNode(nSearchTreeNode n,bool NullOnZero = false);
+    SearchTreeNode* GetNode(NodeIdx n,bool NullOnZero = false);
     /// Finds the node that starts from node 'parent', and has the suffix s.
-    bool FindNode(const cc_string& s, nSearchTreeNode nparent, SearchTreePoint* result);
+    bool FindNode(const cc_string& s, NodeIdx nparent, SearchTreePoint* result);
     /// Adds Suffix s starting from node nparent.
-    SearchTreePoint AddNode(const cc_string& s, nSearchTreeNode nparent = 0);
+    SearchTreePoint AddNode(const cc_string& s, NodeIdx nparent = 0);
 
     /// Serializes given label into an XML-escaped string.
-    cc_string SerializeLabel(nSearchTreeLabel labelno);
+    cc_string SerializeLabel(LabelIdx labelno);
 
     /// Labels used by the nodes' edges
-    SearchTreeLabelsArray m_Labels;
+    SearchTreeLabelArray m_Labels;
     /// Nodes and their edges
-    SearchTreeNodesArray m_pNodes;
+    SearchTreeNodeArray m_pNodes;
 
     /// Points defining the items' strings
-    SearchTreePointsArray m_Points;
+    SearchTreePointArray m_Points;
 
 private:
     /// Creates the tree's root node.
@@ -253,7 +256,7 @@ private:
         if the given position is exactly the length of n's vertex,
         just return n.
      */
-    nSearchTreeNode SplitBranch(nSearchTreeNode n,size_t depth);
+    NodeIdx SplitBranch(NodeIdx n,size_t depth);
 };
 
 template <class T>
