@@ -127,7 +127,7 @@ bool BasicSearchTreeIterator::FindNext(bool includechildren)
             result = FindNextSibling();
             if(!m_Eof)
                 break;
-            m_NodeIdx = pNode->m_parent;      // update the m_NodeIdx, more upward
+            m_NodeIdx = pNode->m_parent;      // update the m_NodeIdx, move upward
             pNode = m_pTree->GetNode(m_NodeIdx);
             if(!pNode)
                 return false;
@@ -755,9 +755,9 @@ size_t BasicSearchTree::FindMatches(const cc_string& s,set<size_t> &result,bool 
 
     result.clear();
     cc_string s2,curcmp,s3;
-    NodeIdx ncurnode;
-    SearchTreeNode* curnode = 0;
-    BasicSearchTreeIterator it(this);
+
+    SearchTreeNode* pNode = 0;
+    BasicSearchTreeIterator it(this); // root node
     SearchTreeItemMap::iterator it2;
 
     bool matches;
@@ -770,50 +770,67 @@ size_t BasicSearchTree::FindMatches(const cc_string& s,set<size_t> &result,bool 
     while(!it.Eof())
     {
         matches = false;
-        ncurnode = *it;
-        curnode = m_pNodes[*it];
-        if(!curnode)
+
+        pNode = m_pNodes[*it];
+        if(!pNode)
             break; // Error! Found a NULL Node
-        if(curnode->m_depth < s.length())
+
+        //Now, the pNode is OK!
+        if(pNode->m_depth < s.length())
         {   // Node's string is shorter than S, therefore it CANNOT be a suffix
+            // so we do not need to operator on the result set
             // However, we can test if it does NOT match the current string.
-            if(!curnode->m_depth)
+
+            if(!pNode->m_depth) // root node is always matches, better: (pNode->m_depth == 0)
                 matches = true;
             else
             {
-                s3 = s2.substr(curnode->GetLabelStartDepth(),curnode->GetLabelLen());
-                curcmp = curnode->GetLabel(this);
+                // retrieve the correspongding string piece of the s2 (matching string)
+                s3 = s2.substr(pNode->GetLabelStartDepth(),pNode->GetLabelLen());
+
+                // get the current node's label
+                curcmp = pNode->GetLabel(this);
+
+                // do the match, the casesensitive is considered
                 if(!caseSensitive)
                     cc_lower(curcmp);
+
                 matches = (s3 == curcmp);
             }
         }
         else
         {
-            if(curnode->GetLabelStartDepth() >= s2.length())
+            // when entering here, which means s should be contained in the current Node
+            if(pNode->GetLabelStartDepth() >= s2.length())
                 matches = is_prefix;
             else
             {
-                s3 = s2.substr(curnode->GetLabelStartDepth());
-                curcmp = curnode->GetLabel(this);
+                s3 = s2.substr(pNode->GetLabelStartDepth());
+
+                // get the current node's label
+                curcmp = pNode->GetLabel(this);
+
                 if(!caseSensitive)
                    cc_lower(curcmp);
+
+                //prefix match
                 matches = (curcmp.find(s3) == 0);
             }
+
 
             if(matches)
             {
                 // Begin items addition
-                if(!is_prefix)
+                if(!is_prefix) //exact match
                 {
                     // Easy part: Only one length to search
-                    it2 = curnode->m_Items.find(s2.length());
-                    if(it2 != curnode->m_Items.end())
+                    it2 = pNode->m_Items.find(s2.length());
+                    if(it2 != pNode->m_Items.end())
                         result.insert(it2->second);
                 }
-                else
+                else           //prefix match, just loop on the children
                 {
-                    for(it2 = curnode->m_Items.lower_bound(s2.length()); it2 != curnode->m_Items.end(); ++it2)
+                    for(it2 = pNode->m_Items.lower_bound(s2.length()); it2 != pNode->m_Items.end(); ++it2)
                     {
                         result.insert(it2->second);
                     }
@@ -822,6 +839,9 @@ size_t BasicSearchTree::FindMatches(const cc_string& s,set<size_t> &result,bool 
                 // End items addition
             }
         }
+        // update iterator ( go to the next node)
+        // the input parameter matches determine whether we should goto to its children
+        // or just loop on the sibling
         it.FindNext(matches);
     }
     return result.size();
