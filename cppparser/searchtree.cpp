@@ -746,7 +746,7 @@ size_t BasicSearchTree::GetItemNo(const cc_string& s)
     return m_pNodes[resultpos.n]->GetItemNo(resultpos.depth);
 }
 
-size_t BasicSearchTree::FindMatches(const cc_string& s,set<size_t> &result,bool caseSensitive,bool is_prefix)
+size_t BasicSearchTree::FindMatches(const cc_string& inputString,set<size_t> &result,bool caseSensitive,bool prefixMatch)
 {
 
     // NOTE: Current algorithm is suboptimal, but certainly it's much better
@@ -754,95 +754,100 @@ size_t BasicSearchTree::FindMatches(const cc_string& s,set<size_t> &result,bool 
 
 
     result.clear();
-    cc_string s2,curcmp,s3;
+    cc_string matchString;  // modified search key
+    cc_string label;        // node's label string
+    cc_string matchPiece;   // piece of the matchString
 
     SearchTreeNode* pNode = 0;
-    BasicSearchTreeIterator it(this); // root node
-    SearchTreeItemMap::iterator it2;
+    BasicSearchTreeIterator nodeIterator(this); // initialized pointing to root node
+    SearchTreeItemMap::iterator itemIterator;
 
-    bool matches;
+    bool match;
 
     if(!caseSensitive)
-        s2 = s, cc_lower(s2);
-    else
-        s2 = s;
-
-    while(!it.Eof())
     {
-        matches = false;
+        matchString = inputString;
+        cc_lower(matchString);
+    }
+    else
+        matchString = inputString;
 
-        pNode = m_pNodes[*it];
+    while(!nodeIterator.Eof())
+    {
+        match = false;
+
+        pNode = m_pNodes[*nodeIterator];
         if(!pNode)
             break; // Error! Found a NULL Node
 
         //Now, the pNode is OK!
-        if(pNode->m_depth < s.length())
-        {   // Node's string is shorter than S, therefore it CANNOT be a suffix
+        if(pNode->m_depth < inputString.length())
+        {   // Node's string is shorter than S, therefore nodeIterator CANNOT be a suffix
             // so we do not need to operator on the result set
-            // However, we can test if it does NOT match the current string.
+            // However, we can test if nodeIterator does NOT match the current string.
 
-            if(!pNode->m_depth) // root node is always matches, better: (pNode->m_depth == 0)
-                matches = true;
+            if(!pNode->m_depth) // root node is always match, better: (pNode->m_depth == 0)
+                match = true;
             else
             {
-                // retrieve the correspongding string piece of the s2 (matching string)
-                s3 = s2.substr(pNode->GetLabelStartDepth(),pNode->GetLabelLen());
+                // retrieve the correspongding string piece of the matchString (matching string)
+                matchPiece = matchString.substr(pNode->GetLabelStartDepth(),pNode->GetLabelLen());
 
                 // get the current node's label
-                curcmp = pNode->GetLabel(this);
+                label = pNode->GetLabel(this);
 
                 // do the match, the casesensitive is considered
                 if(!caseSensitive)
-                    cc_lower(curcmp);
+                    cc_lower(label);
 
-                matches = (s3 == curcmp);
+                match = (matchPiece == label);
             }
         }
         else
         {
             // when entering here, which means s should be contained in the current Node
-            if(pNode->GetLabelStartDepth() >= s2.length())
-                matches = is_prefix;
+            if(pNode->GetLabelStartDepth() >= matchString.length())
+                match = prefixMatch;
             else
             {
-                s3 = s2.substr(pNode->GetLabelStartDepth());
+                matchPiece = matchString.substr(pNode->GetLabelStartDepth());
 
                 // get the current node's label
-                curcmp = pNode->GetLabel(this);
+                label = pNode->GetLabel(this);
 
                 if(!caseSensitive)
-                   cc_lower(curcmp);
+                   cc_lower(label);
 
                 //prefix match
-                matches = (curcmp.find(s3) == 0);
+                match = (label.find(matchPiece) == 0);
             }
 
 
-            if(matches)
+            if(match)
             {
                 // Begin items addition
-                if(!is_prefix) //exact match
+                if(!prefixMatch) //exact match
                 {
                     // Easy part: Only one length to search
-                    it2 = pNode->m_Items.find(s2.length());
-                    if(it2 != pNode->m_Items.end())
-                        result.insert(it2->second);
+                    itemIterator = pNode->m_Items.find(matchString.length());
+                    if(itemIterator != pNode->m_Items.end())
+                        result.insert(itemIterator->second);
                 }
                 else           //prefix match, just loop on the children
                 {
-                    for(it2 = pNode->m_Items.lower_bound(s2.length()); it2 != pNode->m_Items.end(); ++it2)
+                    for(itemIterator = pNode->m_Items.lower_bound(matchString.length()); itemIterator != pNode->m_Items.end(); ++itemIterator)
                     {
-                        result.insert(it2->second);
+                        result.insert(itemIterator->second);
                     }
                 }
-                matches = is_prefix;
+                match = prefixMatch;
                 // End items addition
             }
         }
         // update iterator ( go to the next node)
         // the input parameter matches determine whether we should goto to its children
         // or just loop on the sibling
-        it.FindNext(matches);
+        nodeIterator.FindNext(match);
     }
     return result.size();
 }
