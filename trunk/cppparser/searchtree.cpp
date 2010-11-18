@@ -234,7 +234,7 @@ m_labellen(0)
     m_Items.clear();
 }
 
-SearchTreeNode::SearchTreeNode(unsigned int depth,nSearchTreeNode parent,nSearchTreeLabel label, unsigned int labelstart, unsigned int labellen):
+SearchTreeNode::SearchTreeNode(unsigned int depth,NodeIdx parent,LabelIdx label, unsigned int labelstart, unsigned int labellen):
 m_depth(depth),
 m_parent(parent),
 m_label(label),
@@ -249,7 +249,7 @@ SearchTreeNode::~SearchTreeNode()
 {
 }
 
-inline nSearchTreeNode SearchTreeNode::GetChild(char ch)
+inline NodeIdx SearchTreeNode::GetChild(char ch)
 {
     SearchTreeLinkMap::iterator found = m_Children.find(ch);
     if(found == m_Children.end())
@@ -259,7 +259,7 @@ inline nSearchTreeNode SearchTreeNode::GetChild(char ch)
 
 inline size_t SearchTreeNode::GetItemNo(size_t depth)
 {
-    SearchTreeItemsMap::iterator found = m_Items.find(depth);
+    SearchTreeItemMap::iterator found = m_Items.find(depth);
     if(found == m_Items.end())
         return 0;
     return found->second;
@@ -267,7 +267,7 @@ inline size_t SearchTreeNode::GetItemNo(size_t depth)
 
 size_t SearchTreeNode::AddItemNo(size_t depth,size_t itemno)
 {
-    SearchTreeItemsMap::iterator found = m_Items.find(depth);
+    SearchTreeItemMap::iterator found = m_Items.find(depth);
     if(found == m_Items.end())
         m_Items[depth]=itemno;
     else if(found->second==0)
@@ -286,7 +286,7 @@ inline SearchTreeNode* SearchTreeNode::GetParent(const BasicSearchTree* tree) co
 
 inline SearchTreeNode* SearchTreeNode::GetChild(BasicSearchTree* tree,char ch)
 {
-    nSearchTreeNode child = GetChild(ch);
+    NodeIdx child = GetChild(ch);
     return tree->GetNode(child,true);
 }
 
@@ -310,7 +310,7 @@ inline const cc_string& SearchTreeNode::GetActualLabel(const BasicSearchTree* tr
     return tree->m_Labels[m_label];
 }
 
-inline void SearchTreeNode::SetLabel(nSearchTreeLabel label, unsigned int labelstart, unsigned int labellen)
+inline void SearchTreeNode::SetLabel(LabelIdx label, unsigned int labelstart, unsigned int labellen)
 {
     m_label = label;
     m_labelstart = labelstart;
@@ -375,9 +375,9 @@ void SearchTreeNode::UpdateItems(BasicSearchTree* tree)
     SearchTreeNode* parentnode = tree->GetNode(m_parent,true);
     if(!parentnode)
        return;
-    SearchTreeItemsMap newmap;
+    SearchTreeItemMap newmap;
     size_t mindepth = parentnode->GetDepth();
-    SearchTreeItemsMap::iterator i;
+    SearchTreeItemMap::iterator i;
     newmap.clear();
     for(i = m_Items.begin();i!=m_Items.end();i++)
     {
@@ -420,11 +420,11 @@ cc_string SearchTreeNode::i2s(int i)
     return result;
 }
 
-cc_string SearchTreeNode::Serialize(BasicSearchTree* tree,nSearchTreeNode node_id,bool withchildren)
+cc_string SearchTreeNode::Serialize(BasicSearchTree* tree,NodeIdx node_id,bool withchildren)
 {
     cc_string result,children,sparent,sdepth,slabelno,slabelstart,slabellen;
     SearchTreeLinkMap::iterator link;
-    SearchTreeItemsMap::iterator item;
+    SearchTreeItemMap::iterator item;
     sparent = u2s(m_parent);
     sdepth = u2s(m_depth);
     slabelno = u2s(m_label);
@@ -470,7 +470,7 @@ cc_string SearchTreeNode::Serialize(BasicSearchTree* tree,nSearchTreeNode node_i
     return result;
 }
 
-void SearchTreeNode::dump(BasicSearchTree* tree,nSearchTreeNode node_id,const cc_string& prefix,cc_string& result)
+void SearchTreeNode::dump(BasicSearchTree* tree,NodeIdx node_id,const cc_string& prefix,cc_string& result)
 {
     cc_string suffix(cc_text(""));
     suffix << cc_text("- \"") << SerializeString(GetLabel(tree)) << cc_text("\" (") << u2s(node_id) << cc_text(")");
@@ -535,14 +535,14 @@ void BasicSearchTree::clear()
     CreateRootNode();
 }
 
-const cc_string BasicSearchTree::GetString(size_t n) const
+const cc_string BasicSearchTree::GetString(size_t pointIdx) const
 {
-    if(n >= m_Points.size())
+    if(pointIdx >= m_Points.size())
         return cc_text("");
-    return GetString(m_Points[n],0);
+    return GetString(m_Points[pointIdx],0);
 }
 
-cc_string BasicSearchTree::GetString(const SearchTreePoint &point,nSearchTreeNode topNodeIdx) const
+cc_string BasicSearchTree::GetString(const SearchTreePoint &point,NodeIdx topNodeIdx) const
 {
     cc_string result;
 
@@ -580,7 +580,7 @@ cc_string BasicSearchTree::GetString(const SearchTreePoint &point,nSearchTreeNod
     return result;
 }
 
-SearchTreeNode* BasicSearchTree::GetNode(nSearchTreeNode n,bool NullOnZero)
+SearchTreeNode* BasicSearchTree::GetNode(NodeIdx n,bool NullOnZero)
 {
     SearchTreeNode* result = NULL;
     if((n || !NullOnZero) && n < m_pNodes.size())
@@ -588,10 +588,10 @@ SearchTreeNode* BasicSearchTree::GetNode(nSearchTreeNode n,bool NullOnZero)
     return result;
 }
 
-bool BasicSearchTree::FindNode(const cc_string& s, nSearchTreeNode nparent, SearchTreePoint* result)
+bool BasicSearchTree::FindNode(const cc_string& s, NodeIdx nparent, SearchTreePoint* result)
 {
     SearchTreeNode *parentnode, *childnode;
-    nSearchTreeNode nchild;
+    NodeIdx nchild;
     size_t top_depth = m_pNodes[nparent]->GetDepth();
     size_t curpos = 0; /* Current position inside the string */
     bool found = false;
@@ -650,24 +650,27 @@ bool BasicSearchTree::FindNode(const cc_string& s, nSearchTreeNode nparent, Sear
     return found;
 }
 
-SearchTreeNode* BasicSearchTree::CreateNode(unsigned int depth,nSearchTreeNode parent,nSearchTreeLabel label, unsigned int labelstart, unsigned int labellen)
+SearchTreeNode* BasicSearchTree::CreateNode(unsigned int depth,NodeIdx parent,LabelIdx label, unsigned int labelstart, unsigned int labellen)
 {
     SearchTreeNode* result = new SearchTreeNode(depth,parent,label,labelstart,labellen);
     return result;
 }
 
-SearchTreePoint BasicSearchTree::AddNode(const cc_string& s, nSearchTreeNode nparent)
+SearchTreePoint BasicSearchTree::AddNode(const cc_string& s, NodeIdx parentNodeIdx)
 {
-    SearchTreePoint result(0,0);
-    nSearchTreeNode n = 0;
-    bool found = this->FindNode(s,nparent,&result);
+    SearchTreePoint point(0,0);
+    NodeIdx n = 0;
+    //search the string s under parentNodeIdx, the result point will returned
+    bool found = this->FindNode(s,parentNodeIdx,&point);
+
+    //if we can't find a match string, which means we should create a new node.
     if(!found)
     {
         // Create new node
 
         // If necessary, split the edge with a new node 'middle'
-        // If result is exactly a node, middle will be just result.n.
-        nSearchTreeNode middle = SplitBranch(result.n,result.depth);
+        // If point is exactly a node, middle will be just point.n.
+        NodeIdx middle = SplitBranch(point.n,point.depth);
 
         // Now add the node to the middle node
         SearchTreeNode* newnode;
@@ -680,9 +683,9 @@ SearchTreePoint BasicSearchTree::AddNode(const cc_string& s, nSearchTreeNode npa
             newnode = m_pNodes[n];
 
             // We take the part of the string that corresponds to node middle.
-            // Since s starts at nparent's depth, we just get the difference and
+            // Since s starts at parentNodeIdx's depth, we just get the difference and
             // it will be the position inside the string.
-            newlabel = s.substr(m_pNodes[middle]->GetLabelStartDepth() - m_pNodes[nparent]->GetDepth());
+            newlabel = s.substr(m_pNodes[middle]->GetLabelStartDepth() - m_pNodes[parentNodeIdx]->GetDepth());
 
             // Modify the leaf node's label to extend the point
             // Since it's a leaf node, we just concatenate to the current label the missing part.
@@ -698,14 +701,14 @@ SearchTreePoint BasicSearchTree::AddNode(const cc_string& s, nSearchTreeNode npa
         else
         {
             // Get the string's depth. This will be the depth of our new leaf node.
-            size_t newdepth = m_pNodes[nparent]->GetDepth() + s.length();
+            size_t newdepth = m_pNodes[parentNodeIdx]->GetDepth() + s.length();
 
-            // start = middle's depth - nparent's depth.
-            newlabel = s.substr(m_pNodes[middle]->GetDepth() - m_pNodes[nparent]->GetDepth());
+            // start = middle's depth - parentNodeIdx's depth.
+            newlabel = s.substr(m_pNodes[middle]->GetDepth() - m_pNodes[parentNodeIdx]->GetDepth());
 
             // Now we create the new label to be accessed by the leaf node "newnode".
             m_Labels.push_back(newlabel);
-            nSearchTreeLabel nlabel = m_Labels.size() - 1;
+            LabelIdx nlabel = m_Labels.size() - 1;
             //m_Labels[nlabel].Shrink();
 
             // Finally, we create the new node and link it to "middle".
@@ -714,11 +717,11 @@ SearchTreePoint BasicSearchTree::AddNode(const cc_string& s, nSearchTreeNode npa
             n = m_pNodes.size()-1;
             m_pNodes[middle]->m_Children[newlabel[0u]]=n;
         }
-        result.n = n;
-        result.depth = newnode->GetDepth();
+        point.n = n;
+        point.depth = newnode->GetDepth();
 
     }
-    return result;
+    return point;
 }
 
 /// Tells if there is an item for string s
@@ -747,10 +750,10 @@ size_t BasicSearchTree::FindMatches(const cc_string& s,set<size_t> &result,bool 
 
     result.clear();
     cc_string s2,curcmp,s3;
-    nSearchTreeNode ncurnode;
+    NodeIdx ncurnode;
     SearchTreeNode* curnode = 0;
     BasicSearchTreeIterator it(this);
-    SearchTreeItemsMap::iterator it2;
+    SearchTreeItemMap::iterator it2;
 
     bool matches;
 
@@ -844,7 +847,7 @@ void BasicSearchTree::CreateRootNode()
     m_Points.push_back(SearchTreePoint(0,0));
 }
 
-nSearchTreeNode BasicSearchTree::SplitBranch(nSearchTreeNode n,size_t depth)
+NodeIdx BasicSearchTree::SplitBranch(NodeIdx n,size_t depth)
 {
     if(!n || !m_pNodes[n] || m_pNodes[n]->GetDepth()==depth)
         return n;
@@ -855,13 +858,13 @@ nSearchTreeNode BasicSearchTree::SplitBranch(nSearchTreeNode n,size_t depth)
 
     SearchTreeNode* child = m_pNodes[n];
 
-    nSearchTreeNode old_parent = child->GetParent();
+    NodeIdx old_parent = child->GetParent();
 
     // Create new node "middle", add it to old_parent in place of child.
 
     // Calculate the parent offset and the new labels' parameters.
     size_t parent_offset = depth - child->GetLabelStartDepth();
-    nSearchTreeLabel labelno = child->GetLabelNo();
+    LabelIdx labelno = child->GetLabelNo();
 
     unsigned int oldlabelstart = child->GetLabelStart();
     unsigned int oldlabellen = child->GetLabelLen();
@@ -879,7 +882,7 @@ nSearchTreeNode BasicSearchTree::SplitBranch(nSearchTreeNode n,size_t depth)
 
     SearchTreeNode* newnode = CreateNode(depth,old_parent,labelno,middle_start,middle_len);
     m_pNodes.push_back(newnode);
-    nSearchTreeNode middle = m_pNodes.size() - 1;
+    NodeIdx middle = m_pNodes.size() - 1;
 
     // Add child to middle
     child->SetParent(middle);
@@ -1031,7 +1034,7 @@ cc_string SearchTreeNode::SerializeString(const cc_string& s)
     }
     return result;
 }
-cc_string BasicSearchTree::SerializeLabel(nSearchTreeLabel labelno)
+cc_string BasicSearchTree::SerializeLabel(LabelIdx labelno)
 {
     cc_string result(cc_text(""));
     cc_string label = m_Labels[labelno];
