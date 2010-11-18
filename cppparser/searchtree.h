@@ -75,20 +75,23 @@ public:
     }
     NodeIdx m_CurNode;
     bool m_eof; // Reached end of tree
+
 protected:
-    BasicSearchTree* m_pTree;
-    size_t m_LastTreeSize; // For checking validity
-    SearchTreeNode* m_LastAddedNode; // For checking validity
-    SearchTreeStack m_Stack;
-    vector<SearchTreeLinkMap*> m_Stack2;
+    BasicSearchTree            *m_pTree;
+    size_t                      m_LastTreeSize;    // For checking validity
+    SearchTreeNode             *m_LastAddedNode;   // For checking validity
+    SearchTreeStack             m_Stack;
+    vector<SearchTreeLinkMap*>  m_Stack2;
 };
 
 class SearchTreePoint
 {
 public:
-    NodeIdx n; /// Which node are we pointing to?
+    NodeIdx n;    /// Which node are we pointing to?
     size_t depth; /// At what depth is the string's end located?
+
     SearchTreePoint ():n(0),depth(0) {}
+
     SearchTreePoint (NodeIdx nn, size_t dd)
     {
         n = nn;
@@ -113,35 +116,100 @@ public:
         m_parent = newparent;
     }
     NodeIdx GetChild(char ch);
+
+
+    /** \brief return the associatied item (a number)
+     *
+     * \param depth
+     * \return number
+     * operations on the item map, which is a map (depth->number)
+     */
     size_t GetItemNo(size_t depth);
+
+
+    /** \brief try to add a pair (key=depth, value=itemno)
+     *
+     * \param depth
+     * \param itemno
+     * \return the number associated with the input depth
+     * operations on the item map, which is a map (depth->number)
+     */
     size_t AddItemNo(size_t depth,size_t itemno);
+
+
+    /** \brief get the parent Node address
+     *
+     * \param tree input searchTree address
+     * \return parent SearchTreeNode address
+     *
+     */
     SearchTreeNode* GetParent(const BasicSearchTree* tree) const;
+
+    /** \brief get the child Node address with the label(the first character was ch)
+     *
+     * \param tree BasicSearchTree pointer
+     * \param ch link map key
+     * \return SearchTreeNode*
+     * operation on the link map, which is a map(key=char, value=NodeIdx)
+     */
     SearchTreeNode* GetChild(BasicSearchTree* tree,char ch);
+
+    /** \brief Get the Label string of the Node
+     *
+     * \param tree a pointer to BasicSearchTree
+     * \return  label string
+     *
+     */
     cc_string GetLabel(const BasicSearchTree* tree) const;
+
+    /** \brief get the first character of the Node
+     *
+     * \param tree input BasicSearchTree pointer
+     * \return first char
+     *
+     */
     char GetChar(const BasicSearchTree* tree) const;
+
+    /** \brief get the total reference label string. no start and length is conserned.
+     *
+     * \param tree const BasicSearchTree*
+     * \return const cc_string&
+     *
+     */
     const cc_string& GetActualLabel(const BasicSearchTree* tree) const;
+
+    /// read and set the member variables
     LabelIdx GetLabelNo() const
     {
         return m_label;
     }
+
     unsigned int GetLabelStart() const
     {
         return m_labelstart;
     }
+
     unsigned int GetLabelLen() const
     {
         return m_labellen;
     }
+
     void SetLabel(LabelIdx label, unsigned int labelstart, unsigned int labellen);
+
     unsigned int GetDepth() const
     {
         return m_depth;
     }
+
     void RecalcDepth(BasicSearchTree* tree); /// Updates the depth
     void UpdateItems(BasicSearchTree* tree); /// Updates items with parent
+
     /** Returns the depth of the start of the node's incoming label
+        which is the first character of the label.
+        it is just m_depth - m_labellen
         In other words, returns the (calculated) parent's depth */
     unsigned int GetLabelStartDepth() const;
+
     /// The label's depth is 0-based.
     bool IsLeaf() const
     {
@@ -163,12 +231,12 @@ public:
     static bool s2u(const cc_string& s,unsigned int& u);
     static bool s2i(const cc_string& s,int& i);
 protected:
-    unsigned int m_depth;
-    NodeIdx m_parent;
-    LabelIdx m_label;
-    unsigned int m_labelstart, m_labellen;
-    SearchTreeLinkMap m_Children;
-    SearchTreeItemMap m_Items;
+    unsigned int          m_depth;
+    NodeIdx               m_parent;
+    LabelIdx              m_label;
+    unsigned int          m_labelstart, m_labellen;
+    SearchTreeLinkMap     m_Children;
+    SearchTreeItemMap     m_Items;
 };
 
 class BasicSearchTree
