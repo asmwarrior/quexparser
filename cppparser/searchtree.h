@@ -222,7 +222,7 @@ protected:
 
     /** Gets the string corresponding to the tree point 'nn'.
         If 'top' is specified, it gets the string that goes from node 'top' to point 'nn'. */
-    cc_string GetString(const SearchTreePoint &nn,nSearchTreeNode top = 0) const;
+    cc_string GetString(const SearchTreePoint &point,nSearchTreeNode topNode = 0) const;
 
     /** Obtains the node with number n,NULL if n is invalid.
         If NullOnZero == true, returns NULL if n is 0. */

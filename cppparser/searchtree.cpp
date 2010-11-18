@@ -542,27 +542,41 @@ const cc_string BasicSearchTree::GetString(size_t n) const
     return GetString(m_Points[n],0);
 }
 
-cc_string BasicSearchTree::GetString(const SearchTreePoint &nn,nSearchTreeNode top) const
+cc_string BasicSearchTree::GetString(const SearchTreePoint &point,nSearchTreeNode topNodeIdx) const
 {
-    cc_string result(cc_text(""));
-    cc_string tmplabel;
-    if(!nn.n || nn.n==top)
+    cc_string result;
+
+    if(point.n==0 || point.n==topNodeIdx) // n==0 means this is the root node
         return result;
-    const SearchTreeNode *curnode;
-    vector<cc_string> the_strings;
-    the_strings.clear();
-    for(curnode = m_pNodes[nn.n];curnode && curnode->GetDepth();curnode = curnode->GetParent(this))
+
+    const SearchTreeNode *currentNode;
+    vector<cc_string> stringArray;
+    stringArray.clear();
+
+    for( currentNode = m_pNodes[point.n];
+         currentNode && currentNode->GetDepth();
+         currentNode = currentNode->GetParent(this) ) /*walk upward to the parent Node*/
     {
-        if(nn.depth <= curnode->GetLabelStartDepth()) // Is nn.depth is above this node's edge?
+        // Is point.depth is above this node's edge? if true, we need to go upward
+        if(point.depth <= currentNode->GetLabelStartDepth())
             continue;
-        the_strings.push_back(curnode->GetLabel(this));
-        if(nn.depth < curnode->GetDepth()) // is nn.depth somewhere in the middle of this node's edge?
-            the_strings[the_strings.size()-1] = the_strings[the_strings.size()-1].substr(0,nn.depth - curnode->GetLabelStartDepth());
-        if(curnode->GetParent()==top)
+
+        //push the current Node's label
+        stringArray.push_back(currentNode->GetLabel(this));
+
+        //adjust(strip) the recently pushed label(the last element in vector
+        //otherwise, the full label should used
+        if(point.depth < currentNode->GetDepth()) // is point.depth somewhere in the middle of this node's edge?
+            stringArray[stringArray.size()-1] = stringArray[stringArray.size()-1].substr(0,point.depth - currentNode->GetLabelStartDepth());
+
+        if(currentNode->GetParent()==topNodeIdx)
             break;
     }
-    for(size_t i = the_strings.size();i > 0;--i)
-        result << the_strings[i - 1];
+
+    // stream the string Array (in reverse direction)
+    // TODO asmwarrior: why not use a stack ???
+    for(size_t i = stringArray.size();i > 0;--i)
+        result << stringArray[i - 1];
     return result;
 }
 

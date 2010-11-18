@@ -105,13 +105,13 @@ inline bool cc_isupper(const cc_string & str)
 
 inline void cc_trimLeft(cc_string & str)
 {
-    int pos = str.find_first_not_of(cc_text(" \t\r\n"));
+    size_t pos = str.find_first_not_of(cc_text(" \t\r\n"));
     if (pos != std::string::npos)
         str.erase(0,pos);
 }
 inline void cc_trimRight(cc_string & str)
 {
-    int pos = str.find_last_not_of(cc_text(" \t\r\n"));
+    size_t pos = str.find_last_not_of(cc_text(" \t\r\n"));
     if (pos != std::string::npos)
         str.erase(str.begin()+pos+1,str.end());
 }
