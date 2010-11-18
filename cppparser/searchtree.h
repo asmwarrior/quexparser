@@ -54,7 +54,7 @@ public:
     bool FindNext(bool includechildren = true);
     const NodeIdx& operator* () const
     {
-        return m_CurNode;
+        return m_NodeIdx;
     }
     const BasicSearchTreeIterator& operator++()
     {
@@ -69,19 +69,20 @@ public:
     bool FindNextSibling();
     bool FindPrevSibling();
     bool FindSibling(char ch);
-    bool eof()
+    bool Eof()
     {
-        return (!IsValid() || m_eof);
+        return (!IsValid() || m_Eof);
     }
-    NodeIdx m_CurNode;
-    bool m_eof; // Reached end of tree
+
+
+    NodeIdx                     m_NodeIdx;
+    bool                        m_Eof; // Reached end of tree
 
 protected:
     BasicSearchTree            *m_pTree;
     size_t                      m_LastTreeSize;    // For checking validity
     SearchTreeNode             *m_LastAddedNode;   // For checking validity
-    SearchTreeStack             m_Stack;
-    vector<SearchTreeLinkMap*>  m_Stack2;
+
 };
 
 class SearchTreePoint
