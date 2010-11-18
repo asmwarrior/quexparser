@@ -269,11 +269,11 @@ size_t SearchTreeNode::AddItemNo(size_t depth,size_t itemno)
 {
     SearchTreeItemMap::iterator found = m_Items.find(depth);
     if(found == m_Items.end())
-        m_Items[depth]=itemno;
+        m_Items[depth]=itemno;  // if not find the key, we just add one
     else if(found->second==0)
-        m_Items[depth]=itemno;
+        m_Items[depth]=itemno;  // if the value associated the key(depth) is zero, we just assign a new item number
     else
-        itemno = found->second;
+        itemno = found->second; // otherwise, the value is already exists, so we just use (overwide the input value)
     return itemno;
 }
 
