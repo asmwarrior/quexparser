@@ -22,22 +22,35 @@ class BasicSearchTree;
 class SearchTreePoint;
 
 
-/** SearchTreeLinkMap is the list of the edges towards other nodes. The character is the
-key, and the node is the value */
+/** SearchTreeLinkMap is the list of the edges towards its child nodes. The character is the
+  * key, and the node index is the value
+  */
 typedef map<char,NodeIdx,less<char> >             SearchTreeLinkMap;
-
-typedef vector<SearchTreeLinkMap::iterator>       SearchTreeStack;
 
 /** SearchTreeNodeArray contains all the nodes for a search tree */
 typedef vector<SearchTreeNode*>                   SearchTreeNodeArray;
 
-/** SearchTreePointArray contains a list of tree points defining strings */
+/** SearchTreePointArray contains a list of tree points defining strings, generally, a tree is just
+  * a optimized map<string,int>, this has no restirct that different string(key) could have same value.
+  * e.g.
+  *      "xxxaaa" -> 1 ;
+  *      "xxxbbb" -> 1 ;
+  * This is allowed in a general map or trie, but NOT allowed in our basicSearchTree. so we should
+  * make our key->value and value->key a bijection, which means different string has different value.
+  * This way, e.g. we can give different file names different unique index value.
+  * the value is in-fact "item index to the SearchTreePointArray"
+  */
 typedef vector<SearchTreePoint>                   SearchTreePointArray;
 
-/** SearchTreeItemMap contains all the items belonging to an edge */
+/** SearchTreeItemMap contains all the items belonging to an edge. Each Node has one item map,
+  * which
+  * is infact a map<depth,itemIdx>, the depth is the string length belong to the current node
+  */
 typedef map<size_t,size_t,less<size_t> >          SearchTreeItemMap;
 
-/** SearchTreeLabelArray contains the labels used by the nodes */
+/** SearchTreeLabelArray contains all the labels used by the nodes, label can be
+  * referenced/accessed by the LabelIdx, which is infact a size_t type
+  */
 typedef vector<cc_string>                         SearchTreeLabelArray;
 
 
