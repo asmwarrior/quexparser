@@ -15,6 +15,7 @@ using namespace std;
 
 typedef size_t NodeIdx;
 typedef size_t LabelIdx;
+typedef size_t ItemIdx;
 
 class SearchTreeNode;
 class BasicSearchTree;
@@ -110,11 +111,11 @@ public:
     virtual ~SearchTreeNode();
     NodeIdx GetParent() const
     {
-        return m_parent;
+        return m_Parent;
     }
     void SetParent(NodeIdx newparent)
     {
-        m_parent = newparent;
+        m_Parent = newparent;
     }
     NodeIdx GetChild(char ch);
 
@@ -125,7 +126,7 @@ public:
      * \return number
      * operations on the item map, which is a map (depth->number)
      */
-    size_t GetItemNo(size_t depth);
+    ItemIdx GetItemIdx(size_t depth);
 
 
     /** \brief try to add a pair (key=depth, value=itemno)
@@ -135,7 +136,7 @@ public:
      * \return the number associated with the input depth
      * operations on the item map, which is a map (depth->number)
      */
-    size_t AddItemNo(size_t depth,size_t itemno);
+    ItemIdx AddItemIdx(size_t depth, ItemIdx itemIdx);
 
 
     /** \brief get the parent Node address
@@ -180,26 +181,26 @@ public:
     const cc_string& GetActualLabel(const BasicSearchTree* tree) const;
 
     /// read and set the member variables
-    LabelIdx GetLabelNo() const
+    LabelIdx GetLabelIdx() const
     {
-        return m_label;
+        return m_Label;
     }
 
     unsigned int GetLabelStart() const
     {
-        return m_labelstart;
+        return m_LabelStart;
     }
 
     unsigned int GetLabelLen() const
     {
-        return m_labellen;
+        return m_LabelLen;
     }
 
     void SetLabel(LabelIdx label, unsigned int labelstart, unsigned int labellen);
 
     unsigned int GetDepth() const
     {
-        return m_depth;
+        return m_Depth;
     }
 
     void RecalcDepth(BasicSearchTree* tree); /// Updates the depth
@@ -207,14 +208,14 @@ public:
 
     /** Returns the depth of the start of the node's incoming label
         which is the first character of the label.
-        it is just m_depth - m_labellen
+        it is just m_Depth - m_LabelLen
         In other words, returns the (calculated) parent's depth */
     unsigned int GetLabelStartDepth() const;
 
     /// The label's depth is 0-based.
     bool IsLeaf() const
     {
-        return m_Children.empty() && (m_depth != 0);
+        return m_Children.empty() && (m_Depth != 0);
     }
 
     /** Gets the deepest position where the string matches the node's edge's label.
@@ -232,10 +233,10 @@ public:
     static bool s2u(const cc_string& s,unsigned int& u);
     static bool s2i(const cc_string& s,int& i);
 protected:
-    unsigned int          m_depth;
-    NodeIdx               m_parent;
-    LabelIdx              m_label;
-    unsigned int          m_labelstart, m_labellen;
+    unsigned int          m_Depth;
+    NodeIdx               m_Parent;
+    LabelIdx              m_Label;
+    unsigned int          m_LabelStart, m_LabelLen;
     SearchTreeLinkMap     m_Children;
     SearchTreeItemMap     m_Items;
 };
@@ -259,7 +260,7 @@ public:
 
     /** Adds an item number to position defined by s.
         If the string already exists, returns the correspoinding item no. */
-    size_t insert(const cc_string& s);
+    ItemIdx insert(const cc_string& s);
 
     /// Tells if there is an item for string s
     bool HasItem(const cc_string& s);
@@ -271,16 +272,16 @@ public:
     }
 
     /// Gets the array position defined by s
-    size_t GetItemNo(const cc_string& s);
+    ItemIdx GetItemIdx(const cc_string& s);
 
     /// Gets the key string for item n
-    const cc_string GetString(size_t pointIdx) const;
+    const cc_string GetString(ItemIdx itemIdx) const;
 
     /** Finds items that match a given string.
         if is_prefix==true, it finds items that start with the string.
         returns the number of matches.
     */
-    size_t FindMatches(const cc_string& s,set<size_t> &result,bool caseSensitive,bool is_prefix);
+    size_t FindMatches(const cc_string& s,set<size_t> &result,bool caseSensitive,bool prefixMatch);
 
     /// Serializes the labels into an XML-compatible string
     cc_string SerializeLabels();
@@ -427,7 +428,7 @@ T SearchTree<T>::GetItem(const char* s)
 template <class T>
 T SearchTree<T>::GetItem(const cc_string& s)
 {
-    size_t itemno = GetItemNo(s);
+    size_t itemno = GetItemIdx(s);
     if(!itemno && !s.empty())
         return T();
     return GetItemAtPos(itemno);
@@ -478,7 +479,7 @@ bool SearchTree<T>::AddFirstNullItem()
 template <class T>
 T& SearchTree<T>::operator[](const cc_string& s)
 {
-    size_t curpos = GetItemNo(s);
+    size_t curpos = GetItemIdx(s);
     if(!curpos)
     {
         T newitem;

@@ -537,7 +537,7 @@ void TokensTree::erase(Token* oldToken)
 
 int TokensTree::TokenExists(const cc_string& name, int parent, short int kindMask)
 {
-    int idx = m_Tree.GetItemNo(name);
+    int idx = m_Tree.GetItemIdx(name);
     if(!idx)
         return -1;
     TokenIdxSet::iterator it;
@@ -590,7 +590,7 @@ size_t TokensTree::FindTokensInFile(const cc_string& file, TokenIdxSet& result, 
     // get file idx
     if (!m_FilenamesMap.HasItem(file))
         return 0;
-    int idx = m_FilenamesMap.GetItemNo(file);
+    int idx = m_FilenamesMap.GetItemIdx(file);
 
     // now get the tokens set matching this file idx
     TokenFilesMap::iterator itf = m_FilesMap.find(idx);
@@ -707,7 +707,7 @@ void TokensTree::eraseToken(Token* oldToken)
 
     // Step 5: Detach token from the SearchTrees
 
-    int idx2 = m_Tree.GetItemNo(oldToken->m_Name);
+    int idx2 = m_Tree.GetItemIdx(oldToken->m_Name);
     if(idx2)
     {
         TokenIdxSet& curlist = m_Tree.GetItemAtPos(idx2);
