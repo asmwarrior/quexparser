@@ -36,7 +36,10 @@ BasicSearchTreeIterator::BasicSearchTreeIterator(BasicSearchTree* tree)
 
 bool BasicSearchTreeIterator::IsValid()
 {
-    if(!this || !m_pTree || m_LastTreeSize!= m_pTree->m_pNodes.size() || m_LastAddedNode != m_pTree->m_pNodes[m_LastTreeSize - 1])
+    if(!this
+       || !m_pTree
+       || m_LastTreeSize != m_pTree->m_pNodes.size()
+       || m_LastAddedNode != m_pTree->m_pNodes[m_LastTreeSize - 1])
         return false;
     return true;
 }
@@ -99,12 +102,15 @@ bool BasicSearchTreeIterator::FindNext(bool includeChildren)
         if(!IsValid())
             break; // return false;
 
+        // Get the Node pointer of the current Iterator
         SearchTreeNode* pNode = m_pTree->GetNode(m_NodeIdx);
         if(!pNode)
             break; // return false;
 
         //now, the Node pointer is OK
         result = true;
+        // if includeChildren is enabled, we just walk into its child node
+        // then return the first child node, otherwise, it should reached EOF
         if(includeChildren)
         {
             it = pNode->m_Children.begin();   // try to find the first child
