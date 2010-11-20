@@ -60,72 +60,135 @@ typedef vector<cc_string>                         SearchTreeLabelArray;
 class BasicSearchTreeIterator
 {
 public:
+    /** Default constructor*/
     BasicSearchTreeIterator();
+    /** Default constructor, the iterator will point to the root node of the tree*/
     BasicSearchTreeIterator(BasicSearchTree* tree);
+    /** Destructor */
     virtual ~BasicSearchTreeIterator() {}
+
+    /** The iterator point to a valid node*/
     bool IsValid();
-    bool FindPrev(bool includechildren = true);
-    bool FindNext(bool includechildren = true);
+
+    /** Move to the previous node
+      * @param includeChildren if true, we can move through child node (the last child node)
+      */
+    bool FindPrev(bool includeChildren = true);
+
+    /** Move to the next node
+      * @param includeChildren if true, we can move through child node (the first child node)
+      */
+    bool FindNext(bool includeChildren = true);
+
+    /** operator * overloading function, return the NodeIdx (size_t) in the Node Vector*/
     const NodeIdx& operator* () const
     {
         return m_NodeIdx;
     }
+
+    /** Move to the next Node, include Child node*/
     const BasicSearchTreeIterator& operator++()
     {
         FindNext();
         return *this;
     }
+    /** Move backward, include child node*/
     const BasicSearchTreeIterator& operator--()
     {
         FindPrev();
         return *this;
     }
+
+    /** Go to the Sibling node
+      * @return if true, the move is succefull
+      */
     bool FindNextSibling();
     bool FindPrevSibling();
+
+    /** currently, this function is not used any more*/
     bool FindSibling(char ch);
+
+    /** Check the Iterator is reached the Eof*/
     bool Eof()
     {
         return (!IsValid() || m_Eof);
     }
 
-
+    /** Node Index, size_t */
     NodeIdx                     m_NodeIdx;
-    bool                        m_Eof; // Reached end of tree
+    /** Reached end of tree */
+    bool                        m_Eof;
 
 protected:
+
+    /** basic search tree pointer */
     BasicSearchTree            *m_pTree;
-    size_t                      m_LastTreeSize;    // For checking validity
-    SearchTreeNode             *m_LastAddedNode;   // For checking validity
+
+    /** For checking validity */
+    size_t                      m_LastTreeSize;
+
+    /** For checking validity */
+    SearchTreeNode             *m_LastAddedNode;
 
 };
-
+/** locate a point (string) element in the tree
+  * the NodeIdx n is to reference the node
+  * the depth is oused as the key in the itmes map of the node
+  * once the above two variable is specified, the associated string can be caculated
+  */
 class SearchTreePoint
 {
 public:
-    NodeIdx n;    /// Which node are we pointing to?
-    size_t depth; /// At what depth is the string's end located?
 
+    /** default constructor pointer to the root node*/
     SearchTreePoint ():n(0),depth(0) {}
 
+    /** constructor pointing to a sepcified string element */
     SearchTreePoint (NodeIdx nn, size_t dd)
     {
         n = nn;
         depth = dd;
     }
+
+    /** Which node are we pointing to */
+    NodeIdx n;
+
+    /** At what depth is the string's end located?*/
+    size_t depth;
 };
 
+/** Node of the tree, it contains a edge(label), a link map(linking to its child node, a item map( a
+  * map<string depth,Node index>.
+  */
 class SearchTreeNode
 {
     friend class BasicSearchTree;
     friend class BasicSearchTreeIterator;
 public:
+    /** defualt constructor*/
     SearchTreeNode();
+
+    /** \brief constructor
+      *
+      * @param depth the Node's depth is the depth of the first char of the label(from the root to the char)
+      * @param parent parent node index in the node vector
+      * @param label  label index in the label vector
+      * @param labelstart label start position
+      * @param labellen   label end position
+      *
+      */
     SearchTreeNode(unsigned int depth,NodeIdx parent,LabelIdx label, unsigned int labelstart, unsigned int labellen);
+
+    /** destructor*/
     virtual ~SearchTreeNode();
+
+    /** return the parent node index (size_t) */
     NodeIdx GetParent() const
     {
         return m_Parent;
     }
+
+    /** return the parent node index (size_t) */
     void SetParent(NodeIdx newparent)
     {
         m_Parent = newparent;
@@ -133,64 +196,59 @@ public:
     NodeIdx GetChild(char ch);
 
 
-    /** \brief return the associatied item (a number)
-     *
-     * \param depth
-     * \return number
-     * operations on the item map, which is a map (depth->number)
-     */
+    /** return the associatied item index ( item number, or size_t type)
+      *
+      * @param depth input variable, this is the search key in the item map
+      * @return the item index
+      * operations on the item map, which is a map (depth->number)
+      */
     ItemIdx GetItemIdx(size_t depth);
 
 
-    /** \brief try to add a pair (key=depth, value=itemno)
-     *
-     * \param depth
-     * \param itemno
-     * \return the number associated with the input depth
-     * operations on the item map, which is a map (depth->number)
-     */
+    /** try to add a pair (key=depth, value=item index)
+      *
+      * @param depth input search key on the item map
+      * @param  itemIdx input item. if the value associated with the depth is empty, just set the itemIdx
+      * @return the number associated with the input depth
+      * operations on the item map, which is a map (depth->number)
+      * node: if the item is alreay exist in the item map, then just return the index, thus the
+      * input itemIdx is discarded
+      */
     ItemIdx AddItemIdx(size_t depth, ItemIdx itemIdx);
 
 
-    /** \brief get the parent Node address
-     *
-     * \param tree input searchTree address
-     * \return parent SearchTreeNode address
-     *
-     */
+    /** get the parent Node address
+      *
+      * @param tree input searchTree address
+      * @return parent SearchTreeNode address
+      */
     SearchTreeNode* GetParent(const BasicSearchTree* tree) const;
 
-    /** \brief get the child Node address with the label(the first character was ch)
-     *
-     * \param tree BasicSearchTree pointer
-     * \param ch link map key
-     * \return SearchTreeNode*
-     * operation on the link map, which is a map(key=char, value=NodeIdx)
-     */
+    /** get the child Node address with the label(the first character was ch)
+      *
+      * @param tree BasicSearchTree pointer
+      * @param ch link map key
+      * @return SearchTreeNode*
+      * operation on the link map, which is a map(key=char, value=NodeIdx)
+      */
     SearchTreeNode* GetChild(BasicSearchTree* tree,char ch);
 
-    /** \brief Get the Label string of the Node
-     *
-     * \param tree a pointer to BasicSearchTree
-     * \return  label string
-     *
-     */
+    /**  Get the Label string of the Node
+      * @param tree a pointer to BasicSearchTree
+      * @return  label string
+      */
     cc_string GetLabel(const BasicSearchTree* tree) const;
 
-    /** \brief get the first character of the Node
-     *
-     * \param tree input BasicSearchTree pointer
-     * \return first char
-     *
-     */
+    /**  get the first character of the Node
+      * @param tree input BasicSearchTree pointer
+      * @return first char
+      */
     char GetChar(const BasicSearchTree* tree) const;
 
-    /** \brief get the total reference label string. no start and length is conserned.
-     *
-     * \param tree const BasicSearchTree*
-     * \return const cc_string&
-     *
-     */
+    /** get the total reference label string. no start and length is conserned.
+      * @param tree const BasicSearchTree*
+      * @return const cc_string&
+      */
     const cc_string& GetActualLabel(const BasicSearchTree* tree) const;
 
     /// read and set the member variables
@@ -198,49 +256,64 @@ public:
     {
         return m_Label;
     }
-
+    /** read the label start position. the first char position */
     unsigned int GetLabelStart() const
     {
         return m_LabelStart;
     }
-
+    /** the length of the edge*/
     unsigned int GetLabelLen() const
     {
         return m_LabelLen;
     }
-
+    /** set the label string
+      * @param label label index
+      * @param labelStart label start position(first char index on the label string)
+      * @param labelLen edge length
+      */
     void SetLabel(LabelIdx label, unsigned int labelstart, unsigned int labellen);
 
+    /** Node depth, it is the depth of the first char of the label (edge) */
     unsigned int GetDepth() const
     {
         return m_Depth;
     }
 
-    void RecalcDepth(BasicSearchTree* tree); /// Updates the depth
-    void UpdateItems(BasicSearchTree* tree); /// Updates items with parent
+    /** this always happends when the new node or the new branch is added
+      * Updates the depth of the tree
+      */
+    void RecalcDepth(BasicSearchTree* tree);
 
-    /** Returns the depth of the start of the node's incoming label
-        which is the first character of the label.
-        it is just m_Depth - m_LabelLen
-        In other words, returns the (calculated) parent's depth */
+    /** Updates items with parent
+      *
+      */
+    void UpdateItems(BasicSearchTree* tree);
+
+    /**  Returns the depth of the start of the node's incoming label
+      *  which is the first character of the label.
+      *  it is just m_Depth - m_LabelLen
+      *  In other words, returns the (calculated) parent's depth
+      */
     unsigned int GetLabelStartDepth() const;
 
-    /// The label's depth is 0-based.
+    /// The label's depth is 0-based (from the root)
     bool IsLeaf() const
     {
         return m_Children.empty() && (m_Depth != 0);
     }
 
     /** Gets the deepest position where the string matches the node's edge's label.
-        0 for 0 characters in the tree matched, 1 for 1 character matched, etc.
-        */
+      *  0 for 0 characters in the tree matched, 1 for 1 character matched, etc.
+      */
     unsigned int GetDeepestMatchingPosition(BasicSearchTree* tree, const cc_string& s,unsigned int StringStartDepth);
     cc_string Serialize(BasicSearchTree* tree,NodeIdx node_id,bool withchildren = false);
     void dump(BasicSearchTree* tree,NodeIdx node_id,const cc_string& prefix,cc_string& result);
 
-
+    /** helper function */
     static cc_string SerializeString(const cc_string& s);
+    /** unsigned int to string */
     static cc_string u2s(unsigned int u);
+    /** int to string */
     static cc_string i2s(int i);
     static bool UnSerializeString(const cc_string& s,cc_string& result);
     static bool s2u(const cc_string& s,unsigned int& u);
@@ -253,7 +326,12 @@ protected:
     SearchTreeLinkMap     m_Children;
     SearchTreeItemMap     m_Items;
 };
-
+/** a map<string,size_t>, different string should have different value, so this is also
+  * a map<size_t,string>. a bi-direction map.
+  * it is the base of the Tokenstree.
+  * the tree has a nodeArray, a labelArray and a pointArray, all these element was accessed by index
+  * the point index is sometimes called item number (itemno) or item index.
+  */
 class BasicSearchTree
 {
     friend class SearchTreeNode;
@@ -291,9 +369,9 @@ public:
     const cc_string GetString(ItemIdx itemIdx) const;
 
     /** Finds items that match a given string.
-        if is_prefix==true, it finds items that start with the string.
-        returns the number of matches.
-    */
+      *  if is_prefix==true, it finds items that start with the string.
+      *  returns the number of matches.
+      */
     size_t FindMatches(const cc_string& s,set<size_t> &result,bool caseSensitive,bool prefixMatch);
 
     /// Serializes the labels into an XML-compatible string
