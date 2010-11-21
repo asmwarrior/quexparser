@@ -296,7 +296,7 @@ public:
       */
     unsigned int GetLabelStartDepth() const;
 
-    /// The label's depth is 0-based (from the root)
+    /** The label's depth is 0-based (from the root) */
     bool IsLeaf() const
     {
         return m_Children.empty() && (m_Depth != 0);
@@ -309,14 +309,23 @@ public:
     cc_string Serialize(BasicSearchTree* tree,NodeIdx node_id,bool withchildren = false);
     void dump(BasicSearchTree* tree,NodeIdx node_id,const cc_string& prefix,cc_string& result);
 
-    /** helper function */
+
+    /** helper function, xml format output */
     static cc_string SerializeString(const cc_string& s);
+
     /** unsigned int to string */
     static cc_string u2s(unsigned int u);
+
     /** int to string */
     static cc_string i2s(int i);
+
+    /** xml input*/
     static bool UnSerializeString(const cc_string& s,cc_string& result);
+
+    /** string to unsign int*/
     static bool s2u(const cc_string& s,unsigned int& u);
+
+    /** string to int*/
     static bool s2i(const cc_string& s,int& i);
 protected:
     unsigned int          m_Depth;
@@ -343,29 +352,33 @@ public:
     {
         return m_Points.size();
     }
+
+    /** Gets the number of items stored */
     virtual size_t GetCount() const
     {
-        return m_Points.size();    /// Gets the number of items stored
+        return m_Points.size();
     }
-    virtual void clear(); /// clears items and tree
+    /** clears items and tree and point array */
+    virtual void clear();
 
     /** Adds an item number to position defined by s.
-        If the string already exists, returns the correspoinding item no. */
+      * If the string already exists, returns the correspoinding item number.
+      */
     ItemIdx insert(const cc_string& s);
 
-    /// Tells if there is an item for string s
+    /** Tells if there is an item for string s */
     bool HasItem(const cc_string& s);
 
-    /// std::map compatibility for the above
+    /** std::map compatibility for the above */
     size_t count(const cc_string& s)
     {
         return HasItem(s) ? 1 : 0;
     }
 
-    /// Gets the array position defined by s
+    /** Gets the point array position defined by s */
     ItemIdx GetItemIdx(const cc_string& s);
 
-    /// Gets the key string for item n
+    /** Gets the key string for item index */
     const cc_string GetString(ItemIdx itemIdx) const;
 
     /** Finds items that match a given string.
@@ -374,92 +387,137 @@ public:
       */
     size_t FindMatches(const cc_string& s,set<size_t> &result,bool caseSensitive,bool prefixMatch);
 
-    /// Serializes the labels into an XML-compatible string
+    /** Serializes the labels into an XML-compatible string */
     cc_string SerializeLabels();
-    /// Dumps a graphical version of the tree
+
+    /** Dumps a graphical version of the tree */
     cc_string dump();
+
 protected:
 
     /** Creates a new node. Function is virtual so the nodes can be extended
-        and customized, or to improve the memory management. */
-    virtual SearchTreeNode* CreateNode(unsigned int depth,NodeIdx parent,LabelIdx label, unsigned int labelstart, unsigned int labellen);
+      * and customized, or to improve the memory management.
+      */
+    virtual SearchTreeNode* CreateNode(unsigned int depth,
+                                       NodeIdx parent,
+                                       LabelIdx label,
+                                       unsigned int labelstart,
+                                       unsigned int labellen);
 
-    /** Gets the string corresponding to the tree point 'nn'.
-        If 'top' is specified, it gets the string that goes from node 'top' to point 'nn'. */
+    /** Gets the string corresponding to the tree 'point'.
+      * If topNode is specified, it gets the string that goes from node 'topNode' to 'point'.
+      */
     cc_string GetString(const SearchTreePoint &point,NodeIdx topNode = 0) const;
 
     /** Obtains the node with number n,NULL if n is invalid.
-        If NullOnZero == true, returns NULL if n is 0. */
+      * If NullOnZero == true, returns NULL if n is 0.
+      */
     SearchTreeNode* GetNode(NodeIdx n,bool NullOnZero = false);
-    /// Finds the node that starts from node 'parent', and has the suffix s.
-    bool FindNode(const cc_string& s, NodeIdx nparent, SearchTreePoint* result);
-    /// Adds Suffix s starting from node nparent.
-    SearchTreePoint AddNode(const cc_string& s, NodeIdx nparent = 0);
 
-    /// Serializes given label into an XML-escaped string.
+    /** Finds the node that starts from node 'parentIdx', and has the suffix s. */
+    bool FindNode(const cc_string& s, NodeIdx parentIdx, SearchTreePoint* result);
+
+    /** Adds Suffix s starting from node parentIdx.*/
+    SearchTreePoint AddNode(const cc_string& s, NodeIdx parentIdx = 0);
+
+    /** Serializes given label into an XML-escaped string.*/
     cc_string SerializeLabel(LabelIdx labelno);
 
-    /// Labels used by the nodes' edges
+
+
+
+
+    /** Labels Array used by the nodes' edges */
     SearchTreeLabelArray m_Labels;
-    /// Nodes and their edges
+
+    /** Nodes Array and their edges */
     SearchTreeNodeArray m_pNodes;
 
-    /// Points defining the items' strings
+    /** Points Array defining the items' strings */
     SearchTreePointArray m_Points;
 
 private:
-    /// Creates the tree's root node.
+    /** Creates the tree's root node.*/
     void CreateRootNode();
 
     /** Splits the Branch that leads to node n, at the given depth.
-        Used by AddNode.
-        @return the newly created node
-        if the given position is exactly the length of n's vertex,
-        just return n.
-     */
+      * Used by AddNode.
+      * @return the newly created node
+      * if the given position is exactly the length of n's vertex,
+      * just return n.
+      */
     NodeIdx SplitBranch(NodeIdx n,size_t depth);
 };
 
+
+
+/** template class, adding a array of T in the SearchTree class*/
 template <class T>
 class SearchTree: public BasicSearchTree
 {
 public:
     SearchTree();
     virtual ~SearchTree();
-    virtual void clear(); /// clears the tree
-    size_t GetCount() const; /// Gets the number of items stored
-    virtual size_t size() const; /// Same as GetCount
-    bool SaveCacheTo(const cc_string& filename); /// Stores the Tree and items into a file
-    bool LoadCacheFrom(const cc_string& filename); /// Loads the Tree and items from a file
+
+    /** clears the tree */
+    virtual void clear();
+
+    /** Gets the number of items stored */
+    size_t GetCount() const;
+
+    /** Same as GetCount*/
+    virtual size_t size() const;
+
+    /** Stores the Tree and items into a file*/
+    bool SaveCacheTo(const cc_string& filename);
+
+    /** Loads the Tree and items from a file */
+    bool LoadCacheFrom(const cc_string& filename);
+
+    /** XML output of the tree */
     cc_string Serialize();
-    T GetItem(const cc_string& s); /// Gets the item at position defined by s
+
+    /** Gets the item at position defined by string s */
+    T GetItem(const cc_string& s);
+
+    /** Gets the item at position defined by char * s */
     T GetItem(const char* s);
-    size_t AddItem(const cc_string& s,T item,bool replaceexisting = false); /// Adds an item to position defined by s
-    T& GetItemAtPos(size_t i); /// Gets the item found at position i
-    void SetItemAtPos(size_t i,T item); /// Replaces the item found at position i
+
+    /** Adds an item to position defined by s*/
+    size_t AddItem(const cc_string& s,T item,bool replaceexisting = false);
+
+    /** Gets the item found at position i */
+    T& GetItemAtPos(size_t i);
+
+    /** Replaces the item found at position i */
+    void SetItemAtPos(size_t i,T item);
 
     /** Gets the item found at position s. Inserts new empty one if not found. */
     T& operator[](const cc_string& s);
-    /// Serializes the stored items
+
+    /** Serializes the stored items */
     virtual cc_string SerializeItem(size_t idx)
     {
         return cc_text("");
     }
-    /// Unserializes the items to be stored
+    /** Unserializes the items to be stored */
     virtual void* UnserializeItem(const cc_string& s)
     {
         return NULL;
     }
 protected:
-    vector<T> m_Items;   /// The actual stored items
+    /**  The actual stored items Array*/
+    vector<T> m_Items;
 
-    /// Releases the stored items from memory. Called by clear();
+    /** Releases the stored items from memory. Called by clear();*/
     virtual void clearItems();
 
-    /// Adds a null item to position 0.
+    /** Adds a null item to position 0.*/
     virtual bool AddFirstNullItem();
-
 };
+
+
+
 
 template <class T>
 SearchTree<T>::SearchTree():BasicSearchTree()
