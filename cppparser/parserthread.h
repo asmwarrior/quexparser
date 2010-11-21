@@ -38,6 +38,8 @@ struct ParserThreadContext
         typeQualifier = 0;
         while (!stackNamespace.empty())
             stackNamespace.pop();
+        type.clear();
+        name.clear();
     }
 
     void EndStatement()
@@ -50,6 +52,33 @@ struct ParserThreadContext
         typeQualifier = 0;
     }
 
+    void Dump()
+    {
+        FullIdentifier::iterator it = type.begin();
+        for(;it!=type.end();it++)
+        {
+            cout<<(*it).name<< " ";
+            ArgumentList::iterator it2 = (*it).templateArgumentList.begin();
+            for(;it2!=(*it).templateArgumentList.end();it2++)
+            {
+                cout<<*it2<< " ";
+            }
+            cout<<endl;
+        }
+        it = name.begin();
+        for(;it!=name.end();it++)
+        {
+            cout<<(*it).name<< " ";
+            ArgumentList::iterator it2 = (*it).templateArgumentList.begin();
+            for(;it2!=(*it).templateArgumentList.end();it2++)
+            {
+                cout<<*it2<< " ";
+            }
+            cout<<endl;
+        }
+
+    }
+
     /** this is a very important member variables! it serves as a return type stack,
       * eg: int string const varA; in this time, we should find the last ';" to determine this
       * is a Token named 'vara', every token before 'varA' will be pushed to m_Str, at this time
@@ -60,6 +89,9 @@ struct ParserThreadContext
       * int ClassA::FunctionB();
       * EncounteredNamespaces will be 'ClassA' */
     std::queue<cc_string> stackNamespace;
+
+    FullIdentifier type;
+    FullIdentifier name;
 
     /** namespaces in function return types
       * for a function declaration below:
@@ -281,6 +313,10 @@ private:
         return tk;
 
     }
+    inline RawToken * CurrentToken()
+    {
+        return m_Tokenizer.CurrentToken();
+    }
     inline RawToken * PeekToken(int step = 1)
     {
         if (TestDestroy())
@@ -299,6 +335,10 @@ private:
     }
 
     void FillOutMacroDefine(RawToken * tk);
+    bool ParseFullIdentifer();
+    bool ParseScopeQueue(FullIdentifier& scopeQueue);
+    bool ParseArgumentList(ArgumentList &argumentList);
+    void TestFunction();
 
     /** no usage ??? */
     void Log(const cc_string& log);

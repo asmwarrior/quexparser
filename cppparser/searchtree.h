@@ -99,10 +99,14 @@ public:
         return *this;
     }
 
-    /** Go to the Sibling node
+    /** Go to the next Sibling node
       * @return if true, the move is succefull
       */
     bool FindNextSibling();
+
+    /** Go to the previous Sibling node
+      * @return if true, the move is succefull
+      */
     bool FindPrevSibling();
 
     /** currently, this function is not used any more*/
