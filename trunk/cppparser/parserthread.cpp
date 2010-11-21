@@ -269,6 +269,8 @@ void ParserThread::DoParse()
 
 //    m_Tokenizer.RunTest();
 //    return;
+    TestFunction();
+    return;
 
 
     while (m_Tokenizer.NotEOF())
@@ -339,6 +341,7 @@ void ParserThread::DoParse()
         case TKN_IDENTIFIER:
         {
 
+            ParseFullIdentifer();
             // we are interested in the following token.
 
             RawToken * peek = PeekToken();
@@ -1219,6 +1222,91 @@ void ParserThread::FillOutMacroDefine(RawToken * tk)
 
         }
 
+
+    }
+}
+
+
+bool ParserThread::ParseFullIdentifer()
+{
+    if(m_Context.type.size()==0)
+        ParseScopeQueue(m_Context.type);
+    else
+        ParseScopeQueue(m_Context.name);
+}
+bool ParserThread::ParseScopeQueue(FullIdentifier& scopeQueue)
+{
+    RawToken * currentToken = CurrentToken();
+    assert(currentToken->type_id() == TKN_IDENTIFIER);
+
+    ScopeBlock scope;
+    scope.name = *currentToken;// add the name
+    ParseArgumentList(scope.templateArgumentList);
+    scopeQueue.push_back(scope);
+
+    while(PeekToken()->type_id()==TKN_DOUBLE_COLON && PeekToken(2)->type_id()==TKN_IDENTIFIER)
+    {
+            //Read the Argument list
+            // fill the *it.templateArgumentList
+            // if the fill function return false, which, we should skip to ; or }
+            GetToken(); //consume ::
+            currentToken = GetToken(); // get id
+            scope.name = *currentToken;// add the name
+            ParseArgumentList(scope.templateArgumentList);
+            scopeQueue.push_back(scope);
+    }
+
+}
+bool ParserThread::ParseArgumentList(ArgumentList &argumentList)
+{
+    // do nothing on the argumentList, just do the loop
+    RawToken * tk = GetToken();
+    if(tk->type_id() == TKN_LESS)
+    {
+        int level = 1;
+        argumentList.clear();
+        argumentList.push_back(tk->get_text()); // push <
+        tk = GetToken();// get a token
+        // should match a >
+        while(tk->type_id()!=TKN_GREATER)
+        {
+            argumentList.push_back(tk->get_text());
+            tk = GetToken();// comsume this one;
+            //std::cout<<*tk<<std::endl;
+        }
+        assert(tk->type_id() == TKN_GREATER);
+        GetToken(); //consume >
+    }
+    else
+        return true;
+
+    std::cout<<"reading argument finish!\n";
+}
+
+
+void ParserThread::TestFunction()
+{
+    while (m_Tokenizer.NotEOF())
+    {
+        RawToken* tk = GetToken();
+        std::cout<<*tk<<std::endl;
+        int type = tk->type_id();
+        switch (type)
+        {
+        case TKN_IDENTIFIER:
+        {
+            ParseFullIdentifer();
+            break;
+        }
+        case TKN_SEMICOLON:
+        {
+            cout<<"SemiColon"<<endl;
+            m_Context.Dump();
+            m_Context.Reset();
+        }
+        default:
+            break;
+        }
 
     }
 }

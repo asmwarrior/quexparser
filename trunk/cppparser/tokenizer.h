@@ -28,7 +28,9 @@ public:
     bool InitFromBuffer(const cc_string& buffer);
 
     RawToken*  GetToken();
+    RawToken*  CurrentToken();
     RawToken*  PeekToken(int step = 1);
+
     void UngetToken();
 
 

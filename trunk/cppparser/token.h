@@ -7,6 +7,7 @@
 #define TOKEN_H
 
 #include "searchtree.h"
+#include "tokenizer.h"
 
 using namespace std;
 
@@ -62,6 +63,56 @@ enum TokenKind
 
 };
 
+struct DeclarationModifier
+{
+    bool isConst;
+    bool isConstructor;
+    bool isDestructor;
+    bool isVirtual;
+    bool isOperator;
+    bool isTemplate;
+    bool isAutoV;
+    bool isRegister;
+    bool isExtern;
+    bool isExplicit;
+    bool isFriend;
+    bool isVolatile;
+    bool isStatic;
+    bool isInline;
+    bool isMutable;
+    bool isPointer;
+    bool isReference;
+};
+
+
+/** one argument
+  * for example: void f(int a=0, float b=3);
+  * then there are two SingleArgument
+  * "int   a 0"
+  * "float b 3"
+  */
+struct SingleArgument
+{
+    RawToken type;
+    RawToken name;
+    RawToken defaultValue;
+};
+typedef std::vector<cc_string> ArgumentList;
+
+/** for a template type definition, we have such format
+  *   AAA<typename T1 = int, class T2 = float>::
+  */
+struct ScopeBlock
+{
+    RawToken     name;
+    ArgumentList templateArgumentList;
+};
+
+
+typedef std::vector<ScopeBlock> FullIdentifier;
+
+
+
 
 class Token
 {
@@ -109,7 +160,7 @@ class Token
         bool m_IsOperator;
         bool m_IsLocal; // found in a local file?
         bool m_IsTemp; // if true, the tree deletes it in FreeTemporaries()
-        bool m_IsConst;    // the member method is const (yes/no)
+        //bool m_IsConst;    // the member method is const (yes/no)
 
         int m_ParentIndex;
         TokenIdxSet m_Children;
@@ -117,7 +168,7 @@ class Token
         TokenIdxSet m_DirectAncestors;
         TokenIdxSet m_Descendants;
 
-        vector<cc_string> m_Aliases; // used for namespace aliases
+        //vector<cc_string> m_Aliases; // used for namespace aliases
 
         void* m_pUserData; // custom user-data (the classbrowser expects it to be a pointer to a cbProject)
     protected:

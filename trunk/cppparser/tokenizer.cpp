@@ -168,6 +168,11 @@ RawToken* Tokenizer::GetToken()
     return &m_TokenBuffer[m_Index];
 }
 
+RawToken* Tokenizer::CurrentToken()
+{
+    return &m_TokenBuffer[m_Index];
+}
+
 
 void  Tokenizer::DoAdvanceGetToken(int n)
 {

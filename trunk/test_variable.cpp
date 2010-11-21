@@ -1,3 +1,3 @@
 
-A B,C,D;
-E G=5,H=6,W,Z;
+double variable1,variable2,variable233333;
+E Gffffff=5,Hyyyyyy=6,W111111,Z22222;
