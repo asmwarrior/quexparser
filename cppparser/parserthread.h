@@ -23,9 +23,6 @@ struct ParserThreadContext
 
     ParserThreadContext():
         accessScope(tsUndefined) ,
-        typeStr(cc_text("")),
-        stackNamespace(),
-        typeNamespace(),
         inTypedef(false)
     {
 
@@ -33,20 +30,14 @@ struct ParserThreadContext
 
     void Reset()
     {
-        typeStr.clear();
-        while (!stackNamespace.empty())
-            stackNamespace.pop();
         type.clear();
         name.clear();
     }
 
     void EndStatement()
     {
-        typeStr.clear();
-        while (!stackNamespace.empty())
-            stackNamespace.pop();
-        while (!typeNamespace.empty())
-            typeNamespace.pop();
+        type.clear();
+        name.clear();
     }
 
     void Dump()
@@ -83,21 +74,21 @@ struct ParserThreadContext
       * eg: int string const varA; in this time, we should find the last ';" to determine this
       * is a Token named 'vara', every token before 'varA' will be pushed to m_Str, at this time
       * m_Str = "int string const" */
-    cc_string typeStr;
+    FullIdentifier name;
 
     /** for member funcs implementation or a function declaration below
       * int ClassA::FunctionB();
       * EncounteredNamespaces will be 'ClassA' */
     std::queue<cc_string> stackNamespace;
 
-    FullIdentifier type;
-    FullIdentifier name;
+
+
 
     /** namespaces in function return types
       * for a function declaration below:
       * ClassC::returnValue ClassA::FunctionB();
       * m_EncounteredTypeNamespaces is 'ClassC' */
-    std::queue<cc_string> typeNamespace;
+    FullIdentifier type;
 
     /** parent Token, for example, you are parsing in the class declearation, then this member
       * keep the pointer to the current class Token */
@@ -107,7 +98,6 @@ struct ParserThreadContext
       * protected or undefined */
     TokenScope      accessScope;
 
-   // int           typeQualifier;
 
         /** this makes a difference in unnamed class/struct/enum handling */
     bool                 inTypedef;

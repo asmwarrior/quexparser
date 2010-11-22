@@ -315,7 +315,7 @@ void ParserThread::DoParse()
         }
         case TKN_CLASS:
         {
-            m_Context.typeStr.clear();
+            m_Context.Reset();
             if (m_Options.handleClasses)
                 HandleClass(ctClass);
             else
@@ -376,21 +376,13 @@ void ParserThread::DoParse()
                     TRACE("Variable Find name(%s) type(%s)",variableName.c_str(),variableType.c_str());
                     //Add variable to tokenstree
                     if (m_Options.handleVars)
-                        DoAddToken(tkVariable, tk->get_text(), tk->line_number());
+                        DoAddToken(tkVariable, variableName, tk->line_number());
 
                     //consume the semicolon
                     GetToken();
                     m_Context.EndStatement();
                 }
                 break;
-//            case TKN_DOUBLE_COLON: //::
-//                if (m_Context.typeStr.empty())
-//                    m_Context.typeNamespace.push(tk->get_text());
-//                else
-//                    m_Context.stackNamespace.push(tk->get_text()); // it's a type's namespace
-//
-//                GetToken();//eat ::
-//                break;
             case TKN_BITAND://&
                 m_Context.typeQualifier.isReference = true;
                 GetToken();
@@ -427,21 +419,19 @@ void ParserThread::DoParse()
             case TKN_ASSIGN:
                 // A B = ....;
                 // A B,C,D=2;
-                if(m_Context.typeStr.empty())   // A,
+                if(m_Context.type.empty())   // A,
                 {
                     TRACE("Something wrong in mode A, ");
                     SkipStatementBlock();
                 }
                 else                            // A B,
                 {
-//                    cc_string variableName = tk->get_text();
-//                    cc_string variableType = m_Context.typeStr;
-//                    TRACE("Variable Find name(%s) type(%s)",variableName.c_str(),variableType.c_str());
-//                    //Add variable to tokenstree
-//                    if (m_Options.handleVars)
-//                        DoAddToken(tkVariable, tk->get_text(), tk->line_number());
-
-                    cout<<"A B, or A B= \n";
+                    cc_string variableName = m_Context.name.back().name.get_text();
+                    cc_string variableType = m_Context.type.back().name.get_text();
+                    TRACE("Variable Find name(%s) type(%s)",variableName.c_str(),variableType.c_str());
+                    //Add variable to tokenstree
+                    if (m_Options.handleVars)
+                        DoAddToken(tkVariable, variableName, tk->line_number());
                     GetToken();       //consume , or =
                     // tk is updated
                     if(tk->type_id()  == TKN_ASSIGN)
@@ -463,12 +453,12 @@ void ParserThread::DoParse()
             m_Context.EndStatement();
             break;
         }
-        case TKN_BITAND:  //&
-        case TKN_MULT:       //*
-        {
-            m_Context.typeStr<< tk->get_text();
-            break;
-        }
+//        case TKN_BITAND:  //&
+//        case TKN_MULT:    //*
+//        {
+//            m_Context.typeStr<< tk->get_text();
+//            break;
+//        }
         case TKN_PUBLIC:
         {
             RawToken * peek = PeekToken();
@@ -547,7 +537,7 @@ void ParserThread::DoParse()
                 HandleTypedef();
             else
                 SkipStatementBlock();
-            m_Context.typeStr.clear();
+            m_Context.EndStatement();
 
             break;
         }
@@ -812,9 +802,9 @@ Token* ParserThread::DoAddToken(TokenKind kind,
         m_Context.templateArgument.clear();
     }
 
-    if(!m_Context.typeStr.empty())
+    if(!m_Context.type.empty())
     {
-        newToken->m_Type = m_Context.typeStr;
+        newToken->m_Type = m_Context.type.back().name.get_text();
         //m_Context.typeStr.clear();
     }
     newToken->m_FileIdx = m_FileIdx;
@@ -920,7 +910,7 @@ void ParserThread::HandleClass(EClassType ct)
 
 void ParserThread::HandleFunction(cc_string & name)
 {
-    TRACE("HandleFunction() : %s %s()",m_Context.typeStr.c_str(),name.c_str());
+    TRACE("HandleFunction() : %s %s()",m_Context.type.back().name.get_text().c_str(),name.c_str());
     SkipParentheses();  //parameter
 
     RawToken * peek = m_Tokenizer.PeekToken();
