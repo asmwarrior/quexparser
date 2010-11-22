@@ -269,8 +269,8 @@ void ParserThread::DoParse()
 
 //    m_Tokenizer.RunTest();
 //    return;
-    TestFunction();
-    return;
+//    TestFunction();
+//    return;
 
 
     while (m_Tokenizer.NotEOF())
@@ -335,7 +335,7 @@ void ParserThread::DoParse()
         case  TKN_REGISTER:
         case  TKN_MUTABLE:
         {
-            m_Context.typeQualifier = tk->type_id();
+            //m_Context.typeQualifier = tk->type_id();
             break;
         }
         case TKN_IDENTIFIER:
@@ -350,26 +350,29 @@ void ParserThread::DoParse()
             {
             case TKN_L_PAREN:      // This is a function definition or declration, because it has AAA BBB (
 
-                if(m_Context.typeStr.empty())   // AAA(
+                if(m_Context.type.empty())   // AAA(
                 {
                     //HandleMacro();
                     SkipParentheses();
                 }
                 else                            // AAA BBB(
                 {
-                    cc_string functionName = tk->get_text();
+                    cc_string functionName;
+
+                    functionName = m_Context.name.back().name.get_text();
+
                     HandleFunction(functionName);
                 }
                 break;
             case  TKN_SEMICOLON:     // A B;
-                if(m_Context.typeStr.empty())   // AAA;
+                if(m_Context.type.empty())   // AAA;
                 {
                     SkipStatementBlock();
                 }
                 else                            // AAA BBB;
                 {
-                    cc_string variableName = tk->get_text();
-                    cc_string variableType = m_Context.typeStr;
+                    cc_string variableName = m_Context.name.back().name.get_text();
+                    cc_string variableType = m_Context.type.back().name.get_text();
                     TRACE("Variable Find name(%s) type(%s)",variableName.c_str(),variableType.c_str());
                     //Add variable to tokenstree
                     if (m_Options.handleVars)
@@ -380,17 +383,20 @@ void ParserThread::DoParse()
                     m_Context.EndStatement();
                 }
                 break;
-            case TKN_DOUBLE_COLON: //::
-                if (m_Context.typeStr.empty())
-                    m_Context.typeNamespace.push(tk->get_text());
-                else
-                    m_Context.stackNamespace.push(tk->get_text()); // it's a type's namespace
-
-                GetToken();//eat ::
-                break;
+//            case TKN_DOUBLE_COLON: //::
+//                if (m_Context.typeStr.empty())
+//                    m_Context.typeNamespace.push(tk->get_text());
+//                else
+//                    m_Context.stackNamespace.push(tk->get_text()); // it's a type's namespace
+//
+//                GetToken();//eat ::
+//                break;
             case TKN_BITAND://&
+                m_Context.typeQualifier.isReference = true;
+                GetToken();
+                break;
             case TKN_MULT:  //*
-                m_Context.typeStr<< peek->get_text();
+                m_Context.typeQualifier.isPointer = true;
                 GetToken();
                 break;
             case TKN_L_SQUARE:
@@ -409,16 +415,15 @@ void ParserThread::DoParse()
             case TKN_L_SHIFT_ASSIGN:
             case TKN_R_SHIFT:
             case TKN_R_SHIFT_ASSIGN:
-
                 GetToken();
                 SkipStatementBlock();
                 break;
-            case TKN_IDENTIFIER:
-
-                // A B
-                m_Context.typeStr<< tk->get_text()<<" "; // pushing A to the typeStr
-                break;
-            case TKN_COMMA://A; A=
+//            case TKN_IDENTIFIER:
+//                // A B
+//                GetToken();
+//                ParseFullIdentifer();
+//                break;
+            case TKN_COMMA://A, A=
             case TKN_ASSIGN:
                 // A B = ....;
                 // A B,C,D=2;
@@ -429,14 +434,14 @@ void ParserThread::DoParse()
                 }
                 else                            // A B,
                 {
-                    cc_string variableName = tk->get_text();
-                    cc_string variableType = m_Context.typeStr;
-                    TRACE("Variable Find name(%s) type(%s)",variableName.c_str(),variableType.c_str());
-                    //Add variable to tokenstree
-                    if (m_Options.handleVars)
-                        DoAddToken(tkVariable, tk->get_text(), tk->line_number());
+//                    cc_string variableName = tk->get_text();
+//                    cc_string variableType = m_Context.typeStr;
+//                    TRACE("Variable Find name(%s) type(%s)",variableName.c_str(),variableType.c_str());
+//                    //Add variable to tokenstree
+//                    if (m_Options.handleVars)
+//                        DoAddToken(tkVariable, tk->get_text(), tk->line_number());
 
-
+                    cout<<"A B, or A B= \n";
                     GetToken();       //consume , or =
                     // tk is updated
                     if(tk->type_id()  == TKN_ASSIGN)
@@ -450,49 +455,9 @@ void ParserThread::DoParse()
 
                 }
                 break;
-            case TKN_LESS :  // A <
-
-                //m_Context.typeStr<< tk->get_text()<<" ";  // pushing A to the typeStr
-                // add the tk->text first, otherwize the tk will point to another variable when
-                // GetTemplateArgs() finished.
-            {
-
-                cc_string current = tk->get_text();
-                if(GetTemplateArgs())          // A< ....>
-                {
-                    current<<"<" << m_Context.templateArgument << ">";
-                    RawToken* peek = PeekToken();
-                    if(peek->type_id() == TKN_DOUBLE_COLON) //A< ....>::
-                    {
-
-                        if (m_Context.typeStr.empty())
-                            m_Context.typeNamespace.push(current);
-                        else
-                            m_Context.stackNamespace.push(current); // it's a type's namespace
-                        GetToken();//eat ::
-                    }
-                    else   // next is an ID, push it to the typeStr
-                    {
-                        if (m_Context.typeStr.length()==0)   //A<> b
-                            m_Context.typeStr<< current ;
-                        else                                 // a A<> b
-                        {
-                            m_Context.typeStr<< current ;    // do the same thing
-                        }
-                    }
-                    m_Context.templateArgument.clear();
-                }
-                else                           // A<.....;
-                {
-                    m_Context.EndStatement();
-                }
             }
             break;
-
-
-            }
-            break;
-        }
+        }// handling of case TKN_IDENTIFIER
         case TKN_SEMICOLON:
         {
             m_Context.EndStatement();
@@ -1246,13 +1211,19 @@ bool ParserThread::ParseScopeQueue(FullIdentifier& scopeQueue)
 
     while(PeekToken()->type_id()==TKN_DOUBLE_COLON && PeekToken(2)->type_id()==TKN_IDENTIFIER)
     {
+            //scope.name.Clear(); should reset the Token
+            scope.templateArgumentList.clear();
             //Read the Argument list
             // fill the *it.templateArgumentList
             // if the fill function return false, which, we should skip to ; or }
             GetToken(); //consume ::
             currentToken = GetToken(); // get id
             scope.name = *currentToken;// add the name
-            ParseArgumentList(scope.templateArgumentList);
+            bool parseResult = ParseArgumentList(scope.templateArgumentList);
+            if (!parseResult) // this means we have the format A<......;, this is not a template
+            {
+                return false;
+            }
             scopeQueue.push_back(scope);
     }
 
@@ -1260,7 +1231,12 @@ bool ParserThread::ParseScopeQueue(FullIdentifier& scopeQueue)
 bool ParserThread::ParseArgumentList(ArgumentList &argumentList)
 {
     // do nothing on the argumentList, just do the loop
+    if(PeekToken()->type_id() != TKN_LESS)
+       return true;
+
+    // shoud be a (xxxx) or <xxxxx>
     RawToken * tk = GetToken();
+    std::cout<<"ParserThread::ParseArgumentList() Enter...\n";
     if(tk->type_id() == TKN_LESS)
     {
         int level = 1;
@@ -1270,17 +1246,23 @@ bool ParserThread::ParseArgumentList(ArgumentList &argumentList)
         // should match a >
         while(tk->type_id()!=TKN_GREATER)
         {
+            if(tk->type_id()==TKN_SEMICOLON or tk->type_id()==TKN_R_BRACE)
+            {
+                m_Context.EndStatement();
+                m_Context.Reset();
+                return false;
+            }
+            std::cout<<*tk<<std::endl;
             argumentList.push_back(tk->get_text());
             tk = GetToken();// comsume this one;
-            //std::cout<<*tk<<std::endl;
+
         }
         assert(tk->type_id() == TKN_GREATER);
-        GetToken(); //consume >
     }
-    else
-        return true;
 
-    std::cout<<"reading argument finish!\n";
+    cout<<"currentToken"<<*(CurrentToken())<<endl;
+    std::cout<<"ParserThread::ParseArgumentList() Leave...\n";
+    return true;
 }
 
 
@@ -1300,7 +1282,7 @@ void ParserThread::TestFunction()
         }
         case TKN_SEMICOLON:
         {
-            cout<<"SemiColon"<<endl;
+            cout<<"Meet SemiColon,Now reset the statement context!"<<endl;
             m_Context.Dump();
             m_Context.Reset();
         }

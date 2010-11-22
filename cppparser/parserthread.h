@@ -26,8 +26,7 @@ struct ParserThreadContext
         typeStr(cc_text("")),
         stackNamespace(),
         typeNamespace(),
-        inTypedef(false),
-        typeQualifier(0)
+        inTypedef(false)
     {
 
     };
@@ -35,7 +34,6 @@ struct ParserThreadContext
     void Reset()
     {
         typeStr.clear();
-        typeQualifier = 0;
         while (!stackNamespace.empty())
             stackNamespace.pop();
         type.clear();
@@ -49,11 +47,12 @@ struct ParserThreadContext
             stackNamespace.pop();
         while (!typeNamespace.empty())
             typeNamespace.pop();
-        typeQualifier = 0;
     }
 
     void Dump()
     {
+        cout<<"Dump Context...\n";
+        cout<<"Type information list\n";
         FullIdentifier::iterator it = type.begin();
         for(;it!=type.end();it++)
         {
@@ -65,6 +64,7 @@ struct ParserThreadContext
             }
             cout<<endl;
         }
+        cout<<"Name information list\n";
         it = name.begin();
         for(;it!=name.end();it++)
         {
@@ -107,13 +107,14 @@ struct ParserThreadContext
       * protected or undefined */
     TokenScope      accessScope;
 
-    int           typeQualifier;
+   // int           typeQualifier;
 
         /** this makes a difference in unnamed class/struct/enum handling */
     bool                 inTypedef;
 
 
     cc_string             templateArgument;
+    DeclarationModifier   typeQualifier;
 
 };
 
