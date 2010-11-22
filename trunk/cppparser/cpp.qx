@@ -266,7 +266,7 @@ EOF_AND_FAILURE
 <skip:       [ \r\t]>
 <skip_range: "/*" "*/">
 {
-    defined          => TKN_PP_DEFINED();
+    defined          => TKN_DEFINED();
     "#"              => TKN_HASH();         // # and ## only exist in preprocessor
     "##"             => TKN_DOUBLE_HASH();
     "//"([^\n]|\\[ \t]*\r?\n)*\r?\n    => GOTO(PROGRAM, TKN_PP_FINISH);  // end with c++ style comment will 
