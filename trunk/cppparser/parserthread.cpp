@@ -358,7 +358,7 @@ void ParserThread::DoParse()
                 else                            // AAA BBB(
                 {
                     cc_string functionName;
-
+                    // the last element of the m_Context.name is the actual function name
                     functionName = m_Context.name.back().name.get_text();
 
                     HandleFunction(functionName);
@@ -371,15 +371,20 @@ void ParserThread::DoParse()
                 }
                 else                            // AAA BBB;
                 {
+                    // the last element of the m_Context.name is the actual variable name
                     cc_string variableName = m_Context.name.back().name.get_text();
+
+                    // the last element of the m_Context.type is the actual type name
                     cc_string variableType = m_Context.type.back().name.get_text();
+
                     TRACE("Variable Find name(%s) type(%s)",variableName.c_str(),variableType.c_str());
                     //Add variable to tokenstree
+                    int line = m_Context.name.back().name.line_number();
                     if (m_Options.handleVars)
-                        DoAddToken(tkVariable, variableName, tk->line_number());
+                        DoAddToken(tkVariable, variableName, line);
 
-                    //consume the semicolon
-                    GetToken();
+
+                    GetToken();    //consume the semicolon
                     m_Context.EndStatement();
                 }
                 break;
@@ -410,12 +415,8 @@ void ParserThread::DoParse()
                 GetToken();
                 SkipStatementBlock();
                 break;
-//            case TKN_IDENTIFIER:
-//                // A B
-//                GetToken();
-//                ParseFullIdentifer();
-//                break;
-            case TKN_COMMA://A, A=
+
+            case TKN_COMMA:
             case TKN_ASSIGN:
                 // A B = ....;
                 // A B,C,D=2;
@@ -430,8 +431,9 @@ void ParserThread::DoParse()
                     cc_string variableType = m_Context.type.back().name.get_text();
                     TRACE("Variable Find name(%s) type(%s)",variableName.c_str(),variableType.c_str());
                     //Add variable to tokenstree
+                    int line = m_Context.name.back().name.line_number();
                     if (m_Options.handleVars)
-                        DoAddToken(tkVariable, variableName, tk->line_number());
+                        DoAddToken(tkVariable, variableName, line);
                     GetToken();       //consume , or =
                     // tk is updated
                     if(tk->type_id()  == TKN_ASSIGN)
@@ -443,22 +445,18 @@ void ParserThread::DoParse()
                             m_Context.EndStatement();
                     }
 
+                    m_Context.name.clear();  // clear name information, because we need to read another name
+
                 }
                 break;
             }
             break;
-        }// handling of case TKN_IDENTIFIER
+        }// End of handling of case TKN_IDENTIFIER
         case TKN_SEMICOLON:
         {
             m_Context.EndStatement();
             break;
         }
-//        case TKN_BITAND:  //&
-//        case TKN_MULT:    //*
-//        {
-//            m_Context.typeStr<< tk->get_text();
-//            break;
-//        }
         case TKN_PUBLIC:
         {
             RawToken * peek = PeekToken();
@@ -520,7 +518,9 @@ void ParserThread::DoParse()
         }
         case TKN_TEMPLATE:
         {
-            GetTemplateArgs();   // should return true
+            bool readArgsOK = GetTemplateArgs();   // should following a <> pair,
+            if(!readArgsOK);   //should return true, otherwise, we should
+                SkipStatementBlock();
             break;
         }
         case TKN_ENUM:
@@ -849,9 +849,10 @@ void ParserThread::HandleClass(EClassType ct)
 
     // class xxx {   or class {
     // the keyworkd "class" is already comsumed
+    assert(CurrentToken()->type_id()==TKN_CLASS);
 
 
-    RawToken * current = GetToken();      // class name
+    RawToken * current =  GetToken();      // class name
     RawToken * next    =  PeekToken();
 
     TRACE("HandleClass() : Found class '%s'", current->get_text().c_str() );
@@ -890,8 +891,15 @@ void ParserThread::HandleClass(EClassType ct)
             m_Context.Reset();
             m_Context.parentToken = newToken;
             GetToken();// consume {
-            DoParse();
+            DoParse();  // when meet a }, we should return from DoParse()
             m_Context = savedContext;
+            assert(CurrentToken()->type_id()==TKN_R_BRACE);
+
+            current = GetToken();
+            if(current->type_id()==TKN_SEMICOLON)  // class A {.....};
+                return;
+            else
+                SkipStatementBlock(); //struct A {....} a b;
 
         }
 
