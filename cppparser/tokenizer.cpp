@@ -35,6 +35,9 @@ Tokenizer::Tokenizer(const cc_string& filename)
 
 {
 
+    cout<<"##----------QUEX Information---------------\n";
+    cout<< m_Quex.version()<<endl;
+    cout<<"##-----------------------------------------\n";
     if (!m_Filename.empty())
         Init(m_Filename);
 }
