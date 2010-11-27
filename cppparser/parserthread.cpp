@@ -350,7 +350,7 @@ void ParserThread::DoParse()
             {
             case TKN_L_PAREN:      // This is a function definition or declration, because it has AAA BBB (
 
-                if(m_Context.type.empty())   // AAA(
+                if(m_Context.name.empty())   // AAA(
                 {
                     //HandleMacro();
                     SkipParentheses();
@@ -365,7 +365,7 @@ void ParserThread::DoParse()
                 }
                 break;
             case  TKN_SEMICOLON:     // A B;
-                if(m_Context.type.empty())   // AAA;
+                if(m_Context.name.empty())   // AAA;
                 {
                     SkipStatementBlock();
                 }
@@ -420,7 +420,7 @@ void ParserThread::DoParse()
             case TKN_ASSIGN:
                 // A B = ....;
                 // A B,C,D=2;
-                if(m_Context.type.empty())   // A,
+                if(m_Context.name.empty())   // A,
                 {
                     TRACE("Something wrong in mode A, ");
                     SkipStatementBlock();
