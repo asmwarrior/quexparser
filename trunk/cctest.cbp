@@ -34,7 +34,7 @@
 			<Add option="-DQUEX_SETTING_BUFFER_SIZE=0" />
 			<Add option="-DQUEX_SETTING_BUFFER_MIN_FALLBACK_N=0" />
 			<Add option="-DQUEX_TYPE_CHARACTER=char" />
-			<Add directory="libquex" />
+			<Add directory="$(QUEX_PATH)" />
 		</Compiler>
 		<Unit filename="cppparser\cchelper.h" />
 		<Unit filename="cppparser\parserthread.cpp" />
