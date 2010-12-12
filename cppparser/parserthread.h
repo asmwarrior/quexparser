@@ -28,11 +28,6 @@ struct ParserThreadContext
 
     };
 
-    void Reset()
-    {
-        type.clear();
-        name.clear();
-    }
 
     void EndStatement()
     {
@@ -123,10 +118,10 @@ struct ParserThreadOptions
         handleTypedefs(true),
         loader(0)
     {}
-    /* useBuffer specifies that we're not parsing a file,  but a temporary
-     * buffer. The resulting tokens will be temporary, too,
-     * and will be deleted when the next file is parsed.
-     */
+    /** useBuffer specifies that we're not parsing a file,  but a temporary
+      *  buffer. The resulting tokens will be temporary, too,
+      * and will be deleted when the next file is parsed.
+      */
     bool        useBuffer;
     bool        bufferSkipBlocks;
     bool        bufferSkipOuterBlocks; // classes, namespaces and functions
@@ -206,8 +201,6 @@ protected:
       * @param chars string specifies all the ending charactors
       * @param supportNesting when running this function, if supportNesting is true, we need to
       * handle the "{" and "}" nesting levels.*/
-    cc_char SkipToOneOfChars(const cc_string& chars, bool supportNesting = false);
-
     void SkipToOneOfId(const int * idArray, const int num);
 
     /** actually run the syntax analysis*/
@@ -226,9 +219,6 @@ protected:
     /** handle the statement: #define XXXXX  */
     void HandleDefines();
 
-    /** handle the statement:
-      * #ifdef XXX or #endif or ...  */
-    void HandlePreprocessorBlocks(const cc_string& preproc);
 
     /** handle the statement:
       * namespace XXX {  */
@@ -243,10 +233,10 @@ protected:
     void ReadClsNames(cc_string& ancestor);
 
     /** handle class declration
-      * @param ct specify type : struct or enum or class */
+      * @param ct specify type : struct or class */
     void HandleClass(EClassType ct);
 
-    void HandleMacro(const cc_string & token, const cc_string & peek);
+    void HandleMacroUsage(const cc_string & token, const cc_string & peek);
 
     /** handle function declearation or definition
       * @param name is the function name
@@ -290,22 +280,26 @@ private:
     bool GetTemplateArgs();
     void ReadEnumList();
 
+    // consume a token
     inline RawToken * GetToken()
     {
-
         if (TestDestroy())
         {
             throw ParserException();
         }
         RawToken  * tk = m_Tokenizer.GetToken();
-        FillOutMacroDefine(tk);
+        HandlePreprocessorDirective(tk);
         return tk;
 
     }
+
+    // return the current token pointer
     inline RawToken * CurrentToken()
     {
         return m_Tokenizer.CurrentToken();
     }
+
+    // peek a token, the default step was 1 (the next after the current one)
     inline RawToken * PeekToken(int step = 1)
     {
         if (TestDestroy())
@@ -314,6 +308,8 @@ private:
         }
         return m_Tokenizer.PeekToken(step);
     }
+
+    // unget token
     inline void     UngetToken()
     {
         if (TestDestroy())
@@ -323,7 +319,7 @@ private:
         m_Tokenizer.UngetToken();
     }
 
-    void FillOutMacroDefine(RawToken * tk);
+    void HandlePreprocessorDirective(RawToken * tk);
     bool ParseFullIdentifer();
     bool ParseScopeQueue(FullIdentifier& scopeQueue);
     bool ParseArgumentList(ArgumentList &argumentList);

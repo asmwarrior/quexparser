@@ -72,11 +72,6 @@ void* ParserThread::DoRun()
     return 0L;
 }
 
-cc_char ParserThread::SkipToOneOfChars(const cc_string& cc_chars, bool supportNesting)
-{
-    cc_char a;
-    return a;
-}
 
 void ParserThread::SkipToOneOfId(const int * idArray, const int num)
 {
@@ -115,7 +110,7 @@ for () {xxx;}
 void ParserThread::SkipStatementBlock()
 {
     RawToken * tk = m_Tokenizer.GetToken();
-    int id = tk->type_id();
+    QUEX_TYPE_TOKEN_ID id = tk->type_id();
     printf("Skip statement block Start line(%d) column(%d)\n",tk->line_number(),tk->column_number());
     if (id == TKN_L_BRACE)
     {
@@ -165,7 +160,7 @@ void ParserThread::SkipParentheses()
     //TKN_L_PAREN
 
     RawToken * tk = m_Tokenizer.GetToken();//remove the first TKN_L_PAREN
-    int id = tk->type_id();
+    QUEX_TYPE_TOKEN_ID id = tk->type_id();
     int level = 1;
     printf("Skip Parentheses Start at line(%d)column(%d)\n",tk->line_number(),tk->column_number());
     while(level>0)
@@ -315,7 +310,7 @@ void ParserThread::DoParse()
         }
         case TKN_CLASS:
         {
-            m_Context.Reset();
+            m_Context.EndStatement();
             if (m_Options.handleClasses)
                 HandleClass(ctClass);
             else
@@ -690,7 +685,7 @@ static cc_string GetRealArgs(const cc_string & args)
                 int begin = 1;
                 if (comma != -1)
                     begin = comma;
-                if ( str.substr(begin).find(cc_text('('),begin) == -1)
+                if ( str.substr(begin).find(cc_text('('),begin) == string::npos)
                 {
                     str += *ptr;
                     //find end
@@ -829,11 +824,6 @@ void ParserThread::HandleDefines()
 
 }
 
-void ParserThread::HandlePreprocessorBlocks(const cc_string& preproc)
-{
-
-}
-
 void ParserThread::HandleNamespace()
 {
 
@@ -888,7 +878,7 @@ void ParserThread::HandleClass(EClassType ct)
         {
             Token* newToken = DoAddToken(tkClass, current->get_text(), current->line_number());
             ParserThreadContext savedContext = m_Context;
-            m_Context.Reset();
+            m_Context.EndStatement();
             m_Context.parentToken = newToken;
             GetToken();// consume {
             DoParse();  // when meet a }, we should return from DoParse()
@@ -939,7 +929,7 @@ void ParserThread::HandleFunction(cc_string & name)
         Token* newToken =  DoAddToken(tokenKind, functionName,peek->line_number());
         m_Tokenizer.GetToken();
     }
-    m_Context.Reset();
+    m_Context.EndStatement();
 }
 
 void ParserThread::ReadEnumList()
@@ -968,8 +958,6 @@ void ParserThread::ReadEnumList()
             else if (peek->type_id() == TKN_IDENTIFIER)      // id p1 p2
             {
                 RawToken * peek2 = PeekToken(2);
-
-
             }
             else if (peek->type_id() == TKN_COMMA)     // a,....
             {
@@ -1061,7 +1049,7 @@ void ParserThread::ReadClsNames(cc_string& ancestor)
 
 }
 
-void ParserThread::HandleMacro(const cc_string &token, const cc_string &peek)
+void ParserThread::HandleMacroUsage(const cc_string &token, const cc_string &peek)
 {
 
 }
@@ -1120,7 +1108,7 @@ bool ParserThread::GetTemplateArgs()
 }
 
 
-void ParserThread::FillOutMacroDefine(RawToken * tk)
+void ParserThread::HandlePreprocessorDirective(RawToken * tk)
 {
     if( TKN_PP_DEFINE <= tk->type_id() && tk->type_id() <= TKN_PP_ERROR)
     {
@@ -1196,6 +1184,7 @@ bool ParserThread::ParseFullIdentifer()
         ParseScopeQueue(m_Context.type);
     else
         ParseScopeQueue(m_Context.name);
+    return true;
 }
 bool ParserThread::ParseScopeQueue(FullIdentifier& scopeQueue)
 {
@@ -1224,6 +1213,7 @@ bool ParserThread::ParseScopeQueue(FullIdentifier& scopeQueue)
             }
             scopeQueue.push_back(scope);
     }
+    return true;
 
 }
 bool ParserThread::ParseArgumentList(ArgumentList &argumentList)
@@ -1247,7 +1237,6 @@ bool ParserThread::ParseArgumentList(ArgumentList &argumentList)
             if(tk->type_id()==TKN_SEMICOLON or tk->type_id()==TKN_R_BRACE)
             {
                 m_Context.EndStatement();
-                m_Context.Reset();
                 return false;
             }
             std::cout<<*tk<<std::endl;
@@ -1282,7 +1271,7 @@ void ParserThread::TestFunction()
         {
             cout<<"Meet SemiColon,Now reset the statement context!"<<endl;
             m_Context.Dump();
-            m_Context.Reset();
+            m_Context.EndStatement();
         }
         default:
             break;

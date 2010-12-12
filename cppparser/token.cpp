@@ -18,7 +18,7 @@
 
 inline void stringToArray(const cc_string & text, std::vector<cc_string> & array, const cc_string  & separator = cc_text(""), bool trimSpaces = true)
 {
-        cc_string search = text;
+    cc_string search = text;
     int seplen = cc_string(separator).length();
     while (true)
     {
@@ -48,24 +48,25 @@ inline void stringToArray(const cc_string & text, std::vector<cc_string> & array
 class StringTokenizer
 {
 public:
-        StringTokenizer(const cc_string & str, const cc_string & szTokens)
+    StringTokenizer(const cc_string & str, const cc_string & szTokens)
 	{
 		stringToArray(str,m_array,szTokens);
 		m_index = 0;
 	}
         cc_string GetNextToken()
 	{
-                if (m_index < 0 || m_index >= m_array.size())
-                        return cc_text("");
+        if (m_index < 0 || m_index >= m_array.size())
+            return cc_text("");
 		return m_array[m_index++];
 	}
     bool HasMoreTokens()
 	{
-                return m_index < m_array.size();
+        return m_index < m_array.size();
 	}
+
 protected:
-        std::vector<cc_string>	m_array;
-        unsigned int		m_index;
+    std::vector<cc_string>	m_array;
+    unsigned int		m_index;
 };
 
 
@@ -118,7 +119,6 @@ Token::Token()
     m_ImplLineEnd(0),
     m_Scope(tsUndefined),
     m_TokenKind(tkUndefined),
-    //m_IsOperator(false),
     m_IsLocal(false),
     m_IsTemp(false),
     m_ParentIndex(-1),
@@ -139,7 +139,6 @@ Token::Token(const cc_string& name, unsigned int file, unsigned int line)
     m_ImplLineEnd(0),
     m_Scope(tsUndefined),
     m_TokenKind(tkUndefined),
-    //m_IsOperator(false),
     m_IsLocal(false),
     m_IsTemp(false),
     m_ParentIndex(-1),
