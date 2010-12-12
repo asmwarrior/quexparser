@@ -71,39 +71,37 @@ struct ParserThreadContext
     }
 
     /** this is a very important member variables! it serves as a return type stack,
-      * eg: int string const varA; in this time, we should find the last ';" to determine this
-      * is a Token named 'vara', every token before 'varA' will be pushed to m_Str, at this time
-      * m_Str = "int string const" */
+      * eg: string const varA;
+      * in this statement, we should step untile the last ';" to determine this
+      * is a Token named 'varA', every token before 'varA' will be pushed to 'type', see below
+      */
     FullIdentifier name;
 
-    /** for member funcs implementation or a function declaration below
-      * int ClassA::FunctionB();
-      * EncounteredNamespaces will be 'ClassA' */
-    std::queue<cc_string> stackNamespace;
-
-
-
-
-    /** namespaces in function return types
+    /** type information of a function or a variable
       * for a function declaration below:
       * ClassC::returnValue ClassA::FunctionB();
-      * m_EncounteredTypeNamespaces is 'ClassC' */
+      * type =  ClassC::returnValue
+      */
     FullIdentifier type;
 
-    /** parent Token, for example, you are parsing in the class declearation, then this member
-      * keep the pointer to the current class Token */
-    Token*               parentToken;
+    /** parent Token, for example, you are parsing in a class declearation, then this member
+      * keep the pointer to the current class Token
+      */
+    Token* parentToken;
 
     /** this member define the scope type of member variables, which is: public or private
-      * protected or undefined */
-    TokenScope      accessScope;
+      * protected or undefined
+      */
+    TokenScope  accessScope;
 
 
-        /** this makes a difference in unnamed class/struct/enum handling */
-    bool                 inTypedef;
+    /** this makes a difference in unnamed class/struct/enum handling */
+    bool     inTypedef;
 
+    /** temprary record the template argument list information*/
+    cc_string   templateArgument;
 
-    cc_string             templateArgument;
+    /** type qualifier like: const, static.... */
     DeclarationModifier   typeQualifier;
 
 };
