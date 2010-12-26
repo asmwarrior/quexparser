@@ -1,4 +1,4 @@
-#include"lexer\tiny_lexer"
+#include "tiny_lexer"
 #include <quex/code_base/analyzer/C-adaptions.h>
 QUEX_NAMESPACE_MAIN_OPEN
 /* Global */QUEX_NAME(Mode)  QUEX_NAME(PROGRAM);
@@ -420,7 +420,7 @@ QUEX_NAMESPACE_MAIN_CLOSE
      * 
      * 
      */
-/* #include "lexer\tiny_lexer"*/
+/* #include "tiny_lexer"*/
 QUEX_NAMESPACE_MAIN_OPEN
 QUEX_TYPE_CHARACTER  QUEX_NAME(LexemeNullObject) = (QUEX_TYPE_CHARACTER)0;
 
@@ -20380,7 +20380,7 @@ TERMINAL_1031_DIRECT:
         self_send(TKN_CASE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 20384 "lexer/tiny_lexer.cpp"
+#line 20384 "tiny_lexer.cpp"
         
         }
     }
@@ -20407,7 +20407,7 @@ TERMINAL_526_DIRECT:
         self_send(TKN_EXTERN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 20411 "lexer/tiny_lexer.cpp"
+#line 20411 "tiny_lexer.cpp"
         
         }
     }
@@ -20434,7 +20434,7 @@ TERMINAL_1369_DIRECT:
         QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_ERROR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 20438 "lexer/tiny_lexer.cpp"
+#line 20438 "tiny_lexer.cpp"
         
         }
     }
@@ -20461,7 +20461,7 @@ TERMINAL_1051_DIRECT:
         self_send(TKN_DEFAULT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 20465 "lexer/tiny_lexer.cpp"
+#line 20465 "tiny_lexer.cpp"
         
         }
     }
@@ -20488,7 +20488,7 @@ TERMINAL_549_DIRECT:
         self_send(TKN_EXPLICIT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 20492 "lexer/tiny_lexer.cpp"
+#line 20492 "tiny_lexer.cpp"
         
         }
     }
@@ -20515,7 +20515,7 @@ TERMINAL_1065_DIRECT:
         self_send(TKN_BREAK);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 20519 "lexer/tiny_lexer.cpp"
+#line 20519 "tiny_lexer.cpp"
         
         }
     }
@@ -20542,7 +20542,7 @@ TERMINAL_563_DIRECT:
         self_send(TKN_CONST);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 20546 "lexer/tiny_lexer.cpp"
+#line 20546 "tiny_lexer.cpp"
         
         }
     }
@@ -20569,7 +20569,7 @@ TERMINAL_1076_DIRECT:
         self_send(TKN_GOTO);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 20573 "lexer/tiny_lexer.cpp"
+#line 20573 "tiny_lexer.cpp"
         
         }
     }
@@ -20596,7 +20596,7 @@ TERMINAL_580_DIRECT:
         self_send(TKN_FRIEND);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 20600 "lexer/tiny_lexer.cpp"
+#line 20600 "tiny_lexer.cpp"
         
         }
     }
@@ -20623,7 +20623,7 @@ TERMINAL_1093_DIRECT:
         self_send(TKN_SIZEOF);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 20627 "lexer/tiny_lexer.cpp"
+#line 20627 "tiny_lexer.cpp"
         
         }
     }
@@ -20650,7 +20650,7 @@ TERMINAL_1107_DIRECT:
         self_send(TKN_THROW);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 20654 "lexer/tiny_lexer.cpp"
+#line 20654 "tiny_lexer.cpp"
         
         }
     }
@@ -20677,7 +20677,7 @@ TERMINAL_600_DIRECT:
         self_send(TKN_VIRTUAL);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 20681 "lexer/tiny_lexer.cpp"
+#line 20681 "tiny_lexer.cpp"
         
         }
     }
@@ -20704,7 +20704,7 @@ TERMINAL_1121_DIRECT:
         self_send(TKN_USING);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 20708 "lexer/tiny_lexer.cpp"
+#line 20708 "tiny_lexer.cpp"
         
         }
     }
@@ -20731,7 +20731,7 @@ TERMINAL_1129_DIRECT:
         self_send(TKN_ASM);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 20735 "lexer/tiny_lexer.cpp"
+#line 20735 "tiny_lexer.cpp"
         
         }
     }
@@ -20758,7 +20758,7 @@ TERMINAL_623_DIRECT:
         self_send(TKN_VOLATILE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 20762 "lexer/tiny_lexer.cpp"
+#line 20762 "tiny_lexer.cpp"
         
         }
     }
@@ -20785,7 +20785,7 @@ TERMINAL_1180_DIRECT:
         self_send(TKN_TYPEID);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 20789 "lexer/tiny_lexer.cpp"
+#line 20789 "tiny_lexer.cpp"
         
         }
     }
@@ -20812,7 +20812,7 @@ TERMINAL_1143_DIRECT:
         self_send(TKN_ASM_EXT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 20816 "lexer/tiny_lexer.cpp"
+#line 20816 "tiny_lexer.cpp"
         
         }
     }
@@ -20839,7 +20839,7 @@ TERMINAL_640_DIRECT:
         self_send(TKN_STATIC);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 20843 "lexer/tiny_lexer.cpp"
+#line 20843 "tiny_lexer.cpp"
         
         }
     }
@@ -20866,7 +20866,7 @@ TERMINAL_1163_DIRECT:
         self_send(TKN_TYPEDEF);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 20870 "lexer/tiny_lexer.cpp"
+#line 20870 "tiny_lexer.cpp"
         
         }
     }
@@ -20893,7 +20893,7 @@ TERMINAL_657_DIRECT:
         self_send(TKN_INLINE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 20897 "lexer/tiny_lexer.cpp"
+#line 20897 "tiny_lexer.cpp"
         
         }
     }
@@ -20920,7 +20920,7 @@ TERMINAL_668_DIRECT:
         self_send(TKN_AUTO);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 20924 "lexer/tiny_lexer.cpp"
+#line 20924 "tiny_lexer.cpp"
         
         }
     }
@@ -20947,7 +20947,7 @@ TERMINAL_1306_DIRECT:
         QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_IF);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 20951 "lexer/tiny_lexer.cpp"
+#line 20951 "tiny_lexer.cpp"
         
         }
     }
@@ -20974,7 +20974,7 @@ TERMINAL_1191_DIRECT:
         self_send(TKN_THIS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 20978 "lexer/tiny_lexer.cpp"
+#line 20978 "tiny_lexer.cpp"
         
         }
     }
@@ -21001,7 +21001,7 @@ TERMINAL_691_DIRECT:
         self_send(TKN_REGISTER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21005 "lexer/tiny_lexer.cpp"
+#line 21005 "tiny_lexer.cpp"
         
         }
     }
@@ -21028,7 +21028,7 @@ TERMINAL_1214_DIRECT:
         self_send(TKN_TYPENAME);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21032 "lexer/tiny_lexer.cpp"
+#line 21032 "tiny_lexer.cpp"
         
         }
     }
@@ -21055,7 +21055,7 @@ TERMINAL_711_DIRECT:
         self_send(TKN_MUTABLE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21059 "lexer/tiny_lexer.cpp"
+#line 21059 "tiny_lexer.cpp"
         
         }
     }
@@ -21082,7 +21082,7 @@ TERMINAL_716_DIRECT:
         self_send(TKN_IF);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21086 "lexer/tiny_lexer.cpp"
+#line 21086 "tiny_lexer.cpp"
         
         }
     }
@@ -21109,7 +21109,7 @@ TERMINAL_1237_DIRECT:
         self_send(TKN_OPERATOR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21113 "lexer/tiny_lexer.cpp"
+#line 21113 "tiny_lexer.cpp"
         
         }
     }
@@ -21136,7 +21136,7 @@ TERMINAL_727_DIRECT:
         self_send(TKN_ELSE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21140 "lexer/tiny_lexer.cpp"
+#line 21140 "tiny_lexer.cpp"
         
         }
     }
@@ -21164,7 +21164,7 @@ TERMINAL_1241_DIRECT:
         self_send(TKN_NUMBER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21168 "lexer/tiny_lexer.cpp"
+#line 21168 "tiny_lexer.cpp"
         
         }
     }
@@ -21192,7 +21192,7 @@ TERMINAL_1243_DIRECT:
         self_send(TKN_STRING);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21196 "lexer/tiny_lexer.cpp"
+#line 21196 "tiny_lexer.cpp"
         
         }
     }
@@ -21220,7 +21220,7 @@ TERMINAL_1245_DIRECT:
         self_send(TKN_QUOTED_CHAR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21224 "lexer/tiny_lexer.cpp"
+#line 21224 "tiny_lexer.cpp"
         
         }
     }
@@ -21248,7 +21248,7 @@ TERMINAL_1247_DIRECT:
         self_send(TKN_NUMBER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21252 "lexer/tiny_lexer.cpp"
+#line 21252 "tiny_lexer.cpp"
         
         }
     }
@@ -21276,7 +21276,7 @@ TERMINAL_1249_DIRECT:
         self_send(TKN_NUMBER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21280 "lexer/tiny_lexer.cpp"
+#line 21280 "tiny_lexer.cpp"
         
         }
     }
@@ -21304,7 +21304,7 @@ TERMINAL_1251_DIRECT:
         self_send(TKN_NUMBER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21308 "lexer/tiny_lexer.cpp"
+#line 21308 "tiny_lexer.cpp"
         
         }
     }
@@ -21332,7 +21332,7 @@ TERMINAL_1253_DIRECT:
         self_send(TKN_NUMBER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21336 "lexer/tiny_lexer.cpp"
+#line 21336 "tiny_lexer.cpp"
         
         }
     }
@@ -21477,7 +21477,7 @@ TERMINAL_744_DIRECT:
         self_send(TKN_SWITCH);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21481 "lexer/tiny_lexer.cpp"
+#line 21481 "tiny_lexer.cpp"
         
         }
     }
@@ -21504,7 +21504,7 @@ TERMINAL_752_DIRECT:
         self_send(TKN_FOR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21508 "lexer/tiny_lexer.cpp"
+#line 21508 "tiny_lexer.cpp"
         
         }
     }
@@ -21531,7 +21531,7 @@ TERMINAL_757_DIRECT:
         self_send(TKN_DO);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21535 "lexer/tiny_lexer.cpp"
+#line 21535 "tiny_lexer.cpp"
         
         }
     }
@@ -21559,7 +21559,7 @@ TERMINAL_1272_DIRECT:
         self_send(TKN_PP_INCLUDE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21563 "lexer/tiny_lexer.cpp"
+#line 21563 "tiny_lexer.cpp"
         
         }
     }
@@ -21586,7 +21586,7 @@ TERMINAL_771_DIRECT:
         self_send(TKN_WHILE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21590 "lexer/tiny_lexer.cpp"
+#line 21590 "tiny_lexer.cpp"
         
         }
     }
@@ -21614,7 +21614,7 @@ TERMINAL_1288_DIRECT:
         self_send(TKN_PP_INCLUDE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21618 "lexer/tiny_lexer.cpp"
+#line 21618 "tiny_lexer.cpp"
         
         }
     }
@@ -21641,7 +21641,7 @@ TERMINAL_1324_DIRECT:
         QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_IFDEF);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21645 "lexer/tiny_lexer.cpp"
+#line 21645 "tiny_lexer.cpp"
         
         }
     }
@@ -21668,7 +21668,7 @@ TERMINAL_270_DIRECT:
         self_send(TKN_L_PAREN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21672 "lexer/tiny_lexer.cpp"
+#line 21672 "tiny_lexer.cpp"
         
         }
     }
@@ -21695,7 +21695,7 @@ TERMINAL_272_DIRECT:
         self_send(TKN_R_PAREN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21699 "lexer/tiny_lexer.cpp"
+#line 21699 "tiny_lexer.cpp"
         
         }
     }
@@ -21722,7 +21722,7 @@ TERMINAL_1297_DIRECT:
         QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_DEFINE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21726 "lexer/tiny_lexer.cpp"
+#line 21726 "tiny_lexer.cpp"
         
         }
     }
@@ -21749,7 +21749,7 @@ TERMINAL_274_DIRECT:
         self_send(TKN_L_BRACE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21753 "lexer/tiny_lexer.cpp"
+#line 21753 "tiny_lexer.cpp"
         
         }
     }
@@ -21776,7 +21776,7 @@ TERMINAL_276_DIRECT:
         self_send(TKN_R_BRACE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21780 "lexer/tiny_lexer.cpp"
+#line 21780 "tiny_lexer.cpp"
         
         }
     }
@@ -21803,7 +21803,7 @@ TERMINAL_278_DIRECT:
         self_send(TKN_L_SQUARE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21807 "lexer/tiny_lexer.cpp"
+#line 21807 "tiny_lexer.cpp"
         
         }
     }
@@ -21830,7 +21830,7 @@ TERMINAL_280_DIRECT:
         self_send(TKN_R_SQUARE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21834 "lexer/tiny_lexer.cpp"
+#line 21834 "tiny_lexer.cpp"
         
         }
     }
@@ -21857,7 +21857,7 @@ TERMINAL_282_DIRECT:
         self_send(TKN_DOT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21861 "lexer/tiny_lexer.cpp"
+#line 21861 "tiny_lexer.cpp"
         
         }
     }
@@ -21884,7 +21884,7 @@ TERMINAL_284_DIRECT:
         self_send(TKN_ELLIPSIS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21888 "lexer/tiny_lexer.cpp"
+#line 21888 "tiny_lexer.cpp"
         
         }
     }
@@ -21911,7 +21911,7 @@ TERMINAL_797_DIRECT:
         self_send(TKN_NAMESPACE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21915 "lexer/tiny_lexer.cpp"
+#line 21915 "tiny_lexer.cpp"
         
         }
     }
@@ -21938,7 +21938,7 @@ TERMINAL_286_DIRECT:
         self_send(TKN_COLON);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21942 "lexer/tiny_lexer.cpp"
+#line 21942 "tiny_lexer.cpp"
         
         }
     }
@@ -21965,7 +21965,7 @@ TERMINAL_288_DIRECT:
         self_send(TKN_DOUBLE_COLON);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21969 "lexer/tiny_lexer.cpp"
+#line 21969 "tiny_lexer.cpp"
         
         }
     }
@@ -21992,7 +21992,7 @@ TERMINAL_290_DIRECT:
         self_send(TKN_SEMICOLON);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 21996 "lexer/tiny_lexer.cpp"
+#line 21996 "tiny_lexer.cpp"
         
         }
     }
@@ -22019,7 +22019,7 @@ TERMINAL_1315_DIRECT:
         QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_ELIF);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22023 "lexer/tiny_lexer.cpp"
+#line 22023 "tiny_lexer.cpp"
         
         }
     }
@@ -22046,7 +22046,7 @@ TERMINAL_292_DIRECT:
         self_send(TKN_COMMA);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22050 "lexer/tiny_lexer.cpp"
+#line 22050 "tiny_lexer.cpp"
         
         }
     }
@@ -22073,7 +22073,7 @@ TERMINAL_294_DIRECT:
         self_send(TKN_QUESTION);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22077 "lexer/tiny_lexer.cpp"
+#line 22077 "tiny_lexer.cpp"
         
         }
     }
@@ -22100,7 +22100,7 @@ TERMINAL_296_DIRECT:
         self_send(TKN_ARROW);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22104 "lexer/tiny_lexer.cpp"
+#line 22104 "tiny_lexer.cpp"
         
         }
     }
@@ -22127,7 +22127,7 @@ TERMINAL_298_DIRECT:
         self_send(TKN_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22131 "lexer/tiny_lexer.cpp"
+#line 22131 "tiny_lexer.cpp"
         
         }
     }
@@ -22154,7 +22154,7 @@ TERMINAL_811_DIRECT:
         self_send(TKN_CLASS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22158 "lexer/tiny_lexer.cpp"
+#line 22158 "tiny_lexer.cpp"
         
         }
     }
@@ -22181,7 +22181,7 @@ TERMINAL_300_DIRECT:
         self_send(TKN_PLUS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22185 "lexer/tiny_lexer.cpp"
+#line 22185 "tiny_lexer.cpp"
         
         }
     }
@@ -22208,7 +22208,7 @@ TERMINAL_302_DIRECT:
         self_send(TKN_PLUS_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22212 "lexer/tiny_lexer.cpp"
+#line 22212 "tiny_lexer.cpp"
         
         }
     }
@@ -22235,7 +22235,7 @@ TERMINAL_304_DIRECT:
         self_send(TKN_DOUBLE_PLUS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22239 "lexer/tiny_lexer.cpp"
+#line 22239 "tiny_lexer.cpp"
         
         }
     }
@@ -22262,7 +22262,7 @@ TERMINAL_306_DIRECT:
         self_send(TKN_MINUS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22266 "lexer/tiny_lexer.cpp"
+#line 22266 "tiny_lexer.cpp"
         
         }
     }
@@ -22289,7 +22289,7 @@ TERMINAL_308_DIRECT:
         self_send(TKN_DOUBLE_MINUS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22293 "lexer/tiny_lexer.cpp"
+#line 22293 "tiny_lexer.cpp"
         
         }
     }
@@ -22316,7 +22316,7 @@ TERMINAL_1333_DIRECT:
         QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_IFNDEF);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22320 "lexer/tiny_lexer.cpp"
+#line 22320 "tiny_lexer.cpp"
         
         }
     }
@@ -22343,7 +22343,7 @@ TERMINAL_310_DIRECT:
         self_send(TKN_MINUS_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22347 "lexer/tiny_lexer.cpp"
+#line 22347 "tiny_lexer.cpp"
         
         }
     }
@@ -22370,7 +22370,7 @@ TERMINAL_312_DIRECT:
         self_send(TKN_MULT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22374 "lexer/tiny_lexer.cpp"
+#line 22374 "tiny_lexer.cpp"
         
         }
     }
@@ -22397,7 +22397,7 @@ TERMINAL_314_DIRECT:
         self_send(TKN_MULT_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22401 "lexer/tiny_lexer.cpp"
+#line 22401 "tiny_lexer.cpp"
         
         }
     }
@@ -22424,7 +22424,7 @@ TERMINAL_316_DIRECT:
         self_send(TKN_DIV);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22428 "lexer/tiny_lexer.cpp"
+#line 22428 "tiny_lexer.cpp"
         
         }
     }
@@ -22451,7 +22451,7 @@ TERMINAL_318_DIRECT:
         self_send(TKN_DIV_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22455 "lexer/tiny_lexer.cpp"
+#line 22455 "tiny_lexer.cpp"
         
         }
     }
@@ -22478,7 +22478,7 @@ TERMINAL_320_DIRECT:
         self_send(TKN_MODULO);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22482 "lexer/tiny_lexer.cpp"
+#line 22482 "tiny_lexer.cpp"
         
         }
     }
@@ -22505,7 +22505,7 @@ TERMINAL_322_DIRECT:
         self_send(TKN_MODULO_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22509 "lexer/tiny_lexer.cpp"
+#line 22509 "tiny_lexer.cpp"
         
         }
     }
@@ -22532,7 +22532,7 @@ TERMINAL_324_DIRECT:
         self_send(TKN_L_SHIFT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22536 "lexer/tiny_lexer.cpp"
+#line 22536 "tiny_lexer.cpp"
         
         }
     }
@@ -22559,7 +22559,7 @@ TERMINAL_326_DIRECT:
         self_send(TKN_L_SHIFT_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22563 "lexer/tiny_lexer.cpp"
+#line 22563 "tiny_lexer.cpp"
         
         }
     }
@@ -22586,7 +22586,7 @@ TERMINAL_1351_DIRECT:
         QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_ELSE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22590 "lexer/tiny_lexer.cpp"
+#line 22590 "tiny_lexer.cpp"
         
         }
     }
@@ -22613,7 +22613,7 @@ TERMINAL_328_DIRECT:
         self_send(TKN_R_SHIFT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22617 "lexer/tiny_lexer.cpp"
+#line 22617 "tiny_lexer.cpp"
         
         }
     }
@@ -22640,7 +22640,7 @@ TERMINAL_330_DIRECT:
         self_send(TKN_R_SHIFT_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22644 "lexer/tiny_lexer.cpp"
+#line 22644 "tiny_lexer.cpp"
         
         }
     }
@@ -22667,7 +22667,7 @@ TERMINAL_332_DIRECT:
         self_send(TKN_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22671 "lexer/tiny_lexer.cpp"
+#line 22671 "tiny_lexer.cpp"
         
         }
     }
@@ -22695,7 +22695,7 @@ TERMINAL_1421_DIRECT:
         self_send(TKN_IDENTIFIER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22699 "lexer/tiny_lexer.cpp"
+#line 22699 "tiny_lexer.cpp"
         
         }
     }
@@ -22722,7 +22722,7 @@ TERMINAL_1360_DIRECT:
         QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_PRAGMA);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22726 "lexer/tiny_lexer.cpp"
+#line 22726 "tiny_lexer.cpp"
         
         }
     }
@@ -22749,7 +22749,7 @@ TERMINAL_337_DIRECT:
         self_send(TKN_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22753 "lexer/tiny_lexer.cpp"
+#line 22753 "tiny_lexer.cpp"
         
         }
     }
@@ -22776,7 +22776,7 @@ TERMINAL_339_DIRECT:
         self_send(TKN_GREATER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22780 "lexer/tiny_lexer.cpp"
+#line 22780 "tiny_lexer.cpp"
         
         }
     }
@@ -22803,7 +22803,7 @@ TERMINAL_341_DIRECT:
         self_send(TKN_GREATER_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22807 "lexer/tiny_lexer.cpp"
+#line 22807 "tiny_lexer.cpp"
         
         }
     }
@@ -22830,7 +22830,7 @@ TERMINAL_343_DIRECT:
         self_send(TKN_LESS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22834 "lexer/tiny_lexer.cpp"
+#line 22834 "tiny_lexer.cpp"
         
         }
     }
@@ -22857,7 +22857,7 @@ TERMINAL_345_DIRECT:
         self_send(TKN_LESS_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22861 "lexer/tiny_lexer.cpp"
+#line 22861 "tiny_lexer.cpp"
         
         }
     }
@@ -22884,7 +22884,7 @@ TERMINAL_347_DIRECT:
         self_send(TKN_NOT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22888 "lexer/tiny_lexer.cpp"
+#line 22888 "tiny_lexer.cpp"
         
         }
     }
@@ -22911,7 +22911,7 @@ TERMINAL_865_DIRECT:
         self_send(TKN_UNION);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22915 "lexer/tiny_lexer.cpp"
+#line 22915 "tiny_lexer.cpp"
         
         }
     }
@@ -22938,7 +22938,7 @@ TERMINAL_1378_DIRECT:
         QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_UNDEF);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22942 "lexer/tiny_lexer.cpp"
+#line 22942 "tiny_lexer.cpp"
         
         }
     }
@@ -22965,7 +22965,7 @@ TERMINAL_355_DIRECT:
         self_send(TKN_NOT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22969 "lexer/tiny_lexer.cpp"
+#line 22969 "tiny_lexer.cpp"
         
         }
     }
@@ -22992,7 +22992,7 @@ TERMINAL_357_DIRECT:
         self_send(TKN_NOT_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 22996 "lexer/tiny_lexer.cpp"
+#line 22996 "tiny_lexer.cpp"
         
         }
     }
@@ -23019,7 +23019,7 @@ TERMINAL_828_DIRECT:
         self_send(TKN_STRUCT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23023 "lexer/tiny_lexer.cpp"
+#line 23023 "tiny_lexer.cpp"
         
         }
     }
@@ -23046,7 +23046,7 @@ TERMINAL_876_DIRECT:
         self_send(TKN_ENUM);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23050 "lexer/tiny_lexer.cpp"
+#line 23050 "tiny_lexer.cpp"
         
         }
     }
@@ -23236,7 +23236,7 @@ TERMINAL_884_DIRECT:
         self_send(TKN_TRY);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23240 "lexer/tiny_lexer.cpp"
+#line 23240 "tiny_lexer.cpp"
         
         }
     }
@@ -23263,7 +23263,7 @@ TERMINAL_1342_DIRECT:
         QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_ENDIF);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23267 "lexer/tiny_lexer.cpp"
+#line 23267 "tiny_lexer.cpp"
         
         }
     }
@@ -23290,7 +23290,7 @@ TERMINAL_374_DIRECT:
         self_send(TKN_NOT_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23294 "lexer/tiny_lexer.cpp"
+#line 23294 "tiny_lexer.cpp"
         
         }
     }
@@ -23317,7 +23317,7 @@ TERMINAL_376_DIRECT:
         self_send(TKN_BITOR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23321 "lexer/tiny_lexer.cpp"
+#line 23321 "tiny_lexer.cpp"
         
         }
     }
@@ -23365,7 +23365,7 @@ TERMINAL_898_DIRECT:
         self_send(TKN_CATCH);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23369 "lexer/tiny_lexer.cpp"
+#line 23369 "tiny_lexer.cpp"
         
         }
     }
@@ -23392,7 +23392,7 @@ TERMINAL_1003_DIRECT:
         self_send(TKN_CONTINUE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23396 "lexer/tiny_lexer.cpp"
+#line 23396 "tiny_lexer.cpp"
         
         }
     }
@@ -23419,7 +23419,7 @@ TERMINAL_390_DIRECT:
         self_send(TKN_BITOR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23423 "lexer/tiny_lexer.cpp"
+#line 23423 "tiny_lexer.cpp"
         
         }
     }
@@ -23446,7 +23446,7 @@ TERMINAL_392_DIRECT:
         self_send(TKN_OR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23450 "lexer/tiny_lexer.cpp"
+#line 23450 "tiny_lexer.cpp"
         
         }
     }
@@ -23495,7 +23495,7 @@ TERMINAL_397_DIRECT:
         self_send(TKN_OR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23499 "lexer/tiny_lexer.cpp"
+#line 23499 "tiny_lexer.cpp"
         
         }
     }
@@ -23522,7 +23522,7 @@ TERMINAL_399_DIRECT:
         self_send(TKN_OR_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23526 "lexer/tiny_lexer.cpp"
+#line 23526 "tiny_lexer.cpp"
         
         }
     }
@@ -23549,7 +23549,7 @@ TERMINAL_915_DIRECT:
         self_send(TKN_PUBLIC);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23553 "lexer/tiny_lexer.cpp"
+#line 23553 "tiny_lexer.cpp"
         
         }
     }
@@ -23576,7 +23576,7 @@ TERMINAL_413_DIRECT:
         self_send(TKN_OR_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23580 "lexer/tiny_lexer.cpp"
+#line 23580 "tiny_lexer.cpp"
         
         }
     }
@@ -23603,7 +23603,7 @@ TERMINAL_415_DIRECT:
         self_send(TKN_XOR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23607 "lexer/tiny_lexer.cpp"
+#line 23607 "tiny_lexer.cpp"
         
         }
     }
@@ -23630,7 +23630,7 @@ TERMINAL_423_DIRECT:
         self_send(TKN_XOR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23634 "lexer/tiny_lexer.cpp"
+#line 23634 "tiny_lexer.cpp"
         
         }
     }
@@ -23657,7 +23657,7 @@ TERMINAL_425_DIRECT:
         self_send(TKN_XOR_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23661 "lexer/tiny_lexer.cpp"
+#line 23661 "tiny_lexer.cpp"
         
         }
     }
@@ -23684,7 +23684,7 @@ TERMINAL_955_DIRECT:
         self_send(TKN_PRIVATE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23688 "lexer/tiny_lexer.cpp"
+#line 23688 "tiny_lexer.cpp"
         
         }
     }
@@ -23711,7 +23711,7 @@ TERMINAL_445_DIRECT:
         self_send(TKN_XOR_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23715 "lexer/tiny_lexer.cpp"
+#line 23715 "tiny_lexer.cpp"
         
         }
     }
@@ -23738,7 +23738,7 @@ TERMINAL_447_DIRECT:
         self_send(TKN_COMPL);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23742 "lexer/tiny_lexer.cpp"
+#line 23742 "tiny_lexer.cpp"
         
         }
     }
@@ -23765,7 +23765,7 @@ TERMINAL_963_DIRECT:
         self_send(TKN_NEW);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23769 "lexer/tiny_lexer.cpp"
+#line 23769 "tiny_lexer.cpp"
         
         }
     }
@@ -23792,7 +23792,7 @@ TERMINAL_461_DIRECT:
         self_send(TKN_COMPL);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23796 "lexer/tiny_lexer.cpp"
+#line 23796 "tiny_lexer.cpp"
         
         }
     }
@@ -23819,7 +23819,7 @@ TERMINAL_463_DIRECT:
         self_send(TKN_BITAND);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23823 "lexer/tiny_lexer.cpp"
+#line 23823 "tiny_lexer.cpp"
         
         }
     }
@@ -23846,7 +23846,7 @@ TERMINAL_980_DIRECT:
         self_send(TKN_DELETE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23850 "lexer/tiny_lexer.cpp"
+#line 23850 "tiny_lexer.cpp"
         
         }
     }
@@ -23873,7 +23873,7 @@ TERMINAL_480_DIRECT:
         self_send(TKN_BITAND);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23877 "lexer/tiny_lexer.cpp"
+#line 23877 "tiny_lexer.cpp"
         
         }
     }
@@ -23900,7 +23900,7 @@ TERMINAL_482_DIRECT:
         self_send(TKN_AND);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23904 "lexer/tiny_lexer.cpp"
+#line 23904 "tiny_lexer.cpp"
         
         }
     }
@@ -23927,7 +23927,7 @@ TERMINAL_490_DIRECT:
         self_send(TKN_AND);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23931 "lexer/tiny_lexer.cpp"
+#line 23931 "tiny_lexer.cpp"
         
         }
     }
@@ -23954,7 +23954,7 @@ TERMINAL_935_DIRECT:
         self_send(TKN_PROTECT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23958 "lexer/tiny_lexer.cpp"
+#line 23958 "tiny_lexer.cpp"
         
         }
     }
@@ -23981,7 +23981,7 @@ TERMINAL_492_DIRECT:
         self_send(TKN_AND_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 23985 "lexer/tiny_lexer.cpp"
+#line 23985 "tiny_lexer.cpp"
         
         }
     }
@@ -24008,7 +24008,7 @@ TERMINAL_851_DIRECT:
         self_send(TKN_TEMPLATE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 24012 "lexer/tiny_lexer.cpp"
+#line 24012 "tiny_lexer.cpp"
         
         }
     }
@@ -24035,7 +24035,7 @@ TERMINAL_1020_DIRECT:
         self_send(TKN_RETURN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 24039 "lexer/tiny_lexer.cpp"
+#line 24039 "tiny_lexer.cpp"
         
         }
     }
@@ -24062,7 +24062,7 @@ TERMINAL_509_DIRECT:
         self_send(TKN_AND_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 24066 "lexer/tiny_lexer.cpp"
+#line 24066 "tiny_lexer.cpp"
         
         }
     }
@@ -24085,7 +24085,7 @@ TERMINAL_END_OF_STREAM:
         QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, LexemeNull, LexemeNull);
         self_send(TKN_TERMINATION);
         
-#line 24089 "lexer/tiny_lexer.cpp"
+#line 24089 "tiny_lexer.cpp"
         
         }
                 }
@@ -24132,7 +24132,7 @@ else {
                         RETURN;
             
         
-#line 24136 "lexer/tiny_lexer.cpp"
+#line 24136 "tiny_lexer.cpp"
         
         }
                 }
@@ -42898,7 +42898,7 @@ TERMINAL_1031_DIRECT:
         self_send(TKN_CASE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -42925,7 +42925,7 @@ TERMINAL_526_DIRECT:
         self_send(TKN_EXTERN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -42952,7 +42952,7 @@ TERMINAL_1051_DIRECT:
         self_send(TKN_DEFAULT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -42979,7 +42979,7 @@ TERMINAL_549_DIRECT:
         self_send(TKN_EXPLICIT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43006,7 +43006,7 @@ TERMINAL_1065_DIRECT:
         self_send(TKN_BREAK);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43033,7 +43033,7 @@ TERMINAL_563_DIRECT:
         self_send(TKN_CONST);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43060,7 +43060,7 @@ TERMINAL_1076_DIRECT:
         self_send(TKN_GOTO);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43087,7 +43087,7 @@ TERMINAL_580_DIRECT:
         self_send(TKN_FRIEND);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43114,7 +43114,7 @@ TERMINAL_1093_DIRECT:
         self_send(TKN_SIZEOF);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43141,7 +43141,7 @@ TERMINAL_1107_DIRECT:
         self_send(TKN_THROW);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43168,7 +43168,7 @@ TERMINAL_600_DIRECT:
         self_send(TKN_VIRTUAL);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43195,7 +43195,7 @@ TERMINAL_1121_DIRECT:
         self_send(TKN_USING);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43222,7 +43222,7 @@ TERMINAL_1129_DIRECT:
         self_send(TKN_ASM);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43249,7 +43249,7 @@ TERMINAL_623_DIRECT:
         self_send(TKN_VOLATILE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43276,7 +43276,7 @@ TERMINAL_1180_DIRECT:
         self_send(TKN_TYPEID);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43303,7 +43303,7 @@ TERMINAL_1143_DIRECT:
         self_send(TKN_ASM_EXT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43330,7 +43330,7 @@ TERMINAL_640_DIRECT:
         self_send(TKN_STATIC);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43357,7 +43357,7 @@ TERMINAL_1163_DIRECT:
         self_send(TKN_TYPEDEF);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43384,7 +43384,7 @@ TERMINAL_657_DIRECT:
         self_send(TKN_INLINE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43411,7 +43411,7 @@ TERMINAL_668_DIRECT:
         self_send(TKN_AUTO);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43438,7 +43438,7 @@ TERMINAL_1191_DIRECT:
         self_send(TKN_THIS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43465,7 +43465,7 @@ TERMINAL_691_DIRECT:
         self_send(TKN_REGISTER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43492,7 +43492,7 @@ TERMINAL_1214_DIRECT:
         self_send(TKN_TYPENAME);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43519,7 +43519,7 @@ TERMINAL_711_DIRECT:
         self_send(TKN_MUTABLE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43546,7 +43546,7 @@ TERMINAL_716_DIRECT:
         self_send(TKN_IF);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43573,7 +43573,7 @@ TERMINAL_1237_DIRECT:
         self_send(TKN_OPERATOR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43600,7 +43600,7 @@ TERMINAL_727_DIRECT:
         self_send(TKN_ELSE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43628,7 +43628,7 @@ TERMINAL_1241_DIRECT:
         self_send(TKN_NUMBER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43656,7 +43656,7 @@ TERMINAL_1243_DIRECT:
         self_send(TKN_STRING);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43684,7 +43684,7 @@ TERMINAL_1245_DIRECT:
         self_send(TKN_QUOTED_CHAR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43712,7 +43712,7 @@ TERMINAL_1247_DIRECT:
         self_send(TKN_NUMBER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43740,7 +43740,7 @@ TERMINAL_1249_DIRECT:
         self_send(TKN_NUMBER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43768,7 +43768,7 @@ TERMINAL_1251_DIRECT:
         self_send(TKN_NUMBER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43796,7 +43796,7 @@ TERMINAL_1253_DIRECT:
         self_send(TKN_NUMBER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43823,7 +43823,7 @@ TERMINAL_744_DIRECT:
         self_send(TKN_SWITCH);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43850,7 +43850,7 @@ TERMINAL_752_DIRECT:
         self_send(TKN_FOR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43877,7 +43877,7 @@ TERMINAL_757_DIRECT:
         self_send(TKN_DO);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43904,7 +43904,7 @@ TERMINAL_771_DIRECT:
         self_send(TKN_WHILE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43931,7 +43931,7 @@ TERMINAL_270_DIRECT:
         self_send(TKN_L_PAREN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43958,7 +43958,7 @@ TERMINAL_272_DIRECT:
         self_send(TKN_R_PAREN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -43985,7 +43985,7 @@ TERMINAL_274_DIRECT:
         self_send(TKN_L_BRACE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44012,7 +44012,7 @@ TERMINAL_276_DIRECT:
         self_send(TKN_R_BRACE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44039,7 +44039,7 @@ TERMINAL_278_DIRECT:
         self_send(TKN_L_SQUARE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44066,7 +44066,7 @@ TERMINAL_280_DIRECT:
         self_send(TKN_R_SQUARE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44093,7 +44093,7 @@ TERMINAL_282_DIRECT:
         self_send(TKN_DOT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44120,7 +44120,7 @@ TERMINAL_284_DIRECT:
         self_send(TKN_ELLIPSIS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44147,7 +44147,7 @@ TERMINAL_797_DIRECT:
         self_send(TKN_NAMESPACE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44174,7 +44174,7 @@ TERMINAL_286_DIRECT:
         self_send(TKN_COLON);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44201,7 +44201,7 @@ TERMINAL_288_DIRECT:
         self_send(TKN_DOUBLE_COLON);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44228,7 +44228,7 @@ TERMINAL_290_DIRECT:
         self_send(TKN_SEMICOLON);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44255,7 +44255,7 @@ TERMINAL_292_DIRECT:
         self_send(TKN_COMMA);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44282,7 +44282,7 @@ TERMINAL_294_DIRECT:
         self_send(TKN_QUESTION);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44309,7 +44309,7 @@ TERMINAL_296_DIRECT:
         self_send(TKN_ARROW);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44336,7 +44336,7 @@ TERMINAL_298_DIRECT:
         self_send(TKN_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44363,7 +44363,7 @@ TERMINAL_811_DIRECT:
         self_send(TKN_CLASS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44390,7 +44390,7 @@ TERMINAL_300_DIRECT:
         self_send(TKN_PLUS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44417,7 +44417,7 @@ TERMINAL_302_DIRECT:
         self_send(TKN_PLUS_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44444,7 +44444,7 @@ TERMINAL_304_DIRECT:
         self_send(TKN_DOUBLE_PLUS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44471,7 +44471,7 @@ TERMINAL_306_DIRECT:
         self_send(TKN_MINUS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44498,7 +44498,7 @@ TERMINAL_308_DIRECT:
         self_send(TKN_DOUBLE_MINUS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44525,7 +44525,7 @@ TERMINAL_310_DIRECT:
         self_send(TKN_MINUS_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44552,7 +44552,7 @@ TERMINAL_312_DIRECT:
         self_send(TKN_MULT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44579,7 +44579,7 @@ TERMINAL_314_DIRECT:
         self_send(TKN_MULT_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44606,7 +44606,7 @@ TERMINAL_316_DIRECT:
         self_send(TKN_DIV);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44633,7 +44633,7 @@ TERMINAL_318_DIRECT:
         self_send(TKN_DIV_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44660,7 +44660,7 @@ TERMINAL_320_DIRECT:
         self_send(TKN_MODULO);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44687,7 +44687,7 @@ TERMINAL_322_DIRECT:
         self_send(TKN_MODULO_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44714,7 +44714,7 @@ TERMINAL_324_DIRECT:
         self_send(TKN_L_SHIFT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44741,7 +44741,7 @@ TERMINAL_326_DIRECT:
         self_send(TKN_L_SHIFT_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44768,7 +44768,7 @@ TERMINAL_328_DIRECT:
         self_send(TKN_R_SHIFT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44795,7 +44795,7 @@ TERMINAL_330_DIRECT:
         self_send(TKN_R_SHIFT_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44822,7 +44822,7 @@ TERMINAL_332_DIRECT:
         self_send(TKN_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44849,7 +44849,7 @@ TERMINAL_337_DIRECT:
         self_send(TKN_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44876,7 +44876,7 @@ TERMINAL_339_DIRECT:
         self_send(TKN_GREATER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44903,7 +44903,7 @@ TERMINAL_341_DIRECT:
         self_send(TKN_GREATER_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44930,7 +44930,7 @@ TERMINAL_343_DIRECT:
         self_send(TKN_LESS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44957,7 +44957,7 @@ TERMINAL_345_DIRECT:
         self_send(TKN_LESS_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -44984,7 +44984,7 @@ TERMINAL_347_DIRECT:
         self_send(TKN_NOT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -45011,7 +45011,7 @@ TERMINAL_865_DIRECT:
         self_send(TKN_UNION);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -45038,7 +45038,7 @@ TERMINAL_355_DIRECT:
         self_send(TKN_NOT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -45065,7 +45065,7 @@ TERMINAL_357_DIRECT:
         self_send(TKN_NOT_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -45092,7 +45092,7 @@ TERMINAL_828_DIRECT:
         self_send(TKN_STRUCT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -45119,7 +45119,7 @@ TERMINAL_876_DIRECT:
         self_send(TKN_ENUM);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -45146,7 +45146,7 @@ TERMINAL_884_DIRECT:
         self_send(TKN_TRY);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -45173,7 +45173,7 @@ TERMINAL_374_DIRECT:
         self_send(TKN_NOT_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -45200,7 +45200,7 @@ TERMINAL_376_DIRECT:
         self_send(TKN_BITOR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -45227,7 +45227,7 @@ TERMINAL_898_DIRECT:
         self_send(TKN_CATCH);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -45254,7 +45254,7 @@ TERMINAL_1003_DIRECT:
         self_send(TKN_CONTINUE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -45281,7 +45281,7 @@ TERMINAL_390_DIRECT:
         self_send(TKN_BITOR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -45308,7 +45308,7 @@ TERMINAL_392_DIRECT:
         self_send(TKN_OR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -45335,7 +45335,7 @@ TERMINAL_397_DIRECT:
         self_send(TKN_OR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -45464,7 +45464,7 @@ TERMINAL_399_DIRECT:
         self_send(TKN_OR_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -45654,7 +45654,7 @@ TERMINAL_915_DIRECT:
         self_send(TKN_PUBLIC);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -45681,7 +45681,7 @@ TERMINAL_413_DIRECT:
         self_send(TKN_OR_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -45708,7 +45708,7 @@ TERMINAL_415_DIRECT:
         self_send(TKN_XOR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -45735,7 +45735,7 @@ TERMINAL_1444_DIRECT:
         self_send(TKN_DEFINED);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -45762,7 +45762,7 @@ TERMINAL_1446_DIRECT:
         self_send(TKN_HASH);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -45789,7 +45789,7 @@ TERMINAL_423_DIRECT:
         self_send(TKN_XOR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -45816,7 +45816,7 @@ TERMINAL_1448_DIRECT:
         self_send(TKN_DOUBLE_HASH);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -45843,7 +45843,7 @@ TERMINAL_425_DIRECT:
         self_send(TKN_XOR_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -45870,7 +45870,7 @@ TERMINAL_955_DIRECT:
         self_send(TKN_PRIVATE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -45897,7 +45897,7 @@ TERMINAL_445_DIRECT:
         self_send(TKN_XOR_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -45924,7 +45924,7 @@ TERMINAL_447_DIRECT:
         self_send(TKN_COMPL);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -45951,7 +45951,7 @@ TERMINAL_963_DIRECT:
         self_send(TKN_NEW);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -45978,7 +45978,7 @@ TERMINAL_1477_DIRECT:
         QUEX_NAME(enter_mode)(&self, &PROGRAM);self_send(TKN_PP_FINISH);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -46006,7 +46006,7 @@ TERMINAL_1479_DIRECT:
         QUEX_NAME(enter_mode)(&self, &PROGRAM);self_send(TKN_PP_FINISH);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -46033,7 +46033,7 @@ TERMINAL_461_DIRECT:
         self_send(TKN_COMPL);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -46060,7 +46060,7 @@ TERMINAL_463_DIRECT:
         self_send(TKN_BITAND);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -46109,7 +46109,7 @@ TERMINAL_980_DIRECT:
         self_send(TKN_DELETE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -46137,7 +46137,7 @@ TERMINAL_1493_DIRECT:
         self_send(TKN_IDENTIFIER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -46164,7 +46164,7 @@ TERMINAL_480_DIRECT:
         self_send(TKN_BITAND);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -46191,7 +46191,7 @@ TERMINAL_482_DIRECT:
         self_send(TKN_AND);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -46218,7 +46218,7 @@ TERMINAL_490_DIRECT:
         self_send(TKN_AND);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -46245,7 +46245,7 @@ TERMINAL_935_DIRECT:
         self_send(TKN_PROTECT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -46272,7 +46272,7 @@ TERMINAL_492_DIRECT:
         self_send(TKN_AND_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -46299,7 +46299,7 @@ TERMINAL_851_DIRECT:
         self_send(TKN_TEMPLATE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -46326,7 +46326,7 @@ TERMINAL_1020_DIRECT:
         self_send(TKN_RETURN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -46353,7 +46353,7 @@ TERMINAL_509_DIRECT:
         self_send(TKN_AND_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
     }
@@ -46376,7 +46376,7 @@ TERMINAL_END_OF_STREAM:
         QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, LexemeNull, LexemeNull);
         self_send(TKN_TERMINATION);
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
                 }
@@ -46423,7 +46423,7 @@ else {
                         RETURN;
             
         
-#line 32767 "lexer/tiny_lexer.cpp"
+#line 32767 "tiny_lexer.cpp"
         
         }
                 }
