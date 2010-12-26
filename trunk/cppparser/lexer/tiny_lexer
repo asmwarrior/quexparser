@@ -26,7 +26,7 @@
 #   define  __QUEX_INCLUDE_INDICATOR__ANALYZER__MAIN
 #endif
 
-#include "lexer\tiny_lexer-configuration"
+#include "tiny_lexer-configuration"
 
 #include <quex/code_base/definitions>
 
@@ -56,8 +56,8 @@ QUEX_NAMESPACE_TOKEN_CLOSE
 #endif
 #include <quex/code_base/analyzer/headers>
 
-#include "lexer\tiny_lexer-token_ids"
-#include "lexer\tiny_lexer-token"
+#include "tiny_lexer-token_ids"
+#include "tiny_lexer-token"
 
 QUEX_NAMESPACE_MAIN_OPEN 
 
@@ -596,7 +596,7 @@ QUEX_NAME_TOKEN(copy)(Token* __this, const Token* __That)
     (void)__this;
     (void)__That;
 
-#line 33 "lexer//quex/code_base/token/CppDefault.qx"
+#line 33 "quex/code_base/token/CppDefault.qx"
 
         self._id    = Other._id;
         self.text   = Other.text;
@@ -611,7 +611,7 @@ QUEX_NAME_TOKEN(copy)(Token* __this, const Token* __That)
     #   endif
    
 
-#line 615 "lexer/tiny_lexer"
+#line 615 "tiny_lexer"
 
 #  undef Other
 #  undef self
@@ -639,7 +639,7 @@ QUEX_NAME_TOKEN(take_text)(Token*           __this,
     (void)__this;
     (void)__analyzer;
 
-#line 113 "lexer//quex/code_base/token/CppDefault.qx"
+#line 113 "quex/code_base/token/CppDefault.qx"
 
 #       if 0
         {
@@ -673,7 +673,7 @@ QUEX_NAME_TOKEN(take_text)(Token*           __this,
         return false;      
    
 
-#line 677 "lexer/tiny_lexer"
+#line 677 "tiny_lexer"
 
 #  undef analyzer
 #  undef self
@@ -686,12 +686,12 @@ QUEX_NAME_TOKEN(repetition_n_get)(QUEX_TYPE_TOKEN* __this)
 #   define self      (*__this)
     (void)__this;
     
-#line 150 "lexer//quex/code_base/token/CppDefault.qx"
+#line 150 "quex/code_base/token/CppDefault.qx"
 
        return self.number;
    
 
-#line 695 "lexer/tiny_lexer"
+#line 695 "tiny_lexer"
 
 #   undef  self
 }
@@ -703,12 +703,12 @@ QUEX_NAME_TOKEN(repetition_n_set)(QUEX_TYPE_TOKEN* __this, size_t N)
     (void)__this;
     (void)N;
     
-#line 146 "lexer//quex/code_base/token/CppDefault.qx"
+#line 146 "quex/code_base/token/CppDefault.qx"
 
        self.number = N;
    
 
-#line 712 "lexer/tiny_lexer"
+#line 712 "tiny_lexer"
 
 #   undef  self
 }

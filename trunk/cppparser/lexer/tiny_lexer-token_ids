@@ -6,7 +6,7 @@
  * NOTE: This file has been created automatically by Quex.
  *       Visit quex.org for further info.
  *
- * DATE: Mon Dec 20 14:14:26 2010
+ * DATE: Sun Dec 26 20:45:44 2010
  *
  * (C) 2005-2010 Frank-Rene Schaefer
  * ABSOLUTELY NO WARRANTY                                           */
@@ -21,7 +21,7 @@
 
 /* The token class definition file can only be included after the two token identifiers have
  * been defined. Otherwise, it would rely on default values. */
-#include "lexer\tiny_lexer-token"
+#include "tiny_lexer-token"
 
 const QUEX_TYPE_TOKEN_ID TKN_AND            = ((QUEX_TYPE_TOKEN_ID)5);
 const QUEX_TYPE_TOKEN_ID TKN_AND_EQ         = ((QUEX_TYPE_TOKEN_ID)6);
