@@ -71,7 +71,7 @@ struct DeclarationModifier
     bool isVirtual;
     bool isOperator;
     bool isTemplate;
-    bool isAutoV;
+    bool isAuto;
     bool isRegister;
     bool isExtern;
     bool isExplicit;
