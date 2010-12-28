@@ -27,6 +27,15 @@
 					<Add option="-s" />
 				</Linker>
 			</Target>
+			<Target title="ExpressionDebug">
+				<Option output="bin\Debug\expression" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Debug\" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
@@ -36,17 +45,53 @@
 			<Add option="-DQUEX_TYPE_CHARACTER=char" />
 			<Add directory="cppparser\lexer" />
 		</Compiler>
-		<Unit filename="cppparser\cchelper.h" />
+		<Unit filename="cppparser\cchelper.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="cppparser\expression_eval.cpp">
+			<Option target="ExpressionDebug" />
+		</Unit>
+		<Unit filename="cppparser\expression_main.cpp">
+			<Option target="ExpressionDebug" />
+		</Unit>
 		<Unit filename="cppparser\lexer\tiny_lexer.cpp" />
-		<Unit filename="cppparser\parserthread.cpp" />
-		<Unit filename="cppparser\parserthread.h" />
-		<Unit filename="cppparser\searchtree.cpp" />
-		<Unit filename="cppparser\searchtree.h" />
-		<Unit filename="cppparser\token.cpp" />
-		<Unit filename="cppparser\token.h" />
-		<Unit filename="cppparser\tokenizer.cpp" />
-		<Unit filename="cppparser\tokenizer.h" />
-		<Unit filename="main.cpp" />
+		<Unit filename="cppparser\parserthread.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="cppparser\parserthread.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="cppparser\searchtree.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="cppparser\searchtree.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="cppparser\token.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="cppparser\token.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="cppparser\tokenizer.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="cppparser\tokenizer.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="main.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
 		<Extensions>
 			<code_completion />
 			<envvars />
