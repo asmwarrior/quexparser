@@ -130,16 +130,19 @@ void shunt_op(struct op_s *op)
     struct op_s *pop;
     int n1, n2;
 
+    // handling parenthese firstly, since they have no assoc
     if(op->op==TKN_L_PAREN) {
         push_opstack(op);
         return;
 
-    } else if(op->op==TKN_R_PAREN) {
+    }
+    else if(op->op==TKN_R_PAREN) {
         while(nopstack>0 && opstack[nopstack-1]->op!=TKN_L_PAREN) {
             pop=pop_opstack();
             n1=pop_numstack();
 
-            if(pop->unary) push_numstack(pop->eval(n1, 0));
+            if(pop->unary)
+                push_numstack(pop->eval(n1, 0));
             else {
                 n2=pop_numstack();
                 push_numstack(pop->eval(n2, n1));
@@ -154,20 +157,37 @@ void shunt_op(struct op_s *op)
     }
 
     if(op->assoc==ASSOC_RIGHT) {
-        while(nopstack && op->prec<opstack[nopstack-1]->prec) {
-            pop=pop_opstack();
-            n1=pop_numstack();
-            if(pop->unary) push_numstack(pop->eval(n1, 0));
+
+        while (nopstack && op->prec < opstack[nopstack-1]->prec ) {
+
+            //when going here, means the meeted op has lower precedence as on the opstack
+            //so, we just pop up
+
+            //pay attention: equal is not allowed, this means for a right_assoc op, we just push!
+            //so once the op stack was poped, the later pushed op (as we move from left to right) will
+            //be caculated firstly, this confirmed the right_assoc rule.
+
+            pop=pop_opstack();// this will internally change the nopstack
+            n1=pop_numstack();// this will internally change the nnumstack
+
+            if(pop->unary)
+                push_numstack(pop->eval(n1, 0));
             else {
                 n2=pop_numstack();
                 push_numstack(pop->eval(n2, n1));
             }
         }
-    } else {
-        while(nopstack && op->prec<=opstack[nopstack-1]->prec) {
+    }
+    else {   //left assoc
+        while (nopstack && op->prec <= opstack[nopstack-1]->prec ) {
+
+            // if it is a left_assoc op, then equal precedence is allowed, once meat this, the op in the
+            // stack should be caculated firstly (thus, the left op was caculated firstly).
+
             pop=pop_opstack();
             n1=pop_numstack();
-            if(pop->unary) push_numstack(pop->eval(n1, 0));
+            if(pop->unary)
+                push_numstack(pop->eval(n1, 0));
             else {
                 n2=pop_numstack();
                 push_numstack(pop->eval(n2, n1));
@@ -180,7 +200,9 @@ void shunt_op(struct op_s *op)
 
 int expression_eval(quex::Token *tokenInput)
 {
+    // a pointer walk through the expression input from left to right
     quex::Token *expr;
+
     quex::Token *tstart=NULL;
     struct op_s startop= {TKN_ASM, 0, ASSOC_NONE, 0, NULL};	/* Dummy operator to mark start */
     struct op_s *op=NULL;
@@ -195,7 +217,9 @@ int expression_eval(quex::Token *tokenInput)
             // check if it is a valid operator, otherwise, it should be a number
             if( op=getop(expr->type_id()) ) {
 
+                // it is an opeartor
                 if(lastop && (lastop==&startop || lastop->op!=TKN_R_PAREN)) {
+                    //unary operator?
                     if(op->op==TKN_MINUS)
                         op=getop(TKN_HASH);
                     else if(op->op!=TKN_L_PAREN) {
