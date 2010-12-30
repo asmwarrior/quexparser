@@ -192,6 +192,7 @@ int expression_eval(quex::Token *tokenInput)
 
         if(!tstart) {
 
+            // check if it is a valid operator, otherwise, it should be a number
             if( op=getop(expr->type_id()) ) {
 
                 if(lastop && (lastop==&startop || lastop->op!=TKN_R_PAREN)) {
@@ -249,6 +250,17 @@ int expression_eval(quex::Token *tokenInput)
         return EXIT_FAILURE;
     }
     printf("%d\n", numstack[0]);
+
+    // need to clear all the stack!!
+
+    for (int i = 0;i< MAXOPSTACK; i++)
+        opstack[i] = NULL;
+    nopstack=0;
+
+    for (int i = 0;i< MAXNUMSTACK; i++)
+        numstack[i]=0;
+    nnumstack=0;
+
 
     return EXIT_SUCCESS;
 }
