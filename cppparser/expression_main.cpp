@@ -1,38 +1,65 @@
 
-
+#include <iostream>
 #include "tiny_lexer"
+using namespace std;
+
 
 static QUEX_TYPE_CHARACTER s_QuexBuffer[4];
 quex::tiny_lexer   Quex((QUEX_TYPE_CHARACTER*)s_QuexBuffer,4,(QUEX_TYPE_CHARACTER*)s_QuexBuffer+1);
 quex::Token        TokenBuffer[40];
 
 extern int expression_eval(quex::Token *tokenInput);
+
+
 int main()
 {
-    char aaa[] = "  (1 + 3) * 5 -80/20  \0";
-    int length = strlen(aaa);
-    printf("%s\n",aaa);
-    printf("the input String length is %d\n",length);
+    char expression[256];
+    expression[0]   = 0;
+    expression[127] = 0;
 
-    Quex.reset_buffer((QUEX_TYPE_CHARACTER*)aaa,
-                                       strlen(aaa),
-                                       (QUEX_TYPE_CHARACTER*)aaa+strlen(aaa)-1);
+    cout << "Entering expression, and Press Enter to run the caculator, enter 'exit' to Exit " << endl;
 
-    (void)Quex.token_p_switch(&TokenBuffer[0]);
+    while(true) {
+        cout << "-> ";
+        cin.getline (&expression[1], 255, '\n' );              // Input goes into string
 
-
-
-    for (int n = 0; ;n++)
-    {
-        TokenBuffer[n].text.clear();
-        (void)Quex.token_p_switch(&TokenBuffer[n]);
-        QUEX_TYPE_TOKEN_ID id = Quex.receive();
-        if(id == TKN_TERMINATION )
+        if (strcmp(&expression[1],"exit") == 0) {
             break;
+        }
+
+        int length = strlen(&expression[1]);
+
+        expression[length+1] = 0;
+
+        Quex.reset_buffer((QUEX_TYPE_CHARACTER*)expression,
+                          length+2,
+                          (QUEX_TYPE_CHARACTER*)expression+length+1);
+
+        (void)Quex.token_p_switch(&TokenBuffer[0]);
+
+        for (int n = 0; ; n++) {
+            TokenBuffer[n].text.clear();
+            (void)Quex.token_p_switch(&TokenBuffer[n]);
+            QUEX_TYPE_TOKEN_ID id = Quex.receive();
+            if(id == TKN_TERMINATION )
+                break;
+
+        }
+
+        expression_eval(&TokenBuffer[0]);
 
     }
 
-    expression_eval(&TokenBuffer[0]);
+
+
+    //printf("%s\n",aaa);
+    //printf("the input String length is %d\n",length);
+
+
+
+
+
+
 
 
     return 0;
