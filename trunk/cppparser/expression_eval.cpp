@@ -239,6 +239,11 @@ void shunt_op(struct op_s *op)
     struct op_s *pop;
     int n1, n2;
 
+    if(!op) {
+        fprintf(stderr, "ERROR: op is NULL\n");
+        exit(EXIT_FAILURE);
+    }
+
     // handling parenthese firstly, since they have no assoc
     if(op->op==TKN_L_PAREN) {
         push_opstack(op);
