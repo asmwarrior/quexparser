@@ -148,7 +148,7 @@ struct op_s {
     {TKN_L_PAREN,       0, ASSOC_NONE, 0, NULL},
     {TKN_R_PAREN,       0, ASSOC_NONE, 0, NULL},
 
-    {TKN_NOT,            11, ASSOC_RIGHT, 1, eval_not},
+    {TKN_NOT,           11, ASSOC_RIGHT, 1, eval_not},
     {TKN_HASH,          10, ASSOC_RIGHT, 1, eval_uminus},
 
 
@@ -334,10 +334,12 @@ int expression_eval(quex::Token *tokenInput)
                 // it is an opeartor
                 if(lastop && (lastop==&startop || lastop->op!=TKN_R_PAREN)) {
                     //unary operator?
-                    if(op->op==TKN_MINUS)
-                        op=getop(TKN_HASH);
-                    else if(op->op == TKN_NOT)
-                        op=getop(TKN_NOT);
+                    if(op->op==TKN_MINUS) // this minus is a negtive unaray operator, because it is after a operator or (
+                        op=getop(TKN_HASH); // unary -
+                    else if (op->op==TKN_NOT)
+                        ;                 // unary !
+                    else if (op->op==TKN_PLUS)
+                        continue;         // just skip the unary +
                     else if(op->op!=TKN_L_PAREN) {
                         fprintf(stderr, "ERROR: Illegal use of binary operator (%c)\n", op->op);
                         exit(EXIT_FAILURE);
@@ -371,7 +373,9 @@ int expression_eval(quex::Token *tokenInput)
             }
         }
     }
-    if(tstart) push_numstack(atoi(tstart->get_text().c_str()));
+
+    if(tstart)
+        push_numstack(atoi(tstart->get_text().c_str()));
 
 
     while(nopstack) {
