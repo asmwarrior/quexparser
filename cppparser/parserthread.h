@@ -219,6 +219,7 @@ protected:
     /** handle the statement: #define XXXXX  */
     void HandleDefines();
 
+    void ReadFunctionArguments(ArgumentList &args);
 
     /** handle the statement:
       * namespace XXX {  */

@@ -158,8 +158,8 @@ public:
             f << tk->DisplayName() << "\t";
         f << "[" << tk->m_Line << "," << tk->m_ImplLine << "]" << endl;
 
-        if (!tk->m_TemplateArgument.empty())
-            f << "template argument " << tk->m_TemplateArgument << endl;
+//        if (!tk->m_TemplateArgument.empty())
+//            f << "template argument " << tk->m_TemplateArgument << endl;
     }
 
     void printList(std::ostream & f)
@@ -169,7 +169,7 @@ public:
         for (TokenList::iterator it = tokens.begin(); it != tokens.end(); it++)
         {
             Token * tk = *it;
-            f << std::setw(15) << tk->GetSelf()<< " "<< tk->GetTokenKindString() << "\t" << tk->DisplayName() << "\t[" << tk->m_Line << "," << tk->m_ImplLine << "]" <<tk->m_TemplateArgument<< endl;
+//            f << std::setw(15) << tk->GetSelf()<< " "<< tk->GetTokenKindString() << "\t" << tk->DisplayName() << "\t[" << tk->m_Line << "," << tk->m_ImplLine << "]" <<tk->m_TemplateArgument<< endl;
         }
     }
 

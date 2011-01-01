@@ -23,7 +23,7 @@ enum FileParsingStatus
     fpsDone
 };
 
-typedef vector<Token*> TokenArray;
+
 typedef vector<Token*> TokenList;
 
 typedef deque<int> TokenIdxList;
@@ -97,7 +97,8 @@ struct SingleArgument
     RawToken name;
     RawToken defaultValue;
 };
-typedef std::vector<cc_string> ArgumentList;
+//typedef std::vector<cc_string> ArgumentList;
+typedef cc_string ArgumentList;
 
 /** for a template type definition, we have such format
   *   AAA<typename T1 = int, class T2 = float>::
@@ -107,6 +108,7 @@ struct ScopeBlock
     RawToken     name;
     ArgumentList templateArgumentList;
 };
+
 
 
 typedef std::vector<ScopeBlock> FullIdentifier;
@@ -145,10 +147,20 @@ class Token
         cc_string m_Type; // this is the return value (if any): e.g. const string&
         cc_string m_ActualType; // this is what the parser believes is the actual return value: e.g. string
         cc_string m_Name;
-        cc_string m_Args;
+
+        /// full type information has the format like  A<a,b>::B<d,f>::C
+        FullIdentifier m_FullType;
+
+        /// full name information could has the same string as full type
+        FullIdentifier m_FullName;
+
+        /// function argument list, hopefully we only get type information
+        ArgumentList m_Args;
+
         cc_string m_RealArgs;
+
         cc_string m_AncestorsString; // all ancestors comma-separated list
-        cc_string m_TemplateArgument;
+
         unsigned int m_FileIdx;
         unsigned int m_Line;
         unsigned int m_ImplFile;
