@@ -176,6 +176,31 @@ void ParserThread::SkipParentheses()
 
 }
 
+void ParserThread::ReadFunctionArguments(ArgumentList &args)
+{
+    //TKN_L_PAREN
+    args.clear();
+
+    RawToken * tk = m_Tokenizer.GetToken();//remove the first TKN_L_PAREN
+
+    QUEX_TYPE_TOKEN_ID id = tk->type_id();
+
+    int level = 1;
+    printf("Skip Parentheses Start at line(%d)column(%d)\n",tk->line_number(),tk->column_number());
+    while(level>0)
+    {
+        tk = m_Tokenizer.GetToken();
+        id = tk->type_id();
+        if (id == TKN_L_PAREN)
+            level++;
+        else if (id == TKN_R_PAREN)
+            level--;
+        else
+            args<<tk->get_text() ;
+    }
+    printf("Skip Parentheses End at line(%d)column(%d)\n",tk->line_number(),tk->column_number());
+
+}
 void ParserThread::SkipBlock()
 {
 
@@ -791,16 +816,13 @@ Token* ParserThread::DoAddToken(TokenKind kind,
 
     TRACE("Adding Token name(%s)line(%d)",newname.c_str(),line);
 
-    if(!m_Context.templateArgument.empty())
-    {
-        newToken->m_TemplateArgument = m_Context.templateArgument;
-        m_Context.templateArgument.clear();
-    }
+    newToken->m_FullType = m_Context.type;
+    newToken->m_FullName = m_Context.name;
 
     if(!m_Context.type.empty())
     {
         newToken->m_Type = m_Context.type.back().name.get_text();
-        //m_Context.typeStr.clear();
+
     }
     newToken->m_FileIdx = m_FileIdx;
     newToken->m_Line    = line;
@@ -909,7 +931,10 @@ void ParserThread::HandleClass(EClassType ct)
 void ParserThread::HandleFunction(cc_string & name)
 {
     TRACE("HandleFunction() : %s %s()",m_Context.type.back().name.get_text().c_str(),name.c_str());
-    SkipParentheses();  //parameter
+    ArgumentList args;
+    ReadFunctionArguments(args);
+
+    //SkipParentheses();  //parameter
 
     RawToken * peek = m_Tokenizer.PeekToken();
 
@@ -919,6 +944,7 @@ void ParserThread::HandleFunction(cc_string & name)
         TokenKind tokenKind = tkFunction ;
         cc_string functionName(name);
         Token* newToken =  DoAddToken(tokenKind, functionName,peek->line_number());
+        newToken->m_Args = args;
         SkipStatementBlock();
     }
     else if (peek->type_id() == TKN_SEMICOLON)
@@ -927,6 +953,7 @@ void ParserThread::HandleFunction(cc_string & name)
         TokenKind tokenKind = tkFunction ;
         cc_string functionName(name);
         Token* newToken =  DoAddToken(tokenKind, functionName,peek->line_number());
+        newToken->m_Args = args;
         m_Tokenizer.GetToken();
     }
     m_Context.EndStatement();
@@ -1182,8 +1209,13 @@ bool ParserThread::ParseFullIdentifer()
 {
     if(m_Context.type.size()==0)
         ParseScopeQueue(m_Context.type);
-    else
+    else if (m_Context.name.size()==0)
         ParseScopeQueue(m_Context.name);
+    else { // both type and name has values, so we push the name to type
+        m_Context.type = m_Context.name;
+        // fill the name again
+        ParseScopeQueue(m_Context.name);
+    }
     return true;
 }
 bool ParserThread::ParseScopeQueue(FullIdentifier& scopeQueue)
@@ -1229,7 +1261,7 @@ bool ParserThread::ParseArgumentList(ArgumentList &argumentList)
     {
         int level = 1;
         argumentList.clear();
-        argumentList.push_back(tk->get_text()); // push <
+        argumentList<<tk->get_text(); // push <
         tk = GetToken();// get a token
         // should match a >
         while(tk->type_id()!=TKN_GREATER)
@@ -1240,7 +1272,7 @@ bool ParserThread::ParseArgumentList(ArgumentList &argumentList)
                 return false;
             }
             std::cout<<*tk<<std::endl;
-            argumentList.push_back(tk->get_text());
+            argumentList<<tk->get_text();
             tk = GetToken();// comsume this one;
 
         }
