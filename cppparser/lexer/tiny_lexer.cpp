@@ -20376,7 +20376,7 @@ TERMINAL_1031_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 208 "cpp.qx"
+        #line 196 "cpp.qx"
         self_send(TKN_CASE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -20403,7 +20403,7 @@ TERMINAL_526_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 172 "cpp.qx"
+        #line 160 "cpp.qx"
         self_send(TKN_EXTERN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -20430,7 +20430,7 @@ TERMINAL_1369_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 253 "cpp.qx"
+        #line 241 "cpp.qx"
         QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_ERROR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -20457,7 +20457,7 @@ TERMINAL_1051_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 209 "cpp.qx"
+        #line 197 "cpp.qx"
         self_send(TKN_DEFAULT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -20484,7 +20484,7 @@ TERMINAL_549_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 173 "cpp.qx"
+        #line 161 "cpp.qx"
         self_send(TKN_EXPLICIT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -20511,7 +20511,7 @@ TERMINAL_1065_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 210 "cpp.qx"
+        #line 198 "cpp.qx"
         self_send(TKN_BREAK);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -20538,7 +20538,7 @@ TERMINAL_563_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 174 "cpp.qx"
+        #line 162 "cpp.qx"
         self_send(TKN_CONST);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -20565,7 +20565,7 @@ TERMINAL_1076_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 211 "cpp.qx"
+        #line 199 "cpp.qx"
         self_send(TKN_GOTO);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -20592,7 +20592,7 @@ TERMINAL_580_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 175 "cpp.qx"
+        #line 163 "cpp.qx"
         self_send(TKN_FRIEND);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -20619,7 +20619,7 @@ TERMINAL_1093_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 212 "cpp.qx"
+        #line 200 "cpp.qx"
         self_send(TKN_SIZEOF);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -20646,7 +20646,7 @@ TERMINAL_1107_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 213 "cpp.qx"
+        #line 201 "cpp.qx"
         self_send(TKN_THROW);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -20673,7 +20673,7 @@ TERMINAL_600_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 176 "cpp.qx"
+        #line 164 "cpp.qx"
         self_send(TKN_VIRTUAL);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -20700,7 +20700,7 @@ TERMINAL_1121_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 215 "cpp.qx"
+        #line 203 "cpp.qx"
         self_send(TKN_USING);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -20727,7 +20727,7 @@ TERMINAL_1129_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 216 "cpp.qx"
+        #line 204 "cpp.qx"
         self_send(TKN_ASM);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -20754,7 +20754,7 @@ TERMINAL_623_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 177 "cpp.qx"
+        #line 165 "cpp.qx"
         self_send(TKN_VOLATILE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -20781,7 +20781,7 @@ TERMINAL_1180_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 219 "cpp.qx"
+        #line 207 "cpp.qx"
         self_send(TKN_TYPEID);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -20808,7 +20808,7 @@ TERMINAL_1143_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 217 "cpp.qx"
+        #line 205 "cpp.qx"
         self_send(TKN_ASM_EXT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -20835,7 +20835,7 @@ TERMINAL_640_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 178 "cpp.qx"
+        #line 166 "cpp.qx"
         self_send(TKN_STATIC);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -20862,7 +20862,7 @@ TERMINAL_1163_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 218 "cpp.qx"
+        #line 206 "cpp.qx"
         self_send(TKN_TYPEDEF);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -20889,7 +20889,7 @@ TERMINAL_657_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 179 "cpp.qx"
+        #line 167 "cpp.qx"
         self_send(TKN_INLINE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -20916,7 +20916,7 @@ TERMINAL_668_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 180 "cpp.qx"
+        #line 168 "cpp.qx"
         self_send(TKN_AUTO);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -20943,7 +20943,7 @@ TERMINAL_1306_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 246 "cpp.qx"
+        #line 234 "cpp.qx"
         QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_IF);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -20970,7 +20970,7 @@ TERMINAL_1191_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 220 "cpp.qx"
+        #line 208 "cpp.qx"
         self_send(TKN_THIS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -20997,7 +20997,7 @@ TERMINAL_691_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 181 "cpp.qx"
+        #line 169 "cpp.qx"
         self_send(TKN_REGISTER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -21024,7 +21024,7 @@ TERMINAL_1214_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 222 "cpp.qx"
+        #line 210 "cpp.qx"
         self_send(TKN_TYPENAME);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -21051,7 +21051,7 @@ TERMINAL_711_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 182 "cpp.qx"
+        #line 170 "cpp.qx"
         self_send(TKN_MUTABLE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -21078,7 +21078,7 @@ TERMINAL_716_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 184 "cpp.qx"
+        #line 172 "cpp.qx"
         self_send(TKN_IF);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -21105,7 +21105,7 @@ TERMINAL_1237_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 223 "cpp.qx"
+        #line 211 "cpp.qx"
         self_send(TKN_OPERATOR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -21132,7 +21132,7 @@ TERMINAL_727_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 185 "cpp.qx"
+        #line 173 "cpp.qx"
         self_send(TKN_ELSE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -21159,7 +21159,7 @@ TERMINAL_1241_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 226 "cpp.qx"
+        #line 214 "cpp.qx"
         QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
         self_send(TKN_NUMBER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -21187,7 +21187,7 @@ TERMINAL_1243_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 227 "cpp.qx"
+        #line 215 "cpp.qx"
         QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
         self_send(TKN_STRING);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -21215,7 +21215,7 @@ TERMINAL_1245_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 228 "cpp.qx"
+        #line 216 "cpp.qx"
         QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
         self_send(TKN_QUOTED_CHAR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -21243,7 +21243,7 @@ TERMINAL_1247_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 230 "cpp.qx"
+        #line 218 "cpp.qx"
         QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
         self_send(TKN_NUMBER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -21271,7 +21271,7 @@ TERMINAL_1249_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 231 "cpp.qx"
+        #line 219 "cpp.qx"
         QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
         self_send(TKN_NUMBER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -21299,7 +21299,7 @@ TERMINAL_1251_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 232 "cpp.qx"
+        #line 220 "cpp.qx"
         QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
         self_send(TKN_NUMBER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -21327,7 +21327,7 @@ TERMINAL_1253_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 233 "cpp.qx"
+        #line 221 "cpp.qx"
         QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
         self_send(TKN_NUMBER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -21473,7 +21473,7 @@ TERMINAL_744_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 186 "cpp.qx"
+        #line 174 "cpp.qx"
         self_send(TKN_SWITCH);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -21500,7 +21500,7 @@ TERMINAL_752_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 187 "cpp.qx"
+        #line 175 "cpp.qx"
         self_send(TKN_FOR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -21527,7 +21527,7 @@ TERMINAL_757_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 188 "cpp.qx"
+        #line 176 "cpp.qx"
         self_send(TKN_DO);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -21554,7 +21554,7 @@ TERMINAL_1272_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 243 "cpp.qx"
+        #line 231 "cpp.qx"
         QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
         self_send(TKN_PP_INCLUDE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -21582,7 +21582,7 @@ TERMINAL_771_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 189 "cpp.qx"
+        #line 177 "cpp.qx"
         self_send(TKN_WHILE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -21609,7 +21609,7 @@ TERMINAL_1288_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 244 "cpp.qx"
+        #line 232 "cpp.qx"
         QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
         self_send(TKN_PP_INCLUDE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -21637,7 +21637,7 @@ TERMINAL_1324_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 248 "cpp.qx"
+        #line 236 "cpp.qx"
         QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_IFDEF);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -21664,7 +21664,7 @@ TERMINAL_270_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 91 "cpp.qx"
+        #line 79 "cpp.qx"
         self_send(TKN_L_PAREN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -21691,7 +21691,7 @@ TERMINAL_272_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 92 "cpp.qx"
+        #line 80 "cpp.qx"
         self_send(TKN_R_PAREN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -21718,7 +21718,7 @@ TERMINAL_1297_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 245 "cpp.qx"
+        #line 233 "cpp.qx"
         QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_DEFINE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -21745,7 +21745,7 @@ TERMINAL_274_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 93 "cpp.qx"
+        #line 81 "cpp.qx"
         self_send(TKN_L_BRACE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -21772,7 +21772,7 @@ TERMINAL_276_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 94 "cpp.qx"
+        #line 82 "cpp.qx"
         self_send(TKN_R_BRACE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -21799,7 +21799,7 @@ TERMINAL_278_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 95 "cpp.qx"
+        #line 83 "cpp.qx"
         self_send(TKN_L_SQUARE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -21826,7 +21826,7 @@ TERMINAL_280_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 96 "cpp.qx"
+        #line 84 "cpp.qx"
         self_send(TKN_R_SQUARE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -21853,7 +21853,7 @@ TERMINAL_282_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 98 "cpp.qx"
+        #line 86 "cpp.qx"
         self_send(TKN_DOT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -21880,7 +21880,7 @@ TERMINAL_284_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 99 "cpp.qx"
+        #line 87 "cpp.qx"
         self_send(TKN_ELLIPSIS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -21907,7 +21907,7 @@ TERMINAL_797_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 191 "cpp.qx"
+        #line 179 "cpp.qx"
         self_send(TKN_NAMESPACE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -21934,7 +21934,7 @@ TERMINAL_286_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 100 "cpp.qx"
+        #line 88 "cpp.qx"
         self_send(TKN_COLON);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -21961,7 +21961,7 @@ TERMINAL_288_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 101 "cpp.qx"
+        #line 89 "cpp.qx"
         self_send(TKN_DOUBLE_COLON);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -21988,7 +21988,7 @@ TERMINAL_290_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 102 "cpp.qx"
+        #line 90 "cpp.qx"
         self_send(TKN_SEMICOLON);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22015,7 +22015,7 @@ TERMINAL_1315_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 247 "cpp.qx"
+        #line 235 "cpp.qx"
         QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_ELIF);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22042,7 +22042,7 @@ TERMINAL_292_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 103 "cpp.qx"
+        #line 91 "cpp.qx"
         self_send(TKN_COMMA);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22069,7 +22069,7 @@ TERMINAL_294_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 104 "cpp.qx"
+        #line 92 "cpp.qx"
         self_send(TKN_QUESTION);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22096,7 +22096,7 @@ TERMINAL_296_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 105 "cpp.qx"
+        #line 93 "cpp.qx"
         self_send(TKN_ARROW);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22123,7 +22123,7 @@ TERMINAL_298_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 108 "cpp.qx"
+        #line 96 "cpp.qx"
         self_send(TKN_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22150,7 +22150,7 @@ TERMINAL_811_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 192 "cpp.qx"
+        #line 180 "cpp.qx"
         self_send(TKN_CLASS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22177,7 +22177,7 @@ TERMINAL_300_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 109 "cpp.qx"
+        #line 97 "cpp.qx"
         self_send(TKN_PLUS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22204,7 +22204,7 @@ TERMINAL_302_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 110 "cpp.qx"
+        #line 98 "cpp.qx"
         self_send(TKN_PLUS_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22231,7 +22231,7 @@ TERMINAL_304_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 111 "cpp.qx"
+        #line 99 "cpp.qx"
         self_send(TKN_DOUBLE_PLUS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22258,7 +22258,7 @@ TERMINAL_306_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 112 "cpp.qx"
+        #line 100 "cpp.qx"
         self_send(TKN_MINUS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22285,7 +22285,7 @@ TERMINAL_308_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 113 "cpp.qx"
+        #line 101 "cpp.qx"
         self_send(TKN_DOUBLE_MINUS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22312,7 +22312,7 @@ TERMINAL_1333_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 249 "cpp.qx"
+        #line 237 "cpp.qx"
         QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_IFNDEF);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22339,7 +22339,7 @@ TERMINAL_310_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 114 "cpp.qx"
+        #line 102 "cpp.qx"
         self_send(TKN_MINUS_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22366,7 +22366,7 @@ TERMINAL_312_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 116 "cpp.qx"
+        #line 104 "cpp.qx"
         self_send(TKN_MULT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22393,7 +22393,7 @@ TERMINAL_314_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 117 "cpp.qx"
+        #line 105 "cpp.qx"
         self_send(TKN_MULT_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22420,7 +22420,7 @@ TERMINAL_316_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 118 "cpp.qx"
+        #line 106 "cpp.qx"
         self_send(TKN_DIV);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22447,7 +22447,7 @@ TERMINAL_318_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 119 "cpp.qx"
+        #line 107 "cpp.qx"
         self_send(TKN_DIV_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22474,7 +22474,7 @@ TERMINAL_320_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 120 "cpp.qx"
+        #line 108 "cpp.qx"
         self_send(TKN_MODULO);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22501,7 +22501,7 @@ TERMINAL_322_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 121 "cpp.qx"
+        #line 109 "cpp.qx"
         self_send(TKN_MODULO_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22528,7 +22528,7 @@ TERMINAL_324_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 124 "cpp.qx"
+        #line 112 "cpp.qx"
         self_send(TKN_L_SHIFT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22555,7 +22555,7 @@ TERMINAL_326_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 125 "cpp.qx"
+        #line 113 "cpp.qx"
         self_send(TKN_L_SHIFT_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22582,7 +22582,7 @@ TERMINAL_1351_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 251 "cpp.qx"
+        #line 239 "cpp.qx"
         QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_ELSE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22609,7 +22609,7 @@ TERMINAL_328_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 126 "cpp.qx"
+        #line 114 "cpp.qx"
         self_send(TKN_R_SHIFT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22636,7 +22636,7 @@ TERMINAL_330_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 127 "cpp.qx"
+        #line 115 "cpp.qx"
         self_send(TKN_R_SHIFT_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22663,7 +22663,7 @@ TERMINAL_332_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 130 "cpp.qx"
+        #line 118 "cpp.qx"
         self_send(TKN_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22690,7 +22690,7 @@ TERMINAL_1421_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 225 "cpp.qx"
+        #line 213 "cpp.qx"
         QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
         self_send(TKN_IDENTIFIER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -22718,7 +22718,7 @@ TERMINAL_1360_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 252 "cpp.qx"
+        #line 240 "cpp.qx"
         QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_PRAGMA);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22745,7 +22745,7 @@ TERMINAL_337_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 131 "cpp.qx"
+        #line 119 "cpp.qx"
         self_send(TKN_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22772,7 +22772,7 @@ TERMINAL_339_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 133 "cpp.qx"
+        #line 121 "cpp.qx"
         self_send(TKN_GREATER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22799,7 +22799,7 @@ TERMINAL_341_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 134 "cpp.qx"
+        #line 122 "cpp.qx"
         self_send(TKN_GREATER_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22826,7 +22826,7 @@ TERMINAL_343_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 135 "cpp.qx"
+        #line 123 "cpp.qx"
         self_send(TKN_LESS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22853,7 +22853,7 @@ TERMINAL_345_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 136 "cpp.qx"
+        #line 124 "cpp.qx"
         self_send(TKN_LESS_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22880,7 +22880,7 @@ TERMINAL_347_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 138 "cpp.qx"
+        #line 126 "cpp.qx"
         self_send(TKN_NOT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22907,7 +22907,7 @@ TERMINAL_865_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 195 "cpp.qx"
+        #line 183 "cpp.qx"
         self_send(TKN_UNION);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22934,7 +22934,7 @@ TERMINAL_1378_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 254 "cpp.qx"
+        #line 242 "cpp.qx"
         QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_UNDEF);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22961,7 +22961,7 @@ TERMINAL_355_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 139 "cpp.qx"
+        #line 127 "cpp.qx"
         self_send(TKN_NOT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -22988,7 +22988,7 @@ TERMINAL_357_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 140 "cpp.qx"
+        #line 128 "cpp.qx"
         self_send(TKN_NOT_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23015,7 +23015,7 @@ TERMINAL_828_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 193 "cpp.qx"
+        #line 181 "cpp.qx"
         self_send(TKN_STRUCT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23042,7 +23042,7 @@ TERMINAL_876_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 196 "cpp.qx"
+        #line 184 "cpp.qx"
         self_send(TKN_ENUM);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23232,7 +23232,7 @@ TERMINAL_884_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 197 "cpp.qx"
+        #line 185 "cpp.qx"
         self_send(TKN_TRY);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23259,7 +23259,7 @@ TERMINAL_1342_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 250 "cpp.qx"
+        #line 238 "cpp.qx"
         QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_ENDIF);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23286,7 +23286,7 @@ TERMINAL_374_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 141 "cpp.qx"
+        #line 129 "cpp.qx"
         self_send(TKN_NOT_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23313,7 +23313,7 @@ TERMINAL_376_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 143 "cpp.qx"
+        #line 131 "cpp.qx"
         self_send(TKN_BITOR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23361,7 +23361,7 @@ TERMINAL_898_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 198 "cpp.qx"
+        #line 186 "cpp.qx"
         self_send(TKN_CATCH);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23388,7 +23388,7 @@ TERMINAL_1003_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 206 "cpp.qx"
+        #line 194 "cpp.qx"
         self_send(TKN_CONTINUE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23415,7 +23415,7 @@ TERMINAL_390_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 144 "cpp.qx"
+        #line 132 "cpp.qx"
         self_send(TKN_BITOR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23442,7 +23442,7 @@ TERMINAL_392_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 145 "cpp.qx"
+        #line 133 "cpp.qx"
         self_send(TKN_OR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23491,7 +23491,7 @@ TERMINAL_397_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 146 "cpp.qx"
+        #line 134 "cpp.qx"
         self_send(TKN_OR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23518,7 +23518,7 @@ TERMINAL_399_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 147 "cpp.qx"
+        #line 135 "cpp.qx"
         self_send(TKN_OR_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23545,7 +23545,7 @@ TERMINAL_915_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 200 "cpp.qx"
+        #line 188 "cpp.qx"
         self_send(TKN_PUBLIC);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23572,7 +23572,7 @@ TERMINAL_413_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 148 "cpp.qx"
+        #line 136 "cpp.qx"
         self_send(TKN_OR_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23599,7 +23599,7 @@ TERMINAL_415_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 150 "cpp.qx"
+        #line 138 "cpp.qx"
         self_send(TKN_XOR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23626,7 +23626,7 @@ TERMINAL_423_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 151 "cpp.qx"
+        #line 139 "cpp.qx"
         self_send(TKN_XOR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23653,7 +23653,7 @@ TERMINAL_425_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 152 "cpp.qx"
+        #line 140 "cpp.qx"
         self_send(TKN_XOR_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23680,7 +23680,7 @@ TERMINAL_955_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 202 "cpp.qx"
+        #line 190 "cpp.qx"
         self_send(TKN_PRIVATE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23707,7 +23707,7 @@ TERMINAL_445_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 153 "cpp.qx"
+        #line 141 "cpp.qx"
         self_send(TKN_XOR_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23734,7 +23734,7 @@ TERMINAL_447_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 155 "cpp.qx"
+        #line 143 "cpp.qx"
         self_send(TKN_COMPL);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23761,7 +23761,7 @@ TERMINAL_963_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 204 "cpp.qx"
+        #line 192 "cpp.qx"
         self_send(TKN_NEW);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23788,7 +23788,7 @@ TERMINAL_461_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 156 "cpp.qx"
+        #line 144 "cpp.qx"
         self_send(TKN_COMPL);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23815,7 +23815,7 @@ TERMINAL_463_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 158 "cpp.qx"
+        #line 146 "cpp.qx"
         self_send(TKN_BITAND);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23842,7 +23842,7 @@ TERMINAL_980_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 205 "cpp.qx"
+        #line 193 "cpp.qx"
         self_send(TKN_DELETE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23869,7 +23869,7 @@ TERMINAL_480_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 159 "cpp.qx"
+        #line 147 "cpp.qx"
         self_send(TKN_BITAND);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23896,7 +23896,7 @@ TERMINAL_482_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 160 "cpp.qx"
+        #line 148 "cpp.qx"
         self_send(TKN_AND);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23923,7 +23923,7 @@ TERMINAL_490_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 161 "cpp.qx"
+        #line 149 "cpp.qx"
         self_send(TKN_AND);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23950,7 +23950,7 @@ TERMINAL_935_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 201 "cpp.qx"
+        #line 189 "cpp.qx"
         self_send(TKN_PROTECT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -23977,7 +23977,7 @@ TERMINAL_492_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 162 "cpp.qx"
+        #line 150 "cpp.qx"
         self_send(TKN_AND_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -24004,7 +24004,7 @@ TERMINAL_851_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 194 "cpp.qx"
+        #line 182 "cpp.qx"
         self_send(TKN_TEMPLATE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -24031,7 +24031,7 @@ TERMINAL_1020_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 207 "cpp.qx"
+        #line 195 "cpp.qx"
         self_send(TKN_RETURN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -24058,7 +24058,7 @@ TERMINAL_509_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 163 "cpp.qx"
+        #line 151 "cpp.qx"
         self_send(TKN_AND_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -24108,7 +24108,6 @@ else {
     QUEX_NAME(Buffer_input_p_increment)(&me->buffer);
 }
 
-                QUEX_NAME(Buffer_set_terminating_zero_for_lexeme)(&me->buffer);
                 {
                     {
         #   ifdef __QUEX_OPTION_COUNTER
@@ -24118,21 +24117,11 @@ else {
         #   endif
         
         #line 72 "cpp.qx"
+        QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
+        self_send(TKN_FAILURE);
+        QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
-                        for(QUEX_TYPE_CHARACTER * iterator = LexemeEnd;
-                            iterator >= LexemeBegin && *iterator != '\n';
-                            --iterator) { 
-                            //std::cout<<"current char = "<<*iterator<<std::endl;
-                            if( *iterator == '\"' ){ 
-                                self_send1(TKN_FAILURE_STRING,Lexeme);
-                                RETURN;
-                            } 
-                        }
-                        self_send1(TKN_FAILURE,Lexeme);
-                        RETURN;
-            
-        
-#line 24136 "tiny_lexer.cpp"
+#line 24125 "tiny_lexer.cpp"
         
         }
                 }
@@ -42894,7 +42883,7 @@ TERMINAL_1031_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 208 "cpp.qx"
+        #line 196 "cpp.qx"
         self_send(TKN_CASE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -42921,7 +42910,7 @@ TERMINAL_526_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 172 "cpp.qx"
+        #line 160 "cpp.qx"
         self_send(TKN_EXTERN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -42948,7 +42937,7 @@ TERMINAL_1051_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 209 "cpp.qx"
+        #line 197 "cpp.qx"
         self_send(TKN_DEFAULT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -42975,7 +42964,7 @@ TERMINAL_549_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 173 "cpp.qx"
+        #line 161 "cpp.qx"
         self_send(TKN_EXPLICIT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43002,7 +42991,7 @@ TERMINAL_1065_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 210 "cpp.qx"
+        #line 198 "cpp.qx"
         self_send(TKN_BREAK);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43029,7 +43018,7 @@ TERMINAL_563_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 174 "cpp.qx"
+        #line 162 "cpp.qx"
         self_send(TKN_CONST);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43056,7 +43045,7 @@ TERMINAL_1076_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 211 "cpp.qx"
+        #line 199 "cpp.qx"
         self_send(TKN_GOTO);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43083,7 +43072,7 @@ TERMINAL_580_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 175 "cpp.qx"
+        #line 163 "cpp.qx"
         self_send(TKN_FRIEND);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43110,7 +43099,7 @@ TERMINAL_1093_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 212 "cpp.qx"
+        #line 200 "cpp.qx"
         self_send(TKN_SIZEOF);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43137,7 +43126,7 @@ TERMINAL_1107_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 213 "cpp.qx"
+        #line 201 "cpp.qx"
         self_send(TKN_THROW);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43164,7 +43153,7 @@ TERMINAL_600_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 176 "cpp.qx"
+        #line 164 "cpp.qx"
         self_send(TKN_VIRTUAL);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43191,7 +43180,7 @@ TERMINAL_1121_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 215 "cpp.qx"
+        #line 203 "cpp.qx"
         self_send(TKN_USING);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43218,7 +43207,7 @@ TERMINAL_1129_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 216 "cpp.qx"
+        #line 204 "cpp.qx"
         self_send(TKN_ASM);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43245,7 +43234,7 @@ TERMINAL_623_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 177 "cpp.qx"
+        #line 165 "cpp.qx"
         self_send(TKN_VOLATILE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43272,7 +43261,7 @@ TERMINAL_1180_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 219 "cpp.qx"
+        #line 207 "cpp.qx"
         self_send(TKN_TYPEID);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43299,7 +43288,7 @@ TERMINAL_1143_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 217 "cpp.qx"
+        #line 205 "cpp.qx"
         self_send(TKN_ASM_EXT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43326,7 +43315,7 @@ TERMINAL_640_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 178 "cpp.qx"
+        #line 166 "cpp.qx"
         self_send(TKN_STATIC);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43353,7 +43342,7 @@ TERMINAL_1163_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 218 "cpp.qx"
+        #line 206 "cpp.qx"
         self_send(TKN_TYPEDEF);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43380,7 +43369,7 @@ TERMINAL_657_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 179 "cpp.qx"
+        #line 167 "cpp.qx"
         self_send(TKN_INLINE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43407,7 +43396,7 @@ TERMINAL_668_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 180 "cpp.qx"
+        #line 168 "cpp.qx"
         self_send(TKN_AUTO);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43434,7 +43423,7 @@ TERMINAL_1191_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 220 "cpp.qx"
+        #line 208 "cpp.qx"
         self_send(TKN_THIS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43461,7 +43450,7 @@ TERMINAL_691_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 181 "cpp.qx"
+        #line 169 "cpp.qx"
         self_send(TKN_REGISTER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43488,7 +43477,7 @@ TERMINAL_1214_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 222 "cpp.qx"
+        #line 210 "cpp.qx"
         self_send(TKN_TYPENAME);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43515,7 +43504,7 @@ TERMINAL_711_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 182 "cpp.qx"
+        #line 170 "cpp.qx"
         self_send(TKN_MUTABLE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43542,7 +43531,7 @@ TERMINAL_716_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 184 "cpp.qx"
+        #line 172 "cpp.qx"
         self_send(TKN_IF);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43569,7 +43558,7 @@ TERMINAL_1237_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 223 "cpp.qx"
+        #line 211 "cpp.qx"
         self_send(TKN_OPERATOR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43596,7 +43585,7 @@ TERMINAL_727_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 185 "cpp.qx"
+        #line 173 "cpp.qx"
         self_send(TKN_ELSE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43623,7 +43612,7 @@ TERMINAL_1241_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 226 "cpp.qx"
+        #line 214 "cpp.qx"
         QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
         self_send(TKN_NUMBER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -43651,7 +43640,7 @@ TERMINAL_1243_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 227 "cpp.qx"
+        #line 215 "cpp.qx"
         QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
         self_send(TKN_STRING);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -43679,7 +43668,7 @@ TERMINAL_1245_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 228 "cpp.qx"
+        #line 216 "cpp.qx"
         QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
         self_send(TKN_QUOTED_CHAR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -43707,7 +43696,7 @@ TERMINAL_1247_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 230 "cpp.qx"
+        #line 218 "cpp.qx"
         QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
         self_send(TKN_NUMBER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -43735,7 +43724,7 @@ TERMINAL_1249_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 231 "cpp.qx"
+        #line 219 "cpp.qx"
         QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
         self_send(TKN_NUMBER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -43763,7 +43752,7 @@ TERMINAL_1251_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 232 "cpp.qx"
+        #line 220 "cpp.qx"
         QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
         self_send(TKN_NUMBER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -43791,7 +43780,7 @@ TERMINAL_1253_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 233 "cpp.qx"
+        #line 221 "cpp.qx"
         QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
         self_send(TKN_NUMBER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -43819,7 +43808,7 @@ TERMINAL_744_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 186 "cpp.qx"
+        #line 174 "cpp.qx"
         self_send(TKN_SWITCH);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43846,7 +43835,7 @@ TERMINAL_752_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 187 "cpp.qx"
+        #line 175 "cpp.qx"
         self_send(TKN_FOR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43873,7 +43862,7 @@ TERMINAL_757_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 188 "cpp.qx"
+        #line 176 "cpp.qx"
         self_send(TKN_DO);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43900,7 +43889,7 @@ TERMINAL_771_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 189 "cpp.qx"
+        #line 177 "cpp.qx"
         self_send(TKN_WHILE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43927,7 +43916,7 @@ TERMINAL_270_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 91 "cpp.qx"
+        #line 79 "cpp.qx"
         self_send(TKN_L_PAREN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43954,7 +43943,7 @@ TERMINAL_272_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 92 "cpp.qx"
+        #line 80 "cpp.qx"
         self_send(TKN_R_PAREN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -43981,7 +43970,7 @@ TERMINAL_274_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 93 "cpp.qx"
+        #line 81 "cpp.qx"
         self_send(TKN_L_BRACE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44008,7 +43997,7 @@ TERMINAL_276_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 94 "cpp.qx"
+        #line 82 "cpp.qx"
         self_send(TKN_R_BRACE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44035,7 +44024,7 @@ TERMINAL_278_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 95 "cpp.qx"
+        #line 83 "cpp.qx"
         self_send(TKN_L_SQUARE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44062,7 +44051,7 @@ TERMINAL_280_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 96 "cpp.qx"
+        #line 84 "cpp.qx"
         self_send(TKN_R_SQUARE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44089,7 +44078,7 @@ TERMINAL_282_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 98 "cpp.qx"
+        #line 86 "cpp.qx"
         self_send(TKN_DOT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44116,7 +44105,7 @@ TERMINAL_284_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 99 "cpp.qx"
+        #line 87 "cpp.qx"
         self_send(TKN_ELLIPSIS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44143,7 +44132,7 @@ TERMINAL_797_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 191 "cpp.qx"
+        #line 179 "cpp.qx"
         self_send(TKN_NAMESPACE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44170,7 +44159,7 @@ TERMINAL_286_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 100 "cpp.qx"
+        #line 88 "cpp.qx"
         self_send(TKN_COLON);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44197,7 +44186,7 @@ TERMINAL_288_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 101 "cpp.qx"
+        #line 89 "cpp.qx"
         self_send(TKN_DOUBLE_COLON);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44224,7 +44213,7 @@ TERMINAL_290_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 102 "cpp.qx"
+        #line 90 "cpp.qx"
         self_send(TKN_SEMICOLON);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44251,7 +44240,7 @@ TERMINAL_292_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 103 "cpp.qx"
+        #line 91 "cpp.qx"
         self_send(TKN_COMMA);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44278,7 +44267,7 @@ TERMINAL_294_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 104 "cpp.qx"
+        #line 92 "cpp.qx"
         self_send(TKN_QUESTION);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44305,7 +44294,7 @@ TERMINAL_296_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 105 "cpp.qx"
+        #line 93 "cpp.qx"
         self_send(TKN_ARROW);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44332,7 +44321,7 @@ TERMINAL_298_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 108 "cpp.qx"
+        #line 96 "cpp.qx"
         self_send(TKN_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44359,7 +44348,7 @@ TERMINAL_811_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 192 "cpp.qx"
+        #line 180 "cpp.qx"
         self_send(TKN_CLASS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44386,7 +44375,7 @@ TERMINAL_300_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 109 "cpp.qx"
+        #line 97 "cpp.qx"
         self_send(TKN_PLUS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44413,7 +44402,7 @@ TERMINAL_302_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 110 "cpp.qx"
+        #line 98 "cpp.qx"
         self_send(TKN_PLUS_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44440,7 +44429,7 @@ TERMINAL_304_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 111 "cpp.qx"
+        #line 99 "cpp.qx"
         self_send(TKN_DOUBLE_PLUS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44467,7 +44456,7 @@ TERMINAL_306_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 112 "cpp.qx"
+        #line 100 "cpp.qx"
         self_send(TKN_MINUS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44494,7 +44483,7 @@ TERMINAL_308_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 113 "cpp.qx"
+        #line 101 "cpp.qx"
         self_send(TKN_DOUBLE_MINUS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44521,7 +44510,7 @@ TERMINAL_310_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 114 "cpp.qx"
+        #line 102 "cpp.qx"
         self_send(TKN_MINUS_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44548,7 +44537,7 @@ TERMINAL_312_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 116 "cpp.qx"
+        #line 104 "cpp.qx"
         self_send(TKN_MULT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44575,7 +44564,7 @@ TERMINAL_314_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 117 "cpp.qx"
+        #line 105 "cpp.qx"
         self_send(TKN_MULT_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44602,7 +44591,7 @@ TERMINAL_316_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 118 "cpp.qx"
+        #line 106 "cpp.qx"
         self_send(TKN_DIV);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44629,7 +44618,7 @@ TERMINAL_318_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 119 "cpp.qx"
+        #line 107 "cpp.qx"
         self_send(TKN_DIV_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44656,7 +44645,7 @@ TERMINAL_320_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 120 "cpp.qx"
+        #line 108 "cpp.qx"
         self_send(TKN_MODULO);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44683,7 +44672,7 @@ TERMINAL_322_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 121 "cpp.qx"
+        #line 109 "cpp.qx"
         self_send(TKN_MODULO_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44710,7 +44699,7 @@ TERMINAL_324_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 124 "cpp.qx"
+        #line 112 "cpp.qx"
         self_send(TKN_L_SHIFT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44737,7 +44726,7 @@ TERMINAL_326_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 125 "cpp.qx"
+        #line 113 "cpp.qx"
         self_send(TKN_L_SHIFT_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44764,7 +44753,7 @@ TERMINAL_328_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 126 "cpp.qx"
+        #line 114 "cpp.qx"
         self_send(TKN_R_SHIFT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44791,7 +44780,7 @@ TERMINAL_330_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 127 "cpp.qx"
+        #line 115 "cpp.qx"
         self_send(TKN_R_SHIFT_ASSIGN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44818,7 +44807,7 @@ TERMINAL_332_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 130 "cpp.qx"
+        #line 118 "cpp.qx"
         self_send(TKN_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44845,7 +44834,7 @@ TERMINAL_337_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 131 "cpp.qx"
+        #line 119 "cpp.qx"
         self_send(TKN_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44872,7 +44861,7 @@ TERMINAL_339_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 133 "cpp.qx"
+        #line 121 "cpp.qx"
         self_send(TKN_GREATER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44899,7 +44888,7 @@ TERMINAL_341_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 134 "cpp.qx"
+        #line 122 "cpp.qx"
         self_send(TKN_GREATER_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44926,7 +44915,7 @@ TERMINAL_343_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 135 "cpp.qx"
+        #line 123 "cpp.qx"
         self_send(TKN_LESS);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44953,7 +44942,7 @@ TERMINAL_345_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 136 "cpp.qx"
+        #line 124 "cpp.qx"
         self_send(TKN_LESS_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -44980,7 +44969,7 @@ TERMINAL_347_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 138 "cpp.qx"
+        #line 126 "cpp.qx"
         self_send(TKN_NOT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -45007,7 +44996,7 @@ TERMINAL_865_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 195 "cpp.qx"
+        #line 183 "cpp.qx"
         self_send(TKN_UNION);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -45034,7 +45023,7 @@ TERMINAL_355_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 139 "cpp.qx"
+        #line 127 "cpp.qx"
         self_send(TKN_NOT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -45061,7 +45050,7 @@ TERMINAL_357_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 140 "cpp.qx"
+        #line 128 "cpp.qx"
         self_send(TKN_NOT_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -45088,7 +45077,7 @@ TERMINAL_828_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 193 "cpp.qx"
+        #line 181 "cpp.qx"
         self_send(TKN_STRUCT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -45115,7 +45104,7 @@ TERMINAL_876_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 196 "cpp.qx"
+        #line 184 "cpp.qx"
         self_send(TKN_ENUM);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -45142,7 +45131,7 @@ TERMINAL_884_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 197 "cpp.qx"
+        #line 185 "cpp.qx"
         self_send(TKN_TRY);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -45169,7 +45158,7 @@ TERMINAL_374_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 141 "cpp.qx"
+        #line 129 "cpp.qx"
         self_send(TKN_NOT_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -45196,7 +45185,7 @@ TERMINAL_376_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 143 "cpp.qx"
+        #line 131 "cpp.qx"
         self_send(TKN_BITOR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -45223,7 +45212,7 @@ TERMINAL_898_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 198 "cpp.qx"
+        #line 186 "cpp.qx"
         self_send(TKN_CATCH);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -45250,7 +45239,7 @@ TERMINAL_1003_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 206 "cpp.qx"
+        #line 194 "cpp.qx"
         self_send(TKN_CONTINUE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -45277,7 +45266,7 @@ TERMINAL_390_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 144 "cpp.qx"
+        #line 132 "cpp.qx"
         self_send(TKN_BITOR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -45304,7 +45293,7 @@ TERMINAL_392_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 145 "cpp.qx"
+        #line 133 "cpp.qx"
         self_send(TKN_OR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -45331,7 +45320,7 @@ TERMINAL_397_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 146 "cpp.qx"
+        #line 134 "cpp.qx"
         self_send(TKN_OR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -45460,7 +45449,7 @@ TERMINAL_399_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 147 "cpp.qx"
+        #line 135 "cpp.qx"
         self_send(TKN_OR_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -45650,7 +45639,7 @@ TERMINAL_915_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 200 "cpp.qx"
+        #line 188 "cpp.qx"
         self_send(TKN_PUBLIC);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -45677,7 +45666,7 @@ TERMINAL_413_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 148 "cpp.qx"
+        #line 136 "cpp.qx"
         self_send(TKN_OR_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -45704,7 +45693,7 @@ TERMINAL_415_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 150 "cpp.qx"
+        #line 138 "cpp.qx"
         self_send(TKN_XOR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -45731,7 +45720,7 @@ TERMINAL_1444_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 269 "cpp.qx"
+        #line 257 "cpp.qx"
         self_send(TKN_DEFINED);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -45758,7 +45747,7 @@ TERMINAL_1446_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 270 "cpp.qx"
+        #line 258 "cpp.qx"
         self_send(TKN_HASH);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -45785,7 +45774,7 @@ TERMINAL_423_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 151 "cpp.qx"
+        #line 139 "cpp.qx"
         self_send(TKN_XOR);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -45812,7 +45801,7 @@ TERMINAL_1448_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 271 "cpp.qx"
+        #line 259 "cpp.qx"
         self_send(TKN_DOUBLE_HASH);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -45839,7 +45828,7 @@ TERMINAL_425_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 152 "cpp.qx"
+        #line 140 "cpp.qx"
         self_send(TKN_XOR_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -45866,7 +45855,7 @@ TERMINAL_955_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 202 "cpp.qx"
+        #line 190 "cpp.qx"
         self_send(TKN_PRIVATE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -45893,7 +45882,7 @@ TERMINAL_445_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 153 "cpp.qx"
+        #line 141 "cpp.qx"
         self_send(TKN_XOR_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -45920,7 +45909,7 @@ TERMINAL_447_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 155 "cpp.qx"
+        #line 143 "cpp.qx"
         self_send(TKN_COMPL);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -45947,7 +45936,7 @@ TERMINAL_963_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 204 "cpp.qx"
+        #line 192 "cpp.qx"
         self_send(TKN_NEW);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -45974,7 +45963,7 @@ TERMINAL_1477_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 272 "cpp.qx"
+        #line 260 "cpp.qx"
         QUEX_NAME(enter_mode)(&self, &PROGRAM);self_send(TKN_PP_FINISH);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -46002,7 +45991,7 @@ TERMINAL_1479_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 273 "cpp.qx"
+        #line 261 "cpp.qx"
         QUEX_NAME(enter_mode)(&self, &PROGRAM);self_send(TKN_PP_FINISH);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -46029,7 +46018,7 @@ TERMINAL_461_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 156 "cpp.qx"
+        #line 144 "cpp.qx"
         self_send(TKN_COMPL);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -46056,7 +46045,7 @@ TERMINAL_463_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 158 "cpp.qx"
+        #line 146 "cpp.qx"
         self_send(TKN_BITAND);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -46105,7 +46094,7 @@ TERMINAL_980_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 205 "cpp.qx"
+        #line 193 "cpp.qx"
         self_send(TKN_DELETE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -46132,7 +46121,7 @@ TERMINAL_1493_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 225 "cpp.qx"
+        #line 213 "cpp.qx"
         QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
         self_send(TKN_IDENTIFIER);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -46160,7 +46149,7 @@ TERMINAL_480_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 159 "cpp.qx"
+        #line 147 "cpp.qx"
         self_send(TKN_BITAND);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -46187,7 +46176,7 @@ TERMINAL_482_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 160 "cpp.qx"
+        #line 148 "cpp.qx"
         self_send(TKN_AND);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -46214,7 +46203,7 @@ TERMINAL_490_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 161 "cpp.qx"
+        #line 149 "cpp.qx"
         self_send(TKN_AND);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -46241,7 +46230,7 @@ TERMINAL_935_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 201 "cpp.qx"
+        #line 189 "cpp.qx"
         self_send(TKN_PROTECT);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -46268,7 +46257,7 @@ TERMINAL_492_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 162 "cpp.qx"
+        #line 150 "cpp.qx"
         self_send(TKN_AND_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -46295,7 +46284,7 @@ TERMINAL_851_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 194 "cpp.qx"
+        #line 182 "cpp.qx"
         self_send(TKN_TEMPLATE);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -46322,7 +46311,7 @@ TERMINAL_1020_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 207 "cpp.qx"
+        #line 195 "cpp.qx"
         self_send(TKN_RETURN);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -46349,7 +46338,7 @@ TERMINAL_509_DIRECT:
         __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
         #   endif
         
-        #line 163 "cpp.qx"
+        #line 151 "cpp.qx"
         self_send(TKN_AND_EQ);
         QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
@@ -46399,7 +46388,6 @@ else {
     QUEX_NAME(Buffer_input_p_increment)(&me->buffer);
 }
 
-                QUEX_NAME(Buffer_set_terminating_zero_for_lexeme)(&me->buffer);
                 {
                     {
         #   ifdef __QUEX_OPTION_COUNTER
@@ -46409,19 +46397,9 @@ else {
         #   endif
         
         #line 72 "cpp.qx"
-        
-                        for(QUEX_TYPE_CHARACTER * iterator = LexemeEnd;
-                            iterator >= LexemeBegin && *iterator != '\n';
-                            --iterator) { 
-                            //std::cout<<"current char = "<<*iterator<<std::endl;
-                            if( *iterator == '\"' ){ 
-                                self_send1(TKN_FAILURE_STRING,Lexeme);
-                                RETURN;
-                            } 
-                        }
-                        self_send1(TKN_FAILURE,Lexeme);
-                        RETURN;
-            
+        QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
+        self_send(TKN_FAILURE);
+        QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
         
 #line 32767 "tiny_lexer.cpp"
         

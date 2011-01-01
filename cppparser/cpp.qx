@@ -69,19 +69,7 @@ mode EOF_AND_FAILURE:
 <inheritable: only>
 {
     on_end_of_stream => TKN_TERMINATION(LexemeNull);
-    on_failure {
-                for(QUEX_TYPE_CHARACTER * iterator = LexemeEnd;
-                    iterator >= LexemeBegin && *iterator != '\n';
-                    --iterator) { 
-                    //std::cout<<"current char = "<<*iterator<<std::endl;
-                    if( *iterator == '\"' ){ 
-                        self_send1(TKN_FAILURE_STRING,Lexeme);
-                        RETURN;
-                    } 
-                }
-                self_send1(TKN_FAILURE,Lexeme);
-                RETURN;
-    }
+    on_failure       => TKN_FAILURE(Lexeme);
 }
 
 mode OPERATORS:
