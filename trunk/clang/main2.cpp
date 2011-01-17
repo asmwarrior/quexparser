@@ -2,6 +2,9 @@
 #include <clang-c/Index.h>
 #include <cstdlib>
 #include <iostream>
+#include <string>
+
+using namespace std;
 
 /*
 * Run with:
@@ -127,8 +130,28 @@ void print_completion_result(CXCompletionResult *completion_result,
 
 
 int main(int argc, char** argv) {
-    if (argc < 2)
-        return 1;
+
+    printf("code completion demo project with lib clang support!!! asmwarrior \n");
+    printf("ollydbg from codeblocks forum\n\n");
+
+    printf("it will bydefault open the test.cpp file!\n");
+    printf("* to show the code completion list, please enter the command\n");
+    printf("cc line column [ENTER]\n");
+    printf("* to exit, just enter");
+    printf("exit [ENTER]\n");
+
+    char test_file[] = "test.cpp";
+
+    // hard coded include path
+    const char *command_argv[]={
+    "-ID:\\mingw_loaden\\lib\\gcc\\i686-mingw32\\4.4.5\\include\\c++",
+    "-ID:\\mingw_loaden\\lib\\gcc\\i686-mingw32\\4.4.5\\include\\c++\\i686-mingw32",
+    "-ID:\\mingw_loaden\\lib\\gcc\\i686-mingw32\\4.4.5\\include\\c++\\backward",
+    "-ID:\\mingw_loaden\\include",
+    "-ID:\\mingw_loaden\\lib\\gcc\\i686-mingw32\\4.4.5\\include",
+    "-ID:\\mingw_loaden\\lib\\gcc\\i686-mingw32\\4.4.5\\include-fixed"
+    };
+
 
     CXIndex idx = clang_createIndex(1, 0);
     if (!idx) {
@@ -136,8 +159,8 @@ int main(int argc, char** argv) {
         return 2;
     }
 
-    CXTranslationUnit u = clang_parseTranslationUnit(idx, argv[1], argv + 4,
-                          argc - 4, 0, 0,
+    CXTranslationUnit u = clang_parseTranslationUnit(idx, test_file, command_argv,
+                          6, 0, 0,
                           CXTranslationUnit_PrecompiledPreamble
                           | CXTranslationUnit_CXXPrecompiledPreamble);
 
@@ -146,29 +169,50 @@ int main(int argc, char** argv) {
         return 2;
     }
 
-    clang_reparseTranslationUnit(u, 0, 0, 0);
 
-    int line = strtol(argv[2], 0, 10);
-    int column = strtol(argv[3], 0, 10);
-    CXCodeCompleteResults* res = clang_codeCompleteAt(u, argv[1],
+    //entering the command loop
+
+    string cmd;
+    while (true)
+    {
+        cin >> cmd;
+        if (cmd=="cc")
+        {
+            int line = 0;
+            int column = 0;
+            cin >> line;
+            cin >> column;
+
+            // reparse the file
+            clang_reparseTranslationUnit(u, 0, 0, 0);
+
+            // do code completion
+            CXCodeCompleteResults* res = clang_codeCompleteAt(u, test_file,
                                  line, column,
                                  0, 0, 0);
-    if (!res) {
-        std::cerr << "Could not complete" << std::endl;
-        return 2;
+            if (!res) {
+                std::cerr << "Could not complete" << std::endl;
+                return 2;
+            }
+
+            unsigned i, n = res->NumResults;
+            if(n==0)
+                printf("no code completion!!!\n");
+
+            /* Sort the code-completion results based on the typed text. */
+            clang_sortCodeCompletionResults(res->Results, res->NumResults);
+
+            for (i = 0; i != n; ++i)
+                print_completion_result(res->Results + i, stdout);
+
+
+            clang_disposeCodeCompleteResults(res);
+
+        }
+        else if(cmd == "exit")
+        {
+            break;
+        }
     }
-
-    unsigned i, n = res->NumResults;
-
-    /* Sort the code-completion results based on the typed text. */
-    clang_sortCodeCompletionResults(res->Results, res->NumResults);
-
-    for (i = 0; i != n; ++i)
-        print_completion_result(res->Results + i, stdout);
-
-
-
-    clang_disposeCodeCompleteResults(res);
-
     return 0;
 }
