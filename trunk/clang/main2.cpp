@@ -214,5 +214,10 @@ int main(int argc, char** argv) {
             break;
         }
     }
+
+    //clean up
+
+    clang_disposeTranslationUnit(u);
+    clang_disposeIndex(idx);
     return 0;
 }
