@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="test_clang" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin\Debug\test_clang" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Debug\" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option parameters="test.cpp 12 5 " />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin\Release\test_clang" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Release\" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add option="-D__NO_CTYPE_INLINE" />
+			<Add option="-D_GNU_SOURCE" />
+			<Add option="-D__STDC_LIMIT_MACROS" />
+			<Add option="-D_STDC_CONSTANT_MACROS" />
+			<Add directory="E:\svn_llvm\llvm\tools\clang\include" />
+		</Compiler>
+		<Linker>
+			<Add option="-lclang" />
+			<Add option="-lclangIndex" />
+			<Add option="-lclangFrontend" />
+			<Add option="-lclangDriver" />
+			<Add option="-lclangSerialization" />
+			<Add option="-lclangParse" />
+			<Add option="-lclangSema" />
+			<Add option="-lclangAnalysis" />
+			<Add option="-lclangAST" />
+			<Add option="-lclangLex" />
+			<Add option="-lclangBasic" />
+			<Add option="-lLLVMMC" />
+			<Add option="-lLLVMBitReader" />
+			<Add option="-lLLVMCore" />
+			<Add option="-lLLVMSupport" />
+			<Add option="-lpthread" />
+			<Add option="-lpsapi" />
+			<Add option="-limagehlp" />
+			<Add option="-lm" />
+			<Add directory="E:\svn_llvm\build\Release\lib" />
+		</Linker>
+		<Unit filename="main2.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
