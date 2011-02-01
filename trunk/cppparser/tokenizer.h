@@ -8,9 +8,10 @@
 
 #include "cchelper.h"
 #include "tiny_lexer"
-using namespace std;
+
 
 typedef quex::Token RawToken;
+
 
 class ParserException
 {
@@ -85,13 +86,11 @@ private:
     LoaderBase         *m_pLoader;
     quex::tiny_lexer   m_Quex;
 
-
-    //quex::Token         m_QuexToken;
     #define TOKEN_BUFFER_SIZE 4
-
-
     quex::Token      m_TokenBuffer[TOKEN_BUFFER_SIZE];
     int              m_Index;
+
+    //initialized buffer
     static QUEX_TYPE_CHARACTER s_QuexBuffer[4];
 
     /** Internally handle and strip all the preprocessor directive*/
