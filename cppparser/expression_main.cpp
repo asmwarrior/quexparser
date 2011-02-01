@@ -4,9 +4,9 @@
 using namespace std;
 
 
-static QUEX_TYPE_CHARACTER s_QuexBuffer[4];
+static quex::tiny_lexer::char_type s_QuexBuffer[4];
 quex::tiny_lexer   Quex((QUEX_TYPE_CHARACTER*)s_QuexBuffer,4,(QUEX_TYPE_CHARACTER*)s_QuexBuffer+1);
-quex::Token        TokenBuffer[40];
+quex::tiny_lexer::token_type        TokenBuffer[40];
 
 extern int expression_eval(quex::Token *tokenInput);
 
@@ -17,7 +17,7 @@ int main()
     expression[0]   = 0;
     expression[127] = 0;
 
-    cout << "Entering expression, and Press Enter to run the caculator, enter 'exit' to Exit " << endl;
+    cout << "Entering expression, and Press Enter to run the calculator, enter 'exit' to Exit " << endl;
 
     while(true) {
         cout << "-> ";
