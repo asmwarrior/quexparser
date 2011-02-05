@@ -79,6 +79,16 @@
 		<Unit filename="app.cpp">
 			<Option target="GUITester" />
 		</Unit>
+		<Unit filename="cppparser\ConstExpression.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ExpressionDebug" />
+		</Unit>
+		<Unit filename="cppparser\ConstExpression.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ExpressionDebug" />
+		</Unit>
 		<Unit filename="cppparser\cchelper.h">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -143,6 +153,9 @@
 		<Unit filename="wx_pch.h">
 			<Option compile="1" />
 			<Option weight="0" />
+			<Option target="GUITester" />
+		</Unit>
+		<Unit filename="wxsmith\Frame.wxs">
 			<Option target="GUITester" />
 		</Unit>
 		<Extensions>
