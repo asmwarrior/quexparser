@@ -1,19 +1,19 @@
 #include "ConstExpression.h"
 
 
-int ConstExpression::eval_uminus(int a1, int a2)
+int OperatorPrecedenceTable::eval_uminus(int a1, int a2)
 {
     return -a1;
 }
-int ConstExpression::eval_exp(int a1, int a2)
+int OperatorPrecedenceTable::eval_exp(int a1, int a2)
 {
     return a2<0 ? 0 : (a2==0?1:a1*eval_exp(a1, a2-1));
 }
-int ConstExpression::eval_mul(int a1, int a2)
+int OperatorPrecedenceTable::eval_mul(int a1, int a2)
 {
     return a1*a2;
 }
-int ConstExpression::eval_div(int a1, int a2)
+int OperatorPrecedenceTable::eval_div(int a1, int a2)
 {
     if(!a2)
     {
@@ -24,7 +24,7 @@ int ConstExpression::eval_div(int a1, int a2)
 }
 
 
-int ConstExpression::eval_mod(int a1, int a2)
+int OperatorPrecedenceTable::eval_mod(int a1, int a2)
 {
     if(!a2)
     {
@@ -33,17 +33,17 @@ int ConstExpression::eval_mod(int a1, int a2)
     }
     return a1%a2;
 }
-int ConstExpression::eval_add(int a1, int a2)
+int OperatorPrecedenceTable::eval_add(int a1, int a2)
 {
     return a1+a2;
 }
 
-int ConstExpression::eval_sub(int a1, int a2)
+int OperatorPrecedenceTable::eval_sub(int a1, int a2)
 {
     return a1-a2;
 }
 
-int ConstExpression::eval_not(int a1, int a2)
+int OperatorPrecedenceTable::eval_not(int a1, int a2)
 {
     if(a1>0)
         return 0;
@@ -51,7 +51,7 @@ int ConstExpression::eval_not(int a1, int a2)
         return 1;
 }
 
-int ConstExpression::eval_greater(int a1, int a2)
+int OperatorPrecedenceTable::eval_greater(int a1, int a2)
 {
     if(a1-a2>0)
         return 1;
@@ -59,7 +59,7 @@ int ConstExpression::eval_greater(int a1, int a2)
         return 0;
 }
 
-int ConstExpression::eval_greater_eq(int a1, int a2)
+int OperatorPrecedenceTable::eval_greater_eq(int a1, int a2)
 {
     if(a1-a2>=0)
         return 1;
@@ -67,7 +67,7 @@ int ConstExpression::eval_greater_eq(int a1, int a2)
         return 0;
 }
 
-int ConstExpression::eval_less(int a1, int a2)
+int OperatorPrecedenceTable::eval_less(int a1, int a2)
 {
     if(a1-a2<0)
         return 1;
@@ -75,7 +75,7 @@ int ConstExpression::eval_less(int a1, int a2)
         return 0;
 }
 
-int ConstExpression::eval_less_eq(int a1, int a2)
+int OperatorPrecedenceTable::eval_less_eq(int a1, int a2)
 {
     if(a1-a2<=0)
         return 1;
@@ -83,7 +83,7 @@ int ConstExpression::eval_less_eq(int a1, int a2)
         return 0;
 }
 
-int ConstExpression::eval_eq(int a1, int a2)
+int OperatorPrecedenceTable::eval_eq(int a1, int a2)
 {
     if(a1==a2)
         return 1;
@@ -92,7 +92,7 @@ int ConstExpression::eval_eq(int a1, int a2)
 }
 
 
-int ConstExpression::eval_not_eq(int a1, int a2)
+int OperatorPrecedenceTable::eval_not_eq(int a1, int a2)
 {
     if(a1==a2)
         return 1;
@@ -102,17 +102,17 @@ int ConstExpression::eval_not_eq(int a1, int a2)
 
 
 
-int ConstExpression::eval_bitand(int a1, int a2)
+int OperatorPrecedenceTable::eval_bitand(int a1, int a2)
 {
     return a1&a2;
 }
 
-int ConstExpression::eval_bitor(int a1, int a2)
+int OperatorPrecedenceTable::eval_bitor(int a1, int a2)
 {
     return a1|a2;
 }
 
-int ConstExpression::eval_and(int a1, int a2)
+int OperatorPrecedenceTable::eval_and(int a1, int a2)
 {
     if(a1==0 || a2==0)
         return 0;
@@ -120,7 +120,7 @@ int ConstExpression::eval_and(int a1, int a2)
         return 1;
 }
 
-int ConstExpression::eval_or(int a1, int a2)
+int OperatorPrecedenceTable::eval_or(int a1, int a2)
 {
     if(a1>0 || a2>0)
         return 1;
@@ -141,7 +141,7 @@ void ConstExpression::push_opstack(struct op_s *op)
     opstack[nopstack++]=op;
 }
 
-ConstExpression::op_s *ConstExpression::pop_opstack()
+op_s *ConstExpression::pop_opstack()
 {
     if(!nopstack)
     {
@@ -191,7 +191,7 @@ int ConstExpression::expression_eval(quex::Token *tokenInput)
         {
 
             // check if it is a valid operator, otherwise, it should be a number
-            if( op==getop(expr->type_id()) )
+            if( op=getop(expr->type_id()) )
             {
 
                 // it is an opeartor
@@ -229,7 +229,7 @@ int ConstExpression::expression_eval(quex::Token *tokenInput)
                 tstart=NULL;
                 lastop=NULL;
             }
-            else if( op==getop(expr->type_id()) )
+            else if( op=getop(expr->type_id()) )
             {
                 push_numstack(atoi(tstart->get_text().c_str()));
                 tstart=NULL;
@@ -374,39 +374,6 @@ void ConstExpression::shunt_op(struct op_s *op)
     push_opstack(op);
 }
 
-ConstExpression::op_s ConstExpression::ops[]=
-{
 
-    {TKN_L_PAREN,       0, ASSOC_NONE, 0, NULL},
-    {TKN_R_PAREN,       0, ASSOC_NONE, 0, NULL},
-
-    {TKN_NOT,           11, ASSOC_RIGHT, 1, eval_not},
-    {TKN_HASH,          10, ASSOC_RIGHT, 1, eval_uminus},
-
-
-    {TKN_MULT,          9, ASSOC_LEFT, 0, eval_mul},
-    {TKN_DIV,           9, ASSOC_LEFT, 0, eval_div},
-    {TKN_MODULO,        9, ASSOC_LEFT, 0, eval_mod},
-
-    {TKN_PLUS,          8, ASSOC_LEFT, 0, eval_add},
-    {TKN_MINUS,         8, ASSOC_LEFT, 0, eval_sub},
-
-//    {TKN_L_SHIFT,       7, ASSOC_LEFT, 0, NULL},
-//    {TKN_R_SHIFT,       7, ASSOC_LEFT, 0, NULL},
-
-    {TKN_GREATER,       6, ASSOC_LEFT, 0, eval_greater},
-    {TKN_GREATER_EQ,    6, ASSOC_LEFT, 0, eval_greater_eq},
-    {TKN_LESS,          6, ASSOC_LEFT, 0, eval_less},
-    {TKN_LESS_EQ,       6, ASSOC_LEFT, 0, eval_less_eq},
-
-    {TKN_EQ,            5, ASSOC_LEFT, 0, eval_eq},
-    {TKN_NOT_EQ,        5, ASSOC_LEFT, 0, eval_not_eq},
-
-    {TKN_BITAND,         4,ASSOC_LEFT, 0, eval_bitand},
-    {TKN_BITOR,          3,ASSOC_LEFT, 0, eval_bitor},
-    {TKN_AND,           2, ASSOC_LEFT, 0, eval_and},
-    {TKN_OR,            1, ASSOC_LEFT, 0, eval_or}
-
-
-};
+OperatorPrecedenceTable ConstExpression::s_Operators;
 

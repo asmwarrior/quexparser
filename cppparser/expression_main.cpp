@@ -4,6 +4,8 @@
 using namespace std;
 
 
+#include "ConstExpression.h"
+
 static quex::tiny_lexer::char_type s_QuexBuffer[4];
 quex::tiny_lexer   Quex((QUEX_TYPE_CHARACTER*)s_QuexBuffer,4,(QUEX_TYPE_CHARACTER*)s_QuexBuffer+1);
 quex::tiny_lexer::token_type        TokenBuffer[40];
@@ -46,7 +48,9 @@ int main()
 
         }
 
-        expression_eval(&TokenBuffer[0]);
+        //expression_eval(&TokenBuffer[0]);
+        ConstExpression exp;
+        exp.expression_eval(&TokenBuffer[0]);
 
     }
 
