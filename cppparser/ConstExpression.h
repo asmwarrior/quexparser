@@ -11,7 +11,7 @@
 
 enum {ASSOC_NONE=0, ASSOC_LEFT, ASSOC_RIGHT};
 
-struct op_s {
+struct Operator {
     QUEX_TYPE_TOKEN_ID op;
     int prec;
     int assoc;
@@ -79,9 +79,10 @@ public:
         AddOperator(TKN_OR,            1, ASSOC_LEFT, 0, eval_or);
     }
 
-    struct op_s *getop(QUEX_TYPE_TOKEN_ID ch) {
+    Operator *GetOperatorInfo(QUEX_TYPE_TOKEN_ID ch) {
         int i;
-        for(i=0; i<m_Operators.size(); ++i) {
+        for(i=0; i<m_Operators.size(); ++i)
+        {
             if(m_Operators[i].op==ch)
                 return &(m_Operators[i]);
         }
@@ -93,11 +94,11 @@ public:
                       int assoc,
                       int unary,
                       int (*eval)(int a1, int a2)) {
-        struct op_s newOperator= {op,prec,assoc,unary,eval};
+        Operator newOperator= {op,prec,assoc,unary,eval};
         m_Operators.push_back(newOperator);
     }
 
-    std::vector<op_s> m_Operators;
+    std::vector<Operator> m_Operators;
 
 };
 
@@ -119,26 +120,26 @@ public:
     static OperatorPrecedenceTable s_Operators;
 
 
-    struct op_s *getop(QUEX_TYPE_TOKEN_ID ch) {
-        return s_Operators.getop(ch);
+    Operator *getop(QUEX_TYPE_TOKEN_ID ch) {
+        return s_Operators.GetOperatorInfo(ch);
     }
 
 
-    struct op_s *opstack[MAXOPSTACK];
+    Operator *opstack[MAXOPSTACK];
     int nopstack;
 
     int numstack[MAXNUMSTACK];
     int nnumstack;
 
 
-    void push_opstack(struct op_s *op);
-    struct op_s *pop_opstack();
+    void push_opstack(Operator *op);
+    Operator *pop_opstack();
     void push_numstack(int num);
     int pop_numstack();
     void dump_stack();
 
 
-    void shunt_op(struct op_s *op);
+    void shunt_op(Operator *op);
 
     int expression_eval(quex::Token *tokenInput);
 

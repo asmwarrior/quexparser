@@ -131,7 +131,7 @@ int OperatorPrecedenceTable::eval_or(int a1, int a2)
 
 
 
-void ConstExpression::push_opstack(struct op_s *op)
+void ConstExpression::push_opstack(Operator *op)
 {
     if(nopstack>MAXOPSTACK-1)
     {
@@ -141,7 +141,7 @@ void ConstExpression::push_opstack(struct op_s *op)
     opstack[nopstack++]=op;
 }
 
-op_s *ConstExpression::pop_opstack()
+Operator *ConstExpression::pop_opstack()
 {
     if(!nopstack)
     {
@@ -176,7 +176,7 @@ void ConstExpression::dump_stack()
 
     if(!nnumstack)
     {
-        fprintf(stderr, "ERROR: Number stack empty\n");
+        fprintf(stderr, "DUMP_STACK_ERROR: Number stack empty\n");
         return;
     }
     // plot the number stack
@@ -188,7 +188,7 @@ void ConstExpression::dump_stack()
     fprintf(stdout, "\n");
     if(!nopstack)
     {
-        fprintf(stderr, "ERROR: Operator stack empty\n");
+        fprintf(stderr, "DUMP_STACK_ERROR: Operator stack empty\n");
         return;
     }
     // plot the operator stack
@@ -212,46 +212,52 @@ int ConstExpression::expression_eval(quex::Token *tokenInput)
     quex::Token *expr;
 
     quex::Token *tstart=NULL;
-    struct op_s startop= {TKN_ASM, 0, ASSOC_NONE, 0, NULL};	/* Dummy operator to mark start */
-    struct op_s *op=NULL;
+    Operator startop= {TKN_ASM, 0, ASSOC_NONE, 0, NULL};	/* Dummy operator to mark start */
+    Operator *op=NULL;
     int n1, n2;
-    struct op_s *lastop=&startop;
+    Operator *lastop=&startop;
 
 
     for(expr=tokenInput; expr->type_id()!=TKN_TERMINATION; ++expr)
     {
 
-        if(!tstart)
+        if(tstart==NULL)
         {
 
             // check if it is a valid operator, otherwise, it should be a number
-            if( op=getop(expr->type_id()) )
-            {
+            op =getop(expr->type_id());
 
-                // it is an opeartor
+            if( op )//this is an operator
+            {
+                // check if it was a unary operator
+                // it is an operator and the last token is an operator too.
                 if(lastop && (lastop==&startop || lastop->op!=TKN_R_PAREN))
                 {
                     //unary operator?
-                    if(op->op==TKN_MINUS) // this minus is a negtive unaray operator, because it is after a operator or (
+                    if(op->op==TKN_MINUS) // this minus is a negative unary operator, because it is after a operator or (
                         op=getop(TKN_HASH); // unary -
                     else if (op->op==TKN_NOT)
                         ;                 // unary !
                     else if (op->op==TKN_PLUS)
                         continue;         // just skip the unary +
-                    else if(op->op!=TKN_L_PAREN)
+                    else if (op->op==TKN_L_PAREN)
+                        ;
+                    else
                     {
-                        fprintf(stderr, "ERROR: Illegal use of binary operator (%c)\n", op->op);
+                        fprintf(stderr, "ERROR: not allowed unary operator (%c)\n", op->op);
                         exit(EXIT_FAILURE);
                     }
                 }
+                //handling this operator
                 shunt_op(op);
+                //save the current op
                 lastop=op;
             }
-            else if( expr->type_id() == TKN_NUMBER)
+            else if( expr->type_id() == TKN_NUMBER) // if it is not an operator, it should be a number
                 tstart=expr;
-            else if(expr->type_id() != TKN_NUMBER)
+            else
             {
-                fprintf(stderr, "ERROR: Syntax error\n");
+                fprintf(stderr, "ERROR: Syntax error, the OP should be either a op or number\n");
                 return EXIT_FAILURE;
             }
         }
@@ -263,17 +269,18 @@ int ConstExpression::expression_eval(quex::Token *tokenInput)
                 tstart=NULL;
                 lastop=NULL;
             }
-            else if( op=getop(expr->type_id()) )
+            else
             {
+                op=getop(expr->type_id());
+                if(op==NULL)
+                {
+                     fprintf(stderr, "ERROR: Syntax error\n");
+                     return EXIT_FAILURE;
+                }
                 push_numstack(atoi(tstart->get_text().c_str()));
                 tstart=NULL;
                 shunt_op(op);
                 lastop=op;
-            }
-            else if(expr->type_id() != TKN_NUMBER)
-            {
-                fprintf(stderr, "ERROR: Syntax error\n");
-                return EXIT_FAILURE;
             }
         }
 
@@ -322,9 +329,9 @@ int ConstExpression::expression_eval(quex::Token *tokenInput)
 
 
 
-void ConstExpression::shunt_op(struct op_s *op)
+void ConstExpression::shunt_op(Operator *op)
 {
-    struct op_s *pop;
+    Operator *pop;
     int n1, n2;
 
     if(!op)
