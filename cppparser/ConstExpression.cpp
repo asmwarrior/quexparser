@@ -171,6 +171,40 @@ int ConstExpression::pop_numstack()
     return numstack[--nnumstack];
 }
 
+void ConstExpression::dump_stack()
+{
+
+    if(!nnumstack)
+    {
+        fprintf(stderr, "ERROR: Number stack empty\n");
+        return;
+    }
+    // plot the number stack
+    //
+    fprintf(stdout, "num stack: ");
+    for(int i=0;i<nnumstack;i++)
+        fprintf(stdout, "%d ",numstack[i]);
+
+    fprintf(stdout, "\n");
+    if(!nopstack)
+    {
+        fprintf(stderr, "ERROR: Operator stack empty\n");
+        return;
+    }
+    // plot the operator stack
+    fprintf(stdout, "op stack: ");
+    for(int i=0;i<nopstack;i++)
+    {
+        int id = opstack[i]->op;
+        quex::tiny_lexer::token_type tk;
+        const char * name = tk.map_id_to_name(id);
+        fprintf(stdout, "%s ",name);
+    }
+
+    fprintf(stdout, "\n");
+
+}
+
 
 int ConstExpression::expression_eval(quex::Token *tokenInput)
 {
@@ -242,6 +276,9 @@ int ConstExpression::expression_eval(quex::Token *tokenInput)
                 return EXIT_FAILURE;
             }
         }
+
+        //debug only
+        dump_stack();
     }
 
     if(tstart)
