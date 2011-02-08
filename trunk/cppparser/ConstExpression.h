@@ -135,6 +135,7 @@ public:
     struct op_s *pop_opstack();
     void push_numstack(int num);
     int pop_numstack();
+    void dump_stack();
 
 
     void shunt_op(struct op_s *op);
