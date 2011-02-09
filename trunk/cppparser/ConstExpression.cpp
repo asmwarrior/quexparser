@@ -131,76 +131,80 @@ int OperatorPrecedenceTable::eval_or(int a1, int a2)
 
 
 
-void ConstExpression::push_opstack(Operator *op)
+void ConstExpression::PushOperatorStack(Operator *op)
 {
-    if(nopstack>MAXOPSTACK-1)
+    if(m_OperatorStackSize>MAXOPSTACK-1)
     {
         fprintf(stderr, "ERROR: Operator stack overflow\n");
         exit(EXIT_FAILURE);
     }
-    opstack[nopstack++]=op;
+    m_OperatorStack[m_OperatorStackSize++]=op;
 }
 
-Operator *ConstExpression::pop_opstack()
+Operator *ConstExpression::PopOperatorStack()
 {
-    if(!nopstack)
+    if(!m_OperatorStackSize)
     {
         fprintf(stderr, "ERROR: Operator stack empty\n");
         exit(EXIT_FAILURE);
     }
-    return opstack[--nopstack];
+    return m_OperatorStack[--m_OperatorStackSize];
 }
 
-void ConstExpression::push_numstack(int num)
+void ConstExpression::PushNumberStack(int num)
 {
-    if(nnumstack>MAXNUMSTACK-1)
+    if(m_NumberStackSize>MAXNUMSTACK-1)
     {
         fprintf(stderr, "ERROR: Number stack overflow\n");
         exit(EXIT_FAILURE);
     }
-    numstack[nnumstack++]=num;
+    m_NumberStack[m_NumberStackSize++]=num;
 }
 
-int ConstExpression::pop_numstack()
+int ConstExpression::PopNumberStack()
 {
-    if(!nnumstack)
+    if(!m_NumberStackSize)
     {
         fprintf(stderr, "ERROR: Number stack empty\n");
         exit(EXIT_FAILURE);
     }
-    return numstack[--nnumstack];
+    return m_NumberStack[--m_NumberStackSize];
 }
 
-void ConstExpression::dump_stack()
+void ConstExpression::DumpStack()
 {
 
-    if(!nnumstack)
+    if(!m_NumberStackSize)
     {
-        fprintf(stderr, "DUMP_STACK_ERROR: Number stack empty\n");
-        return;
+        fprintf(stderr, "dump_stack() num stack: EMPTY!!!");
     }
-    // plot the number stack
-    //
-    fprintf(stdout, "num stack: ");
-    for(int i=0;i<nnumstack;i++)
-        fprintf(stdout, "%d ",numstack[i]);
-
+    else
+    {
+        // plot the number stack
+        //
+        fprintf(stdout, "dump_stack() num stack: ");
+        for(int i=0;i<m_NumberStackSize;i++)
+            fprintf(stdout, "%d ",m_NumberStack[i]);
+    }
     fprintf(stdout, "\n");
-    if(!nopstack)
-    {
-        fprintf(stderr, "DUMP_STACK_ERROR: Operator stack empty\n");
-        return;
-    }
-    // plot the operator stack
-    fprintf(stdout, "op stack: ");
-    for(int i=0;i<nopstack;i++)
-    {
-        int id = opstack[i]->op;
-        quex::tiny_lexer::token_type tk;
-        const char * name = tk.map_id_to_name(id);
-        fprintf(stdout, "%s ",name);
-    }
 
+
+    if(!m_OperatorStackSize)
+    {
+        fprintf(stderr, "dump_stack() op stack: EMPTY!!!");
+    }
+    else
+    {
+        // plot the operator stack
+        fprintf(stdout, "dump_stack() op stack: ");
+        for(int i=0;i<m_OperatorStackSize;i++)
+        {
+            int id = m_OperatorStack[i]->op;
+            quex::tiny_lexer::token_type tk;
+            const char * name = tk.map_id_to_name(id);
+            fprintf(stdout, "%s ",name);
+        }
+    }
     fprintf(stdout, "\n");
 
 }
@@ -211,7 +215,9 @@ int ConstExpression::expression_eval(quex::Token *tokenInput)
     // a pointer walk through the expression input from left to right
     quex::Token *expr;
 
-    quex::Token *tstart=NULL;
+    // save the last number value (delayed push)
+    quex::Token *lastNumber=NULL;
+
     Operator startop= {TKN_ASM, 0, ASSOC_NONE, 0, NULL};	/* Dummy operator to mark start */
     Operator *op=NULL;
     int n1, n2;
@@ -221,11 +227,11 @@ int ConstExpression::expression_eval(quex::Token *tokenInput)
     for(expr=tokenInput; expr->type_id()!=TKN_TERMINATION; ++expr)
     {
 
-        if(tstart==NULL)
+        if(lastNumber==NULL)
         {
 
             // check if it is a valid operator, otherwise, it should be a number
-            op =getop(expr->type_id());
+            op =GetOperator(expr->type_id());
 
             if( op )//this is an operator
             {
@@ -235,7 +241,7 @@ int ConstExpression::expression_eval(quex::Token *tokenInput)
                 {
                     //unary operator?
                     if(op->op==TKN_MINUS) // this minus is a negative unary operator, because it is after a operator or (
-                        op=getop(TKN_HASH); // unary -
+                        op=GetOperator(TKN_HASH); // unary -
                     else if (op->op==TKN_NOT)
                         ;                 // unary !
                     else if (op->op==TKN_PLUS)
@@ -249,12 +255,12 @@ int ConstExpression::expression_eval(quex::Token *tokenInput)
                     }
                 }
                 //handling this operator
-                shunt_op(op);
+                ShuntOperator(op);
                 //save the current op
                 lastop=op;
             }
             else if( expr->type_id() == TKN_NUMBER) // if it is not an operator, it should be a number
-                tstart=expr;
+                lastNumber=expr;
             else
             {
                 fprintf(stderr, "ERROR: Syntax error, the OP should be either a op or number\n");
@@ -265,62 +271,62 @@ int ConstExpression::expression_eval(quex::Token *tokenInput)
         {
             if(expr->type_id() == TKN_NUMBER)
             {
-                push_numstack(atoi(tstart->get_text().c_str()));
-                tstart=NULL;
+                PushNumberStack(atoi(lastNumber->get_text().c_str()));
+                lastNumber=NULL;
                 lastop=NULL;
             }
             else
             {
-                op=getop(expr->type_id());
+                op=GetOperator(expr->type_id());
                 if(op==NULL)
                 {
                      fprintf(stderr, "ERROR: Syntax error\n");
                      return EXIT_FAILURE;
                 }
-                push_numstack(atoi(tstart->get_text().c_str()));
-                tstart=NULL;
-                shunt_op(op);
+                PushNumberStack(atoi(lastNumber->get_text().c_str()));
+                lastNumber=NULL;
+                ShuntOperator(op);
                 lastop=op;
             }
         }
 
         //debug only
-        dump_stack();
+        DumpStack();
     }
 
-    if(tstart)
-        push_numstack(atoi(tstart->get_text().c_str()));
+    if(lastNumber)
+        PushNumberStack(atoi(lastNumber->get_text().c_str()));
 
 
-    while(nopstack)
+    while(m_OperatorStackSize)
     {
-        op=pop_opstack();
-        n1=pop_numstack();
+        op=PopOperatorStack();
+        n1=PopNumberStack();
         if(op->unary)
-            push_numstack(op->eval(n1, 0));
+            PushNumberStack(op->eval(n1, 0));
         else
         {
-            n2=pop_numstack();
-            push_numstack(op->eval(n2, n1));
+            n2=PopNumberStack();
+            PushNumberStack(op->eval(n2, n1));
         }
     }
 
-    if(nnumstack!=1)
+    if(m_NumberStackSize!=1)
     {
-        fprintf(stderr, "ERROR: Number stack has %d elements after evaluation. Should be 1.\n", nnumstack);
+        fprintf(stderr, "ERROR: Number stack has %d elements after evaluation. Should be 1.\n", m_NumberStackSize);
         return EXIT_FAILURE;
     }
-    printf("%d\n", numstack[0]);
+    printf("%d\n", m_NumberStack[0]);
 
     // need to clear all the stack!!
 
     for (int i = 0; i< MAXOPSTACK; i++)
-        opstack[i] = NULL;
-    nopstack=0;
+        m_OperatorStack[i] = NULL;
+    m_OperatorStackSize=0;
 
     for (int i = 0; i< MAXNUMSTACK; i++)
-        numstack[i]=0;
-    nnumstack=0;
+        m_NumberStack[i]=0;
+    m_NumberStackSize=0;
 
 
     return EXIT_SUCCESS;
@@ -329,7 +335,7 @@ int ConstExpression::expression_eval(quex::Token *tokenInput)
 
 
 
-void ConstExpression::shunt_op(Operator *op)
+void ConstExpression::ShuntOperator(Operator *op)
 {
     Operator *pop;
     int n1, n2;
@@ -343,27 +349,27 @@ void ConstExpression::shunt_op(Operator *op)
     // handling parenthese firstly, since they have no assoc
     if(op->op==TKN_L_PAREN)
     {
-        push_opstack(op);
+        PushOperatorStack(op);
         return;
 
     }
     else if(op->op==TKN_R_PAREN)
     {
-        while(nopstack>0 && opstack[nopstack-1]->op!=TKN_L_PAREN)
+        while(m_OperatorStackSize>0 && m_OperatorStack[m_OperatorStackSize-1]->op!=TKN_L_PAREN)
         {
-            pop=pop_opstack();
-            n1=pop_numstack();
+            pop=PopOperatorStack();
+            n1=PopNumberStack();
 
             if(pop->unary)
-                push_numstack(pop->eval(n1, 0));
+                PushNumberStack(pop->eval(n1, 0));
             else
             {
-                n2=pop_numstack();
-                push_numstack(pop->eval(n2, n1));
+                n2=PopNumberStack();
+                PushNumberStack(pop->eval(n2, n1));
             }
         }
 
-        if(!(pop=pop_opstack()) || pop->op!=TKN_L_PAREN)
+        if(!(pop=PopOperatorStack()) || pop->op!=TKN_L_PAREN)
         {
             fprintf(stderr, "ERROR: Stack error. No matching \'(\'\n");
             exit(EXIT_FAILURE);
@@ -374,48 +380,48 @@ void ConstExpression::shunt_op(Operator *op)
     if(op->assoc==ASSOC_RIGHT)
     {
 
-        while (nopstack && op->prec < opstack[nopstack-1]->prec )
+        while (m_OperatorStackSize && op->prec < m_OperatorStack[m_OperatorStackSize-1]->prec )
         {
 
-            //when going here, means the meeted op has lower precedence as on the opstack
+            //when going here, means the meeted op has lower precedence as on the OperatorStack
             //so, we just pop up
 
             //pay attention: equal is not allowed, this means for a right_assoc op, we just push!
             //so once the op stack was poped, the later pushed op (as we move from left to right) will
             //be caculated firstly, this confirmed the right_assoc rule.
 
-            pop=pop_opstack();// this will internally change the nopstack
-            n1=pop_numstack();// this will internally change the nnumstack
+            pop=PopOperatorStack();// this will internally change the nopstack
+            n1=PopNumberStack();// this will internally change the nnumstack
 
             if(pop->unary)
-                push_numstack(pop->eval(n1, 0));
+                PushNumberStack(pop->eval(n1, 0));
             else
             {
-                n2=pop_numstack();
-                push_numstack(pop->eval(n2, n1));
+                n2=PopNumberStack();
+                PushNumberStack(pop->eval(n2, n1));
             }
         }
     }
     else     //left assoc
     {
-        while (nopstack && op->prec <= opstack[nopstack-1]->prec )
+        while (m_OperatorStackSize && op->prec <= m_OperatorStack[m_OperatorStackSize-1]->prec )
         {
 
             // if it is a left_assoc op, then equal precedence is allowed, once meat this, the op in the
             // stack should be caculated firstly (thus, the left op was caculated firstly).
 
-            pop=pop_opstack();
-            n1=pop_numstack();
+            pop=PopOperatorStack();
+            n1=PopNumberStack();
             if(pop->unary)
-                push_numstack(pop->eval(n1, 0));
+                PushNumberStack(pop->eval(n1, 0));
             else
             {
-                n2=pop_numstack();
-                push_numstack(pop->eval(n2, n1));
+                n2=PopNumberStack();
+                PushNumberStack(pop->eval(n2, n1));
             }
         }
     }
-    push_opstack(op);
+    PushOperatorStack(op);
 }
 
 

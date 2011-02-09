@@ -11,7 +11,8 @@
 
 enum {ASSOC_NONE=0, ASSOC_LEFT, ASSOC_RIGHT};
 
-struct Operator {
+struct Operator
+{
     QUEX_TYPE_TOKEN_ID op;
     int prec;
     int assoc;
@@ -20,9 +21,11 @@ struct Operator {
 };
 
 
-class OperatorPrecedenceTable {
+class OperatorPrecedenceTable
+{
 public:
-    OperatorPrecedenceTable() {
+    OperatorPrecedenceTable()
+    {
         AddDefaultOperators();
     }
 
@@ -46,7 +49,8 @@ public:
     static int eval_or(int a1, int a2);
 
 
-    void AddDefaultOperators() {
+    void AddDefaultOperators()
+    {
 
         AddOperator(TKN_L_PAREN,       0, ASSOC_NONE, 0, NULL);
         AddOperator(TKN_R_PAREN,       0, ASSOC_NONE, 0, NULL);
@@ -79,9 +83,9 @@ public:
         AddOperator(TKN_OR,            1, ASSOC_LEFT, 0, eval_or);
     }
 
-    Operator *GetOperatorInfo(QUEX_TYPE_TOKEN_ID ch) {
-        int i;
-        for(i=0; i<m_Operators.size(); ++i)
+    Operator *GetOperatorInfo(QUEX_TYPE_TOKEN_ID ch)
+    {
+        for(unsigned int i=0; i<m_Operators.size(); ++i)
         {
             if(m_Operators[i].op==ch)
                 return &(m_Operators[i]);
@@ -93,7 +97,8 @@ public:
                       int prec,
                       int assoc,
                       int unary,
-                      int (*eval)(int a1, int a2)) {
+                      int (*eval)(int a1, int a2))
+    {
         Operator newOperator= {op,prec,assoc,unary,eval};
         m_Operators.push_back(newOperator);
     }
@@ -106,11 +111,13 @@ public:
 
 
 
-class ConstExpression {
+class ConstExpression
+{
 public:
     ConstExpression():
-        nopstack(0),
-        nnumstack(0) {
+        m_OperatorStackSize(0),
+        m_NumberStackSize(0)
+    {
 
     }
 #define MAXOPSTACK 64
@@ -120,26 +127,27 @@ public:
     static OperatorPrecedenceTable s_Operators;
 
 
-    Operator *getop(QUEX_TYPE_TOKEN_ID ch) {
+    Operator *GetOperator(QUEX_TYPE_TOKEN_ID ch)
+    {
         return s_Operators.GetOperatorInfo(ch);
     }
 
 
-    Operator *opstack[MAXOPSTACK];
-    int nopstack;
+    Operator *m_OperatorStack[MAXOPSTACK];
+    int m_OperatorStackSize;
 
-    int numstack[MAXNUMSTACK];
-    int nnumstack;
-
-
-    void push_opstack(Operator *op);
-    Operator *pop_opstack();
-    void push_numstack(int num);
-    int pop_numstack();
-    void dump_stack();
+    int m_NumberStack[MAXNUMSTACK];
+    int m_NumberStackSize;
 
 
-    void shunt_op(Operator *op);
+    void PushOperatorStack(Operator *op);
+    Operator *PopOperatorStack();
+    void PushNumberStack(int num);
+    int PopNumberStack();
+    void DumpStack();
+
+
+    void ShuntOperator(Operator *op);
 
     int expression_eval(quex::Token *tokenInput);
 
