@@ -147,7 +147,7 @@ public:
     void DumpStack();
 
 
-    void ShuntOperator(Operator *op);
+    bool ShuntOperator(Operator *op);
 
     int expression_eval(quex::Token *tokenInput);
 
