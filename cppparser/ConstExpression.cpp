@@ -215,87 +215,69 @@ int ConstExpression::expression_eval(quex::Token *tokenInput)
     // a pointer walk through the expression input from left to right
     quex::Token *expr;
 
-    // save the last number value (delayed push)
-    quex::Token *lastNumber=NULL;
+    /* Dummy operator to mark start */
+    Operator nilOperator = {TKN_ASM, 0, ASSOC_NONE, 0, NULL};
+    Operator    * lastOperatorType =&nilOperator ;
 
-    Operator startop= {TKN_ASM, 0, ASSOC_NONE, 0, NULL};	/* Dummy operator to mark start */
+
     Operator *op=NULL;
     int n1, n2;
-    Operator *lastop=&startop;
 
 
     for(expr=tokenInput; expr->type_id()!=TKN_TERMINATION; ++expr)
     {
 
-        if(lastNumber==NULL)
+        op = GetOperator(expr->type_id());
+
+        // check if it is a valid operator, otherwise, it should be a number
+
+        if( op )//this is an operator or left/right parenthesis
         {
-
-            // check if it is a valid operator, otherwise, it should be a number
-            op =GetOperator(expr->type_id());
-
-            if( op )//this is an operator
+            // check if it was a unary operator
+            if( lastOperatorType
+               && (lastOperatorType == &nilOperator
+                  || lastOperatorType->op == TKN_L_PAREN
+                  || lastOperatorType->op == TKN_PLUS
+                  || lastOperatorType->op == TKN_MINUS))
             {
-                // check if it was a unary operator
-                // it is an operator and the last token is an operator too.
-                if(lastop && (lastop==&startop || lastop->op!=TKN_R_PAREN))
+                // currently, only three type of unary operators are used
+                // they are: unary - ; unary + ; unary !
+                // this minus is a negative unary operator
+                if(op->op==TKN_MINUS)
+                    op=GetOperator(TKN_HASH); // unary -
+                else if (op->op==TKN_NOT)
+                    ;                         // unary !, handle this normally
+                else if (op->op==TKN_PLUS)
+                    continue;                 // just skip the unary +
+                else if (op->op==TKN_L_PAREN)
+                    ;                         //handle this normally
+                else
                 {
-                    //unary operator?
-                    if(op->op==TKN_MINUS) // this minus is a negative unary operator, because it is after a operator or (
-                        op=GetOperator(TKN_HASH); // unary -
-                    else if (op->op==TKN_NOT)
-                        ;                 // unary !
-                    else if (op->op==TKN_PLUS)
-                        continue;         // just skip the unary +
-                    else if (op->op==TKN_L_PAREN)
-                        ;
-                    else
-                    {
-                        fprintf(stderr, "ERROR: not allowed unary operator (%c)\n", op->op);
-                        exit(EXIT_FAILURE);
-                    }
+                    fprintf(stderr, "ERROR: not allowed unary operator (%c)\n", op->op);
+                    //exit(EXIT_FAILURE);
+                    return 0;
                 }
-                //handling this operator
-                ShuntOperator(op);
-                //save the current op
-                lastop=op;
             }
-            else if( expr->type_id() == TKN_NUMBER) // if it is not an operator, it should be a number
-                lastNumber=expr;
-            else
-            {
-                fprintf(stderr, "ERROR: Syntax error, the OP should be either a op or number\n");
-                return EXIT_FAILURE;
-            }
+            //handling this operator
+            if(!ShuntOperator(op))
+                return 0;
+            //save the current op
+
+            lastOperatorType = op;
+        }
+        else if( expr->type_id() == TKN_NUMBER ) // if it is not an operator, it should be a number
+        {
+            PushNumberStack(atoi(expr->get_text().c_str()));
+            lastOperatorType = NULL;
         }
         else
         {
-            if(expr->type_id() == TKN_NUMBER)
-            {
-                PushNumberStack(atoi(lastNumber->get_text().c_str()));
-                lastNumber=NULL;
-                lastop=NULL;
-            }
-            else
-            {
-                op=GetOperator(expr->type_id());
-                if(op==NULL)
-                {
-                     fprintf(stderr, "ERROR: Syntax error\n");
-                     return EXIT_FAILURE;
-                }
-                PushNumberStack(atoi(lastNumber->get_text().c_str()));
-                lastNumber=NULL;
-                ShuntOperator(op);
-                lastop=op;
-            }
+            fprintf(stderr, "ERROR: Syntax error, the OP should be either an op or a number\n");
+            return 0;
         }
-
         //debug only
         DumpStack();
     }
-
-    if(lastNumber)
-        PushNumberStack(atoi(lastNumber->get_text().c_str()));
 
 
     while(m_OperatorStackSize)
@@ -335,7 +317,7 @@ int ConstExpression::expression_eval(quex::Token *tokenInput)
 
 
 
-void ConstExpression::ShuntOperator(Operator *op)
+bool ConstExpression::ShuntOperator(Operator *op)
 {
     Operator *pop;
     int n1, n2;
@@ -343,14 +325,15 @@ void ConstExpression::ShuntOperator(Operator *op)
     if(!op)
     {
         fprintf(stderr, "ERROR: op is NULL\n");
-        exit(EXIT_FAILURE);
+        //exit(EXIT_FAILURE);
+        return false;
     }
 
-    // handling parenthese firstly, since they have no assoc
+    // handling parentheses firstly, since they have no assoc
     if(op->op==TKN_L_PAREN)
     {
         PushOperatorStack(op);
-        return;
+        return true;
 
     }
     else if(op->op==TKN_R_PAREN)
@@ -372,9 +355,10 @@ void ConstExpression::ShuntOperator(Operator *op)
         if(!(pop=PopOperatorStack()) || pop->op!=TKN_L_PAREN)
         {
             fprintf(stderr, "ERROR: Stack error. No matching \'(\'\n");
-            exit(EXIT_FAILURE);
+            //exit(EXIT_FAILURE);
+            return false;
         }
-        return;
+        return true;
     }
 
     if(op->assoc==ASSOC_RIGHT)
@@ -388,7 +372,7 @@ void ConstExpression::ShuntOperator(Operator *op)
 
             //pay attention: equal is not allowed, this means for a right_assoc op, we just push!
             //so once the op stack was poped, the later pushed op (as we move from left to right) will
-            //be caculated firstly, this confirmed the right_assoc rule.
+            //be calculated firstly, this confirmed the right_assoc rule.
 
             pop=PopOperatorStack();// this will internally change the nopstack
             n1=PopNumberStack();// this will internally change the nnumstack
@@ -408,7 +392,7 @@ void ConstExpression::ShuntOperator(Operator *op)
         {
 
             // if it is a left_assoc op, then equal precedence is allowed, once meat this, the op in the
-            // stack should be caculated firstly (thus, the left op was caculated firstly).
+            // stack should be calculated firstly (thus, the left op was calculated firstly).
 
             pop=PopOperatorStack();
             n1=PopNumberStack();
@@ -422,6 +406,8 @@ void ConstExpression::ShuntOperator(Operator *op)
         }
     }
     PushOperatorStack(op);
+
+    return true;
 }
 
 
