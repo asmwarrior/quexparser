@@ -18,7 +18,7 @@ int OperatorPrecedenceTable::eval_div(int a1, int a2)
     if(!a2)
     {
         fprintf(stderr, "ERROR: Division by zero\n");
-        exit(EXIT_FAILURE);
+        return 0;
     }
     return a1/a2;
 }
@@ -29,7 +29,7 @@ int OperatorPrecedenceTable::eval_mod(int a1, int a2)
     if(!a2)
     {
         fprintf(stderr, "ERROR: Division by zero\n");
-        exit(EXIT_FAILURE);
+        return 0;
     }
     return a1%a2;
 }
@@ -131,14 +131,15 @@ int OperatorPrecedenceTable::eval_or(int a1, int a2)
 
 
 
-void ConstExpression::PushOperatorStack(Operator *op)
+bool ConstExpression::PushOperatorStack(Operator *op)
 {
     if(m_OperatorStackSize>MAXOPSTACK-1)
     {
         fprintf(stderr, "ERROR: Operator stack overflow\n");
-        exit(EXIT_FAILURE);
+        return false;
     }
     m_OperatorStack[m_OperatorStackSize++]=op;
+    return true;
 }
 
 Operator *ConstExpression::PopOperatorStack()
@@ -146,19 +147,20 @@ Operator *ConstExpression::PopOperatorStack()
     if(!m_OperatorStackSize)
     {
         fprintf(stderr, "ERROR: Operator stack empty\n");
-        exit(EXIT_FAILURE);
+        return NULL;
     }
     return m_OperatorStack[--m_OperatorStackSize];
 }
 
-void ConstExpression::PushNumberStack(int num)
+bool ConstExpression::PushNumberStack(int num)
 {
     if(m_NumberStackSize>MAXNUMSTACK-1)
     {
         fprintf(stderr, "ERROR: Number stack overflow\n");
-        exit(EXIT_FAILURE);
+        return false;
     }
     m_NumberStack[m_NumberStackSize++]=num;
+    return true;
 }
 
 int ConstExpression::PopNumberStack()
@@ -166,7 +168,7 @@ int ConstExpression::PopNumberStack()
     if(!m_NumberStackSize)
     {
         fprintf(stderr, "ERROR: Number stack empty\n");
-        exit(EXIT_FAILURE);
+        return 0; //FIXME:need to use a more detailed return value
     }
     return m_NumberStack[--m_NumberStackSize];
 }
@@ -254,7 +256,6 @@ int ConstExpression::expression_eval(quex::Token *tokenInput)
                 else
                 {
                     fprintf(stderr, "ERROR: not allowed unary operator (%c)\n", op->op);
-                    //exit(EXIT_FAILURE);
                     return 0;
                 }
             }
@@ -325,15 +326,13 @@ bool ConstExpression::ShuntOperator(Operator *op)
     if(!op)
     {
         fprintf(stderr, "ERROR: op is NULL\n");
-        //exit(EXIT_FAILURE);
         return false;
     }
 
     // handling parentheses firstly, since they have no assoc
     if(op->op==TKN_L_PAREN)
     {
-        PushOperatorStack(op);
-        return true;
+        return PushOperatorStack(op);
 
     }
     else if(op->op==TKN_R_PAREN)
@@ -355,7 +354,6 @@ bool ConstExpression::ShuntOperator(Operator *op)
         if(!(pop=PopOperatorStack()) || pop->op!=TKN_L_PAREN)
         {
             fprintf(stderr, "ERROR: Stack error. No matching \'(\'\n");
-            //exit(EXIT_FAILURE);
             return false;
         }
         return true;
@@ -405,7 +403,8 @@ bool ConstExpression::ShuntOperator(Operator *op)
             }
         }
     }
-    PushOperatorStack(op);
+    if(!PushOperatorStack(op))
+        return false;
 
     return true;
 }

@@ -140,9 +140,9 @@ public:
     int m_NumberStackSize;
 
 
-    void PushOperatorStack(Operator *op);
+    bool PushOperatorStack(Operator *op);
     Operator *PopOperatorStack();
-    void PushNumberStack(int num);
+    bool PushNumberStack(int num);
     int PopNumberStack();
     void DumpStack();
 
