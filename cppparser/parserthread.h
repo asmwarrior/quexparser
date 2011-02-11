@@ -67,7 +67,7 @@ struct ParserThreadContext
 
     /** this is a very important member variables! it serves as a return type stack,
       * eg: string const varA;
-      * in this statement, we should step untile the last ';" to determine this
+      * in this statement, we should step until the last ';" to determine this
       * is a Token named 'varA', every token before 'varA' will be pushed to 'type', see below
       */
     FullIdentifier name;
@@ -93,11 +93,13 @@ struct ParserThreadContext
     /** this makes a difference in unnamed class/struct/enum handling */
     bool     inTypedef;
 
-    /** temprary record the template argument list information*/
+    /** temporary record the template argument list information*/
     cc_string   templateArgument;
 
     /** type qualifier like: const, static.... */
     DeclarationModifier   typeQualifier;
+
+    TokenIdxSet usingNamespaceCollection;
 
 };
 
@@ -153,9 +155,9 @@ public:
       * @param parent the parent Parser object which contain the Token Trie
       * @param bufferOrFilename if isLocal is true, it's the filename to open, else it is a
       * string already in memory buffer.
-      * @param isLocal determin whether this is a file in local disk or already in memory
-      * @param parserThreadOptions parser therad options, see ParserThreadOptions for details.
-      * @param tokensTree it is the Trie sturcture holding all the Tokens, ParserThread will add
+      * @param isLocal determine whether this is a file in local disk or already in memory
+      * @param parserThreadOptions parser thread options, see ParserThreadOptions for details.
+      * @param tokensTree it is the Trie structure holding all the Tokens, ParserThread will add
       * every Token when it parsed.*/
     ParserThread(Parser* parent,
                  const cc_string& bufferOrFilename,
@@ -194,11 +196,11 @@ public:
     }
 protected:
 
-    /** enum to specify which statement we are handleing: struct or class or union*/
+    /** enum to specify which statement we are handling: struct or class or union*/
     enum EClassType { ctStructure = 0, ctClass = 1, ctUnion = 3 };
 
-    /** skip until we meet one chracters in the string
-      * @param chars string specifies all the ending charactors
+    /** skip until we meet one characters in the string
+      * @param chars string specifies all the ending characters
       * @param supportNesting when running this function, if supportNesting is true, we need to
       * handle the "{" and "}" nesting levels.*/
     void SkipToOneOfId(const int * idArray, const int num);
@@ -233,18 +235,18 @@ protected:
       * @param ancestor define ?? */
     void ReadClsNames(cc_string& ancestor);
 
-    /** handle class declration
+    /** handle class declaration
       * @param ct specify type : struct or class */
     void HandleClass(EClassType ct);
 
     void HandleMacroUsage(const cc_string & token, const cc_string & peek);
 
-    /** handle function declearation or definition
+    /** handle function declaration or definition
       * @param name is the function name
-      * @param isOperator if true, means it is a operato override function */
+      * @param isOperator if true, means it is a operator override function */
     void HandleFunction(cc_string & name);
 
-    /** handle enum declearation */
+    /** handle enum declaration */
     void HandleEnum();
 
     /** handle typedef directive */
@@ -258,7 +260,7 @@ protected:
       * @param implLineEnd like the one above, it is the end line of the function body
       * @param args if the Token type is a function, then this is the function arguments string
       * @param isOperator an operator override function or not
-      * @param isTmpl it is a function declearation or implememtation */
+      * @param isTmpl it is a function declaration or implementation */
     Token* DoAddToken(TokenKind kind,
                       const cc_string& name,
                       int line,
@@ -344,7 +346,7 @@ private:
                               bool createIfNotExist = false,
                               Token* parentIfCreated = 0);
 
-    /** if we regard the parserThread class as a syntax anilyzer, then the Tokenizer class is
+    /** if we regard the parserThread class as a syntax analyzer, then the Tokenizer class is
       * regard as the lexer, which always return a string by calling m_Tokenizer.GetToken() */
     Tokenizer            m_Tokenizer;
 
@@ -381,7 +383,7 @@ private:
     /**  buffer string */
     cc_string             m_Buffer;
 
-    /** initialze the m_Buffer member? */
+    /** initialize the m_Buffer member? */
     bool InitTokenizer();
 
     ParserThreadContext m_Context;

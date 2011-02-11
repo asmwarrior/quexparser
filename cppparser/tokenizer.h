@@ -9,6 +9,8 @@
 #include "cchelper.h"
 #include "tiny_lexer"
 
+#include <map>
+
 
 typedef quex::Token RawToken;
 
@@ -65,7 +67,7 @@ private:
 
     inline const cc_string& ThisOrReplacement(const cc_string& str) const
     {
-        map<cc_string,cc_string>::const_iterator it = s_Replacements.find(str);
+        std::map<cc_string,cc_string>::const_iterator it = s_Replacements.find(str);
         if (it != s_Replacements.end())
             return it->second;
         return str;
@@ -108,17 +110,17 @@ public:
 
     static void eraseReplacementString(const cc_string& from)
     {
-        map<cc_string,cc_string>::iterator it = s_Replacements.find(from);
+        std::map<cc_string,cc_string>::iterator it = s_Replacements.find(from);
         if (it != s_Replacements.end())
             s_Replacements.erase(it);
     };
 
-    static map<cc_string,cc_string>& GetTokenReplacementsMap()
+    static std::map<cc_string,cc_string>& GetTokenReplacementsMap()
     {
         return s_Replacements;
     };
 
-    static map<cc_string,cc_string> s_Replacements;
+    static std::map<cc_string,cc_string> s_Replacements;
 
 };
 

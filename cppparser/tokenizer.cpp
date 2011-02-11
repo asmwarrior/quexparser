@@ -20,6 +20,10 @@
 
 #define ELEMENT_TYPE uint8_t
 
+#include <iostream>
+
+using namespace std;
+
 // static
 std::map<cc_string,cc_string> Tokenizer::s_Replacements;
 QUEX_TYPE_CHARACTER Tokenizer::s_QuexBuffer[4] = {0,0,0,0};
