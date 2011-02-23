@@ -45,7 +45,6 @@ define {
 
 token {
 
- 
     PP_DEFINE           = 50;
     PP_IF               = 51;
     PP_ELIF             = 52;
@@ -60,9 +59,108 @@ token {
     FAILURE_STRING;
     FAILURE;
     STRING;
-    
-    
-    
+    L_PAREN;
+    R_PAREN;
+    L_BRACE;
+    R_BRACE;
+    L_SQUARE;
+    R_SQUARE;
+    DOT;
+    ELLIPSIS;
+    COLON;
+    DOUBLE_COLON;
+    SEMICOLON;
+    COMMA;
+    QUESTION;
+    ARROW;
+    ASSIGN;
+    PLUS;
+    PLUS_ASSIGN;
+    DOUBLE_PLUS;
+    MINUS;
+    DOUBLE_MINUS;
+    MINUS_ASSIGN;
+    MULT;
+    MULT_ASSIGN;
+    DIV;
+    DIV_ASSIGN;
+    MODULO;
+    MODULO_ASSIGN;
+    L_SHIFT;
+    L_SHIFT_ASSIGN;
+    R_SHIFT;
+    R_SHIFT_ASSIGN;
+    EQ;
+    GREATER;
+    GREATER_EQ;
+    LESS;
+    LESS_EQ;
+    NOT;
+    NOT_EQ;
+    BITOR;
+    OR;
+    OR_EQ;
+    XOR;
+    XOR_EQ;
+    COMPL;
+    BITAND;
+    AND;
+    AND_EQ;
+    EXTERN;
+    EXPLICIT;
+    CONST;
+    FRIEND;
+    VIRTUAL;
+    VOLATILE;
+    STATIC;
+    INLINE;
+    AUTO;
+    REGISTER;
+    MUTABLE;
+    IF;
+    ELSE;
+    SWITCH;
+    FOR;
+    DO;
+    WHILE;
+    NAMESPACE;
+    CLASS;
+    STRUCT;
+    TEMPLATE;
+    UNION;
+    ENUM;
+    TRY;
+    CATCH;
+    PUBLIC;
+    PROTECT;
+    PRIVATE;
+    NEW;
+    DELETE;
+    CONTINUE;
+    RETURN;
+    CASE;
+    DEFAULT;
+    BREAK;
+    GOTO;
+    SIZEOF;
+    THROW;
+    USING;
+    ASM;
+    ASM_EXT;
+    TYPEDEF;
+    TYPEID;
+    THIS;
+    TYPENAME;
+    OPERATOR;
+    IDENTIFIER;
+    NUMBER;
+    QUOTED_CHAR;
+    PP_INCLUDE;
+    DEFINED;
+    HASH;
+    DOUBLE_HASH;
+    PP_FINISH;
+   
 }
 
 mode EOF_AND_FAILURE:
@@ -222,9 +320,7 @@ mode VAR_LEXEMES :
 }
 
 
-mode PROGRAM : OPERATORS,
-VAR_LEXEMES,
-EOF_AND_FAILURE
+mode PROGRAM : OPERATORS, VAR_LEXEMES, EOF_AND_FAILURE
 <skip:       [ \r\n\t]>
 <skip_range: "/*" "*/">
 {
@@ -243,14 +339,12 @@ EOF_AND_FAILURE
     
     "//"([^\n]|\\[ \t]*\r?\n)*\r?\n           {} // skip cpp_comment => TKN_PP_CPPCOMMENT(Lexeme);
     
-    \\[ \t]*\r?\n       {}                   // backslash spaces* newline should be skipped
+    \\[ \t]*\r?\n       {}                       // backslash spaces* newline should be skipped
 
     {P_IDENTIFIER}  PRIORITY-MARK;
 }
 
-mode PREPROCESSOR : OPERATORS,
-VAR_LEXEMES,
-EOF_AND_FAILURE
+mode PREPROCESSOR : OPERATORS, VAR_LEXEMES, EOF_AND_FAILURE
 <skip:       [ \r\t]>
 <skip_range: "/*" "*/">
 {
