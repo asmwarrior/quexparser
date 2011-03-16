@@ -190,6 +190,8 @@ QUEX_NAMESPACE_MAIN_OPEN
         __quex_assert(buffer != 0x0);
         __quex_assert(buffer->filler != 0x0);
 
+        QUEX_DEBUG_PRINT(buffer, "BACKWARD: BUFFER RELOAD");
+
         if( buffer->on_buffer_content_change != 0x0 ) {
             /* In contrast to 'reload forward', a reload backward is very well 
              * conceivable, even if end of file pointer != 0x0.                          */
@@ -198,6 +200,7 @@ QUEX_NAMESPACE_MAIN_OPEN
         }
 
         LoadedCharacterN = QUEX_NAME(BufferFiller_load_backward)(buffer);
+        QUEX_DEBUG_PRINT2(buffer, "BACKWARD: LOADED %i CHARACTERS", (int)LoadedCharacterN);
         
         /* Backward lexing happens in two cases:
          *
@@ -214,6 +217,8 @@ QUEX_NAMESPACE_MAIN_OPEN
     QUEX_NAME(buffer_reload_forward)(QUEX_NAME(Buffer)*  buffer) 
     {
         size_t loaded_character_n = (size_t)-1;
+
+        QUEX_DEBUG_PRINT(buffer, "FORWARD: BUFFER RELOAD");
 
         __quex_assert(buffer != 0x0);
         __quex_assert(buffer->filler != 0x0);
@@ -232,6 +237,7 @@ QUEX_NAMESPACE_MAIN_OPEN
         }
 
         loaded_character_n = QUEX_NAME(BufferFiller_load_forward)(buffer);
+        QUEX_DEBUG_PRINT2(buffer, "FORWARD: LOADED %i CHARACTERS", (int)loaded_character_n);
         return loaded_character_n;
     }
 
