@@ -23,8 +23,8 @@
 #   define __QUEX_INCLUDE_INDICATOR__ANALYZER__CONFIGURATION
 #endif
 
-#define QUEX_SETTING_VERSION           "0.58.1"
-#define QUEX_SETTING_BUILD_DATE        "Wed Mar 16 08:53:24 2011"
+#define QUEX_SETTING_VERSION           "0.58.2"
+#define QUEX_SETTING_BUILD_DATE        "Sat Mar 19 16:49:34 2011"
 #define QUEX_SETTING_ANALYZER_VERSION  "0.0.0-pre-release"
 
 #ifndef    __QUEX_OPTION_PLAIN_C
@@ -139,20 +139,6 @@
 /* Verbosity (uncomment the following, if you want it verbose.)            */
 /* #define QUEX_OPTION_ASSERTS_WARNING_MESSAGE_DISABLED                    */
 
-/* Debugging: 
- *    If the engine was created with the '--debug' flag then it contains 
- *    debugging code. The effect of this code fragments can be turned off
- *    by commenting the following options out.                             */
-#ifndef QUEX_OPTION_DEBUG_TOKEN_SENDING
-/* #define QUEX_OPTION_DEBUG_TOKEN_SENDING */
-#endif
-#ifndef QUEX_OPTION_DEBUG_MODE_TRANSITIONS
-/* #define QUEX_OPTION_DEBUG_MODE_TRANSITIONS */
-#endif
-#ifndef QUEX_OPTION_DEBUG_QUEX_PATTERN_MATCHES
-/* #define QUEX_OPTION_DEBUG_QUEX_PATTERN_MATCHES */
-#endif
-
 /* Include Stack Support                                                  */
 #ifndef   QUEX_OPTION_INCLUDE_STACK
 #define    QUEX_OPTION_INCLUDE_STACK
@@ -194,7 +180,7 @@
 #endif
 
 #ifndef    QUEX_SETTING_BUFFER_FILLER_SEEK_TEMP_BUFFER_SIZE
-#   define QUEX_SETTING_BUFFER_FILLER_SEEK_TEMP_BUFFER_SIZE  ((const size_t)(512))
+#   define QUEX_SETTING_BUFFER_FILLER_SEEK_TEMP_BUFFER_SIZE  (512)
 #endif
 #ifndef    QUEX_SETTING_ICU_PIVOT_BUFFER_SIZE
 #   define QUEX_SETTING_ICU_PIVOT_BUFFER_SIZE                (64)
