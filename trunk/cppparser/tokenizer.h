@@ -33,6 +33,7 @@ public:
     RawToken*  GetToken();
     RawToken*  CurrentToken();
     RawToken*  PeekToken(int step = 1);
+    bool FetchToken(RawToken * pToken);
 
     void UngetToken();
 
