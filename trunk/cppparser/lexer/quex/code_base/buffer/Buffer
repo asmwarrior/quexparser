@@ -94,7 +94,6 @@ QUEX_NAMESPACE_MAIN_OPEN
     QUEX_INLINE void                  QUEX_NAME(Buffer_input_p_decrement)(QUEX_NAME(Buffer)*);
     QUEX_INLINE void                  QUEX_NAME(Buffer_mark_lexeme_start)(QUEX_NAME(Buffer)*);
     QUEX_INLINE void                  QUEX_NAME(Buffer_seek_lexeme_start)(QUEX_NAME(Buffer)*);
-    QUEX_INLINE void                  QUEX_NAME(Buffer_store_last_character_of_lexeme_for_next_run)(QUEX_NAME(Buffer)*);
     QUEX_INLINE QUEX_TYPE_CHARACTER*  QUEX_NAME(Buffer_content_front)(QUEX_NAME(Buffer)*);
     QUEX_INLINE QUEX_TYPE_CHARACTER*  QUEX_NAME(Buffer_content_back)(QUEX_NAME(Buffer)*);
     QUEX_INLINE QUEX_TYPE_CHARACTER*  QUEX_NAME(Buffer_text_end)(QUEX_NAME(Buffer)*);
@@ -110,8 +109,6 @@ QUEX_NAMESPACE_MAIN_OPEN
     QUEX_INLINE void       QUEX_NAME(Buffer_seek)(QUEX_NAME(Buffer)*, const ptrdiff_t CharacterIndex);
     QUEX_INLINE void       QUEX_NAME(Buffer_move_away_passed_content)(QUEX_NAME(Buffer)* me);
 
-    QUEX_INLINE void    QUEX_NAME(Buffer_set_terminating_zero_for_lexeme)(QUEX_NAME(Buffer)*);
-    QUEX_INLINE void    QUEX_NAME(Buffer_undo_terminating_zero_for_lexeme)(QUEX_NAME(Buffer)*);
     QUEX_INLINE void    QUEX_NAME(Buffer_end_of_file_set)(QUEX_NAME(Buffer)*, QUEX_TYPE_CHARACTER* Position);
     QUEX_INLINE void    QUEX_NAME(Buffer_end_of_file_unset)(QUEX_NAME(Buffer)*);
     QUEX_INLINE bool    QUEX_NAME(Buffer_is_end_of_file)(QUEX_NAME(Buffer)*);
