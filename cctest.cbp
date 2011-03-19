@@ -67,6 +67,15 @@
 					<Add directory="$(#wx.lib)\gcc_dll" />
 				</Linker>
 			</Target>
+			<Target title="preprocessor test">
+				<Option output="bin\Debug\parserTester" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Debug\" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
@@ -83,15 +92,18 @@
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ExpressionDebug" />
+			<Option target="preprocessor test" />
 		</Unit>
 		<Unit filename="cppparser\ConstExpression.h">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ExpressionDebug" />
+			<Option target="preprocessor test" />
 		</Unit>
 		<Unit filename="cppparser\cchelper.h">
 			<Option target="Debug" />
 			<Option target="Release" />
+			<Option target="preprocessor test" />
 		</Unit>
 		<Unit filename="cppparser\expression_eval.cpp">
 			<Option target="ExpressionDebug" />
@@ -103,38 +115,60 @@
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ExpressionDebug" />
+			<Option target="preprocessor test" />
 		</Unit>
 		<Unit filename="cppparser\parserthread.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
+			<Option target="preprocessor test" />
 		</Unit>
 		<Unit filename="cppparser\parserthread.h">
 			<Option target="Debug" />
 			<Option target="Release" />
+			<Option target="preprocessor test" />
+		</Unit>
+		<Unit filename="cppparser\preprocessor.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="preprocessor test" />
+		</Unit>
+		<Unit filename="cppparser\preprocessor.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="preprocessor test" />
+		</Unit>
+		<Unit filename="cppparser\preprocessor_test.cpp">
+			<Option target="preprocessor test" />
 		</Unit>
 		<Unit filename="cppparser\searchtree.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
+			<Option target="preprocessor test" />
 		</Unit>
 		<Unit filename="cppparser\searchtree.h">
 			<Option target="Debug" />
 			<Option target="Release" />
+			<Option target="preprocessor test" />
 		</Unit>
 		<Unit filename="cppparser\token.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
+			<Option target="preprocessor test" />
 		</Unit>
 		<Unit filename="cppparser\token.h">
 			<Option target="Debug" />
 			<Option target="Release" />
+			<Option target="preprocessor test" />
 		</Unit>
 		<Unit filename="cppparser\tokenizer.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
+			<Option target="preprocessor test" />
 		</Unit>
 		<Unit filename="cppparser\tokenizer.h">
 			<Option target="Debug" />
 			<Option target="Release" />
+			<Option target="preprocessor test" />
 		</Unit>
 		<Unit filename="frame.cpp">
 			<Option target="GUITester" />
