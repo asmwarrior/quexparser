@@ -83,6 +83,7 @@
 			<Add option="-DQUEX_SETTING_BUFFER_SIZE=0" />
 			<Add option="-DQUEX_SETTING_BUFFER_MIN_FALLBACK_N=0" />
 			<Add option="-DQUEX_TYPE_CHARACTER=char" />
+			<Add option="-DQUEX_OPTION_TERMINATION_ZERO_DISABLED" />
 			<Add directory="cppparser\lexer" />
 		</Compiler>
 		<Unit filename="app.cpp">
@@ -92,13 +93,11 @@
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ExpressionDebug" />
-			<Option target="preprocessor test" />
 		</Unit>
 		<Unit filename="cppparser\ConstExpression.h">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ExpressionDebug" />
-			<Option target="preprocessor test" />
 		</Unit>
 		<Unit filename="cppparser\cchelper.h">
 			<Option target="Debug" />
@@ -110,6 +109,12 @@
 		</Unit>
 		<Unit filename="cppparser\expression_main.cpp">
 			<Option target="ExpressionDebug" />
+		</Unit>
+		<Unit filename="cppparser\expressionevaluator.cpp">
+			<Option target="preprocessor test" />
+		</Unit>
+		<Unit filename="cppparser\expressionevaluator.h">
+			<Option target="preprocessor test" />
 		</Unit>
 		<Unit filename="cppparser\lexer\tiny_lexer.cpp">
 			<Option target="Debug" />
@@ -206,6 +211,11 @@
 				<doxyfile_dot />
 				<general />
 			</DoxyBlocks>
+			<wxsmith version="1">
+				<gui name="wxWidgets" src="app.cpp" main="-- None --" init_handlers="necessary" language="CPP">
+					<load_resource file="resource.rc" />
+				</gui>
+			</wxsmith>
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
