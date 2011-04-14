@@ -6,6 +6,8 @@
 #include<iomanip>
 using namespace std;
 
+#include "expressionevaluator.h"
+
 
 
 class FileLoader : public LoaderBase {
@@ -218,7 +220,7 @@ void Preprocessor::AddMacroDefinition()
     }
     while(true);
     // add this entry
-    m_MacroTable[entry.m_Name]=entry;
+    m_MacroTable[entry.m_Name.get_text()]=entry;
 
 }
 void Preprocessor::DumpMacroTable()
@@ -277,23 +279,37 @@ bool  Preprocessor::MacroReplace(std::list<RawToken*> & macroDefine) {
 }
 bool  Preprocessor::ConstExpressionValue()
 {
+//    RawToken token;
+//    int value;
+//    while(true)
+//    {
+//        m_Tokenizer.FetchToken(&token);
+//        if(token.type_id()==TKN_NUMBER)
+//        {
+//            value = atoi(token.get_text().c_str());
+//            break;
+//        }
+//    }
+//    SkipCurrentPreprocessorDirective();
+//
+//    if(value==0)
+//        return false;
+//    else
+//        return true;
+
     RawToken token;
-    int value;
+    vector<RawToken> exp;
     while(true)
     {
         m_Tokenizer.FetchToken(&token);
-        if(token.type_id()==TKN_NUMBER)
+        exp.push_back(token);
+        if(token.type_id()==TKN_PP_FINISH||token.type_id()==TKN_TERMINATION)
         {
-            value = atoi(token.get_text().c_str());
             break;
         }
     }
-    SkipCurrentPreprocessorDirective();
-
-    if(value==0)
-        return false;
-    else
-        return true;
+    ConstExpression eval(this);
+    return eval.expression_eval(&exp[0]);
 
 
 }
@@ -449,5 +465,14 @@ void Preprocessor::SkipToNextBranch()
                 level--;
         }
     }
+
+}
+
+bool  Preprocessor::CheckMacroExist(std::string key)
+{
+    if(m_MacroTable.find(key)==m_MacroTable.end())
+        return false;
+    else
+        return true;
 
 }
