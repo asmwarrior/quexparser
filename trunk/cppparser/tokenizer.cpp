@@ -269,6 +269,7 @@ bool Tokenizer::FetchToken(RawToken * pToken)
     if( id == TKN_TERMINATION )
     {
        m_IsEOF = true;
+       throw ParserException();
        return false;
     }
     return true;

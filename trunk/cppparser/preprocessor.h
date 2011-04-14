@@ -2,6 +2,7 @@
 #define PREPROCESSOR_H_INCLUDED
 
 #include<list>
+#include<stack>
 #include"tokenizer.h"
 
 class MacroDefine
@@ -32,6 +33,18 @@ public:
 typedef std::map<std::string,MacroDefine> MacroTable;
 
 
+class BranchEntry
+{
+public:
+    BranchEntry():m_Value(false),m_Line(-1){};
+
+    bool m_Value;
+    int  m_Line;
+};
+
+typedef std::stack<BranchEntry> BranchStack;
+
+
 class Preprocessor
 {
 public:
@@ -48,11 +61,21 @@ public:
     void  RunTest();
     void  AddMacroDefinition();
     void  DumpMacroTable();
+
+    void HandleIf();
+    void HandleElif();
+    void HandleIfdef();
+    void HandleIfndef();
+    void HandleEndif();
+    void HandleElse();
+    void SkipCurrentPreprocessorDirective();
+    void SkipToNextBranch();
 private:
     std::list<RawToken*> m_TokenList;
     std::list<RawToken*>::iterator m_Current;
     Tokenizer m_Tokenizer;
     MacroTable m_MacroTable;
+    BranchStack m_BranchStack;
 
 };
 
