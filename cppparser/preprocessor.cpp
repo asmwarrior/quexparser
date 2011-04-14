@@ -47,7 +47,8 @@ protected:
     int             buf_size;
 };
 
-Preprocessor::Preprocessor() {
+Preprocessor::Preprocessor()
+{
 
 }
 Preprocessor::~Preprocessor() {
@@ -69,26 +70,115 @@ void  Preprocessor::LoadFile(cc_string filename) {
     m_Tokenizer.Init(filename, loader);
 
 }
-void  Preprocessor::RunTest() {
+void  Preprocessor::RunTest()
+{
     RawToken*  pToken;
 
-    while(true) {
+    try
+    {
+        while(true)
+    {
         pToken  = new RawToken;
-        if(m_Tokenizer.FetchToken(pToken)) {
+        if(m_Tokenizer.FetchToken(pToken))
+        {
             //cout<<pToken->get_string()<<endl;
-            if(pToken->type_id()==TKN_PP_DEFINE)
+
+            if( TKN_PP_DEFINE <= pToken->type_id() && pToken->type_id() <= TKN_PP_ERROR)
+
             {
-                delete pToken;
-                AddMacroDefinition();
+                switch (pToken->type_id())
+                {
+
+                case TKN_PP_DEFINE:
+                {
+                    delete pToken;
+                    AddMacroDefinition();
+                    break;
+                }
+                case TKN_PP_IF:
+                {
+                    delete pToken;
+                    HandleIf();
+                    break;
+                }
+                case TKN_PP_ELIF:
+                {
+                    delete pToken;
+                    HandleElif();
+                    break;
+                }
+                case TKN_PP_IFDEF :
+                {
+                    delete pToken;
+                    HandleIfdef();
+                    break;
+                }
+                case TKN_PP_IFNDEF:
+                {
+                    delete pToken;
+                    HandleIfndef();
+                    break;
+                }
+                case TKN_PP_ENDIF:
+                {
+                    delete pToken;
+                    HandleEndif();
+                    break;
+                }
+                case TKN_PP_ELSE:
+                {
+                    delete pToken;
+                    HandleElse();
+                    break;
+                }
+                case TKN_PP_PRAGMA:
+                {
+                    delete pToken;
+                    SkipCurrentPreprocessorDirective();
+                    break;
+                }
+                case TKN_PP_ERROR:
+                {
+                    delete pToken;
+                    SkipCurrentPreprocessorDirective();
+                    break;
+                }
+                case TKN_PP_UNDEF:
+                {
+                    delete pToken;
+                    SkipCurrentPreprocessorDirective();
+                    break;
+                }
+                default:
+                    delete pToken;
+                    SkipCurrentPreprocessorDirective();
+
+                }
+
+
             }
             else
+            {
                 m_TokenList.push_back(pToken);
-        } else {
+            }
+
+        }
+        else//EOF
+        {
             delete pToken;
             break;
-        }
+        }//if(m_Tokenizer.FetchToken(pToken))
+    }//while(true)
 
     }
+    catch(ParserException& e)
+    {
+        cout<< "end of file" <<endl;
+    }
+
+
+
+
     DumpMacroTable();
 }
 
@@ -185,6 +275,179 @@ void  Preprocessor::RemoveBefore() {
 bool  Preprocessor::MacroReplace(std::list<RawToken*> & macroDefine) {
 
 }
-bool  Preprocessor::ConstExpressionValue() {
+bool  Preprocessor::ConstExpressionValue()
+{
+    RawToken token;
+    int value;
+    while(true)
+    {
+        m_Tokenizer.FetchToken(&token);
+        if(token.type_id()==TKN_NUMBER)
+        {
+            value = atoi(token.get_text().c_str());
+            break;
+        }
+    }
+    SkipCurrentPreprocessorDirective();
+
+    if(value==0)
+        return false;
+    else
+        return true;
+
+
+}
+
+void Preprocessor::HandleIf()
+{
+    //evaluate the current line
+    // if true, level++ , return
+    // if false, skip to #endif(level--) or #else or #elseif , they must be in the same level
+    //, return
+
+    BranchEntry entry;
+    if(ConstExpressionValue()==true)
+    {
+
+        entry.m_Value=true;
+        m_BranchStack.push(entry);
+        return;
+    }
+    else //false
+    {
+        entry.m_Value=false;
+        m_BranchStack.push(entry);
+        SkipToNextBranch();
+        return;
+    }
+
+}
+void Preprocessor::HandleElif()
+{
+    // evaluate the current line
+    // if true, return
+    // if false, skip
+
+    if(ConstExpressionValue()==true)
+    {
+        return;
+    }
+    else //false
+    {
+        SkipToNextBranch();
+        return;
+    }
+}
+void Preprocessor::HandleIfdef()
+{
+    //evaluate the current line
+    // if ture, level++, return
+    //
+    BranchEntry entry;
+    if(ConstExpressionValue()==true)
+    {
+        entry.m_Value=true;
+        m_BranchStack.push(entry);
+        return;
+    }
+    else //false
+    {
+        entry.m_Value=false;
+        m_BranchStack.push(entry);
+        SkipToNextBranch();
+        return;
+    }
+
+}
+void Preprocessor::HandleIfndef()
+{
+    BranchEntry entry;
+    if(ConstExpressionValue()==true)
+    {
+        entry.m_Value=true;
+        m_BranchStack.push(entry);
+        return;
+    }
+    else //false
+    {
+        entry.m_Value=true;
+        m_BranchStack.push(entry);
+        SkipToNextBranch();
+        return;
+    }
+
+}
+void Preprocessor::HandleEndif()
+{
+    //level go up, level--
+    if(m_BranchStack.size()>0)
+        m_BranchStack.pop();
+    return;
+}
+void Preprocessor::HandleElse()
+{
+//do nothing, this branch must be used
+//    if(last branch is true), we should skip this branch
+//    else we should use this branch
+    if(m_BranchStack.size()>0)
+    {
+        if(m_BranchStack.top().m_Value==true)
+            SkipToNextBranch();
+        else
+            return; // this should be true
+    }
+
+}
+void Preprocessor::SkipCurrentPreprocessorDirective()
+{
+    RawToken token;
+    while(true)
+    {
+        m_Tokenizer.FetchToken(&token);
+        if(token.type_id()==TKN_PP_FINISH||token.type_id()==TKN_TERMINATION)
+        {
+            break;
+        }
+    }
+
+}
+void Preprocessor::SkipToNextBranch()
+{
+    //In the same #if level
+    int level = 0;
+    RawToken token;
+    while(true)
+    {
+        m_Tokenizer.FetchToken(&token);
+        if(token.type_id()==TKN_PP_IF
+           ||token.type_id()==TKN_PP_IFDEF
+           ||token.type_id()==TKN_PP_IFNDEF)
+        {
+          level++;
+        }
+        else if(  token.type_id()==TKN_PP_ELIF
+                ||token.type_id()==TKN_PP_ELSE)
+        {
+            if (level==0)//find the same level branch
+            {
+                if(token.type_id()==TKN_PP_ELIF)
+                    HandleElif();
+                else
+                    HandleElse();
+                return;
+            }
+        }
+        else if (token.type_id()==TKN_PP_ENDIF)
+        {
+
+            if (level==0)//find the same level endif
+            {
+                HandleEndif();
+                return;
+            }
+            else
+                level--;
+        }
+    }
 
 }
