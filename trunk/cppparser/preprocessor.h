@@ -70,6 +70,8 @@ public:
     void HandleElse();
     void SkipCurrentPreprocessorDirective();
     void SkipToNextBranch();
+
+    bool CheckMacroExist(std::string key);
 private:
     std::list<RawToken*> m_TokenList;
     std::list<RawToken*>::iterator m_Current;
