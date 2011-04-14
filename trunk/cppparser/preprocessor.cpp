@@ -58,6 +58,7 @@ Preprocessor::~Preprocessor() {
     std::list<RawToken*>::iterator it;
     //clear list
     for ( it=m_TokenList.begin() ; it != m_TokenList.end(); it++ ) {
+        std::cout<<*(*it)<<std::endl;
         delete (*it);
     }
 
@@ -359,8 +360,29 @@ void Preprocessor::HandleIfdef()
     //evaluate the current line
     // if ture, level++, return
     //
+
+    RawToken token;
+    m_Tokenizer.FetchToken(&token);
+    bool InParentheses = false;
+
+    if (token.type_id()==TKN_L_PAREN)
+    {
+        InParentheses = true;
+        m_Tokenizer.FetchToken(&token);
+    }
+    bool exist=false;
+    if(token.type_id()==TKN_IDENTIFIER)
+    {
+        //Chech this Id in the symbol table
+        exist = CheckMacroExist(token.get_text());
+    }
+
+    if(InParentheses==true)//skip the right parenthesis
+        m_Tokenizer.FetchToken(&token);
+
+
     BranchEntry entry;
-    if(ConstExpressionValue()==true)
+    if(exist==true)
     {
         entry.m_Value=true;
         m_BranchStack.push(entry);
@@ -377,14 +399,34 @@ void Preprocessor::HandleIfdef()
 }
 void Preprocessor::HandleIfndef()
 {
+    RawToken token;
+    m_Tokenizer.FetchToken(&token);
+    bool InParentheses = false;
+
+    if (token.type_id()==TKN_L_PAREN)
+    {
+        InParentheses = true;
+        m_Tokenizer.FetchToken(&token);
+    }
+    bool exist=false;
+    if(token.type_id()==TKN_IDENTIFIER)
+    {
+        //Chech this Id in the symbol table
+        exist = CheckMacroExist(token.get_text());
+    }
+
+    if(InParentheses==true)//skip the right parenthesis
+        m_Tokenizer.FetchToken(&token);
+
+
     BranchEntry entry;
-    if(ConstExpressionValue()==true)
+    if(exist==false) // chech false!!!
     {
         entry.m_Value=true;
         m_BranchStack.push(entry);
         return;
     }
-    else //false
+    else
     {
         entry.m_Value=true;
         m_BranchStack.push(entry);
