@@ -75,14 +75,73 @@ void  Preprocessor::RunTest() {
     while(true) {
         pToken  = new RawToken;
         if(m_Tokenizer.FetchToken(pToken)) {
-            cout<<pToken->get_string()<<endl;
-            m_TokenList.push_back(pToken);
+            //cout<<pToken->get_string()<<endl;
+            if(pToken->type_id()==TKN_PP_DEFINE)
+            {
+                delete pToken;
+                AddMacroDefinition();
+            }
+            else
+                m_TokenList.push_back(pToken);
         } else {
             delete pToken;
             break;
         }
 
     }
+    DumpMacroTable();
+}
+
+void Preprocessor::AddMacroDefinition()
+{
+    RawToken token;
+    MacroDefine entry;
+    m_Tokenizer.FetchToken(&(entry.m_Name));
+    m_Tokenizer.FetchToken(&token);
+
+    if(token.type_id()==TKN_L_PAREN)//function like macro
+    {
+        entry.m_IsFunctionLike=true;
+        //read the argument
+        do{
+            m_Tokenizer.FetchToken(&token);
+            if(token.type_id()==TKN_R_PAREN)
+                break;
+            else if(token.type_id()!=TKN_COMMA)
+                entry.m_Arguments.push_back(token);
+        }
+        while(true);
+    }
+    else
+    {
+        if(token.type_id()!=TKN_PP_FINISH)
+            entry.m_DefineValue.push_back(token);
+    }
+
+    //read macro definition string
+    do{
+        m_Tokenizer.FetchToken(&token);
+        if(token.type_id()!=TKN_PP_FINISH)
+            entry.m_DefineValue.push_back(token);
+        else
+            break;
+    }
+    while(true);
+    // add this entry
+    m_MacroTable[entry.m_Name]=entry;
+
+}
+void Preprocessor::DumpMacroTable()
+{
+  MacroTable::iterator it;
+  // show content:
+  for ( it=m_MacroTable.begin() ; it != m_MacroTable.end(); it++ )
+  {
+      (*it).second.Dump();
+  }
+
+
+
 }
 
 RawToken*  Preprocessor::GetToken() {
