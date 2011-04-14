@@ -19,5 +19,6 @@ int main()
     Preprocessor cpp;
     cpp.LoadFile("test.cpp");
     cpp.RunTest();
+    //cpp.RunTestPerformance();
     return 0;
 }
