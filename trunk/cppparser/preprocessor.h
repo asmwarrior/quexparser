@@ -72,6 +72,7 @@ public:
     void SkipToNextBranch();
 
     bool CheckMacroExist(std::string key);
+	void  RunTestPerformance();
 private:
     std::list<RawToken*> m_TokenList;
     std::list<RawToken*>::iterator m_Current;

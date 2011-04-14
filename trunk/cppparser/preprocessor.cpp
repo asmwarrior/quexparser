@@ -8,6 +8,66 @@ using namespace std;
 
 #include "expressionevaluator.h"
 
+#ifdef _WIN32
+
+#include<Windows.h>
+
+
+class CTimer {
+private:
+
+    LARGE_INTEGER m_base;
+    LARGE_INTEGER m_temp;
+    float m_resolution;
+
+public:
+
+    CTimer() {
+        LARGE_INTEGER t_freq;
+        QueryPerformanceFrequency(&t_freq);
+        m_resolution = (float) (1.0f / (double) t_freq.QuadPart);
+        reset();
+    }
+
+    void reset() {
+        QueryPerformanceCounter(&m_base);
+    }
+
+    inline float GetCurrentTime() {
+        QueryPerformanceCounter(&m_temp);
+        return (m_temp.QuadPart - m_base.QuadPart) * m_resolution * 1000.0f;
+    }
+
+    void SleepTime(float ms_val) {
+        float ms_st = GetCurrentTime();
+        while (GetCurrentTime()-ms_st < ms_val)
+            continue;
+    }
+
+};
+#else
+class CTimer {
+private:
+    unsigned long m_base;
+public:
+    CTimer() {
+        reset();
+    }
+
+    void reset() {
+        timeval t;
+        gettimeofday(&t, NULL);
+        m_base = t.tv_sec;
+    }
+
+    float GetCurrentTime() {
+        timeval t;
+        gettimeofday(&t, NULL);
+        return 1000 * (t.tv_sec - m_base) + t.tv_usec * 0.001f;
+    }
+};
+#endif
+
 
 
 class FileLoader : public LoaderBase {
@@ -162,7 +222,7 @@ void  Preprocessor::RunTest()
             }
             else
             {
-                m_TokenList.push_back(pToken);
+            m_TokenList.push_back(pToken);
             }
 
         }
@@ -173,7 +233,7 @@ void  Preprocessor::RunTest()
         }//if(m_Tokenizer.FetchToken(pToken))
     }//while(true)
 
-    }
+        }
     catch(ParserException& e)
     {
         cout<< "end of file" <<endl;
@@ -183,7 +243,7 @@ void  Preprocessor::RunTest()
 
 
     DumpMacroTable();
-}
+    }
 
 void Preprocessor::AddMacroDefinition()
 {
@@ -202,7 +262,7 @@ void Preprocessor::AddMacroDefinition()
                 break;
             else if(token.type_id()!=TKN_COMMA)
                 entry.m_Arguments.push_back(token);
-        }
+}
         while(true);
     }
     else
@@ -308,7 +368,7 @@ bool  Preprocessor::ConstExpressionValue()
         {
             break;
         }
-    }
+    };
     ConstExpression eval(this);
     return eval.expression_eval(&exp[0]);
 
@@ -517,4 +577,22 @@ bool  Preprocessor::CheckMacroExist(std::string key)
     else
         return true;
 
+}
+void  Preprocessor::RunTestPerformance() {
+    RawToken*  pToken = new RawToken;
+
+    CTimer a;
+    a.reset();
+
+    while(true) {
+        if(m_Tokenizer.FetchToken(pToken)) {
+            //cout<<pToken->get_string()<<endl;
+            //m_TokenList.push_back(pToken);
+        } else {
+            delete pToken;
+            break;
+        }
+
+    }
+    std::cout<<a.GetCurrentTime()<<std::endl;
 }
