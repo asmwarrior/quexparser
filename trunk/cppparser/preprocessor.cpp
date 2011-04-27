@@ -364,11 +364,13 @@ bool  Preprocessor::ConstExpressionValue()
     {
         m_Tokenizer.FetchToken(&token);
         exp.push_back(token);
-        if(token.type_id()==TKN_PP_FINISH||token.type_id()==TKN_TERMINATION)
+        if(token.type_id()==TKN_PP_FINISH)
         {
             break;
         }
     };
+
+    MacroExpension(exp);
     ConstExpression eval(this);
     return eval.expression_eval(&exp[0]);
 
@@ -595,4 +597,63 @@ void  Preprocessor::RunTestPerformance() {
 
     }
     std::cout<<a.GetCurrentTime()<<std::endl;
+}
+
+void Preprocessor::MacroExpension(vector<RawToken> & exp)
+{
+    // defined (XXX) will correctly caculated first
+
+    for(vector<RawToken>::iterator it=exp.begin() ; it < exp.end(); it++)
+    {
+        if((*it).type_id() == TKN_DEFINED )
+        {
+            vector<RawToken>::iterator beginOfDefineCheck = it;
+            bool value = false;
+            it++;
+            bool InParentheses = false;
+            if ((*it).type_id()==TKN_L_PAREN)
+            {
+                InParentheses = true;
+                it++;
+            }
+            if((*it).type_id()==TKN_IDENTIFIER)
+            {
+                //Chech this Id in the symbol table
+                bool exist = CheckMacroExist((*it).get_text());
+                if (exist==true)
+                    value = true;
+            }
+            else
+                value = false;
+
+            if(InParentheses==true)//skip the right parenthesis
+                it++;
+
+            // remove from beginOfDefineCheck to endIdx
+            (*beginOfDefineCheck).set(TKN_NUMBER);
+            cc_string valueString;
+            if(value==true)
+                valueString="1";
+            else
+                valueString="0";
+
+            (*beginOfDefineCheck).set_text(valueString);
+            exp.erase(beginOfDefineCheck+1,it+1);
+            it=beginOfDefineCheck;
+        }
+
+        if((*it).type_id() == TKN_IDENTIFIER )
+        {
+
+        }
+    }
+
+    //dump the result
+    cout<<"After Expension\n";
+    for(vector<RawToken>::iterator it=exp.begin() ; it < exp.end(); it++)
+        cout<<*it<<endl;
+
+
+
+
 }

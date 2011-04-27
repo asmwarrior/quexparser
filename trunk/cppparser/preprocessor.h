@@ -62,6 +62,8 @@ public:
     void  AddMacroDefinition();
     void  DumpMacroTable();
 
+    void MacroExpension(std::vector<RawToken> & exp);
+
     void HandleIf();
     void HandleElif();
     void HandleIfdef();
