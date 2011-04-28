@@ -370,7 +370,8 @@ bool  Preprocessor::ConstExpressionValue()
         }
     };
 
-    MacroExpension(exp);
+    if(MacroExpension(exp)==false)
+        return false;
     ConstExpression eval(this);
     return eval.expression_eval(&exp[0]);
 
@@ -599,7 +600,18 @@ void  Preprocessor::RunTestPerformance() {
     std::cout<<a.GetCurrentTime()<<std::endl;
 }
 
-void Preprocessor::MacroExpension(vector<RawToken> & exp)
+void DumpExp(vector<RawToken> & exp)
+{
+    cout<<"Dump Start"<<endl;
+    for(vector<RawToken>::iterator it=exp.begin() ; it < exp.end(); it++)
+    {
+       cout<<*it<<endl;
+    }
+    cout<<"Dump End"<<endl;
+
+}
+
+bool Preprocessor::MacroExpension(vector<RawToken> & exp)
 {
     // defined (XXX) will correctly caculated first
 
@@ -641,9 +653,71 @@ void Preprocessor::MacroExpension(vector<RawToken> & exp)
             exp.erase(beginOfDefineCheck+1,it+1);
             it=beginOfDefineCheck;
         }
-
-        if((*it).type_id() == TKN_IDENTIFIER )
+        else if((*it).type_id() == TKN_IDENTIFIER )
         {
+            bool exist = CheckMacroExist((*it).get_text());
+                if (exist==true)
+                {
+                    //macro exist
+                    MacroDefine &def = m_MacroTable[(*it).get_text()];
+                    if(def.m_IsFunctionLike == true)
+                    {
+                        //expend the augument
+                        //read argument
+                        int argNum = def.m_Arguments.size();
+                        vector< vector<RawToken> > arg;
+                        //consider semicolon and toplevel parenthese
+                        it++;
+                        for(int num = 0;num<=argNum;num++)
+                        {
+                            if((*it).type_id()!=TKN_COLON && (*it).type_id()!=TKN_R_PAREN)
+                               arg[num].push_back(*it);
+                        }
+                        //*it should be a right parenthesis
+                        //replace
+                        vector<RawToken> expend;
+                        //loop the definition, and do the expension
+                        for(vector<RawToken>::iterator itDef=def.m_DefineValue.begin() ; itDef < def.m_DefineValue.end(); itDef++)
+                        {
+                            if((*itDef).type_id() == TKN_IDENTIFIER )
+                            {
+                                bool replaced = false;
+                                //check it is whether a parameter
+                                for(int i = 0;i<def.m_Arguments.size();i++)
+                                {
+                                    if((*itDef).get_text()==def.m_Arguments[i].get_text())
+                                    {
+                                        //do a replacement
+                                        replaced = true;
+                                        expend.insert(expend.end(),arg[i].begin(),arg[i].end());
+
+                                    }
+                                }
+                                if(replaced==false)
+                                    expend.push_back(*itDef);
+
+                            }
+                            //exp.insert(it,def.m_DefineValue.begin(),def.m_DefineValue.end()-1);
+                        }
+
+                    }
+                    else
+                    {
+                        exp.erase(it); //remove the current tok;
+                        //general replacement,quite simple
+                        for(vector<RawToken>::iterator itDef=def.m_DefineValue.begin() ; itDef < def.m_DefineValue.end(); itDef++)
+                        {
+                            it=exp.insert(it,*itDef);
+                        //exp.insert(it,def.m_DefineValue.begin(),def.m_DefineValue.end());
+                        }
+                        DumpExp(exp);
+
+                    }
+
+
+                }
+                else
+                    return false; //this identifier is not defined, so return false;
 
         }
     }
@@ -652,6 +726,7 @@ void Preprocessor::MacroExpension(vector<RawToken> & exp)
     cout<<"After Expension\n";
     for(vector<RawToken>::iterator it=exp.begin() ; it < exp.end(); it++)
         cout<<*it<<endl;
+    return true;
 
 
 
