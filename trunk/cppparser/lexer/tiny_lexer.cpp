@@ -20658,7 +20658,7 @@ _6439:
 #   endif
     {
 
-#   line 294 "cpp.qx"
+#   line 454 "cpp.qx"
 self_send(TKN_CASE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -20678,7 +20678,7 @@ _6749:
 #   endif
     {
 
-#   line 258 "cpp.qx"
+#   line 418 "cpp.qx"
 self_send(TKN_EXTERN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -20700,7 +20700,7 @@ _6350:
 #   endif
     {
 
-#   line 337 "cpp.qx"
+#   line 497 "cpp.qx"
 QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_ERROR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -20720,7 +20720,7 @@ _6467:
 #   endif
     {
 
-#   line 295 "cpp.qx"
+#   line 455 "cpp.qx"
 self_send(TKN_DEFAULT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -20740,7 +20740,7 @@ _6745:
 #   endif
     {
 
-#   line 259 "cpp.qx"
+#   line 419 "cpp.qx"
 self_send(TKN_EXPLICIT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -20760,7 +20760,7 @@ _6406:
 #   endif
     {
 
-#   line 296 "cpp.qx"
+#   line 456 "cpp.qx"
 self_send(TKN_BREAK);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -20780,7 +20780,7 @@ _6454:
 #   endif
     {
 
-#   line 260 "cpp.qx"
+#   line 420 "cpp.qx"
 self_send(TKN_CONST);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -20800,7 +20800,7 @@ _6424:
 #   endif
     {
 
-#   line 297 "cpp.qx"
+#   line 457 "cpp.qx"
 self_send(TKN_GOTO);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -20820,7 +20820,7 @@ _6524:
 #   endif
     {
 
-#   line 261 "cpp.qx"
+#   line 421 "cpp.qx"
 self_send(TKN_FRIEND);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -20840,7 +20840,7 @@ _6768:
 #   endif
     {
 
-#   line 298 "cpp.qx"
+#   line 458 "cpp.qx"
 self_send(TKN_SIZEOF);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -20860,7 +20860,7 @@ _6685:
 #   endif
     {
 
-#   line 299 "cpp.qx"
+#   line 459 "cpp.qx"
 self_send(TKN_THROW);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -20880,7 +20880,7 @@ _6641:
 #   endif
     {
 
-#   line 262 "cpp.qx"
+#   line 422 "cpp.qx"
 self_send(TKN_VIRTUAL);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -20900,7 +20900,7 @@ _6651:
 #   endif
     {
 
-#   line 301 "cpp.qx"
+#   line 461 "cpp.qx"
 self_send(TKN_USING);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -20920,7 +20920,7 @@ _6535:
 #   endif
     {
 
-#   line 302 "cpp.qx"
+#   line 462 "cpp.qx"
 self_send(TKN_ASM);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -20940,7 +20940,7 @@ _6635:
 #   endif
     {
 
-#   line 263 "cpp.qx"
+#   line 423 "cpp.qx"
 self_send(TKN_VOLATILE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -20960,7 +20960,7 @@ _6680:
 #   endif
     {
 
-#   line 305 "cpp.qx"
+#   line 465 "cpp.qx"
 self_send(TKN_TYPEID);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -20980,7 +20980,7 @@ _6476:
 #   endif
     {
 
-#   line 303 "cpp.qx"
+#   line 463 "cpp.qx"
 self_send(TKN_ASM_EXT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21000,7 +21000,7 @@ _6774:
 #   endif
     {
 
-#   line 264 "cpp.qx"
+#   line 424 "cpp.qx"
 self_send(TKN_STATIC);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21020,7 +21020,7 @@ _6674:
 #   endif
     {
 
-#   line 304 "cpp.qx"
+#   line 464 "cpp.qx"
 self_send(TKN_TYPEDEF);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21040,7 +21040,7 @@ _6695:
 #   endif
     {
 
-#   line 265 "cpp.qx"
+#   line 425 "cpp.qx"
 self_send(TKN_INLINE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21060,7 +21060,7 @@ _6544:
 #   endif
     {
 
-#   line 266 "cpp.qx"
+#   line 426 "cpp.qx"
 self_send(TKN_AUTO);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21080,7 +21080,7 @@ _6491:
 #   endif
     {
 
-#   line 330 "cpp.qx"
+#   line 490 "cpp.qx"
 QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_IF);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21100,7 +21100,7 @@ _6687:
 #   endif
     {
 
-#   line 306 "cpp.qx"
+#   line 466 "cpp.qx"
 self_send(TKN_THIS);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21120,7 +21120,7 @@ _6723:
 #   endif
     {
 
-#   line 267 "cpp.qx"
+#   line 427 "cpp.qx"
 self_send(TKN_REGISTER);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21140,7 +21140,7 @@ _6678:
 #   endif
     {
 
-#   line 308 "cpp.qx"
+#   line 468 "cpp.qx"
 self_send(TKN_TYPENAME);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21160,7 +21160,7 @@ _6785:
 #   endif
     {
 
-#   line 268 "cpp.qx"
+#   line 428 "cpp.qx"
 self_send(TKN_MUTABLE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21180,7 +21180,7 @@ _6690:
 #   endif
     {
 
-#   line 270 "cpp.qx"
+#   line 430 "cpp.qx"
 self_send(TKN_IF);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21200,7 +21200,7 @@ _6420:
 #   endif
     {
 
-#   line 309 "cpp.qx"
+#   line 469 "cpp.qx"
 self_send(TKN_OPERATOR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21220,7 +21220,7 @@ _6755:
 #   endif
     {
 
-#   line 271 "cpp.qx"
+#   line 431 "cpp.qx"
 self_send(TKN_ELSE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21240,7 +21240,7 @@ _6373:
 #   endif
     {
 
-#   line 312 "cpp.qx"
+#   line 472 "cpp.qx"
 QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
 self_send(TKN_NUMBER);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -21263,7 +21263,7 @@ _6317:
 #   endif
     {
 
-#   line 313 "cpp.qx"
+#   line 473 "cpp.qx"
 QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
 self_send(TKN_STRING);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -21287,7 +21287,7 @@ _6530:
 #   endif
     {
 
-#   line 314 "cpp.qx"
+#   line 474 "cpp.qx"
 QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
 self_send(TKN_QUOTED_CHAR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -21311,7 +21311,7 @@ _6616:
 #   endif
     {
 
-#   line 316 "cpp.qx"
+#   line 476 "cpp.qx"
 QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
 self_send(TKN_NUMBER);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -21335,7 +21335,7 @@ _6378:
 #   endif
     {
 
-#   line 317 "cpp.qx"
+#   line 477 "cpp.qx"
 QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
 self_send(TKN_NUMBER);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -21359,7 +21359,7 @@ _6382:
 #   endif
     {
 
-#   line 318 "cpp.qx"
+#   line 478 "cpp.qx"
 QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
 self_send(TKN_NUMBER);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -21383,7 +21383,7 @@ _6368:
 #   endif
     {
 
-#   line 319 "cpp.qx"
+#   line 479 "cpp.qx"
 QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
 self_send(TKN_NUMBER);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -21490,7 +21490,7 @@ _6763:
 #   endif
     {
 
-#   line 272 "cpp.qx"
+#   line 432 "cpp.qx"
 self_send(TKN_SWITCH);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21510,7 +21510,7 @@ _6526:
 #   endif
     {
 
-#   line 273 "cpp.qx"
+#   line 433 "cpp.qx"
 self_send(TKN_FOR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21530,7 +21530,7 @@ _6460:
 #   endif
     {
 
-#   line 274 "cpp.qx"
+#   line 434 "cpp.qx"
 self_send(TKN_DO);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21552,7 +21552,7 @@ _6356:
 #   endif
     {
 
-#   line 327 "cpp.qx"
+#   line 487 "cpp.qx"
 QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
 self_send(TKN_PP_INCLUDE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -21573,7 +21573,7 @@ _6732:
 #   endif
     {
 
-#   line 275 "cpp.qx"
+#   line 435 "cpp.qx"
 self_send(TKN_WHILE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21595,7 +21595,7 @@ _6357:
 #   endif
     {
 
-#   line 328 "cpp.qx"
+#   line 488 "cpp.qx"
 QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
 self_send(TKN_PP_INCLUDE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -21618,7 +21618,7 @@ _6358:
 #   endif
     {
 
-#   line 332 "cpp.qx"
+#   line 492 "cpp.qx"
 QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_IFDEF);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21640,7 +21640,7 @@ _6332:
 #   endif
     {
 
-#   line 177 "cpp.qx"
+#   line 337 "cpp.qx"
 self_send(TKN_L_PAREN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21662,7 +21662,7 @@ _6336:
 #   endif
     {
 
-#   line 178 "cpp.qx"
+#   line 338 "cpp.qx"
 self_send(TKN_R_PAREN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21684,7 +21684,7 @@ _6312:
 #   endif
     {
 
-#   line 329 "cpp.qx"
+#   line 489 "cpp.qx"
 QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_DEFINE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21706,7 +21706,7 @@ _6327:
 #   endif
     {
 
-#   line 179 "cpp.qx"
+#   line 339 "cpp.qx"
 self_send(TKN_L_BRACE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21728,7 +21728,7 @@ _6326:
 #   endif
     {
 
-#   line 180 "cpp.qx"
+#   line 340 "cpp.qx"
 self_send(TKN_R_BRACE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21750,7 +21750,7 @@ _6342:
 #   endif
     {
 
-#   line 181 "cpp.qx"
+#   line 341 "cpp.qx"
 self_send(TKN_L_SQUARE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21772,7 +21772,7 @@ _6345:
 #   endif
     {
 
-#   line 182 "cpp.qx"
+#   line 342 "cpp.qx"
 self_send(TKN_R_SQUARE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21792,7 +21792,7 @@ _6586:
 #   endif
     {
 
-#   line 184 "cpp.qx"
+#   line 344 "cpp.qx"
 self_send(TKN_DOT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21814,7 +21814,7 @@ _6340:
 #   endif
     {
 
-#   line 185 "cpp.qx"
+#   line 345 "cpp.qx"
 self_send(TKN_ELLIPSIS);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21834,7 +21834,7 @@ _6608:
 #   endif
     {
 
-#   line 277 "cpp.qx"
+#   line 437 "cpp.qx"
 self_send(TKN_NAMESPACE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21854,7 +21854,7 @@ _6573:
 #   endif
     {
 
-#   line 186 "cpp.qx"
+#   line 346 "cpp.qx"
 self_send(TKN_COLON);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21876,7 +21876,7 @@ _6318:
 #   endif
     {
 
-#   line 187 "cpp.qx"
+#   line 347 "cpp.qx"
 self_send(TKN_DOUBLE_COLON);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21898,7 +21898,7 @@ _6341:
 #   endif
     {
 
-#   line 188 "cpp.qx"
+#   line 348 "cpp.qx"
 self_send(TKN_SEMICOLON);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21920,7 +21920,7 @@ _6353:
 #   endif
     {
 
-#   line 331 "cpp.qx"
+#   line 491 "cpp.qx"
 QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_ELIF);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21942,7 +21942,7 @@ _6347:
 #   endif
     {
 
-#   line 189 "cpp.qx"
+#   line 349 "cpp.qx"
 self_send(TKN_COMMA);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21964,7 +21964,7 @@ _6335:
 #   endif
     {
 
-#   line 190 "cpp.qx"
+#   line 350 "cpp.qx"
 self_send(TKN_QUESTION);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -21986,7 +21986,7 @@ _6321:
 #   endif
     {
 
-#   line 191 "cpp.qx"
+#   line 351 "cpp.qx"
 self_send(TKN_ARROW);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22006,7 +22006,7 @@ _6568:
 #   endif
     {
 
-#   line 194 "cpp.qx"
+#   line 354 "cpp.qx"
 self_send(TKN_ASSIGN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22026,7 +22026,7 @@ _6443:
 #   endif
     {
 
-#   line 278 "cpp.qx"
+#   line 438 "cpp.qx"
 self_send(TKN_CLASS);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22046,7 +22046,7 @@ _6560:
 #   endif
     {
 
-#   line 195 "cpp.qx"
+#   line 355 "cpp.qx"
 self_send(TKN_PLUS);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22068,7 +22068,7 @@ _6338:
 #   endif
     {
 
-#   line 196 "cpp.qx"
+#   line 356 "cpp.qx"
 self_send(TKN_PLUS_ASSIGN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22090,7 +22090,7 @@ _6339:
 #   endif
     {
 
-#   line 197 "cpp.qx"
+#   line 357 "cpp.qx"
 self_send(TKN_DOUBLE_PLUS);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22110,7 +22110,7 @@ _6571:
 #   endif
     {
 
-#   line 198 "cpp.qx"
+#   line 358 "cpp.qx"
 self_send(TKN_MINUS);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22132,7 +22132,7 @@ _6319:
 #   endif
     {
 
-#   line 199 "cpp.qx"
+#   line 359 "cpp.qx"
 self_send(TKN_DOUBLE_MINUS);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22154,7 +22154,7 @@ _6360:
 #   endif
     {
 
-#   line 333 "cpp.qx"
+#   line 493 "cpp.qx"
 QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_IFNDEF);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22176,7 +22176,7 @@ _6320:
 #   endif
     {
 
-#   line 200 "cpp.qx"
+#   line 360 "cpp.qx"
 self_send(TKN_MINUS_ASSIGN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22196,7 +22196,7 @@ _6551:
 #   endif
     {
 
-#   line 202 "cpp.qx"
+#   line 362 "cpp.qx"
 self_send(TKN_MULT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22218,7 +22218,7 @@ _6316:
 #   endif
     {
 
-#   line 203 "cpp.qx"
+#   line 363 "cpp.qx"
 self_send(TKN_MULT_ASSIGN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22238,7 +22238,7 @@ _6576:
 #   endif
     {
 
-#   line 204 "cpp.qx"
+#   line 364 "cpp.qx"
 self_send(TKN_DIV);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22260,7 +22260,7 @@ _6346:
 #   endif
     {
 
-#   line 205 "cpp.qx"
+#   line 365 "cpp.qx"
 self_send(TKN_DIV_ASSIGN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22280,7 +22280,7 @@ _6562:
 #   endif
     {
 
-#   line 206 "cpp.qx"
+#   line 366 "cpp.qx"
 self_send(TKN_MODULO);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22302,7 +22302,7 @@ _6337:
 #   endif
     {
 
-#   line 207 "cpp.qx"
+#   line 367 "cpp.qx"
 self_send(TKN_MODULO_ASSIGN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22322,7 +22322,7 @@ _6517:
 #   endif
     {
 
-#   line 210 "cpp.qx"
+#   line 370 "cpp.qx"
 self_send(TKN_L_SHIFT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22344,7 +22344,7 @@ _6315:
 #   endif
     {
 
-#   line 211 "cpp.qx"
+#   line 371 "cpp.qx"
 self_send(TKN_L_SHIFT_ASSIGN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22366,7 +22366,7 @@ _6352:
 #   endif
     {
 
-#   line 335 "cpp.qx"
+#   line 495 "cpp.qx"
 QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_ELSE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22386,7 +22386,7 @@ _6426:
 #   endif
     {
 
-#   line 212 "cpp.qx"
+#   line 372 "cpp.qx"
 self_send(TKN_R_SHIFT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22408,7 +22408,7 @@ _6325:
 #   endif
     {
 
-#   line 213 "cpp.qx"
+#   line 373 "cpp.qx"
 self_send(TKN_R_SHIFT_ASSIGN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22430,7 +22430,7 @@ _6323:
 #   endif
     {
 
-#   line 216 "cpp.qx"
+#   line 376 "cpp.qx"
 self_send(TKN_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22450,7 +22450,7 @@ _6366:
 #   endif
     {
 
-#   line 311 "cpp.qx"
+#   line 471 "cpp.qx"
 QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
 self_send(TKN_IDENTIFIER);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -22473,7 +22473,7 @@ _6362:
 #   endif
     {
 
-#   line 336 "cpp.qx"
+#   line 496 "cpp.qx"
 QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_PRAGMA);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22493,7 +22493,7 @@ _6736:
 #   endif
     {
 
-#   line 217 "cpp.qx"
+#   line 377 "cpp.qx"
 self_send(TKN_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22513,7 +22513,7 @@ _6566:
 #   endif
     {
 
-#   line 219 "cpp.qx"
+#   line 379 "cpp.qx"
 self_send(TKN_GREATER);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22535,7 +22535,7 @@ _6324:
 #   endif
     {
 
-#   line 220 "cpp.qx"
+#   line 380 "cpp.qx"
 self_send(TKN_GREATER_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22555,7 +22555,7 @@ _6554:
 #   endif
     {
 
-#   line 221 "cpp.qx"
+#   line 381 "cpp.qx"
 self_send(TKN_LESS);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22577,7 +22577,7 @@ _6314:
 #   endif
     {
 
-#   line 222 "cpp.qx"
+#   line 382 "cpp.qx"
 self_send(TKN_LESS_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22597,7 +22597,7 @@ _6589:
 #   endif
     {
 
-#   line 224 "cpp.qx"
+#   line 384 "cpp.qx"
 self_send(TKN_NOT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22617,7 +22617,7 @@ _6647:
 #   endif
     {
 
-#   line 281 "cpp.qx"
+#   line 441 "cpp.qx"
 self_send(TKN_UNION);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22639,7 +22639,7 @@ _6311:
 #   endif
     {
 
-#   line 338 "cpp.qx"
+#   line 498 "cpp.qx"
 QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_UNDEF);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22659,7 +22659,7 @@ _6610:
 #   endif
     {
 
-#   line 225 "cpp.qx"
+#   line 385 "cpp.qx"
 self_send(TKN_NOT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22681,7 +22681,7 @@ _6313:
 #   endif
     {
 
-#   line 226 "cpp.qx"
+#   line 386 "cpp.qx"
 self_send(TKN_NOT_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22701,7 +22701,7 @@ _6778:
 #   endif
     {
 
-#   line 279 "cpp.qx"
+#   line 439 "cpp.qx"
 self_send(TKN_STRUCT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22721,7 +22721,7 @@ _6752:
 #   endif
     {
 
-#   line 282 "cpp.qx"
+#   line 442 "cpp.qx"
 self_send(TKN_ENUM);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22894,7 +22894,7 @@ _6659:
 #   endif
     {
 
-#   line 283 "cpp.qx"
+#   line 443 "cpp.qx"
 self_send(TKN_TRY);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22916,7 +22916,7 @@ _6349:
 #   endif
     {
 
-#   line 334 "cpp.qx"
+#   line 494 "cpp.qx"
 QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_ENDIF);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22936,7 +22936,7 @@ _6614:
 #   endif
     {
 
-#   line 227 "cpp.qx"
+#   line 387 "cpp.qx"
 self_send(TKN_NOT_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22956,7 +22956,7 @@ _6557:
 #   endif
     {
 
-#   line 229 "cpp.qx"
+#   line 389 "cpp.qx"
 self_send(TKN_BITOR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -22993,7 +22993,7 @@ _6437:
 #   endif
     {
 
-#   line 284 "cpp.qx"
+#   line 444 "cpp.qx"
 self_send(TKN_CATCH);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -23013,7 +23013,7 @@ _6452:
 #   endif
     {
 
-#   line 292 "cpp.qx"
+#   line 452 "cpp.qx"
 self_send(TKN_CONTINUE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -23033,7 +23033,7 @@ _6402:
 #   endif
     {
 
-#   line 230 "cpp.qx"
+#   line 390 "cpp.qx"
 self_send(TKN_BITOR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -23055,7 +23055,7 @@ _6343:
 #   endif
     {
 
-#   line 231 "cpp.qx"
+#   line 391 "cpp.qx"
 self_send(TKN_OR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -23092,7 +23092,7 @@ _6409:
 #   endif
     {
 
-#   line 232 "cpp.qx"
+#   line 392 "cpp.qx"
 self_send(TKN_OR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -23114,7 +23114,7 @@ _6344:
 #   endif
     {
 
-#   line 233 "cpp.qx"
+#   line 393 "cpp.qx"
 self_send(TKN_OR_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -23134,7 +23134,7 @@ _6714:
 #   endif
     {
 
-#   line 286 "cpp.qx"
+#   line 446 "cpp.qx"
 self_send(TKN_PUBLIC);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -23154,7 +23154,7 @@ _6413:
 #   endif
     {
 
-#   line 234 "cpp.qx"
+#   line 394 "cpp.qx"
 self_send(TKN_OR_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -23174,7 +23174,7 @@ _6549:
 #   endif
     {
 
-#   line 236 "cpp.qx"
+#   line 396 "cpp.qx"
 self_send(TKN_XOR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -23194,7 +23194,7 @@ _6621:
 #   endif
     {
 
-#   line 237 "cpp.qx"
+#   line 397 "cpp.qx"
 self_send(TKN_XOR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -23216,7 +23216,7 @@ _6322:
 #   endif
     {
 
-#   line 238 "cpp.qx"
+#   line 398 "cpp.qx"
 self_send(TKN_XOR_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -23236,7 +23236,7 @@ _6704:
 #   endif
     {
 
-#   line 288 "cpp.qx"
+#   line 448 "cpp.qx"
 self_send(TKN_PRIVATE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -23256,7 +23256,7 @@ _6626:
 #   endif
     {
 
-#   line 239 "cpp.qx"
+#   line 399 "cpp.qx"
 self_send(TKN_XOR_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -23278,7 +23278,7 @@ _6333:
 #   endif
     {
 
-#   line 241 "cpp.qx"
+#   line 401 "cpp.qx"
 self_send(TKN_COMPL);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -23298,7 +23298,7 @@ _6600:
 #   endif
     {
 
-#   line 290 "cpp.qx"
+#   line 450 "cpp.qx"
 self_send(TKN_NEW);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -23318,7 +23318,7 @@ _6457:
 #   endif
     {
 
-#   line 242 "cpp.qx"
+#   line 402 "cpp.qx"
 self_send(TKN_COMPL);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -23338,7 +23338,7 @@ _6594:
 #   endif
     {
 
-#   line 244 "cpp.qx"
+#   line 404 "cpp.qx"
 self_send(TKN_BITAND);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -23358,7 +23358,7 @@ _6471:
 #   endif
     {
 
-#   line 291 "cpp.qx"
+#   line 451 "cpp.qx"
 self_send(TKN_DELETE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -23378,7 +23378,7 @@ _6400:
 #   endif
     {
 
-#   line 245 "cpp.qx"
+#   line 405 "cpp.qx"
 self_send(TKN_BITAND);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -23400,7 +23400,7 @@ _6348:
 #   endif
     {
 
-#   line 246 "cpp.qx"
+#   line 406 "cpp.qx"
 self_send(TKN_AND);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -23420,7 +23420,7 @@ _6537:
 #   endif
     {
 
-#   line 247 "cpp.qx"
+#   line 407 "cpp.qx"
 self_send(TKN_AND);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -23440,7 +23440,7 @@ _6709:
 #   endif
     {
 
-#   line 287 "cpp.qx"
+#   line 447 "cpp.qx"
 self_send(TKN_PROTECT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -23462,7 +23462,7 @@ _6351:
 #   endif
     {
 
-#   line 248 "cpp.qx"
+#   line 408 "cpp.qx"
 self_send(TKN_AND_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -23482,7 +23482,7 @@ _6666:
 #   endif
     {
 
-#   line 280 "cpp.qx"
+#   line 440 "cpp.qx"
 self_send(TKN_TEMPLATE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -23502,7 +23502,7 @@ _6727:
 #   endif
     {
 
-#   line 293 "cpp.qx"
+#   line 453 "cpp.qx"
 self_send(TKN_RETURN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -23522,7 +23522,7 @@ _6541:
 #   endif
     {
 
-#   line 249 "cpp.qx"
+#   line 409 "cpp.qx"
 self_send(TKN_AND_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -23540,7 +23540,7 @@ _4699: /* TERMINAL: END_OF_STREAM */
 #   endif
     {
 
-#   line 169 "cpp.qx"
+#   line 329 "cpp.qx"
 QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, LexemeNull, LexemeNull);
 self_send(TKN_TERMINATION);
 
@@ -23572,7 +23572,7 @@ else {
 #   endif
     {
 
-#   line 170 "cpp.qx"
+#   line 330 "cpp.qx"
 QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
 self_send(TKN_FAILURE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -44597,7 +44597,7 @@ _6439:
 #   endif
     {
 
-#   line 294 "cpp.qx"
+#   line 454 "cpp.qx"
 self_send(TKN_CASE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -44617,7 +44617,7 @@ _6749:
 #   endif
     {
 
-#   line 258 "cpp.qx"
+#   line 418 "cpp.qx"
 self_send(TKN_EXTERN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -44637,7 +44637,7 @@ _6467:
 #   endif
     {
 
-#   line 295 "cpp.qx"
+#   line 455 "cpp.qx"
 self_send(TKN_DEFAULT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -44657,7 +44657,7 @@ _6745:
 #   endif
     {
 
-#   line 259 "cpp.qx"
+#   line 419 "cpp.qx"
 self_send(TKN_EXPLICIT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -44677,7 +44677,7 @@ _6406:
 #   endif
     {
 
-#   line 296 "cpp.qx"
+#   line 456 "cpp.qx"
 self_send(TKN_BREAK);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -44697,7 +44697,7 @@ _6454:
 #   endif
     {
 
-#   line 260 "cpp.qx"
+#   line 420 "cpp.qx"
 self_send(TKN_CONST);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -44717,7 +44717,7 @@ _6424:
 #   endif
     {
 
-#   line 297 "cpp.qx"
+#   line 457 "cpp.qx"
 self_send(TKN_GOTO);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -44737,7 +44737,7 @@ _6524:
 #   endif
     {
 
-#   line 261 "cpp.qx"
+#   line 421 "cpp.qx"
 self_send(TKN_FRIEND);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -44757,7 +44757,7 @@ _6768:
 #   endif
     {
 
-#   line 298 "cpp.qx"
+#   line 458 "cpp.qx"
 self_send(TKN_SIZEOF);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -44777,7 +44777,7 @@ _6685:
 #   endif
     {
 
-#   line 299 "cpp.qx"
+#   line 459 "cpp.qx"
 self_send(TKN_THROW);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -44797,7 +44797,7 @@ _6641:
 #   endif
     {
 
-#   line 262 "cpp.qx"
+#   line 422 "cpp.qx"
 self_send(TKN_VIRTUAL);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -44817,7 +44817,7 @@ _6651:
 #   endif
     {
 
-#   line 301 "cpp.qx"
+#   line 461 "cpp.qx"
 self_send(TKN_USING);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -44837,7 +44837,7 @@ _6535:
 #   endif
     {
 
-#   line 302 "cpp.qx"
+#   line 462 "cpp.qx"
 self_send(TKN_ASM);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -44857,7 +44857,7 @@ _6635:
 #   endif
     {
 
-#   line 263 "cpp.qx"
+#   line 423 "cpp.qx"
 self_send(TKN_VOLATILE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -44877,7 +44877,7 @@ _6680:
 #   endif
     {
 
-#   line 305 "cpp.qx"
+#   line 465 "cpp.qx"
 self_send(TKN_TYPEID);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -44897,7 +44897,7 @@ _6476:
 #   endif
     {
 
-#   line 303 "cpp.qx"
+#   line 463 "cpp.qx"
 self_send(TKN_ASM_EXT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -44917,7 +44917,7 @@ _6774:
 #   endif
     {
 
-#   line 264 "cpp.qx"
+#   line 424 "cpp.qx"
 self_send(TKN_STATIC);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -44937,7 +44937,7 @@ _6674:
 #   endif
     {
 
-#   line 304 "cpp.qx"
+#   line 464 "cpp.qx"
 self_send(TKN_TYPEDEF);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -44957,7 +44957,7 @@ _6695:
 #   endif
     {
 
-#   line 265 "cpp.qx"
+#   line 425 "cpp.qx"
 self_send(TKN_INLINE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -44977,7 +44977,7 @@ _6544:
 #   endif
     {
 
-#   line 266 "cpp.qx"
+#   line 426 "cpp.qx"
 self_send(TKN_AUTO);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -44997,7 +44997,7 @@ _6687:
 #   endif
     {
 
-#   line 306 "cpp.qx"
+#   line 466 "cpp.qx"
 self_send(TKN_THIS);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45017,7 +45017,7 @@ _6723:
 #   endif
     {
 
-#   line 267 "cpp.qx"
+#   line 427 "cpp.qx"
 self_send(TKN_REGISTER);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45037,7 +45037,7 @@ _6678:
 #   endif
     {
 
-#   line 308 "cpp.qx"
+#   line 468 "cpp.qx"
 self_send(TKN_TYPENAME);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45057,7 +45057,7 @@ _6785:
 #   endif
     {
 
-#   line 268 "cpp.qx"
+#   line 428 "cpp.qx"
 self_send(TKN_MUTABLE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45077,7 +45077,7 @@ _6690:
 #   endif
     {
 
-#   line 270 "cpp.qx"
+#   line 430 "cpp.qx"
 self_send(TKN_IF);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45097,7 +45097,7 @@ _6420:
 #   endif
     {
 
-#   line 309 "cpp.qx"
+#   line 469 "cpp.qx"
 self_send(TKN_OPERATOR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45117,7 +45117,7 @@ _6755:
 #   endif
     {
 
-#   line 271 "cpp.qx"
+#   line 431 "cpp.qx"
 self_send(TKN_ELSE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45137,7 +45137,7 @@ _6373:
 #   endif
     {
 
-#   line 312 "cpp.qx"
+#   line 472 "cpp.qx"
 QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
 self_send(TKN_NUMBER);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -45160,7 +45160,7 @@ _6317:
 #   endif
     {
 
-#   line 313 "cpp.qx"
+#   line 473 "cpp.qx"
 QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
 self_send(TKN_STRING);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -45184,7 +45184,7 @@ _6530:
 #   endif
     {
 
-#   line 314 "cpp.qx"
+#   line 474 "cpp.qx"
 QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
 self_send(TKN_QUOTED_CHAR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -45208,7 +45208,7 @@ _6616:
 #   endif
     {
 
-#   line 316 "cpp.qx"
+#   line 476 "cpp.qx"
 QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
 self_send(TKN_NUMBER);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -45232,7 +45232,7 @@ _6378:
 #   endif
     {
 
-#   line 317 "cpp.qx"
+#   line 477 "cpp.qx"
 QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
 self_send(TKN_NUMBER);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -45256,7 +45256,7 @@ _6382:
 #   endif
     {
 
-#   line 318 "cpp.qx"
+#   line 478 "cpp.qx"
 QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
 self_send(TKN_NUMBER);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -45280,7 +45280,7 @@ _6368:
 #   endif
     {
 
-#   line 319 "cpp.qx"
+#   line 479 "cpp.qx"
 QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
 self_send(TKN_NUMBER);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -45301,7 +45301,7 @@ _6763:
 #   endif
     {
 
-#   line 272 "cpp.qx"
+#   line 432 "cpp.qx"
 self_send(TKN_SWITCH);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45321,7 +45321,7 @@ _6526:
 #   endif
     {
 
-#   line 273 "cpp.qx"
+#   line 433 "cpp.qx"
 self_send(TKN_FOR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45341,7 +45341,7 @@ _6460:
 #   endif
     {
 
-#   line 274 "cpp.qx"
+#   line 434 "cpp.qx"
 self_send(TKN_DO);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45361,7 +45361,7 @@ _6732:
 #   endif
     {
 
-#   line 275 "cpp.qx"
+#   line 435 "cpp.qx"
 self_send(TKN_WHILE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45383,7 +45383,7 @@ _6332:
 #   endif
     {
 
-#   line 177 "cpp.qx"
+#   line 337 "cpp.qx"
 self_send(TKN_L_PAREN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45405,7 +45405,7 @@ _6336:
 #   endif
     {
 
-#   line 178 "cpp.qx"
+#   line 338 "cpp.qx"
 self_send(TKN_R_PAREN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45427,7 +45427,7 @@ _6327:
 #   endif
     {
 
-#   line 179 "cpp.qx"
+#   line 339 "cpp.qx"
 self_send(TKN_L_BRACE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45449,7 +45449,7 @@ _6326:
 #   endif
     {
 
-#   line 180 "cpp.qx"
+#   line 340 "cpp.qx"
 self_send(TKN_R_BRACE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45471,7 +45471,7 @@ _6342:
 #   endif
     {
 
-#   line 181 "cpp.qx"
+#   line 341 "cpp.qx"
 self_send(TKN_L_SQUARE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45493,7 +45493,7 @@ _6345:
 #   endif
     {
 
-#   line 182 "cpp.qx"
+#   line 342 "cpp.qx"
 self_send(TKN_R_SQUARE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45513,7 +45513,7 @@ _6586:
 #   endif
     {
 
-#   line 184 "cpp.qx"
+#   line 344 "cpp.qx"
 self_send(TKN_DOT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45535,7 +45535,7 @@ _6340:
 #   endif
     {
 
-#   line 185 "cpp.qx"
+#   line 345 "cpp.qx"
 self_send(TKN_ELLIPSIS);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45555,7 +45555,7 @@ _6608:
 #   endif
     {
 
-#   line 277 "cpp.qx"
+#   line 437 "cpp.qx"
 self_send(TKN_NAMESPACE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45575,7 +45575,7 @@ _6573:
 #   endif
     {
 
-#   line 186 "cpp.qx"
+#   line 346 "cpp.qx"
 self_send(TKN_COLON);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45597,7 +45597,7 @@ _6318:
 #   endif
     {
 
-#   line 187 "cpp.qx"
+#   line 347 "cpp.qx"
 self_send(TKN_DOUBLE_COLON);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45619,7 +45619,7 @@ _6341:
 #   endif
     {
 
-#   line 188 "cpp.qx"
+#   line 348 "cpp.qx"
 self_send(TKN_SEMICOLON);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45641,7 +45641,7 @@ _6347:
 #   endif
     {
 
-#   line 189 "cpp.qx"
+#   line 349 "cpp.qx"
 self_send(TKN_COMMA);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45663,7 +45663,7 @@ _6335:
 #   endif
     {
 
-#   line 190 "cpp.qx"
+#   line 350 "cpp.qx"
 self_send(TKN_QUESTION);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45685,7 +45685,7 @@ _6321:
 #   endif
     {
 
-#   line 191 "cpp.qx"
+#   line 351 "cpp.qx"
 self_send(TKN_ARROW);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45705,7 +45705,7 @@ _6568:
 #   endif
     {
 
-#   line 194 "cpp.qx"
+#   line 354 "cpp.qx"
 self_send(TKN_ASSIGN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45725,7 +45725,7 @@ _6443:
 #   endif
     {
 
-#   line 278 "cpp.qx"
+#   line 438 "cpp.qx"
 self_send(TKN_CLASS);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45745,7 +45745,7 @@ _6560:
 #   endif
     {
 
-#   line 195 "cpp.qx"
+#   line 355 "cpp.qx"
 self_send(TKN_PLUS);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45767,7 +45767,7 @@ _6338:
 #   endif
     {
 
-#   line 196 "cpp.qx"
+#   line 356 "cpp.qx"
 self_send(TKN_PLUS_ASSIGN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45789,7 +45789,7 @@ _6339:
 #   endif
     {
 
-#   line 197 "cpp.qx"
+#   line 357 "cpp.qx"
 self_send(TKN_DOUBLE_PLUS);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45809,7 +45809,7 @@ _6571:
 #   endif
     {
 
-#   line 198 "cpp.qx"
+#   line 358 "cpp.qx"
 self_send(TKN_MINUS);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45831,7 +45831,7 @@ _6319:
 #   endif
     {
 
-#   line 199 "cpp.qx"
+#   line 359 "cpp.qx"
 self_send(TKN_DOUBLE_MINUS);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45853,7 +45853,7 @@ _6320:
 #   endif
     {
 
-#   line 200 "cpp.qx"
+#   line 360 "cpp.qx"
 self_send(TKN_MINUS_ASSIGN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45873,7 +45873,7 @@ _6551:
 #   endif
     {
 
-#   line 202 "cpp.qx"
+#   line 362 "cpp.qx"
 self_send(TKN_MULT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45895,7 +45895,7 @@ _6316:
 #   endif
     {
 
-#   line 203 "cpp.qx"
+#   line 363 "cpp.qx"
 self_send(TKN_MULT_ASSIGN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45915,7 +45915,7 @@ _6576:
 #   endif
     {
 
-#   line 204 "cpp.qx"
+#   line 364 "cpp.qx"
 self_send(TKN_DIV);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45937,7 +45937,7 @@ _6346:
 #   endif
     {
 
-#   line 205 "cpp.qx"
+#   line 365 "cpp.qx"
 self_send(TKN_DIV_ASSIGN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45957,7 +45957,7 @@ _6562:
 #   endif
     {
 
-#   line 206 "cpp.qx"
+#   line 366 "cpp.qx"
 self_send(TKN_MODULO);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45979,7 +45979,7 @@ _6337:
 #   endif
     {
 
-#   line 207 "cpp.qx"
+#   line 367 "cpp.qx"
 self_send(TKN_MODULO_ASSIGN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -45999,7 +45999,7 @@ _6517:
 #   endif
     {
 
-#   line 210 "cpp.qx"
+#   line 370 "cpp.qx"
 self_send(TKN_L_SHIFT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46021,7 +46021,7 @@ _6315:
 #   endif
     {
 
-#   line 211 "cpp.qx"
+#   line 371 "cpp.qx"
 self_send(TKN_L_SHIFT_ASSIGN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46041,7 +46041,7 @@ _6426:
 #   endif
     {
 
-#   line 212 "cpp.qx"
+#   line 372 "cpp.qx"
 self_send(TKN_R_SHIFT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46063,7 +46063,7 @@ _6325:
 #   endif
     {
 
-#   line 213 "cpp.qx"
+#   line 373 "cpp.qx"
 self_send(TKN_R_SHIFT_ASSIGN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46085,7 +46085,7 @@ _6323:
 #   endif
     {
 
-#   line 216 "cpp.qx"
+#   line 376 "cpp.qx"
 self_send(TKN_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46105,7 +46105,7 @@ _6736:
 #   endif
     {
 
-#   line 217 "cpp.qx"
+#   line 377 "cpp.qx"
 self_send(TKN_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46125,7 +46125,7 @@ _6566:
 #   endif
     {
 
-#   line 219 "cpp.qx"
+#   line 379 "cpp.qx"
 self_send(TKN_GREATER);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46147,7 +46147,7 @@ _6324:
 #   endif
     {
 
-#   line 220 "cpp.qx"
+#   line 380 "cpp.qx"
 self_send(TKN_GREATER_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46167,7 +46167,7 @@ _6554:
 #   endif
     {
 
-#   line 221 "cpp.qx"
+#   line 381 "cpp.qx"
 self_send(TKN_LESS);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46189,7 +46189,7 @@ _6314:
 #   endif
     {
 
-#   line 222 "cpp.qx"
+#   line 382 "cpp.qx"
 self_send(TKN_LESS_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46209,7 +46209,7 @@ _6589:
 #   endif
     {
 
-#   line 224 "cpp.qx"
+#   line 384 "cpp.qx"
 self_send(TKN_NOT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46229,7 +46229,7 @@ _6647:
 #   endif
     {
 
-#   line 281 "cpp.qx"
+#   line 441 "cpp.qx"
 self_send(TKN_UNION);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46249,7 +46249,7 @@ _6610:
 #   endif
     {
 
-#   line 225 "cpp.qx"
+#   line 385 "cpp.qx"
 self_send(TKN_NOT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46271,7 +46271,7 @@ _6313:
 #   endif
     {
 
-#   line 226 "cpp.qx"
+#   line 386 "cpp.qx"
 self_send(TKN_NOT_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46291,7 +46291,7 @@ _6778:
 #   endif
     {
 
-#   line 279 "cpp.qx"
+#   line 439 "cpp.qx"
 self_send(TKN_STRUCT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46311,7 +46311,7 @@ _6752:
 #   endif
     {
 
-#   line 282 "cpp.qx"
+#   line 442 "cpp.qx"
 self_send(TKN_ENUM);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46331,7 +46331,7 @@ _6659:
 #   endif
     {
 
-#   line 283 "cpp.qx"
+#   line 443 "cpp.qx"
 self_send(TKN_TRY);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46351,7 +46351,7 @@ _6614:
 #   endif
     {
 
-#   line 227 "cpp.qx"
+#   line 387 "cpp.qx"
 self_send(TKN_NOT_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46371,7 +46371,7 @@ _6557:
 #   endif
     {
 
-#   line 229 "cpp.qx"
+#   line 389 "cpp.qx"
 self_send(TKN_BITOR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46391,7 +46391,7 @@ _6437:
 #   endif
     {
 
-#   line 284 "cpp.qx"
+#   line 444 "cpp.qx"
 self_send(TKN_CATCH);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46411,7 +46411,7 @@ _6452:
 #   endif
     {
 
-#   line 292 "cpp.qx"
+#   line 452 "cpp.qx"
 self_send(TKN_CONTINUE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46431,7 +46431,7 @@ _6402:
 #   endif
     {
 
-#   line 230 "cpp.qx"
+#   line 390 "cpp.qx"
 self_send(TKN_BITOR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46453,7 +46453,7 @@ _6343:
 #   endif
     {
 
-#   line 231 "cpp.qx"
+#   line 391 "cpp.qx"
 self_send(TKN_OR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46473,7 +46473,7 @@ _6409:
 #   endif
     {
 
-#   line 232 "cpp.qx"
+#   line 392 "cpp.qx"
 self_send(TKN_OR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46572,7 +46572,7 @@ _6344:
 #   endif
     {
 
-#   line 233 "cpp.qx"
+#   line 393 "cpp.qx"
 self_send(TKN_OR_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46745,7 +46745,7 @@ _6714:
 #   endif
     {
 
-#   line 286 "cpp.qx"
+#   line 446 "cpp.qx"
 self_send(TKN_PUBLIC);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46765,7 +46765,7 @@ _6413:
 #   endif
     {
 
-#   line 234 "cpp.qx"
+#   line 394 "cpp.qx"
 self_send(TKN_OR_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46785,7 +46785,7 @@ _6549:
 #   endif
     {
 
-#   line 236 "cpp.qx"
+#   line 396 "cpp.qx"
 self_send(TKN_XOR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46805,7 +46805,7 @@ _8492:
 #   endif
     {
 
-#   line 351 "cpp.qx"
+#   line 511 "cpp.qx"
 self_send(TKN_DEFINED);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46825,7 +46825,7 @@ _8360:
 #   endif
     {
 
-#   line 352 "cpp.qx"
+#   line 512 "cpp.qx"
 self_send(TKN_HASH);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46845,7 +46845,7 @@ _6621:
 #   endif
     {
 
-#   line 237 "cpp.qx"
+#   line 397 "cpp.qx"
 self_send(TKN_XOR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46867,7 +46867,7 @@ _8267:
 #   endif
     {
 
-#   line 353 "cpp.qx"
+#   line 513 "cpp.qx"
 self_send(TKN_DOUBLE_HASH);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46889,7 +46889,7 @@ _6322:
 #   endif
     {
 
-#   line 238 "cpp.qx"
+#   line 398 "cpp.qx"
 self_send(TKN_XOR_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46909,7 +46909,7 @@ _6704:
 #   endif
     {
 
-#   line 288 "cpp.qx"
+#   line 448 "cpp.qx"
 self_send(TKN_PRIVATE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46929,7 +46929,7 @@ _6626:
 #   endif
     {
 
-#   line 239 "cpp.qx"
+#   line 399 "cpp.qx"
 self_send(TKN_XOR_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46951,7 +46951,7 @@ _6333:
 #   endif
     {
 
-#   line 241 "cpp.qx"
+#   line 401 "cpp.qx"
 self_send(TKN_COMPL);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46971,7 +46971,7 @@ _6600:
 #   endif
     {
 
-#   line 290 "cpp.qx"
+#   line 450 "cpp.qx"
 self_send(TKN_NEW);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -46994,7 +46994,7 @@ _8284:
 #   endif
     {
 
-#   line 354 "cpp.qx"
+#   line 514 "cpp.qx"
 QUEX_NAME(enter_mode)(&self, &PROGRAM);self_send(TKN_PP_FINISH);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -47017,7 +47017,7 @@ _8266:
 #   endif
     {
 
-#   line 355 "cpp.qx"
+#   line 515 "cpp.qx"
 QUEX_NAME(enter_mode)(&self, &PROGRAM);self_send(TKN_PP_FINISH);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -47037,7 +47037,7 @@ _6457:
 #   endif
     {
 
-#   line 242 "cpp.qx"
+#   line 402 "cpp.qx"
 self_send(TKN_COMPL);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -47057,7 +47057,7 @@ _6594:
 #   endif
     {
 
-#   line 244 "cpp.qx"
+#   line 404 "cpp.qx"
 self_send(TKN_BITAND);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -47094,7 +47094,7 @@ _6471:
 #   endif
     {
 
-#   line 291 "cpp.qx"
+#   line 451 "cpp.qx"
 self_send(TKN_DELETE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -47114,7 +47114,7 @@ _8274:
 #   endif
     {
 
-#   line 311 "cpp.qx"
+#   line 471 "cpp.qx"
 QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
 self_send(TKN_IDENTIFIER);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
@@ -47135,7 +47135,7 @@ _6400:
 #   endif
     {
 
-#   line 245 "cpp.qx"
+#   line 405 "cpp.qx"
 self_send(TKN_BITAND);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -47157,7 +47157,7 @@ _6348:
 #   endif
     {
 
-#   line 246 "cpp.qx"
+#   line 406 "cpp.qx"
 self_send(TKN_AND);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -47177,7 +47177,7 @@ _6537:
 #   endif
     {
 
-#   line 247 "cpp.qx"
+#   line 407 "cpp.qx"
 self_send(TKN_AND);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -47197,7 +47197,7 @@ _6709:
 #   endif
     {
 
-#   line 287 "cpp.qx"
+#   line 447 "cpp.qx"
 self_send(TKN_PROTECT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -47219,7 +47219,7 @@ _6351:
 #   endif
     {
 
-#   line 248 "cpp.qx"
+#   line 408 "cpp.qx"
 self_send(TKN_AND_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -47239,7 +47239,7 @@ _6666:
 #   endif
     {
 
-#   line 280 "cpp.qx"
+#   line 440 "cpp.qx"
 self_send(TKN_TEMPLATE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -47259,7 +47259,7 @@ _6727:
 #   endif
     {
 
-#   line 293 "cpp.qx"
+#   line 453 "cpp.qx"
 self_send(TKN_RETURN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -47279,7 +47279,7 @@ _6541:
 #   endif
     {
 
-#   line 249 "cpp.qx"
+#   line 409 "cpp.qx"
 self_send(TKN_AND_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
@@ -47297,7 +47297,7 @@ _4699: /* TERMINAL: END_OF_STREAM */
 #   endif
     {
 
-#   line 169 "cpp.qx"
+#   line 329 "cpp.qx"
 QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, LexemeNull, LexemeNull);
 self_send(TKN_TERMINATION);
 
@@ -47329,7 +47329,7 @@ else {
 #   endif
     {
 
-#   line 170 "cpp.qx"
+#   line 330 "cpp.qx"
 QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
 self_send(TKN_FAILURE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
