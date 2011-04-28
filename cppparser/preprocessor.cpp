@@ -370,7 +370,7 @@ bool  Preprocessor::ConstExpressionValue()
         }
     };
 
-    if(MacroExpension(exp)==false)
+    if(MacroExpansion(exp)==false)
         return false;
     ConstExpression eval(this);
     return eval.expression_eval(&exp[0]);
@@ -611,69 +611,99 @@ void DumpExp(vector<RawToken> & exp)
 
 }
 
-bool Preprocessor::MacroExpension(vector<RawToken> & exp)
+bool Preprocessor::MacroExpansion(vector<RawToken> & exp)
 {
     // defined (XXX) will correctly caculated first
 
-    for(vector<RawToken>::iterator it=exp.begin() ; it < exp.end(); it++)
+
+
+    bool needNextPass = false;
+    int count = 0;
+
+    //simply we need a count variable to avoid some recursion
+    //e.g.
+    //  #define A B
+    //  #define B A
+    //  These kind of recursion can be avoid.
+
+    while(count<2)
     {
-        if((*it).type_id() == TKN_DEFINED )
+        count++;
+        needNextPass = false;
+
+        for(vector<RawToken>::iterator it=exp.begin() ; it < exp.end(); it++)
         {
-            vector<RawToken>::iterator beginOfDefineCheck = it;
-            bool value = false;
-            it++;
-            bool InParentheses = false;
-            if ((*it).type_id()==TKN_L_PAREN)
+            if((*it).type_id() == TKN_DEFINED )
             {
-                InParentheses = true;
+                vector<RawToken>::iterator beginOfDefineCheck = it;
+                bool value = false;
                 it++;
+                bool InParentheses = false;
+                if ((*it).type_id()==TKN_L_PAREN)
+                {
+                    InParentheses = true;
+                    it++;
+                }
+                if((*it).type_id()==TKN_IDENTIFIER)
+                {
+                    //Chech this Id in the symbol table
+                    bool exist = CheckMacroExist((*it).get_text());
+                    if (exist==true)
+                        value = true;
+                }
+                else
+                    value = false;
+
+                if(InParentheses==true)//skip the right parenthesis
+                    it++;
+
+                // remove from beginOfDefineCheck to endIdx
+                (*beginOfDefineCheck).set(TKN_NUMBER);
+                cc_string valueString;
+                if(value==true)
+                    valueString="1";
+                else
+                    valueString="0";
+
+                (*beginOfDefineCheck).set_text(valueString);
+                exp.erase(beginOfDefineCheck+1,it+1);
+                it=beginOfDefineCheck;
             }
-            if((*it).type_id()==TKN_IDENTIFIER)
+            else if((*it).type_id() == TKN_IDENTIFIER )
             {
-                //Chech this Id in the symbol table
-                bool exist = CheckMacroExist((*it).get_text());
-                if (exist==true)
-                    value = true;
-            }
-            else
-                value = false;
-
-            if(InParentheses==true)//skip the right parenthesis
-                it++;
-
-            // remove from beginOfDefineCheck to endIdx
-            (*beginOfDefineCheck).set(TKN_NUMBER);
-            cc_string valueString;
-            if(value==true)
-                valueString="1";
-            else
-                valueString="0";
-
-            (*beginOfDefineCheck).set_text(valueString);
-            exp.erase(beginOfDefineCheck+1,it+1);
-            it=beginOfDefineCheck;
-        }
-        else if((*it).type_id() == TKN_IDENTIFIER )
-        {
-            bool exist = CheckMacroExist((*it).get_text());
-                if (exist==true)
+                if (CheckMacroExist((*it).get_text()))
                 {
                     //macro exist
                     MacroDefine &def = m_MacroTable[(*it).get_text()];
                     if(def.m_IsFunctionLike == true)
                     {
+
+                        vector<RawToken>::iterator IDIterator = it;
                         //expend the augument
                         //read argument
                         int argNum = def.m_Arguments.size();
                         vector< vector<RawToken> > arg;
+                        vector<RawToken> single;
                         //consider semicolon and toplevel parenthese
-                        it++;
-                        for(int num = 0;num<=argNum;num++)
+                        it++; // move to left parenthesis
+
+                        for(int num = 0;num<argNum;num++)
                         {
-                            if((*it).type_id()!=TKN_COLON && (*it).type_id()!=TKN_R_PAREN)
-                               arg[num].push_back(*it);
+                            it++; // go to the next id
+                            arg.push_back(single);
+                            while(   (*it).type_id()!=TKN_COMMA
+                                  && (*it).type_id()!=TKN_R_PAREN )
+                            {
+
+                                arg[num].push_back(*it);
+                                it++;
+                            }
+                            DumpExp(arg[num]);
+                            //it++;
                         }
+
                         //*it should be a right parenthesis
+                        vector<RawToken>::iterator rightParenIterator = it;
                         //replace
                         vector<RawToken> expend;
                         //loop the definition, and do the expension
@@ -690,6 +720,7 @@ bool Preprocessor::MacroExpension(vector<RawToken> & exp)
                                         //do a replacement
                                         replaced = true;
                                         expend.insert(expend.end(),arg[i].begin(),arg[i].end());
+                                        DumpExp(expend);
 
                                     }
                                 }
@@ -697,8 +728,19 @@ bool Preprocessor::MacroExpension(vector<RawToken> & exp)
                                     expend.push_back(*itDef);
 
                             }
-                            //exp.insert(it,def.m_DefineValue.begin(),def.m_DefineValue.end()-1);
+                            else
+                                expend.push_back(*itDef);
+                            DumpExp(expend);
                         }
+                        //finally, insert the expend
+                        it=exp.erase(IDIterator,rightParenIterator+1); //remove the current tok;
+                        //general replacement,quite simple
+                        for(vector<RawToken>::iterator itExpend=expend.begin() ; itExpend < expend.end(); itExpend++)
+                        {
+                            it=exp.insert(it,*itExpend);
+                        }
+                        DumpExp(exp);
+
 
                     }
                     else
@@ -708,18 +750,27 @@ bool Preprocessor::MacroExpension(vector<RawToken> & exp)
                         for(vector<RawToken>::iterator itDef=def.m_DefineValue.begin() ; itDef < def.m_DefineValue.end(); itDef++)
                         {
                             it=exp.insert(it,*itDef);
-                        //exp.insert(it,def.m_DefineValue.begin(),def.m_DefineValue.end());
                         }
                         DumpExp(exp);
 
                     }
 
-
+                    //As we do a replacement, so we need a next pass
+                    needNextPass = true;
                 }
                 else
+                {
+                    cout<<"Can not expend an identifier:"<<(*it).type_id()<<endl;
+                    cout<<"return false"<<endl;
                     return false; //this identifier is not defined, so return false;
+                }
 
+
+            }
         }
+        if (needNextPass == false)
+            break;
+
     }
 
     //dump the result
