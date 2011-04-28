@@ -62,7 +62,7 @@ public:
     void  AddMacroDefinition();
     void  DumpMacroTable();
 
-    void MacroExpension(std::vector<RawToken> & exp);
+    bool MacroExpension(std::vector<RawToken> & exp);
 
     void HandleIf();
     void HandleElif();
