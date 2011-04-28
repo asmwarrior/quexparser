@@ -8,7 +8,7 @@
 #include <quex/code_base/definitions>
 
 
-#   line 2 "quex/code_base/token/CppDefault.qx"
+#   line 10 "cpp.qx"
 
        #include <iostream>
        #include <string>
@@ -62,35 +62,25 @@ public:
      *                BETTER USE __copy(That)                                */
     Token& operator=(const Token& That) 
     { QUEX_NAME_TOKEN(copy)(this, &That); return *this; }
-    virtual ~Token();
+    ~Token();
 
 
-#   line 25 "quex/code_base/token/CppDefault.qx"
+#   line 33 "cpp.qx"
     std::basic_string<QUEX_TYPE_CHARACTER> text;
-#   line 26 "quex/code_base/token/CppDefault.qx"
-    size_t                                 number;
-#   line 73 "tiny_lexer-token"
+#   line 71 "tiny_lexer-token"
 
 
 public:
 
-#   line 25 "quex/code_base/token/CppDefault.qx"
-    std::basic_string<QUEX_TYPE_CHARACTER> get_text() const                                         { return text; }
-#   line 25 "quex/code_base/token/CppDefault.qx"
-    void                                   set_text(std::basic_string<QUEX_TYPE_CHARACTER>& Value)  { text = Value; }
-#   line 26 "quex/code_base/token/CppDefault.qx"
-    size_t                                 get_number() const                                       { return number; }
-#   line 26 "quex/code_base/token/CppDefault.qx"
-    void                                   set_number(size_t Value)                                 { number = Value; }
-#   line 86 "tiny_lexer-token"
+#   line 33 "cpp.qx"
+    std::basic_string<QUEX_TYPE_CHARACTER> get_text() const                                       { return text; }
+#   line 33 "cpp.qx"
+    void                                   set_text(std::basic_string<QUEX_TYPE_CHARACTER>& Value) { text = Value; }
+#   line 80 "tiny_lexer-token"
 
     void set(const QUEX_TYPE_TOKEN_ID ID) { _id = ID; }
     void set(const QUEX_TYPE_TOKEN_ID ID, const std::basic_string<QUEX_TYPE_CHARACTER>& Value0)
     { _id = ID; text = Value0; }
-    void set(const QUEX_TYPE_TOKEN_ID ID, const size_t& Value0)
-    { _id = ID; number = Value0; }
-    void set(const QUEX_TYPE_TOKEN_ID ID, const std::basic_string<QUEX_TYPE_CHARACTER>& Value0, const size_t& Value1)
-    { _id = ID; text = Value0; number = Value1; }
 
 
     public:
@@ -120,7 +110,7 @@ public:
     public:
 #   define self (*this)
 
-#   line 47 "quex/code_base/token/CppDefault.qx"
+#   line 55 "cpp.qx"
 
         typedef std::basic_string<QUEX_TYPE_CHARACTER> __string;
 
@@ -187,7 +177,7 @@ public:
 #       endif
    
 
-#   line 191 "tiny_lexer-token"
+#   line 181 "tiny_lexer-token"
 
 #   undef  self
 
@@ -201,14 +191,14 @@ public:
 
 
 
-#   line 154 "quex/code_base/token/CppDefault.qx"
+#   line 162 "cpp.qx"
 
         inline std::ostream&
         operator<<(std::ostream& ostr, const QUEX_TYPE_TOKEN& Tok)
         { ostr << std::string(Tok); return ostr; }
    
 
-#   line 212 "tiny_lexer-token"
+#   line 202 "tiny_lexer-token"
 
 
 } /* Closing Namespace 'quex' */
