@@ -13,7 +13,8 @@ using namespace std;
 #include<Windows.h>
 
 
-class CTimer {
+class CTimer
+{
 private:
 
     LARGE_INTEGER m_base;
@@ -22,23 +23,27 @@ private:
 
 public:
 
-    CTimer() {
+    CTimer()
+    {
         LARGE_INTEGER t_freq;
         QueryPerformanceFrequency(&t_freq);
         m_resolution = (float) (1.0f / (double) t_freq.QuadPart);
         reset();
     }
 
-    void reset() {
+    void reset()
+    {
         QueryPerformanceCounter(&m_base);
     }
 
-    inline float GetCurrentTime() {
+    inline float GetCurrentTime()
+    {
         QueryPerformanceCounter(&m_temp);
         return (m_temp.QuadPart - m_base.QuadPart) * m_resolution * 1000.0f;
     }
 
-    void SleepTime(float ms_val) {
+    void SleepTime(float ms_val)
+    {
         float ms_st = GetCurrentTime();
         while (GetCurrentTime()-ms_st < ms_val)
             continue;
@@ -46,21 +51,25 @@ public:
 
 };
 #else
-class CTimer {
+class CTimer
+{
 private:
     unsigned long m_base;
 public:
-    CTimer() {
+    CTimer()
+    {
         reset();
     }
 
-    void reset() {
+    void reset()
+    {
         timeval t;
         gettimeofday(&t, NULL);
         m_base = t.tv_sec;
     }
 
-    float GetCurrentTime() {
+    float GetCurrentTime()
+    {
         timeval t;
         gettimeofday(&t, NULL);
         return 1000 * (t.tv_sec - m_base) + t.tv_usec * 0.001f;
@@ -70,26 +79,33 @@ public:
 
 
 
-class FileLoader : public LoaderBase {
+class FileLoader : public LoaderBase
+{
 public:
-    virtual const char* data() {
+    virtual const char* data()
+    {
         return (const char*)buf;
     }
-    virtual unsigned int length() {
+    virtual unsigned int length()
+    {
         return buf_size;
     }
-    virtual const char* fileName() {
+    virtual const char* fileName()
+    {
         return name;
     }
 public:
-    FileLoader(const char* fileName) : name(fileName), buf(0), buf_size(0) {
+    FileLoader(const char* fileName) : name(fileName), buf(0), buf_size(0)
+    {
         load();
     }
-    bool isLoad() {
+    bool isLoad()
+    {
         return buf_size != 0;
     }
 protected:
-    void load() {
+    void load()
+    {
         ifstream in(name, ios::binary);
         if (!in.is_open())
             return;
@@ -113,137 +129,145 @@ Preprocessor::Preprocessor()
 {
 
 }
-Preprocessor::~Preprocessor() {
+Preprocessor::~Preprocessor()
+{
 
+
+}
+void Preprocessor::DumpTokenList()
+{
     std::list<RawToken*>::iterator it;
     //clear list
-    for ( it=m_TokenList.begin() ; it != m_TokenList.end(); it++ ) {
+    for ( it=m_TokenList.begin() ; it != m_TokenList.end(); it++ )
+    {
         std::cout<<*(*it)<<std::endl;
         delete (*it);
     }
-
 }
 
-void  Preprocessor::LoadFile(cc_string filename) {
+void  Preprocessor::LoadFile(cc_string filename)
+{
     FileLoader * loader = new FileLoader(filename.c_str());
-    if (!loader->isLoad()) {
+    if (!loader->isLoad())
+    {
         delete loader;
         return ;
     }
     m_Tokenizer.Init(filename, loader);
 
 }
-void  Preprocessor::RunTest()
+void  Preprocessor::
+
+    RunTest()
 {
     RawToken*  pToken;
 
     try
     {
+
         while(true)
-    {
-        pToken  = new RawToken;
-        if(m_Tokenizer.FetchToken(pToken))
         {
-            //cout<<pToken->get_string()<<endl;
-
-            if( TKN_PP_DEFINE <= pToken->type_id() && pToken->type_id() <= TKN_PP_ERROR)
-
+            pToken  = new RawToken;
+            if(m_Tokenizer.FetchToken(pToken))
             {
-                switch (pToken->type_id())
-                {
+                //cout<<pToken->get_string()<<endl;
 
-                case TKN_PP_DEFINE:
+                if( TKN_PP_DEFINE <= pToken->type_id() && pToken->type_id() <= TKN_PP_ERROR)
+
                 {
-                    delete pToken;
-                    AddMacroDefinition();
-                    break;
-                }
-                case TKN_PP_IF:
-                {
-                    delete pToken;
-                    HandleIf();
-                    break;
-                }
-                case TKN_PP_ELIF:
-                {
-                    delete pToken;
-                    HandleElif();
-                    break;
-                }
-                case TKN_PP_IFDEF :
-                {
-                    delete pToken;
-                    HandleIfdef();
-                    break;
-                }
-                case TKN_PP_IFNDEF:
-                {
-                    delete pToken;
-                    HandleIfndef();
-                    break;
-                }
-                case TKN_PP_ENDIF:
-                {
-                    delete pToken;
-                    HandleEndif();
-                    break;
-                }
-                case TKN_PP_ELSE:
-                {
-                    delete pToken;
-                    HandleElse();
-                    break;
-                }
-                case TKN_PP_PRAGMA:
-                {
-                    delete pToken;
-                    SkipCurrentPreprocessorDirective();
-                    break;
-                }
-                case TKN_PP_ERROR:
-                {
-                    delete pToken;
-                    SkipCurrentPreprocessorDirective();
-                    break;
-                }
-                case TKN_PP_UNDEF:
-                {
-                    delete pToken;
-                    SkipCurrentPreprocessorDirective();
-                    break;
-                }
-                default:
-                    delete pToken;
-                    SkipCurrentPreprocessorDirective();
+                    switch (pToken->type_id())
+                    {
+
+                    case TKN_PP_DEFINE:
+                    {
+                        delete pToken;
+                        AddMacroDefinition();
+                        break;
+                    }
+                    case TKN_PP_IF:
+                    {
+                        delete pToken;
+                        HandleIf();
+                        break;
+                    }
+                    case TKN_PP_ELIF:
+                    {
+                        delete pToken;
+                        HandleElif();
+                        break;
+                    }
+                    case TKN_PP_IFDEF :
+                    {
+                        delete pToken;
+                        HandleIfdef();
+                        break;
+                    }
+                    case TKN_PP_IFNDEF:
+                    {
+                        delete pToken;
+                        HandleIfndef();
+                        break;
+                    }
+                    case TKN_PP_ENDIF:
+                    {
+                        delete pToken;
+                        HandleEndif();
+                        break;
+                    }
+                    case TKN_PP_ELSE:
+                    {
+                        delete pToken;
+                        HandleElse();
+                        break;
+                    }
+                    case TKN_PP_PRAGMA:
+                    {
+                        delete pToken;
+                        SkipCurrentPreprocessorDirective();
+                        break;
+                    }
+                    case TKN_PP_ERROR:
+                    {
+                        delete pToken;
+                        SkipCurrentPreprocessorDirective();
+                        break;
+                    }
+                    case TKN_PP_UNDEF:
+                    {
+                        delete pToken;
+                        SkipCurrentPreprocessorDirective();
+                        break;
+                    }
+                    default:
+                        delete pToken;
+                        SkipCurrentPreprocessorDirective();
+
+                    }
+
 
                 }
-
+                else
+                {
+                    m_TokenList.push_back(pToken);
+                }
 
             }
-            else
+            else     //EOF
             {
-            m_TokenList.push_back(pToken);
-            }
+                delete pToken;
+                break;
+            }//if(m_Tokenizer.FetchToken(pToken))
+        }//while(true)
 
-        }
-        else//EOF
-        {
-            delete pToken;
-            break;
-        }//if(m_Tokenizer.FetchToken(pToken))
-    }//while(true)
-
-        }
+    }
     catch(ParserException& e)
     {
         cout<< "end of file" <<endl;
     }
 
-
-
-
     DumpMacroTable();
-    }
+    DumpTokenList();
+}
 
 void Preprocessor::AddMacroDefinition()
 {
@@ -252,17 +276,18 @@ void Preprocessor::AddMacroDefinition()
     m_Tokenizer.FetchToken(&(entry.m_Name));
     m_Tokenizer.FetchToken(&token);
 
-    if(token.type_id()==TKN_L_PAREN)//function like macro
+    if(token.type_id()==TKN_L_PAREN)   //function like macro
     {
         entry.m_IsFunctionLike=true;
         //read the argument
-        do{
+        do
+        {
             m_Tokenizer.FetchToken(&token);
             if(token.type_id()==TKN_R_PAREN)
                 break;
             else if(token.type_id()!=TKN_COMMA)
                 entry.m_Arguments.push_back(token);
-}
+        }
         while(true);
     }
     else
@@ -272,7 +297,8 @@ void Preprocessor::AddMacroDefinition()
     }
 
     //read macro definition string
-    do{
+    do
+    {
         m_Tokenizer.FetchToken(&token);
         if(token.type_id()!=TKN_PP_FINISH)
             entry.m_DefineValue.push_back(token);
@@ -286,34 +312,35 @@ void Preprocessor::AddMacroDefinition()
 }
 void Preprocessor::DumpMacroTable()
 {
-  MacroTable::iterator it;
-  // show content:
-  for ( it=m_MacroTable.begin() ; it != m_MacroTable.end(); it++ )
-  {
-      (*it).second.Dump();
-  }
-
-
-
+    MacroTable::iterator it;
+    // show content:
+    for ( it=m_MacroTable.begin() ; it != m_MacroTable.end(); it++ )
+    {
+        (*it).second.Dump();
+    }
 }
 
-RawToken*  Preprocessor::GetToken() {
-
-    if( m_Current != m_TokenList.end()) {
+RawToken*  Preprocessor::GetToken()
+{
+    if( m_Current != m_TokenList.end())
+    {
         m_Current++;
         return *m_Current;
-    } else {
+    }
+    else
+    {
         RawToken * p = new RawToken;
         m_Tokenizer.FetchToken(p);
         m_TokenList.push_back(p);
         return p;
     }
-
 }
-RawToken*  Preprocessor::CurrentToken() {
+RawToken*  Preprocessor::CurrentToken()
+{
     return *m_Current;
 }
-RawToken*  Preprocessor::PeekToken(int step) {
+RawToken*  Preprocessor::PeekToken(int step)
+{
 
 //    for(int i=0;i<step;i++)
 //    {
@@ -332,11 +359,13 @@ RawToken*  Preprocessor::PeekToken(int step) {
     return NULL;
 
 }
-void  Preprocessor::RemoveBefore() {
+void  Preprocessor::RemoveBefore()
+{
 
 }
-bool  Preprocessor::MacroReplace(std::list<RawToken*> & macroDefine) {
-
+bool  Preprocessor::MacroReplace(std::list<RawToken*> & macroDefine)
+{
+    return true;
 }
 bool  Preprocessor::ConstExpressionValue()
 {
@@ -393,7 +422,7 @@ void Preprocessor::HandleIf()
         m_BranchStack.push(entry);
         return;
     }
-    else //false
+    else     //false
     {
         entry.m_Value=false;
         m_BranchStack.push(entry);
@@ -412,7 +441,7 @@ void Preprocessor::HandleElif()
     {
         return;
     }
-    else //false
+    else     //false
     {
         SkipToNextBranch();
         return;
@@ -451,7 +480,7 @@ void Preprocessor::HandleIfdef()
         m_BranchStack.push(entry);
         return;
     }
-    else //false
+    else     //false
     {
         entry.m_Value=false;
         m_BranchStack.push(entry);
@@ -483,7 +512,7 @@ void Preprocessor::HandleIfndef()
 
 
     BranchEntry entry;
-    if(exist==false) // chech false!!!
+    if(exist==false)   // chech false!!!
     {
         entry.m_Value=true;
         m_BranchStack.push(entry);
@@ -541,15 +570,15 @@ void Preprocessor::SkipToNextBranch()
     {
         m_Tokenizer.FetchToken(&token);
         if(token.type_id()==TKN_PP_IF
-           ||token.type_id()==TKN_PP_IFDEF
-           ||token.type_id()==TKN_PP_IFNDEF)
+                ||token.type_id()==TKN_PP_IFDEF
+                ||token.type_id()==TKN_PP_IFNDEF)
         {
-          level++;
+            level++;
         }
         else if(  token.type_id()==TKN_PP_ELIF
-                ||token.type_id()==TKN_PP_ELSE)
+                  ||token.type_id()==TKN_PP_ELSE)
         {
-            if (level==0)//find the same level branch
+            if (level==0)   //find the same level branch
             {
                 if(token.type_id()==TKN_PP_ELIF)
                     HandleElif();
@@ -561,7 +590,7 @@ void Preprocessor::SkipToNextBranch()
         else if (token.type_id()==TKN_PP_ENDIF)
         {
 
-            if (level==0)//find the same level endif
+            if (level==0)   //find the same level endif
             {
                 HandleEndif();
                 return;
@@ -581,17 +610,22 @@ bool  Preprocessor::CheckMacroExist(std::string key)
         return true;
 
 }
-void  Preprocessor::RunTestPerformance() {
+void  Preprocessor::RunTestPerformance()
+{
     RawToken*  pToken = new RawToken;
 
     CTimer a;
     a.reset();
 
-    while(true) {
-        if(m_Tokenizer.FetchToken(pToken)) {
+    while(true)
+    {
+        if(m_Tokenizer.FetchToken(pToken))
+        {
             //cout<<pToken->get_string()<<endl;
             //m_TokenList.push_back(pToken);
-        } else {
+        }
+        else
+        {
             delete pToken;
             break;
         }
@@ -605,7 +639,7 @@ void DumpExp(vector<RawToken> & exp)
     cout<<"Dump Start"<<endl;
     for(vector<RawToken>::iterator it=exp.begin() ; it < exp.end(); it++)
     {
-       cout<<*it<<endl;
+        cout<<*it<<endl;
     }
     cout<<"Dump End"<<endl;
 
@@ -614,8 +648,6 @@ void DumpExp(vector<RawToken> & exp)
 bool Preprocessor::MacroExpansion(vector<RawToken> & exp)
 {
     // defined (XXX) will correctly caculated first
-
-
 
     bool needNextPass = false;
     int count = 0;
@@ -687,12 +719,12 @@ bool Preprocessor::MacroExpansion(vector<RawToken> & exp)
                         //consider semicolon and toplevel parenthese
                         it++; // move to left parenthesis
 
-                        for(int num = 0;num<argNum;num++)
+                        for(int num = 0; num<argNum; num++)
                         {
                             it++; // go to the next id
                             arg.push_back(single);
                             while(   (*it).type_id()!=TKN_COMMA
-                                  && (*it).type_id()!=TKN_R_PAREN )
+                                     && (*it).type_id()!=TKN_R_PAREN )
                             {
 
                                 arg[num].push_back(*it);
@@ -713,7 +745,7 @@ bool Preprocessor::MacroExpansion(vector<RawToken> & exp)
                             {
                                 bool replaced = false;
                                 //check it is whether a parameter
-                                for(int i = 0;i<def.m_Arguments.size();i++)
+                                for(size_t i = 0; i<def.m_Arguments.size(); i++)
                                 {
                                     if((*itDef).get_text()==def.m_Arguments[i].get_text())
                                     {
@@ -778,8 +810,5 @@ bool Preprocessor::MacroExpansion(vector<RawToken> & exp)
     for(vector<RawToken>::iterator it=exp.begin() ; it < exp.end(); it++)
         cout<<*it<<endl;
     return true;
-
-
-
 
 }
