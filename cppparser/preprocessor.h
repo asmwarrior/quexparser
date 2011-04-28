@@ -15,11 +15,11 @@ public:
         if(m_IsFunctionLike)
         {
             std::cout<<"ARG:"<<std::endl;
-            for(int i=0;i<m_Arguments.size();i++)
+            for(size_t i=0;i<m_Arguments.size();i++)
                 std::cout<<m_Arguments[i].get_string()<<std::endl;
         }
         std::cout<<"VALUE:"<<std::endl;
-        for(int i=0;i<m_DefineValue.size();i++)
+        for(size_t i=0;i<m_DefineValue.size();i++)
             std::cout<<m_DefineValue[i].get_string()<<std::endl;
     }
 
@@ -61,6 +61,7 @@ public:
     void  RunTest();
     void  AddMacroDefinition();
     void  DumpMacroTable();
+    void  DumpTokenList();
 
     bool MacroExpansion(std::vector<RawToken> & exp);
 
