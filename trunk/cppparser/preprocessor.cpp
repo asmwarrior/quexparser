@@ -423,6 +423,7 @@ RawToken*  Preprocessor::GetToken()
     }
     else
     {
+        throw ParserException();
         return 0;
     }
 }

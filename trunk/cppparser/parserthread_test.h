@@ -281,7 +281,7 @@ protected:
     /** handle function declaration or definition
       * @param name is the function name
       * @param isOperator if true, means it is a operator override function */
-    void HandleFunction(cc_string & name);
+    void HandleFunction();
 
     /** handle enum declaration */
     void HandleEnum();
