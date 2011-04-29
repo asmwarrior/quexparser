@@ -107,7 +107,7 @@ _GLIBCXX_BEGIN_NESTED_NAMESPACE(std, _GLIBCXX_STD_D)
    *  also provided as with C-style arrays.
   */
   template<typename _Tp, typename _Alloc = std::allocator<_Tp> >
-    class vector 
+    class vector : protected _Vector_base<_Tp, _Alloc>
     {
       // Concept requirements.
       typedef typename _Alloc::value_type                _Alloc_value_type;
