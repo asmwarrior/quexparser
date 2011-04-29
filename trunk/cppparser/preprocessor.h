@@ -54,6 +54,7 @@ public:
     RawToken*  GetToken();
     RawToken*  CurrentToken();
     RawToken*  PeekToken(int step = 1);
+    void  UngetToken();
     void  RemoveBefore();
     bool  MacroReplace(std::list<RawToken*> & macroDefine);
     bool  ConstExpressionValue();

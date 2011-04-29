@@ -126,11 +126,13 @@
 		<Unit filename="cppparser\parserthread.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
-			<Option target="preprocessor test" />
 		</Unit>
 		<Unit filename="cppparser\parserthread.h">
 			<Option target="Debug" />
 			<Option target="Release" />
+			<Option target="preprocessor test" />
+		</Unit>
+		<Unit filename="cppparser\parserthread_test.cpp">
 			<Option target="preprocessor test" />
 		</Unit>
 		<Unit filename="cppparser\preprocessor.cpp">

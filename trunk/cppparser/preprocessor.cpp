@@ -142,7 +142,7 @@ void Preprocessor::DumpTokenList()
     //clear list
     for ( it=m_TokenList.begin() ; it != m_TokenList.end(); it++ )
     {
-        std::cout<<*(*it)<<" "<<(*it)->line_number()<<":"<<(*it)->column_number()<<std::endl;
+        std::cout<<(*it)->line_number()<<":"<<(*it)->column_number()<<" "<<*(*it)<<std::endl;
         delete (*it);
     }
 }
@@ -352,6 +352,7 @@ void  Preprocessor::RunTest()
     {
         cout<< "end of file" <<endl;
     }
+    m_Current = m_TokenList.begin();
 }
 
 void Preprocessor::AddMacroDefinition()
@@ -432,6 +433,12 @@ RawToken*  Preprocessor::PeekToken(int step)
     }
     return *(peek);
 }
+void Preprocessor::UngetToken()
+{
+    // do nothing!
+    m_Current--;
+}
+
 void  Preprocessor::RemoveBefore()
 {
 
