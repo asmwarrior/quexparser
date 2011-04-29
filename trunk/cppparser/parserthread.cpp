@@ -287,8 +287,8 @@ bool ParserThread::Parse()
 void ParserThread::DoParse()
 {
 
-//    m_Tokenizer.RunTest();
-//    return;
+    m_Tokenizer.RunTest();
+    return;
 //    TestFunction();
 //    return;
 

@@ -6,6 +6,8 @@
 #include<iomanip>
 using namespace std;
 
+void DumpExp(vector<RawToken> & exp);
+
 #include "expressionevaluator.h"
 
 #ifdef _WIN32
@@ -173,7 +175,6 @@ void  Preprocessor::
                 //cout<<pToken->get_string()<<endl;
 
                 if( TKN_PP_DEFINE <= pToken->type_id() && pToken->type_id() <= TKN_PP_ERROR)
-
                 {
                     switch (pToken->type_id())
                     {
@@ -246,11 +247,101 @@ void  Preprocessor::
 
 
                 }
+                else if( pToken->type_id() == TKN_IDENTIFIER )
+                {
+                    if (CheckMacroExist(pToken->get_text()))
+                    {
+                        //We should do a macro replacement, so
+                        RawToken tok = *pToken;
+                        delete pToken;
+                        //macro exist
+                        MacroDefine &def = m_MacroTable[tok.get_text()];
+                        if(def.m_IsFunctionLike == true) //function like
+                        {
+
+                            //read argument
+                            int argNum = def.m_Arguments.size();
+                            vector< vector<RawToken> > arg;
+                            vector<RawToken> single;
+                            //consider semicolon and toplevel parenthese
+                            m_Tokenizer.FetchToken(&tok); // should be a left parenthesis
+                            //read next
+                            m_Tokenizer.FetchToken(&tok);
+                            for(int num = 0; num<argNum; num++)
+                            {
+                                // go to the next id
+                                arg.push_back(single);
+                                while(   tok.type_id()!=TKN_COMMA
+                                         && tok.type_id()!=TKN_R_PAREN )
+                                {
+
+                                    arg[num].push_back(tok);
+                                    m_Tokenizer.FetchToken(&tok);
+                                }
+                                DumpExp(arg[num]);
+                                //it++;
+                            }
+
+                            //replace
+                            vector<RawToken> expend;
+                            //loop the definition, and do the expension
+                            for(vector<RawToken>::iterator itDef=def.m_DefineValue.begin() ; itDef < def.m_DefineValue.end(); itDef++)
+                            {
+                                if((*itDef).type_id() == TKN_IDENTIFIER )
+                                {
+                                    bool replaced = false;
+                                    //check it is whether a parameter
+                                    for(size_t i = 0; i<def.m_Arguments.size(); i++)
+                                    {
+                                        if((*itDef).get_text()==def.m_Arguments[i].get_text())
+                                        {
+                                            //do a replacement
+                                            replaced = true;
+                                            expend.insert(expend.end(),arg[i].begin(),arg[i].end());
+
+                                            DumpExp(expend);
+                                            break;
+
+                                        }
+                                    }
+                                    if(replaced==false)
+                                        expend.push_back(*itDef);
+
+                                }
+                                else
+                                    expend.push_back(*itDef);
+                                DumpExp(expend);
+                            }
+                            //finally, insert the expend
+                            for(vector<RawToken>::iterator itExpend=expend.begin() ; itExpend < expend.end(); itExpend++)
+                            {
+                                RawToken * p = new RawToken;
+                                *p = *itExpend;
+                                m_TokenList.push_back(p);
+                            }
+                        }
+                        else                             //object like
+                        {
+                            for(vector<RawToken>::iterator itDef=def.m_DefineValue.begin() ; itDef < def.m_DefineValue.end(); itDef++)
+                            {
+                                RawToken * p = new RawToken;
+                                *p = *itDef;
+                                m_TokenList.push_back(p);
+                            }
+
+                        }
+
+
+                    } // not a macro definition, so just push it
+                    else
+                    {
+                        m_TokenList.push_back(pToken);
+                    }
+                }
                 else
                 {
                     m_TokenList.push_back(pToken);
                 }
-
             }
             else     //EOF
             {
