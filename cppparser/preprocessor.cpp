@@ -133,7 +133,12 @@ Preprocessor::Preprocessor()
 }
 Preprocessor::~Preprocessor()
 {
-
+    std::list<RawToken*>::iterator it;
+    //clear list
+    for ( it=m_TokenList.begin() ; it != m_TokenList.end(); it++ )
+    {
+        delete (*it);
+    }
 
 }
 void Preprocessor::DumpTokenList()
@@ -143,7 +148,7 @@ void Preprocessor::DumpTokenList()
     for ( it=m_TokenList.begin() ; it != m_TokenList.end(); it++ )
     {
         std::cout<<(*it)->line_number()<<":"<<(*it)->column_number()<<" "<<*(*it)<<std::endl;
-        delete (*it);
+        //delete (*it);
     }
 }
 
@@ -263,20 +268,23 @@ void  Preprocessor::RunTest()
                             //consider semicolon and toplevel parenthese
                             m_Tokenizer.FetchToken(&tok); // should be a left parenthesis
                             //read next
-                            m_Tokenizer.FetchToken(&tok);
+
                             for(int num = 0; num<argNum; num++)
                             {
-                                // go to the next id
-                                arg.push_back(single);
-                                while(   tok.type_id()!=TKN_COMMA
-                                         && tok.type_id()!=TKN_R_PAREN )
-                                {
 
-                                    arg[num].push_back(tok);
+                                arg.push_back(single);
+                                do
+                                {
                                     m_Tokenizer.FetchToken(&tok);
-                                }
+                                    if(tok.type_id()!=TKN_COMMA
+                                         && tok.type_id()!=TKN_R_PAREN )
+                                         arg[num].push_back(tok);
+                                    else
+                                        break;
+
+                                }// go to the next id
+                                while( true );
                                 DumpExp(arg[num]);
-                                //it++;
                             }
 
                             //replace
@@ -297,7 +305,6 @@ void  Preprocessor::RunTest()
                                             expend.insert(expend.end(),arg[i].begin(),arg[i].end());
 
                                             DumpExp(expend);
-                                            break;
 
                                         }
                                     }
@@ -410,22 +417,20 @@ RawToken*  Preprocessor::GetToken()
 {
     if( m_Current != m_TokenList.end())
     {
+        RawToken * p = *m_Current;
         m_Current++;
-        return *m_Current;
+        return p;
     }
     else
     {
         return 0;
     }
 }
-RawToken*  Preprocessor::CurrentToken()
-{
-    return *m_Current;
-}
+
 RawToken*  Preprocessor::PeekToken(int step)
 {
     std::list<RawToken*>::iterator peek = m_Current;
-    for(int i=0;i<step;i++)
+    for(int i=0;i<step-1;i++)
     {
         peek++;
         if(peek==m_TokenList.end())

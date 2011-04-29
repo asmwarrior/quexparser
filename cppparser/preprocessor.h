@@ -52,7 +52,7 @@ public:
     ~Preprocessor();
 
     RawToken*  GetToken();
-    RawToken*  CurrentToken();
+    //RawToken*  CurrentToken();
     RawToken*  PeekToken(int step = 1);
     void  UngetToken();
     void  RemoveBefore();
