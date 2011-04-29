@@ -569,6 +569,16 @@ void ParserThread::HandleClass(EClassType ct)
     }
     else if (current->type_id() == TKN_IDENTIFIER)     //OK, we need to check the next
     {
+        if ( next->type_id() == TKN_COLON )
+        {
+            //ReadType
+            //GetToken(); //remove :id
+            GetToken(); //remove  :
+            GetToken(); //remove protect/public/private
+            GetToken(); //need to read the id
+            ParseFullIdentifer();
+        }
+        next = PeekToken();
         if ( next->type_id() == TKN_L_BRACE)   // class AAA {, we find the "{" here
         {
             DoAddToken(tkClass, current->get_text(), current->line_number());
@@ -587,6 +597,8 @@ void ParserThread::HandleClass(EClassType ct)
                 SkipStatementBlock(); //struct A {....} a b;
 
         }
+
+
 
     }
     else
