@@ -295,11 +295,7 @@ void ParserThread::DoParse()
                 }
                 else                            // AAA BBB(
                 {
-                    cc_string functionName;
-                    // the last element of the m_Context.name is the actual function name
-                    functionName = m_Context.name.back().name.get_text();
-
-                    HandleFunction(functionName);
+                    HandleFunction();
                 }
                 break;
             case  TKN_SEMICOLON:     // A B;
@@ -483,6 +479,18 @@ void ParserThread::DoParse()
         {
            HandleNamespace();
         }
+        case TKN_OPERATOR:
+        {
+            RawToken *op = GetToken();
+            ScopeBlock Operator;
+            Operator.name = *op;
+            m_Context.name.push_back(Operator);
+            RawToken *peek = PeekToken();
+            if(peek->type_id()==TKN_L_PAREN)
+            {
+                HandleFunction();
+            }
+        }
         default:
         {
             //cout<<"Skip unhandled"<<*tk<<endl;
@@ -593,9 +601,9 @@ void ParserThread::HandleClass(EClassType ct)
 
 }
 
-void ParserThread::HandleFunction(cc_string & name)
+void ParserThread::HandleFunction()
 {
-    TRACE("HandleFunction() : %s %s()",m_Context.type.back().name.get_text().c_str(),name.c_str());
+    //TRACE("HandleFunction() : %s %s()",m_Context.type.back().name.get_text().c_str(),name.c_str());
     ArgumentList args;
     ReadFunctionArguments(args);
 
@@ -606,18 +614,14 @@ void ParserThread::HandleFunction(cc_string & name)
     if (peek->type_id() == TKN_L_BRACE)   // function definition
     {
         TRACE("Function definition");
-        TokenKind tokenKind = tkFunction ;
-        cc_string functionName(name);
-        DoAddToken(tokenKind, functionName,peek->line_number());
+        DoAddToken(tkFunction, m_Context.name.back().name,peek->line_number());
         //newToken->m_Args = args;
         SkipStatementBlock();
     }
     else if (peek->type_id() == TKN_SEMICOLON)
     {
         TRACE("Function declaration");
-        TokenKind tokenKind = tkFunction ;
-        cc_string functionName(name);
-        DoAddToken(tokenKind, functionName,peek->line_number());
+        DoAddToken(tkFunction, m_Context.name.back().name,peek->line_number());
         //newToken->m_Args = args;
         GetToken();
     }

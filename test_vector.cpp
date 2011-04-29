@@ -9,7 +9,7 @@ _GLIBCXX_BEGIN_NESTED_NAMESPACE(std, _GLIBCXX_STD_D)
     struct _Vector_base
     {
 	;
-    }
+    };
 	
 
   template<typename _Tp, typename _Alloc>
