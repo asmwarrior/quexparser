@@ -9,6 +9,7 @@
 
 
 //(*AppHeaders
+#include <wx/xrc/xmlres.h>
 #include <wx/image.h>
 //*)
 
@@ -32,6 +33,7 @@ bool TestApp::OnInit()
     //(*AppInitialize
     bool wxsOK = true;
     wxInitAllImageHandlers();
+    wxsOK = wxsOK && wxXmlResource::Get()->Load(_T("resource.rc"));
     //*)
 
     m_frame = new Frame;

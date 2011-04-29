@@ -317,12 +317,6 @@ private:
 
     }
 
-    // return the current token pointer
-    inline RawToken *CurrentToken()
-    {
-        return m_Preprocessor.CurrentToken();
-    }
-
     // peek a token, the default step was 1 (the next after the current one)
     inline RawToken * PeekToken(int step = 1)
     {
@@ -355,6 +349,9 @@ private:
     ParserThreadOptions m_Options;
 
     ParserThreadContext m_Context;
+
+    std::stack<ParserThreadContext> m_ContextStack;
+
 };
 
 #endif // PARSERTHREAD_H

@@ -36,6 +36,10 @@ ParserThread::ParserThread(const cc_string& bufferOrFilename)
         {
             cout<< "end of file" <<endl;
         }
+    std::cout<<"------------DUMP MACRO----------------------------\n";
+    m_Preprocessor.DumpMacroTable();
+    std::cout<<"------------DUMP Token List----------------------- \n";
+    m_Preprocessor.DumpTokenList();
 
 }
 
@@ -248,6 +252,7 @@ void ParserThread::DoParse()
             break;
         }
         case TKN_CLASS:
+        case TKN_STRUCT:
         {
             m_Context.EndStatement();
             if (m_Options.handleClasses)
@@ -452,7 +457,7 @@ void ParserThread::DoParse()
         case TKN_TEMPLATE:
         {
             bool readArgsOK = GetTemplateArgs();   // should following a <> pair,
-            if(!readArgsOK);   //should return true, otherwise, we should
+            if(!readArgsOK)   //should return true, otherwise, we should
                 SkipStatementBlock();
             break;
         }
@@ -474,6 +479,10 @@ void ParserThread::DoParse()
 
             break;
         }
+        case TKN_NAMESPACE:
+        {
+           HandleNamespace();
+        }
         default:
         {
             //cout<<"Skip unhandled"<<*tk<<endl;
@@ -489,6 +498,21 @@ void ParserThread::DoParse()
 
 void ParserThread::HandleNamespace()
 {
+    RawToken*tk = GetToken();
+    RawToken* name;
+    if(tk->type_id()==TKN_IDENTIFIER)
+    {
+        name = tk;
+    }
+    tk = GetToken();
+    if(tk->type_id()==TKN_L_BRACE)
+    {
+        // parse inside anonymous namespace
+        PushContext();
+        DoParse();
+        PopContext();
+        cout<<"end of namespace\n";
+    }
 
 }
 
@@ -502,7 +526,7 @@ void ParserThread::HandleClass(EClassType ct)
 
     // class xxx {   or class {
     // the keyworkd "class" is already comsumed
-    assert(CurrentToken()->type_id()==TKN_CLASS);
+    //assert(CurrentToken()->type_id()==TKN_CLASS);
 
 
     RawToken * current =  GetToken();      // class name
@@ -546,7 +570,7 @@ void ParserThread::HandleClass(EClassType ct)
             GetToken();// consume {
             DoParse();  // when meet a }, we should return from DoParse()
             m_Context = savedContext;
-            assert(CurrentToken()->type_id()==TKN_R_BRACE);
+            //assert(CurrentToken()->type_id()==TKN_R_BRACE);
 
             current = GetToken();
             if(current->type_id()==TKN_SEMICOLON)  // class A {.....};
@@ -721,11 +745,13 @@ void ParserThread::ReadClsNames(cc_string& ancestor)
 
 void ParserThread::PushContext()
 {
+    m_ContextStack.push(m_Context);
 
 }
 void ParserThread::PopContext()
 {
-
+    m_Context = m_ContextStack.top();
+    m_ContextStack.pop();
 }
 
 bool ParserThread::GetTemplateArgs()
@@ -791,7 +817,8 @@ bool ParserThread::ParseFullIdentifer()
 }
 bool ParserThread::ParseScopeQueue(ScopeQueue& scopeQueue)
 {
-    RawToken * currentToken = CurrentToken();
+    UngetToken();
+    RawToken * currentToken = GetToken();
     assert(currentToken->type_id() == TKN_IDENTIFIER);
 
     ScopeBlock scope;
@@ -850,7 +877,7 @@ bool ParserThread::ParseArgumentList(ArgumentList &argumentList)
         assert(tk->type_id() == TKN_GREATER);
     }
 
-    cout<<"currentToken"<<*(CurrentToken())<<endl;
+    //cout<<"currentToken"<<*(CurrentToken())<<endl;
     std::cout<<"ParserThread::ParseArgumentList() Leave...\n";
     return true;
 }
