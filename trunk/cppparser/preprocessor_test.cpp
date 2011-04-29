@@ -19,6 +19,10 @@ int main()
     Preprocessor cpp;
     cpp.LoadFile("test.cpp");
     cpp.RunTest();
+    std::cout<<"------------DUMP MACRO----------------------------\n";
+    cpp.DumpMacroTable();
+    std::cout<<"------------DUMP Token List----------------------- \n";
+    cpp.DumpTokenList();
     //cpp.RunTestPerformance();
     return 0;
 }

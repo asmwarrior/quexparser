@@ -142,7 +142,7 @@ void Preprocessor::DumpTokenList()
     //clear list
     for ( it=m_TokenList.begin() ; it != m_TokenList.end(); it++ )
     {
-        std::cout<<*(*it)<<std::endl;
+        std::cout<<*(*it)<<" "<<(*it)->line_number()<<":"<<(*it)->column_number()<<std::endl;
         delete (*it);
     }
 }
@@ -158,15 +158,12 @@ void  Preprocessor::LoadFile(cc_string filename)
     m_Tokenizer.Init(filename, loader);
 
 }
-void  Preprocessor::
-
-    RunTest()
+void  Preprocessor::RunTest()
 {
     RawToken*  pToken;
 
     try
     {
-
         while(true)
         {
             pToken  = new RawToken;
@@ -355,9 +352,6 @@ void  Preprocessor::
     {
         cout<< "end of file" <<endl;
     }
-
-    DumpMacroTable();
-    DumpTokenList();
 }
 
 void Preprocessor::AddMacroDefinition()
@@ -420,10 +414,7 @@ RawToken*  Preprocessor::GetToken()
     }
     else
     {
-        RawToken * p = new RawToken;
-        m_Tokenizer.FetchToken(p);
-        m_TokenList.push_back(p);
-        return p;
+        return 0;
     }
 }
 RawToken*  Preprocessor::CurrentToken()
@@ -432,23 +423,14 @@ RawToken*  Preprocessor::CurrentToken()
 }
 RawToken*  Preprocessor::PeekToken(int step)
 {
-
-//    for(int i=0;i<step;i++)
-//    {
-//
-//    }
-//
-//    int n = (m_Index+step)%TOKEN_BUFFER_SIZE;;
-//    while(m_PeekAvailable<step)
-//    {
-//        m_PeekAvailable++;
-//        n = (m_Index+m_PeekAvailable)%TOKEN_BUFFER_SIZE;
-//        DoAdvanceGetToken(n);
-//    }
-//    return &m_TokenBuffer[n];
-
-    return NULL;
-
+    std::list<RawToken*>::iterator peek = m_Current;
+    for(int i=0;i<step;i++)
+    {
+        peek++;
+        if(peek==m_TokenList.end())
+            return 0;
+    }
+    return *(peek);
 }
 void  Preprocessor::RemoveBefore()
 {
@@ -600,7 +582,8 @@ void Preprocessor::HandleIfndef()
 
     if(InParentheses==true)//skip the right parenthesis
         m_Tokenizer.FetchToken(&token);
-
+    //remove the trailing pp_finish
+    m_Tokenizer.FetchToken(&token);
 
     BranchEntry entry;
     if(exist==false)   // chech false!!!
@@ -620,6 +603,9 @@ void Preprocessor::HandleIfndef()
 }
 void Preprocessor::HandleEndif()
 {
+    //remove pp_finish;
+    RawToken a;
+    m_Tokenizer.FetchToken(&a);
     //level go up, level--
     if(m_BranchStack.size()>0)
         m_BranchStack.pop();
