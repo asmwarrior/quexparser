@@ -4,25 +4,25 @@
  * http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-#include <fstream>
-#include <ostream>
-#include <stdio.h>
-#include <stdlib.h>
-#include <vector>
-#include <time.h>
-#include<iomanip>
-
-#include "preprocessor.h"
-
-int main()
-{
-    Preprocessor cpp;
-    cpp.LoadFile("test.cpp");
-    cpp.RunTest();
-    std::cout<<"------------DUMP MACRO----------------------------\n";
-    cpp.DumpMacroTable();
-    std::cout<<"------------DUMP Token List----------------------- \n";
-    cpp.DumpTokenList();
-    //cpp.RunTestPerformance();
-    return 0;
-}
+//#include <fstream>
+//#include <ostream>
+//#include <stdio.h>
+//#include <stdlib.h>
+//#include <vector>
+//#include <time.h>
+//#include<iomanip>
+//
+//#include "preprocessor.h"
+//
+//int main()
+//{
+//    Preprocessor cpp;
+//    cpp.LoadFile("test_vector.cpp");
+//    cpp.RunTest();
+//    std::cout<<"------------DUMP MACRO----------------------------\n";
+//    cpp.DumpMacroTable();
+//    std::cout<<"------------DUMP Token List----------------------- \n";
+//    cpp.DumpTokenList();
+//    //cpp.RunTestPerformance();
+//    return 0;
+//}
