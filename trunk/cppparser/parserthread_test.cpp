@@ -546,7 +546,9 @@ void ParserThread::HandleClass(EClassType ct)
 
     // class xxx {   or class {
     // the keyworkd "class" is already comsumed
+
     //assert(CurrentToken()->type_id()==TKN_CLASS);
+    ConsumeToken();
 
 
     RawToken * current =  ConsumeToken();      // class name
@@ -588,7 +590,7 @@ void ParserThread::HandleClass(EClassType ct)
             //ConsumeToken(); //remove :id
             ConsumeToken(); //remove  :
             ConsumeToken(); //remove protect/public/private
-            ConsumeToken(); //need to read the id
+            //ConsumeToken(); //need to read the id
             ParseFullIdentifer();
         }
         next = PeekToken();
@@ -641,7 +643,7 @@ void ParserThread::HandleFunction()
         TRACE("Function definition");
         DoAddToken(tkFunction, m_Context.name.back().name,peek->line_number());
         //newToken->m_Args = args;
-        SkipStatementBlock();
+        SkipBrace();
     }
     else if (peek->type_id() == TKN_SEMICOLON)
     {
