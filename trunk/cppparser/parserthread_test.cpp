@@ -98,8 +98,10 @@ void ParserThread::SkipStatementBlock()
     {
         //SkipToId(TKN_SEMICOLON);
         id = tk->type_id();
-        while(id!=TKN_SEMICOLON)
+        while(PeekToken()->type_id()!=TKN_SEMICOLON)
         {
+            if (PeekToken()->type_id()==TKN_R_PAREN)
+                return;
             tk = ConsumeToken();
             id = tk->type_id();
             if (id == TKN_L_BRACE)  // {     ---> skip { xxx } block
@@ -117,6 +119,7 @@ void ParserThread::SkipStatementBlock()
                         level--;
                 }
             }
+
         }
     }
     printf("Skip statement block End line(%d) column(%d)\n",tk->line_number(),tk->column_number());
@@ -215,7 +218,7 @@ void ParserThread::DoParse()
 
         switch (tk->type_id())
         {
-        case TKN_L_BRACE : //{
+        case TKN_L_BRACE: //{
         {
             SkipBrace();
             break;
@@ -224,7 +227,14 @@ void ParserThread::DoParse()
         {
             // the only time we get to find a } is when recursively called by e.g. HandleClass
             // we have to return now...
-            TRACE("return from a }");
+            cout<<"DoParse(): return from"<<*tk<<tk->line_number()<<":"<<tk->column_number()<<endl;
+            ConsumeToken();
+            return;
+        }
+        case TKN_R_PAREN: //)
+        {
+            cout<<"DoParse(): return from"<<*tk<<tk->line_number()<<":"<<tk->column_number()<<endl;
+            ConsumeToken();
             return;
         }
         case TKN_L_PAREN :       // (
@@ -234,11 +244,14 @@ void ParserThread::DoParse()
         }
         case TKN_FOR:
         case TKN_WHILE:
+        {
+            TRACE("handling for or while block");
+            HandleForWhile();
+        }
         case TKN_SWITCH:
         case TKN_IF:
         case TKN_ELSE:
         {
-            TRACE("handling for or while block");
             SkipParentheses();
             SkipStatementBlock();
             break;
@@ -953,6 +966,29 @@ bool ParserThread::ParseArgumentList(ArgumentList &argumentList)
     return true;
 }
 
+void ParserThread::HandleForWhile()
+{
+    ConsumeToken(); //eat for or while key word
+    ConsumeToken(); //eat the left parenthesis
+    PushContext();  //save the old context
+    m_Context.EndStatement();
+    DoParse();      // do a parse, and should returned on an unbalanced right parenthesis
+    PopContext();   // restore the old context
+
+    RawToken * tok = PeekToken();
+    if(tok->type_id()==TKN_L_BRACE)
+    {
+        ConsumeToken(); //eat {
+        PushContext();  //save the old context
+        m_Context.EndStatement();
+        DoParse();      // do a parse, and should returned on an unbalanced right parenthesis
+        PopContext();   // restore the old context
+    }
+    else
+        SkipStatementBlock();
+
+}
+
 
 void ParserThread::TestFunction()
 {
@@ -996,7 +1032,7 @@ Token *ParserThread::DoAddToken(TokenKind kind,
 
 int main()
 {
-    ParserThread parser("test_vector.cpp");
+    ParserThread parser("test.cpp");
     parser.Parse();
     return 0;
 }

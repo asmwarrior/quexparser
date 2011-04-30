@@ -340,6 +340,7 @@ private:
     bool ParseScopeQueue(ScopeQueue& scopeQueue);
     bool ParseArgumentList(ArgumentList &argumentList);
     void ParseUsing();
+    void HandleForWhile();
 
 
     void SkipBrace();       //skip {...}
