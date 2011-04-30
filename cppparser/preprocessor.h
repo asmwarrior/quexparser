@@ -51,19 +51,25 @@ public:
     Preprocessor();
     ~Preprocessor();
 
+    void  LoadFile(cc_string filename);
+    void  Preprocess();
+
+    void  RunTest();
+    void  RunTestPerformance();
+    void  DumpMacroTable();
+    void  DumpTokenList();
+
+    // Token manipulation
     RawToken*  GetToken();
     RawToken*  CurrentToken();
     RawToken*  PeekToken(int step = 1);
     void  UngetToken();
-    void  RemoveBefore();
-    bool  MacroReplace(std::list<RawToken*> & macroDefine);
-    bool  ConstExpressionValue();
-    void  LoadFile(cc_string filename);
-    void  RunTest();
-    void  AddMacroDefinition();
-    void  DumpMacroTable();
-    void  DumpTokenList();
 
+    bool CheckMacroExist(std::string key);
+
+private:
+    bool ConstExpressionValue();
+    void AddMacroDefinition();
     bool MacroExpansion(std::vector<RawToken> & exp);
 
     void HandleIf();
@@ -75,15 +81,12 @@ public:
     void SkipCurrentPreprocessorDirective();
     void SkipToNextBranch();
 
-    bool CheckMacroExist(std::string key);
-	void  RunTestPerformance();
 private:
     std::list<RawToken*> m_TokenList;
     std::list<RawToken*>::iterator m_Current;
     Tokenizer m_Tokenizer;
     MacroTable m_MacroTable;
     BranchStack m_BranchStack;
-
 };
 
 

@@ -10,74 +10,7 @@ void DumpExp(vector<RawToken> & exp);
 
 #include "expressionevaluator.h"
 
-#ifdef _WIN32
-
-#include<Windows.h>
-
-
-class CTimer
-{
-private:
-
-    LARGE_INTEGER m_base;
-    LARGE_INTEGER m_temp;
-    float m_resolution;
-
-public:
-
-    CTimer()
-    {
-        LARGE_INTEGER t_freq;
-        QueryPerformanceFrequency(&t_freq);
-        m_resolution = (float) (1.0f / (double) t_freq.QuadPart);
-        reset();
-    }
-
-    void reset()
-    {
-        QueryPerformanceCounter(&m_base);
-    }
-
-    inline float GetCurrentTime()
-    {
-        QueryPerformanceCounter(&m_temp);
-        return (m_temp.QuadPart - m_base.QuadPart) * m_resolution * 1000.0f;
-    }
-
-    void SleepTime(float ms_val)
-    {
-        float ms_st = GetCurrentTime();
-        while (GetCurrentTime()-ms_st < ms_val)
-            continue;
-    }
-
-};
-#else
-class CTimer
-{
-private:
-    unsigned long m_base;
-public:
-    CTimer()
-    {
-        reset();
-    }
-
-    void reset()
-    {
-        timeval t;
-        gettimeofday(&t, NULL);
-        m_base = t.tv_sec;
-    }
-
-    float GetCurrentTime()
-    {
-        timeval t;
-        gettimeofday(&t, NULL);
-        return 1000 * (t.tv_sec - m_base) + t.tv_usec * 0.001f;
-    }
-};
-#endif
+#include "timer.h"
 
 
 
@@ -163,204 +96,199 @@ void  Preprocessor::LoadFile(cc_string filename)
     m_Tokenizer.Init(filename, loader);
 
 }
-void  Preprocessor::RunTest()
+void  Preprocessor::Preprocess()
 {
     RawToken*  pToken;
 
-    try
+    while(true)
     {
-        while(true)
+        pToken  = new RawToken;
+        m_Tokenizer.FetchToken(pToken);
+
+        if( TKN_PP_DEFINE <= pToken->type_id() && pToken->type_id() <= TKN_PP_ERROR)
         {
-            pToken  = new RawToken;
-            if(m_Tokenizer.FetchToken(pToken))
+            switch (pToken->type_id())
             {
-                //cout<<pToken->get_string()<<endl;
 
-                if( TKN_PP_DEFINE <= pToken->type_id() && pToken->type_id() <= TKN_PP_ERROR)
-                {
-                    switch (pToken->type_id())
-                    {
-
-                    case TKN_PP_DEFINE:
-                    {
-                        delete pToken;
-                        AddMacroDefinition();
-                        break;
-                    }
-                    case TKN_PP_IF:
-                    {
-                        delete pToken;
-                        HandleIf();
-                        break;
-                    }
-                    case TKN_PP_ELIF:
-                    {
-                        delete pToken;
-                        HandleElif();
-                        break;
-                    }
-                    case TKN_PP_IFDEF :
-                    {
-                        delete pToken;
-                        HandleIfdef();
-                        break;
-                    }
-                    case TKN_PP_IFNDEF:
-                    {
-                        delete pToken;
-                        HandleIfndef();
-                        break;
-                    }
-                    case TKN_PP_ENDIF:
-                    {
-                        delete pToken;
-                        HandleEndif();
-                        break;
-                    }
-                    case TKN_PP_ELSE:
-                    {
-                        delete pToken;
-                        HandleElse();
-                        break;
-                    }
-                    case TKN_PP_PRAGMA:
-                    {
-                        delete pToken;
-                        SkipCurrentPreprocessorDirective();
-                        break;
-                    }
-                    case TKN_PP_ERROR:
-                    {
-                        delete pToken;
-                        SkipCurrentPreprocessorDirective();
-                        break;
-                    }
-                    case TKN_PP_UNDEF:
-                    {
-                        delete pToken;
-                        SkipCurrentPreprocessorDirective();
-                        break;
-                    }
-                    default:
-                        delete pToken;
-                        SkipCurrentPreprocessorDirective();
-
-                    }
-
-
-                }
-                else if( pToken->type_id() == TKN_IDENTIFIER )
-                {
-                    if (CheckMacroExist(pToken->get_text()))
-                    {
-                        //We should do a macro replacement, so
-                        RawToken tok = *pToken;
-                        delete pToken;
-                        //macro exist
-                        MacroDefine &def = m_MacroTable[tok.get_text()];
-                        if(def.m_IsFunctionLike == true) //function like
-                        {
-
-                            //read argument
-                            int argNum = def.m_Arguments.size();
-                            vector< vector<RawToken> > arg;
-                            vector<RawToken> single;
-                            //consider semicolon and toplevel parenthese
-                            m_Tokenizer.FetchToken(&tok); // should be a left parenthesis
-                            //read next
-
-                            for(int num = 0; num<argNum; num++)
-                            {
-
-                                arg.push_back(single);
-                                do
-                                {
-                                    m_Tokenizer.FetchToken(&tok);
-                                    if(tok.type_id()!=TKN_COMMA
-                                         && tok.type_id()!=TKN_R_PAREN )
-                                         arg[num].push_back(tok);
-                                    else
-                                        break;
-
-                                }// go to the next id
-                                while( true );
-                                DumpExp(arg[num]);
-                            }
-
-                            //replace
-                            vector<RawToken> expend;
-                            //loop the definition, and do the expension
-                            for(vector<RawToken>::iterator itDef=def.m_DefineValue.begin() ; itDef < def.m_DefineValue.end(); itDef++)
-                            {
-                                if((*itDef).type_id() == TKN_IDENTIFIER )
-                                {
-                                    bool replaced = false;
-                                    //check it is whether a parameter
-                                    for(size_t i = 0; i<def.m_Arguments.size(); i++)
-                                    {
-                                        if((*itDef).get_text()==def.m_Arguments[i].get_text())
-                                        {
-                                            //do a replacement
-                                            replaced = true;
-                                            expend.insert(expend.end(),arg[i].begin(),arg[i].end());
-
-                                            DumpExp(expend);
-
-                                        }
-                                    }
-                                    if(replaced==false)
-                                        expend.push_back(*itDef);
-
-                                }
-                                else
-                                    expend.push_back(*itDef);
-                                DumpExp(expend);
-                            }
-                            //finally, insert the expend
-                            for(vector<RawToken>::iterator itExpend=expend.begin() ; itExpend < expend.end(); itExpend++)
-                            {
-                                RawToken * p = new RawToken;
-                                *p = *itExpend;
-                                m_TokenList.push_back(p);
-                            }
-                        }
-                        else                             //object like
-                        {
-                            for(vector<RawToken>::iterator itDef=def.m_DefineValue.begin() ; itDef < def.m_DefineValue.end(); itDef++)
-                            {
-                                RawToken * p = new RawToken;
-                                *p = *itDef;
-                                m_TokenList.push_back(p);
-                            }
-
-                        }
-
-
-                    } // not a macro definition, so just push it
-                    else
-                    {
-                        m_TokenList.push_back(pToken);
-                    }
-                }
-                else
-                {
-                    m_TokenList.push_back(pToken);
-                }
-            }
-            else     //EOF
+            case TKN_PP_DEFINE:
             {
                 delete pToken;
+                AddMacroDefinition();
                 break;
-            }//if(m_Tokenizer.FetchToken(pToken))
-        }//while(true)
+            }
+            case TKN_PP_IF:
+            {
+                delete pToken;
+                HandleIf();
+                break;
+            }
+            case TKN_PP_ELIF:
+            {
+                delete pToken;
+                HandleElif();
+                break;
+            }
+            case TKN_PP_IFDEF :
+            {
+                delete pToken;
+                HandleIfdef();
+                break;
+            }
+            case TKN_PP_IFNDEF:
+            {
+                delete pToken;
+                HandleIfndef();
+                break;
+            }
+            case TKN_PP_ENDIF:
+            {
+                delete pToken;
+                HandleEndif();
+                break;
+            }
+            case TKN_PP_ELSE:
+            {
+                delete pToken;
+                HandleElse();
+                break;
+            }
+            case TKN_PP_PRAGMA:
+            {
+                delete pToken;
+                SkipCurrentPreprocessorDirective();
+                break;
+            }
+            case TKN_PP_ERROR:
+            {
+                delete pToken;
+                SkipCurrentPreprocessorDirective();
+                break;
+            }
+            case TKN_PP_UNDEF:
+            {
+                delete pToken;
+                SkipCurrentPreprocessorDirective();
+                break;
+            }
+            default:
+                delete pToken;
+                SkipCurrentPreprocessorDirective();
 
-    }
-    catch(ParserException& e)
-    {
-        cout<< "end of file" <<endl;
+            }
+
+
+        }
+        else if( pToken->type_id() == TKN_IDENTIFIER )
+        {
+            if (CheckMacroExist(pToken->get_text()))
+            {
+                //We should do a macro replacement, so
+                RawToken tok = *pToken;
+                delete pToken;
+                //macro exist
+                MacroDefine &def = m_MacroTable[tok.get_text()];
+                if(def.m_IsFunctionLike == true) //function like
+                {
+
+                    //read argument
+                    int argNum = def.m_Arguments.size();
+                    vector< vector<RawToken> > arg;
+                    vector<RawToken> single;
+                    //consider semicolon and toplevel parenthese
+                    m_Tokenizer.FetchToken(&tok); // should be a left parenthesis
+                    //read next
+                    if(tok.type_id()==TKN_TERMINATION)
+                        return;
+
+                    for(int num = 0; num<argNum; num++)
+                    {
+
+                        arg.push_back(single);
+                        do
+                        {
+                            m_Tokenizer.FetchToken(&tok);
+                            if(tok.type_id()==TKN_TERMINATION)
+                                return;
+                            if(tok.type_id()!=TKN_COMMA
+                                    && tok.type_id()!=TKN_R_PAREN )
+                                arg[num].push_back(tok);
+                            else
+                                break;
+
+                        }// go to the next id
+                        while( true );
+                        DumpExp(arg[num]);
+                    }
+
+                    //replace
+                    vector<RawToken> expend;
+                    //loop the definition, and do the expension
+                    for(vector<RawToken>::iterator itDef=def.m_DefineValue.begin() ; itDef < def.m_DefineValue.end(); itDef++)
+                    {
+                        if((*itDef).type_id() == TKN_IDENTIFIER )
+                        {
+                            bool replaced = false;
+                            //check it is whether a parameter
+                            for(size_t i = 0; i<def.m_Arguments.size(); i++)
+                            {
+                                if((*itDef).get_text()==def.m_Arguments[i].get_text())
+                                {
+                                    //do a replacement
+                                    replaced = true;
+                                    expend.insert(expend.end(),arg[i].begin(),arg[i].end());
+
+                                    DumpExp(expend);
+
+                                }
+                            }
+                            if(replaced==false)
+                                expend.push_back(*itDef);
+
+                        }
+                        else
+                            expend.push_back(*itDef);
+                        DumpExp(expend);
+                    }
+                    //finally, insert the expend
+                    for(vector<RawToken>::iterator itExpend=expend.begin() ; itExpend < expend.end(); itExpend++)
+                    {
+                        RawToken * p = new RawToken;
+                        *p = *itExpend;
+                        m_TokenList.push_back(p);
+                    }
+                }
+                else                             //object like
+                {
+                    for(vector<RawToken>::iterator itDef=def.m_DefineValue.begin() ; itDef < def.m_DefineValue.end(); itDef++)
+                    {
+                        RawToken * p = new RawToken;
+                        *p = *itDef;
+                        m_TokenList.push_back(p);
+                    }
+
+                }
+
+
+            } // not a macro definition, so just push it
+            else
+            {
+                m_TokenList.push_back(pToken);
+            }
+        }
+        else if( pToken->type_id() == TKN_TERMINATION)
+        {
+            m_TokenList.push_back(pToken);
+            break;
+        }
+        else
+        {
+            m_TokenList.push_back(pToken);
+        }
     }
     m_Current = m_TokenList.begin();
 }
+
+
 
 void Preprocessor::AddMacroDefinition()
 {
@@ -368,6 +296,8 @@ void Preprocessor::AddMacroDefinition()
     MacroDefine entry;
     m_Tokenizer.FetchToken(&(entry.m_Name));
     m_Tokenizer.FetchToken(&token);
+    if(token.type_id()==TKN_TERMINATION)
+        return;
 
     if(token.type_id()==TKN_L_PAREN)   //function like macro
     {
@@ -376,6 +306,8 @@ void Preprocessor::AddMacroDefinition()
         do
         {
             m_Tokenizer.FetchToken(&token);
+            if(token.type_id()==TKN_TERMINATION)
+                return;
             if(token.type_id()==TKN_R_PAREN)
                 break;
             else if(token.type_id()!=TKN_COMMA)
@@ -393,6 +325,8 @@ void Preprocessor::AddMacroDefinition()
     do
     {
         m_Tokenizer.FetchToken(&token);
+        if(token.type_id()==TKN_TERMINATION)
+            return;
         if(token.type_id()!=TKN_PP_FINISH)
             entry.m_DefineValue.push_back(token);
         else
@@ -445,14 +379,7 @@ void Preprocessor::UngetToken()
     m_Current--;
 }
 
-void  Preprocessor::RemoveBefore()
-{
 
-}
-bool  Preprocessor::MacroReplace(std::list<RawToken*> & macroDefine)
-{
-    return true;
-}
 bool  Preprocessor::ConstExpressionValue()
 {
 //    RawToken token;
@@ -478,6 +405,8 @@ bool  Preprocessor::ConstExpressionValue()
     while(true)
     {
         m_Tokenizer.FetchToken(&token);
+        if(token.type_id()==TKN_TERMINATION)
+            return false;
         exp.push_back(token);
         if(token.type_id()==TKN_PP_FINISH)
         {
@@ -541,6 +470,8 @@ void Preprocessor::HandleIfdef()
 
     RawToken token;
     m_Tokenizer.FetchToken(&token);
+    if(token.type_id()==TKN_TERMINATION)
+        return;
     bool InParentheses = false;
 
     if (token.type_id()==TKN_L_PAREN)
@@ -597,6 +528,8 @@ void Preprocessor::HandleIfndef()
         m_Tokenizer.FetchToken(&token);
     //remove the trailing pp_finish
     m_Tokenizer.FetchToken(&token);
+    if(token.type_id()==TKN_TERMINATION)
+        return;
 
     BranchEntry entry;
     if(exist==false)   // chech false!!!
@@ -617,8 +550,10 @@ void Preprocessor::HandleIfndef()
 void Preprocessor::HandleEndif()
 {
     //remove pp_finish;
-    RawToken a;
-    m_Tokenizer.FetchToken(&a);
+    RawToken tok;
+    m_Tokenizer.FetchToken(&tok);
+    if(tok.type_id()==TKN_TERMINATION)
+        return;
     //level go up, level--
     if(m_BranchStack.size()>0)
         m_BranchStack.pop();
@@ -688,6 +623,8 @@ void Preprocessor::SkipToNextBranch()
             else
                 level--;
         }
+        else if(token.type_id()==TKN_TERMINATION)
+            return;
     }
 
 }
@@ -700,6 +637,12 @@ bool  Preprocessor::CheckMacroExist(std::string key)
         return true;
 
 }
+void Preprocessor::RunTest()
+{
+    Preprocess();
+    DumpMacroTable();
+    DumpTokenList();
+}
 void  Preprocessor::RunTestPerformance()
 {
     RawToken*  pToken = new RawToken;
@@ -709,16 +652,13 @@ void  Preprocessor::RunTestPerformance()
 
     while(true)
     {
-        if(m_Tokenizer.FetchToken(pToken))
-        {
-            //cout<<pToken->get_string()<<endl;
-            //m_TokenList.push_back(pToken);
-        }
-        else
-        {
-            delete pToken;
+        m_Tokenizer.FetchToken(pToken);
+
+        //cout<<pToken->get_string()<<endl;
+        //m_TokenList.push_back(pToken);
+
+        if(pToken->type_id()==TKN_TERMINATION)
             break;
-        }
 
     }
     std::cout<<a.GetCurrentTime()<<std::endl;
