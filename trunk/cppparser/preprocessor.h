@@ -3,6 +3,7 @@
 
 #include<list>
 #include<stack>
+#include<vector>
 #include"tokenizer.h"
 
 class MacroDefine
@@ -70,7 +71,9 @@ public:
 private:
     bool ConstExpressionValue();
     void AddMacroDefinition();
-    bool MacroExpansion(std::vector<RawToken> & exp);
+    bool ConstExpressionExpansion(std::vector<RawToken> & exp);
+    void ReadMacroActualArgument(std::vector<std::vector<RawToken> > &arg, int argNum);
+    void MacroExpansion(std::vector<RawToken> &expend,MacroDefine &def, std::vector<std::vector<RawToken> > &arg);
 
     void HandleIf();
     void HandleElif();

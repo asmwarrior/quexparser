@@ -26,21 +26,12 @@
 
 ParserThread::ParserThread(const cc_string& bufferOrFilename)
 {
-        m_Preprocessor.LoadFile(bufferOrFilename);
-
-        try
-        {
-           m_Preprocessor.Preprocess();
-        }
-        catch(ParserException& e)
-        {
-            cout<< "end of file" <<endl;
-        }
+    m_Preprocessor.LoadFile(bufferOrFilename);
+    m_Preprocessor.Preprocess();
     std::cout<<"------------DUMP MACRO----------------------------\n";
     m_Preprocessor.DumpMacroTable();
     std::cout<<"------------DUMP Token List----------------------- \n";
     m_Preprocessor.DumpTokenList();
-
 }
 
 ParserThread::~ParserThread()
