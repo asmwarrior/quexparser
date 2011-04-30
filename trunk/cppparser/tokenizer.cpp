@@ -259,19 +259,11 @@ void Tokenizer::RunTest()
 
 }
 
-bool Tokenizer::FetchToken(RawToken * pToken)
+void Tokenizer::FetchToken(RawToken * pToken)
 {
     pToken->text.clear();
     (void)m_Quex.token_p_switch(pToken);
-
     QUEX_TYPE_TOKEN_ID id = m_Quex.receive();
 
-    if( id == TKN_TERMINATION )
-    {
-       m_IsEOF = true;
-       throw ParserException();
-       return false;
-    }
-    return true;
 }
 

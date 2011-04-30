@@ -30,7 +30,7 @@ ParserThread::ParserThread(const cc_string& bufferOrFilename)
 
         try
         {
-           m_Preprocessor.RunTest();
+           m_Preprocessor.Preprocess();
         }
         catch(ParserException& e)
         {
