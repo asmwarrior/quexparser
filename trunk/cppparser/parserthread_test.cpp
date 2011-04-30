@@ -539,6 +539,10 @@ void ParserThread::ParseUsing()
             SkipStatementBlock();
 
     }
+    else if(peek->type_id() == TKN_IDENTIFIER)
+    {
+        SkipStatementBlock();
+    }
 }
 
 void ParserThread::HandleClass(EClassType ct)
@@ -631,13 +635,32 @@ void ParserThread::HandleClass(EClassType ct)
 void ParserThread::HandleFunction()
 {
     //TRACE("HandleFunction() : %s %s()",m_Context.type.back().name.get_text().c_str(),name.c_str());
+
+    // should always at the ( , so we firstly read the parentheses
     ArgumentList args;
     ReadFunctionArguments(args);
 
-    //SkipParentheses();  //parameter
 
     RawToken * peek = PeekToken();
 
+    if(peek->type_id() == TKN_CONST)
+        ConsumeToken();
+
+    if(PeekToken()->type_id() == TKN_COLON)
+    {
+        ConsumeToken();
+        //SkipToLeftBrace();// skip the member initialization list
+        while(true)
+        {
+            if(PeekToken()->type_id()!=TKN_L_BRACE)
+                ConsumeToken();
+            else
+                break;
+        }
+
+    }
+
+    peek = PeekToken();
     if (peek->type_id() == TKN_L_BRACE)   // function definition
     {
         TRACE("Function definition");
