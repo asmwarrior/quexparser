@@ -295,8 +295,8 @@ protected:
 
 private:
 
-    void SkipStatementBlock();
-    void SkipParentheses();
+
+
     void PushContext();
     void PopContext();
     bool GetTemplateArgs();
@@ -306,7 +306,7 @@ private:
                       int line);
 
     // consume a token
-    inline RawToken * GetToken()
+    inline RawToken *ConsumeToken()
     {
         if (TestDestroy())
         {
@@ -318,7 +318,7 @@ private:
     }
 
     // peek a token, the default step was 1 (the next after the current one)
-    inline RawToken * PeekToken(int step = 1)
+    inline RawToken *PeekToken(int step = 1)
     {
         if (TestDestroy())
         {
@@ -339,6 +339,14 @@ private:
     bool ParseFullIdentifer();
     bool ParseScopeQueue(ScopeQueue& scopeQueue);
     bool ParseArgumentList(ArgumentList &argumentList);
+    void ParseUsing();
+
+
+    void SkipBrace();       //skip {...}
+    void SkipParentheses(); //skip (...)
+    void SkipStatementBlock();
+
+
     void TestFunction();
 
 

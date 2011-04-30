@@ -51,7 +51,7 @@ ParserThread::~ParserThread()
 void ParserThread::SkipToOneOfId(const int * idArray, const int num)
 {
     RawToken * tk;
-    tk = GetToken();
+    tk = ConsumeToken();
     bool find = false;
     int id = tk->type_id();
 
@@ -71,7 +71,7 @@ void ParserThread::SkipToOneOfId(const int * idArray, const int num)
             break;
         }
         //go step again
-        tk = GetToken();
+        tk = ConsumeToken();
         id = tk->type_id();
     };
 
@@ -84,9 +84,10 @@ for () {xxx;}
 */
 void ParserThread::SkipStatementBlock()
 {
-    RawToken * tk = GetToken();
+    RawToken * tk = PeekToken();
     QUEX_TYPE_TOKEN_ID id = tk->type_id();
     printf("Skip statement block Start line(%d) column(%d)\n",tk->line_number(),tk->column_number());
+
     if (id == TKN_L_BRACE)
     {
         //SkipToId(TKN_R_BRACE);
@@ -94,7 +95,7 @@ void ParserThread::SkipStatementBlock()
 
         while(level>0)
         {
-            tk = GetToken();
+            tk = ConsumeToken();
             id = tk->type_id();
             if (id == TKN_L_BRACE)
                 level++;
@@ -108,7 +109,7 @@ void ParserThread::SkipStatementBlock()
         id = tk->type_id();
         while(id!=TKN_SEMICOLON)
         {
-            tk = GetToken();
+            tk = ConsumeToken();
             id = tk->type_id();
             if (id == TKN_L_BRACE)  // {     ---> skip { xxx } block
             {
@@ -117,7 +118,7 @@ void ParserThread::SkipStatementBlock()
 
                 while(level>0)
                 {
-                    tk = GetToken();
+                    tk = ConsumeToken();
                     id = tk->type_id();
                     if (id == TKN_L_BRACE)
                         level++;
@@ -133,19 +134,23 @@ void ParserThread::SkipStatementBlock()
 void ParserThread::SkipParentheses()
 {
     //TKN_L_PAREN
+    RawToken * tk=ConsumeToken();//remove the first TKN_L_PAREN
 
-    RawToken * tk = GetToken();//remove the first TKN_L_PAREN
-    QUEX_TYPE_TOKEN_ID id = tk->type_id();
+    QUEX_TYPE_TOKEN_ID id;
     int level = 1;
+
     printf("Skip Parentheses Start at line(%d)column(%d)\n",tk->line_number(),tk->column_number());
-    while(level>0)
+    while(true)
     {
-        tk = GetToken();
+        tk = PeekToken();
         id = tk->type_id();
         if (id == TKN_L_PAREN)
             level++;
         else if (id == TKN_R_PAREN)
             level--;
+        ConsumeToken();
+        if(level<=0)
+            break;
     }
     printf("Skip Parentheses End at line(%d)column(%d)\n",tk->line_number(),tk->column_number());
 
@@ -156,7 +161,7 @@ void ParserThread::ReadFunctionArguments(ArgumentList &args)
     //TKN_L_PAREN
     args.clear();
 
-    RawToken * tk = GetToken();//remove the first TKN_L_PAREN
+    RawToken * tk = ConsumeToken();//remove the first TKN_L_PAREN
 
     QUEX_TYPE_TOKEN_ID id = tk->type_id();
 
@@ -164,7 +169,7 @@ void ParserThread::ReadFunctionArguments(ArgumentList &args)
     printf("Skip Parentheses Start at line(%d)column(%d)\n",tk->line_number(),tk->column_number());
     while(level>0)
     {
-        tk = GetToken();
+        tk = ConsumeToken();
         id = tk->type_id();
         if (id == TKN_L_PAREN)
             level++;
@@ -215,15 +220,13 @@ void ParserThread::DoParse()
 
     while (true)
     {
-        RawToken* tk = GetToken();
+        RawToken* tk = PeekToken();
 
         switch (tk->type_id())
         {
         case TKN_L_BRACE : //{
         {
-            int idArray[1] = {TKN_R_BRACE};
-            SkipToOneOfId(idArray,1);
-            TRACE("Skiping {}");
+            SkipBrace();
             break;
         }
         case TKN_R_BRACE: //}
@@ -235,9 +238,7 @@ void ParserThread::DoParse()
         }
         case TKN_L_PAREN :       // (
         {
-            int idArray[1] = {TKN_R_PAREN};
-            SkipToOneOfId(idArray,1);
-            TRACE("Skiping ()");
+            SkipParentheses();
             break;
         }
         case TKN_FOR:
@@ -273,12 +274,12 @@ void ParserThread::DoParse()
         case  TKN_REGISTER:
         case  TKN_MUTABLE:
         {
+            ConsumeToken();
             //m_Context.typeQualifier = tk->type_id();
             break;
         }
         case TKN_IDENTIFIER:
         {
-
             ParseFullIdentifer();
             // we are interested in the following token.
 
@@ -318,17 +319,17 @@ void ParserThread::DoParse()
                         cout<<"DoAddToken(tkVariable, variableName, line)\n";
 
 
-                    GetToken();    //consume the semicolon
+                    ConsumeToken();    //consume the semicolon
                     m_Context.EndStatement();
                 }
                 break;
             case TKN_BITAND://&
                 m_Context.typeQualifier.isReference = true;
-                GetToken();
+                ConsumeToken();
                 break;
             case TKN_MULT:  //*
                 m_Context.typeQualifier.isPointer = true;
-                GetToken();
+                ConsumeToken();
                 break;
             case TKN_L_SQUARE:
             case TKN_PLUS:
@@ -346,7 +347,7 @@ void ParserThread::DoParse()
             case TKN_L_SHIFT_ASSIGN:
             case TKN_R_SHIFT:
             case TKN_R_SHIFT_ASSIGN:
-                GetToken();
+                ConsumeToken();
                 SkipStatementBlock();
                 break;
 
@@ -368,7 +369,7 @@ void ParserThread::DoParse()
                     int line = m_Context.name.back().name.line_number();
                     if (m_Options.handleVars)
                         cout<<"DoAddToken(tkVariable, variableName, line)\n";
-                    GetToken();       //consume , or =
+                    ConsumeToken();       //consume , or =
                     // tk is updated
                     if(tk->type_id()  == TKN_ASSIGN)
                     {
@@ -388,57 +389,49 @@ void ParserThread::DoParse()
         }// End of handling of case TKN_IDENTIFIER
         case TKN_SEMICOLON:
         {
+            ConsumeToken();
             m_Context.EndStatement();
             break;
         }
         case TKN_PUBLIC:
         {
+            ConsumeToken();
             RawToken * peek = PeekToken();
             if(peek->type_id() == TKN_COLON)
             {
                 m_Context.accessScope = tsPublic;
                 m_Context.EndStatement();
-                GetToken();
+                ConsumeToken();
             }
             break;
         }
         case TKN_PRIVATE:
         {
+            ConsumeToken();
             RawToken * peek = PeekToken();
             if(peek->type_id() == TKN_COLON)
             {
                 m_Context.accessScope = tsPrivate;
                 m_Context.EndStatement();
-                GetToken();
+                ConsumeToken();
             }
             break;
         }
         case TKN_PROTECT:
         {
+            ConsumeToken();
             RawToken * peek = PeekToken();
             if(peek->type_id() == TKN_COLON)
             {
                 m_Context.accessScope = tsProtected;
                 m_Context.EndStatement();
-                GetToken();
+                ConsumeToken();
             }
             break;
         }
         case TKN_USING:
         {
-            RawToken * peek = PeekToken();
-            if(peek->type_id() == TKN_NAMESPACE)
-            {
-                //Handleing using space directive
-                GetToken(); //consume "namespace"
-                // simply handling mode: using namespace AAA
-                tk = GetToken();
-                if (tk->type_id() == TKN_IDENTIFIER)
-                    cout<<"DoAddToken(tkUsingNamespace,tk->get_text(),tk->line_number())\n";
-                else
-                    SkipStatementBlock();
-
-            }
+            ParseUsing();
             break;
         }
         case TKN_DELETE:
@@ -481,7 +474,7 @@ void ParserThread::DoParse()
         }
         case TKN_OPERATOR:
         {
-            RawToken *op = GetToken();
+            RawToken *op = ConsumeToken();
             ScopeBlock Operator;
             Operator.name = *op;
             m_Context.name.push_back(Operator);
@@ -495,7 +488,8 @@ void ParserThread::DoParse()
         {
             //cout<<"Skip unhandled"<<*tk<<endl;
             // As the tk is only a pointer to the RawToken buffer, so it may changed by
-            // some function calling on GetToken or PeekToken
+            // some function calling on ConsumeToken or PeekToken
+            ConsumeToken();
             break;
         }
         }
@@ -506,13 +500,13 @@ void ParserThread::DoParse()
 
 void ParserThread::HandleNamespace()
 {
-    RawToken*tk = GetToken();
+    RawToken*tk = ConsumeToken();
     RawToken* name;
     if(tk->type_id()==TKN_IDENTIFIER)
     {
         name = tk;
     }
-    tk = GetToken();
+    tk = ConsumeToken();
     if(tk->type_id()==TKN_L_BRACE)
     {
         // parse inside anonymous namespace
@@ -529,6 +523,24 @@ void ParserThread::ReadVarNames()
 
 }
 
+void ParserThread::ParseUsing()
+{
+    ConsumeToken();
+    RawToken * peek = PeekToken();
+    if(peek->type_id() == TKN_NAMESPACE)
+    {
+        //Handleing using space directive
+        ConsumeToken(); //consume "namespace"
+        // simply handling mode: using namespace AAA
+        peek = PeekToken();
+        if (peek->type_id() == TKN_IDENTIFIER)
+            cout<<"DoAddToken(tkUsingNamespace,tk->get_text(),tk->line_number())\n";
+        else
+            SkipStatementBlock();
+
+    }
+}
+
 void ParserThread::HandleClass(EClassType ct)
 {
 
@@ -537,7 +549,7 @@ void ParserThread::HandleClass(EClassType ct)
     //assert(CurrentToken()->type_id()==TKN_CLASS);
 
 
-    RawToken * current =  GetToken();      // class name
+    RawToken * current =  ConsumeToken();      // class name
     RawToken * next    =  PeekToken();
 
     TRACE("HandleClass() : Found class '%s'", current->get_text().c_str() );
@@ -569,13 +581,14 @@ void ParserThread::HandleClass(EClassType ct)
     }
     else if (current->type_id() == TKN_IDENTIFIER)     //OK, we need to check the next
     {
+        //parser base clause
         if ( next->type_id() == TKN_COLON )
         {
             //ReadType
-            //GetToken(); //remove :id
-            GetToken(); //remove  :
-            GetToken(); //remove protect/public/private
-            GetToken(); //need to read the id
+            //ConsumeToken(); //remove :id
+            ConsumeToken(); //remove  :
+            ConsumeToken(); //remove protect/public/private
+            ConsumeToken(); //need to read the id
             ParseFullIdentifer();
         }
         next = PeekToken();
@@ -585,12 +598,12 @@ void ParserThread::HandleClass(EClassType ct)
             ParserThreadContext savedContext = m_Context;
             m_Context.EndStatement();
             //m_Context.parentToken = newToken;
-            GetToken();// consume {
+            ConsumeToken();// consume {
             DoParse();  // when meet a }, we should return from DoParse()
             m_Context = savedContext;
             //assert(CurrentToken()->type_id()==TKN_R_BRACE);
 
-            current = GetToken();
+            current = ConsumeToken();
             if(current->type_id()==TKN_SEMICOLON)  // class A {.....};
                 return;
             else
@@ -635,7 +648,7 @@ void ParserThread::HandleFunction()
         TRACE("Function declaration");
         DoAddToken(tkFunction, m_Context.name.back().name,peek->line_number());
         //newToken->m_Args = args;
-        GetToken();
+        ConsumeToken();
     }
     m_Context.EndStatement();
 }
@@ -646,7 +659,7 @@ void ParserThread::ReadEnumList()
     RawToken *peek;
     do
     {
-        current = GetToken();
+        current = ConsumeToken();
         peek    = PeekToken();
         if(current->type_id() == TKN_IDENTIFIER )
         {
@@ -654,8 +667,8 @@ void ParserThread::ReadEnumList()
             {
                 //Add variable
                 //DoAddToken(tkVariable, current->get_text(), current->line_number());
-                GetToken(); //comsume "="
-                GetToken(); //comsume the id after "="
+                ConsumeToken(); //comsume "="
+                ConsumeToken(); //comsume the id after "="
             }
             else if (peek->type_id() == TKN_R_BRACE)  //a}
             {
@@ -671,7 +684,7 @@ void ParserThread::ReadEnumList()
             {
                 //Add variable
                 //DoAddToken(tkVariable, current->get_text(), current->line_number());
-                GetToken(); //comsume ","
+                ConsumeToken(); //comsume ","
             }
         }
     }
@@ -683,8 +696,8 @@ void ParserThread::HandleEnum()
     // enums have the following rough definition:
     // enum [xxx] { type1 name1 [= 1][, [type2 name2 [= 2]]] };
 
-
-    RawToken * tk = GetToken();    // the token after "enum"
+    ConsumeToken();
+    RawToken * tk = ConsumeToken();    // the token after "enum"
     Token * newToken = 0;
     if (tk->type_id() == TKN_IDENTIFIER)           // enum XXX
     {
@@ -695,7 +708,7 @@ void ParserThread::HandleEnum()
             TRACE("find enum %s at line(%d)",tk->get_text().c_str(),tk->line_number());
             DoAddToken(tkEnum, tk->get_text(), tk->line_number());
             //newToken->m_ImplLineStart = pk->line_number();
-            GetToken();                     //consume {
+            ConsumeToken();                     //consume {
             ParserThreadContext savedContext = m_Context;
             m_Context.parentToken = newToken;
             ReadEnumList();
@@ -712,7 +725,7 @@ void ParserThread::HandleEnum()
         // // Do Add Token of enum
         TRACE("find unnamed enum at line(%d)",tk->line_number());
         DoAddToken(tkEnum, "UnnamedEnum", tk->line_number());
-        GetToken();                    //consume {
+        ConsumeToken();                    //consume {
         ParserThreadContext savedContext = m_Context;
         m_Context.parentToken = newToken;
         ReadEnumList();
@@ -720,7 +733,7 @@ void ParserThread::HandleEnum()
     }
 
     // Token's implement End line information added
-    tk = GetToken();
+    tk = ConsumeToken();
     //we are now after the }
     if(newToken)
     {
@@ -731,7 +744,7 @@ void ParserThread::HandleEnum()
     // if we find an id, then this is something like enum XXX{...} A,B;
     // A,B were the instant of the enum
 
-    tk = GetToken();
+    tk = ConsumeToken();
     if(tk->type_id() == TKN_IDENTIFIER)
     {
         //Add variables list
@@ -772,12 +785,14 @@ void ParserThread::PopContext()
 
 bool ParserThread::GetTemplateArgs()
 {
+    ConsumeToken();
+
     m_Context.templateArgument.clear();
     int nestLvl = 0;
 
     while (true)
     {
-        RawToken * tk = GetToken();
+        RawToken * tk = ConsumeToken();
 
         if (tk->type_id() == TKN_LESS) // <
         {
@@ -814,7 +829,32 @@ bool ParserThread::GetTemplateArgs()
 
 }
 
+void ParserThread::SkipBrace()
+{
+    ConsumeToken();
+    int nestLvl = 1;
 
+    while (true)
+    {
+        RawToken * tk = ConsumeToken();
+
+        if (tk->type_id() == TKN_L_BRACE)
+        {
+            ++nestLvl;
+        }
+        else if (tk->type_id() == TKN_R_BRACE) // >
+        {
+            --nestLvl;
+        }
+
+        if (nestLvl <= 0)
+        {
+            break;
+        }
+
+    }
+
+}
 
 
 
@@ -833,8 +873,7 @@ bool ParserThread::ParseFullIdentifer()
 }
 bool ParserThread::ParseScopeQueue(ScopeQueue& scopeQueue)
 {
-    UngetToken();
-    RawToken * currentToken = GetToken();
+    RawToken * currentToken = ConsumeToken();
     assert(currentToken->type_id() == TKN_IDENTIFIER);
 
     ScopeBlock scope;
@@ -849,8 +888,8 @@ bool ParserThread::ParseScopeQueue(ScopeQueue& scopeQueue)
             //Read the Argument list
             // fill the *it.templateArgumentList
             // if the fill function return false, which, we should skip to ; or }
-            GetToken(); //consume ::
-            currentToken = GetToken(); // get id
+            ConsumeToken(); //consume ::
+            currentToken = ConsumeToken(); // get id
             scope.name = *currentToken;// add the name
             bool parseResult = ParseArgumentList(scope.templateArgumentList);
             if (!parseResult) // this means we have the format A<......;, this is not a template
@@ -869,14 +908,14 @@ bool ParserThread::ParseArgumentList(ArgumentList &argumentList)
        return true;
 
     // shoud be a (xxxx) or <xxxxx>
-    RawToken * tk = GetToken();
+    RawToken * tk = ConsumeToken();
     std::cout<<"ParserThread::ParseArgumentList() Enter...\n";
     if(tk->type_id() == TKN_LESS)
     {
         int level = 1;
         argumentList.clear();
         argumentList.push_back(*tk); // push <
-        tk = GetToken();// get a token
+        tk = ConsumeToken();// get a token
         // should match a >
         while(tk->type_id()!=TKN_GREATER)
         {
@@ -887,7 +926,7 @@ bool ParserThread::ParseArgumentList(ArgumentList &argumentList)
             }
             std::cout<<*tk<<std::endl;
             argumentList.push_back(*tk);
-            tk = GetToken();// comsume this one;
+            tk = ConsumeToken();// comsume this one;
 
         }
         assert(tk->type_id() == TKN_GREATER);
@@ -903,7 +942,7 @@ void ParserThread::TestFunction()
 {
     while (true)
     {
-        RawToken* tk = GetToken();
+        RawToken* tk = ConsumeToken();
         std::cout<<*tk<<std::endl;
         int type = tk->type_id();
         switch (type)
