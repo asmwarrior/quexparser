@@ -535,17 +535,23 @@ void ParserThread::DoParse()
 
 void ParserThread::HandleNamespace()
 {
-    RawToken*tk = ConsumeToken();
-    RawToken* name;
-    if(tk->type_id()==TKN_IDENTIFIER)
-    {
-        name = tk;
-    }
-    tk = ConsumeToken();
+    ConsumeToken();
     RawToken *pk = PeekToken();
+    RawToken name;
+    if(pk->type_id()==TKN_IDENTIFIER)
+    {
+        name = *pk;
+        ConsumeToken();
+    }
+    else
+    {
+        //un-named namespace
+    }
+
+    pk = PeekToken();
     if(pk->type_id()==TKN_L_BRACE)
     {
-        DoAddToken(tkNamespace,tk->get_string(),tk->line_number());
+        DoAddToken(tkNamespace,name.get_string(),pk->line_number());
         ConsumeToken();
         // parse inside anonymous namespace
         PushContext();
