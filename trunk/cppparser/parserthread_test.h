@@ -41,7 +41,11 @@ enum TokenKind
     tkEnumerator          ,
     tkMacroDefine         ,
     tkMacroUsage 	      ,
-    tkUsingNamespace
+    tkUsingNamespace      ,
+    tkFor                 ,
+    tkWhile               ,
+    tkTry                 ,
+    tkDoWhile
 
 };
 
