@@ -10,7 +10,7 @@
 #include "parserthread_test.h"
 
 
-#define PARSERTHREAD_DEBUG_OUTPUT 1
+#define PARSERTHREAD_DEBUG_OUTPUT 0
 
 
 #if PARSERTHREAD_DEBUG_OUTPUT
@@ -23,15 +23,45 @@
 #define DebugLog(format,...)
 #endif
 
+#define _T(a) a
+
+cc_string GetTokenKindString(TokenKind type);
+
+cc_string GetTokenKindString(TokenKind type)
+{
+    switch (type)
+    {
+        case  tkUndefined       : return _T("");
+        case  tkNamespace       : return _T("namespace");
+        case  tkClass           : return _T("class");
+        case  tkTemplateClass   : return _T("template class");
+        case  tkEnum            : return _T("enum");
+        case  tkTypedef         : return _T("typedef");
+        case  tkConstructor     : return _T("constructor");
+        case  tkDestructor      : return _T("destructor");
+        case  tkFunction        : return _T("function");
+        case  tkTemplateFunction: return _T("template function");
+        case  tkVariable        : return _T("variable");
+        case  tkEnumerator      : return _T("enumerator");
+        case  tkMacroUsage 	    : return _T("macro usage");
+        case  tkUsingNamespace  : return _T("using");
+        case  tkFor             : return _T("for");
+        case  tkWhile           : return _T("while");
+        case  tkTry             : return _T("try");
+        case  tkDoWhile         : return _T("do while");
+    }
+}
+
+
 
 ParserThread::ParserThread(const cc_string& bufferOrFilename)
 {
     m_Preprocessor.LoadFile(bufferOrFilename);
     m_Preprocessor.Preprocess();
-    std::cout<<"------------DUMP MACRO----------------------------\n";
-    m_Preprocessor.DumpMacroTable();
-    std::cout<<"------------DUMP Token List----------------------- \n";
-    m_Preprocessor.DumpTokenList();
+//    std::cout<<"------------DUMP MACRO----------------------------\n";
+//    m_Preprocessor.DumpMacroTable();
+//    std::cout<<"------------DUMP Token List----------------------- \n";
+//    m_Preprocessor.DumpTokenList();
 }
 
 ParserThread::~ParserThread()
@@ -77,7 +107,7 @@ void ParserThread::SkipStatementBlock()
 {
     RawToken * tk = PeekToken();
     QUEX_TYPE_TOKEN_ID id = tk->type_id();
-    printf("Skip statement block Start line(%d) column(%d)\n",tk->line_number(),tk->column_number());
+    TRACE("Skip statement block Start line(%d) column(%d)\n",tk->line_number(),tk->column_number());
 
     if (id == TKN_L_BRACE)
     {
@@ -122,7 +152,8 @@ void ParserThread::SkipStatementBlock()
 
         }
     }
-    printf("Skip statement block End line(%d) column(%d)\n",tk->line_number(),tk->column_number());
+    TRACE("Skip statement block End line(%d) column(%d)\n",tk->line_number(),tk->column_number());
+    m_Context.EndStatement();
 }
 
 void ParserThread::SkipParentheses()
@@ -133,7 +164,7 @@ void ParserThread::SkipParentheses()
     QUEX_TYPE_TOKEN_ID id;
     int level = 1;
 
-    printf("Skip Parentheses Start at line(%d)column(%d)\n",tk->line_number(),tk->column_number());
+    TRACE("Skip Parentheses Start at line(%d)column(%d)\n",tk->line_number(),tk->column_number());
     while(true)
     {
         tk = PeekToken();
@@ -146,7 +177,7 @@ void ParserThread::SkipParentheses()
         if(level<=0)
             break;
     }
-    printf("Skip Parentheses End at line(%d)column(%d)\n",tk->line_number(),tk->column_number());
+    TRACE("Skip Parentheses End at line(%d)column(%d)\n",tk->line_number(),tk->column_number());
 
 }
 
@@ -160,7 +191,7 @@ void ParserThread::ReadFunctionArguments(ArgumentList &args)
     QUEX_TYPE_TOKEN_ID id = tk->type_id();
 
     int level = 1;
-    printf("Skip Parentheses Start at line(%d)column(%d)\n",tk->line_number(),tk->column_number());
+    TRACE("Skip Parentheses Start at line(%d)column(%d)\n",tk->line_number(),tk->column_number());
     while(level>0)
     {
         tk = ConsumeToken();
@@ -172,7 +203,7 @@ void ParserThread::ReadFunctionArguments(ArgumentList &args)
         else
             args.push_back(*tk) ;
     }
-    printf("Skip Parentheses End at line(%d)column(%d)\n",tk->line_number(),tk->column_number());
+    TRACE("Skip Parentheses End at line(%d)column(%d)\n",tk->line_number(),tk->column_number());
 
 }
 void ParserThread::SkipBlock()
@@ -189,7 +220,7 @@ void ParserThread::SkipAngleBraces()
 bool ParserThread::Parse()
 {
 
-    cout<<"Start parsing!...................\n";
+    TRACE("Start parsing!...................");
     m_Context.inTypedef = false;
     m_Context.parentToken = 0;
 
@@ -201,7 +232,7 @@ bool ParserThread::Parse()
         }
         catch(ParserException& e)
         {
-            cout<< "end of file" <<endl;
+            TRACE("Parse(): End of file");
         }
     }
     while(false);
@@ -227,13 +258,13 @@ void ParserThread::DoParse()
         {
             // the only time we get to find a } is when recursively called by e.g. HandleClass
             // we have to return now...
-            cout<<"DoParse(): return from"<<*tk<<tk->line_number()<<":"<<tk->column_number()<<endl;
+            TRACE("DoParse(): return from%s%d:%d",tk->get_string().c_str(),tk->line_number(),tk->column_number());
             ConsumeToken();
             return;
         }
         case TKN_R_PAREN: //)
         {
-            cout<<"DoParse(): return from"<<*tk<<tk->line_number()<<":"<<tk->column_number()<<endl;
+            TRACE("DoParse(): return from%s%d:%d",tk->get_string().c_str(),tk->line_number(),tk->column_number());
             ConsumeToken();
             return;
         }
@@ -320,7 +351,7 @@ void ParserThread::DoParse()
                     //Add variable to tokenstree
                     int line = m_Context.name.back().name.line_number();
                     if (m_Options.handleVars)
-                        cout<<"DoAddToken(tkVariable, variableName, line)\n";
+                        DoAddToken(tkVariable, variableName, line);
 
 
                     ConsumeToken();    //consume the semicolon
@@ -372,7 +403,7 @@ void ParserThread::DoParse()
                     //Add variable to tokenstree
                     int line = m_Context.name.back().name.line_number();
                     if (m_Options.handleVars)
-                        cout<<"DoAddToken(tkVariable, variableName, line)\n";
+                        DoAddToken(tkVariable, variableName, line);
                     ConsumeToken();       //consume , or =
                     // tk is updated
                     if(tk->type_id()  == TKN_ASSIGN)
@@ -511,13 +542,16 @@ void ParserThread::HandleNamespace()
         name = tk;
     }
     tk = ConsumeToken();
-    if(tk->type_id()==TKN_L_BRACE)
+    RawToken *pk = PeekToken();
+    if(pk->type_id()==TKN_L_BRACE)
     {
+        DoAddToken(tkNamespace,tk->get_string(),tk->line_number());
+        ConsumeToken();
         // parse inside anonymous namespace
         PushContext();
         DoParse();
         PopContext();
-        cout<<"end of namespace\n";
+        TRACE("end of namespace\n");
     }
 
 }
@@ -538,7 +572,11 @@ void ParserThread::ParseUsing()
         // simply handling mode: using namespace AAA
         peek = PeekToken();
         if (peek->type_id() == TKN_IDENTIFIER)
-            cout<<"DoAddToken(tkUsingNamespace,tk->get_text(),tk->line_number())\n";
+        {
+            ParseFullIdentifer();
+            DoAddToken(tkUsingNamespace,peek->get_text(),peek->line_number());
+        }
+
         else
             SkipStatementBlock();
 
@@ -606,11 +644,12 @@ void ParserThread::HandleClass(EClassType ct)
         {
             DoAddToken(tkClass, current->get_text(), current->line_number());
             ParserThreadContext savedContext = m_Context;
-            m_Context.EndStatement();
+            //m_Context.EndStatement();
             //m_Context.parentToken = newToken;
             ConsumeToken();// consume {
+            PushContext();
             DoParse();  // when meet a }, we should return from DoParse()
-            m_Context = savedContext;
+            PopContext();
             //assert(CurrentToken()->type_id()==TKN_R_BRACE);
 
             current = ConsumeToken();
@@ -620,19 +659,12 @@ void ParserThread::HandleClass(EClassType ct)
                 SkipStatementBlock(); //struct A {....} a b;
 
         }
-
-
-
     }
     else
     {
         // something wrong, should be skip to a semicolon
         SkipStatementBlock();
     }
-
-
-
-    // restore tokenizer's functionality
 
 }
 
@@ -643,7 +675,6 @@ void ParserThread::HandleFunction()
     // should always at the ( , so we firstly read the parentheses
     ArgumentList args;
     ReadFunctionArguments(args);
-
 
     RawToken * peek = PeekToken();
 
@@ -661,7 +692,6 @@ void ParserThread::HandleFunction()
             else
                 break;
         }
-
     }
 
     peek = PeekToken();
@@ -671,6 +701,10 @@ void ParserThread::HandleFunction()
         DoAddToken(tkFunction, m_Context.name.back().name,peek->line_number());
         //newToken->m_Args = args;
         SkipBrace();
+//        PushContext();
+//        DoParse();
+//        PopContext();
+
     }
     else if (peek->type_id() == TKN_SEMICOLON)
     {
@@ -695,14 +729,14 @@ void ParserThread::ReadEnumList()
             if (peek->type_id() == TKN_ASSIGN)     // a = b,
             {
                 //Add variable
-                //DoAddToken(tkVariable, current->get_text(), current->line_number());
+                DoAddToken(tkEnumerator, current->get_text(), current->line_number());
                 ConsumeToken(); //comsume "="
                 ConsumeToken(); //comsume the id after "="
             }
             else if (peek->type_id() == TKN_R_BRACE)  //a}
             {
                 //Add variable
-                //DoAddToken(tkVariable, current->get_text(), current->line_number());
+                DoAddToken(tkEnumerator, current->get_text(), current->line_number());
                 break;
             }
             else if (peek->type_id() == TKN_IDENTIFIER)      // id p1 p2
@@ -712,7 +746,7 @@ void ParserThread::ReadEnumList()
             else if (peek->type_id() == TKN_COMMA)     // a,....
             {
                 //Add variable
-                //DoAddToken(tkVariable, current->get_text(), current->line_number());
+                DoAddToken(tkEnumerator, current->get_text(), current->line_number());
                 ConsumeToken(); //comsume ","
             }
         }
@@ -738,10 +772,9 @@ void ParserThread::HandleEnum()
             DoAddToken(tkEnum, tk->get_text(), tk->line_number());
             //newToken->m_ImplLineStart = pk->line_number();
             ConsumeToken();                     //consume {
-            ParserThreadContext savedContext = m_Context;
-            m_Context.parentToken = newToken;
+            PushContext();
             ReadEnumList();
-            m_Context = savedContext;
+            PopContext();
         }
         else
         {
@@ -755,10 +788,9 @@ void ParserThread::HandleEnum()
         TRACE("find unnamed enum at line(%d)",tk->line_number());
         DoAddToken(tkEnum, "UnnamedEnum", tk->line_number());
         ConsumeToken();                    //consume {
-        ParserThreadContext savedContext = m_Context;
-        m_Context.parentToken = newToken;
+        PushContext();
         ReadEnumList();
-        m_Context = savedContext;
+        PopContext();
     }
 
     // Token's implement End line information added
@@ -789,8 +821,10 @@ void ParserThread::HandleEnum()
 
 void ParserThread::HandleTypedef()
 {
-
+    ConsumeToken();
+    RawToken * tok = PeekToken();
     TRACE("Typedef find");
+    DoAddToken(tkTypedef,tok->get_string(),tok->line_number());
     SkipStatementBlock();
 }
 
@@ -804,6 +838,7 @@ void ParserThread::ReadClsNames(cc_string& ancestor)
 void ParserThread::PushContext()
 {
     m_ContextStack.push(m_Context);
+    m_Context.EndStatement();
 
 }
 void ParserThread::PopContext()
@@ -938,7 +973,7 @@ bool ParserThread::ParseArgumentList(ArgumentList &argumentList)
 
     // shoud be a (xxxx) or <xxxxx>
     RawToken * tk = ConsumeToken();
-    std::cout<<"ParserThread::ParseArgumentList() Enter...\n";
+    TRACE("ParserThread::ParseArgumentList() Enter...");
     if(tk->type_id() == TKN_LESS)
     {
         int level = 1;
@@ -953,7 +988,7 @@ bool ParserThread::ParseArgumentList(ArgumentList &argumentList)
                 m_Context.EndStatement();
                 return false;
             }
-            std::cout<<*tk<<std::endl;
+            //std::cout<<*tk<<std::endl;
             argumentList.push_back(*tk);
             tk = ConsumeToken();// comsume this one;
 
@@ -962,26 +997,30 @@ bool ParserThread::ParseArgumentList(ArgumentList &argumentList)
     }
 
     //cout<<"currentToken"<<*(CurrentToken())<<endl;
-    std::cout<<"ParserThread::ParseArgumentList() Leave...\n";
+    TRACE("ParserThread::ParseArgumentList() Leave...");
     return true;
 }
 
 void ParserThread::HandleForWhile()
 {
-    ConsumeToken(); //eat for or while key word
+    TokenKind id;
+    RawToken * tok = ConsumeToken(); //eat for or while key word
+    id = (tok->type_id()==TKN_FOR)? tkFor:tkWhile;
+    DoAddToken(id,tok->get_string(),tok->line_number());
+
     ConsumeToken(); //eat the left parenthesis
     PushContext();  //save the old context
     m_Context.EndStatement();
     DoParse();      // do a parse, and should returned on an unbalanced right parenthesis
     PopContext();   // restore the old context
 
-    RawToken * tok = PeekToken();
+    tok = PeekToken();
     if(tok->type_id()==TKN_L_BRACE)
     {
         ConsumeToken(); //eat {
         PushContext();  //save the old context
         m_Context.EndStatement();
-        DoParse();      // do a parse, and should returned on an unbalanced right parenthesis
+        DoParse();      // do a parse, and should returned on an unbalanced right brace
         PopContext();   // restore the old context
     }
     else
@@ -1022,8 +1061,9 @@ Token *ParserThread::DoAddToken(TokenKind kind,
                       int line)
 {
     // add token
-
-    cout<<"DoAddToken(): "<<(int)kind<<name<<" "<<line<<endl;
+    for(int i=0;i<m_ContextStack.size();i++)
+        cout<<"   ";
+    cout<<GetTokenKindString(kind)<<" "<<name<<" "<<line<<endl;
     return NULL;
 }
 
@@ -1032,7 +1072,7 @@ Token *ParserThread::DoAddToken(TokenKind kind,
 
 int main()
 {
-    ParserThread parser("test.cpp");
+    ParserThread parser("test_vector.cpp");
     parser.Parse();
     return 0;
 }
