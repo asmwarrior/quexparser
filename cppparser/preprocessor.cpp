@@ -12,6 +12,17 @@ void DumpExp(vector<RawToken> & exp);
 
 #include "timer.h"
 
+#define PREPROCESSOR_DEBUG 0
+
+#if PREPROCESSOR_DEBUG
+#define TRACE(format, args...)\
+    printf(format , ## args);\
+    printf("\n")
+#else
+#define TRACE(format, ...)
+#define DebugLog(format,...)
+#endif
+
 
 
 class FileLoader : public LoaderBase
@@ -81,7 +92,6 @@ void Preprocessor::DumpTokenList()
     for ( it=m_TokenList.begin() ; it != m_TokenList.end(); it++ )
     {
         std::cout<<(*it)->line_number()<<":"<<(*it)->column_number()<<" "<<*(*it)<<std::endl;
-        //delete (*it);
     }
 }
 
@@ -196,11 +206,11 @@ void  Preprocessor::Preprocess()
                     ReadMacroActualArgument(arg,argNum);
 
                     //replace
-                    vector<RawToken> expend;
-                    MacroExpansion(expend,def,arg);
+                    vector<RawToken> expand;
+                    MacroExpansion(expand,def,arg);
 
                     //finally, insert the expended
-                    for(vector<RawToken>::iterator itExpend=expend.begin() ; itExpend < expend.end(); itExpend++)
+                    for(vector<RawToken>::iterator itExpend=expand.begin() ; itExpend < expand.end(); itExpend++)
                     {
                         RawToken * p = new RawToken;
                         *p = *itExpend;
@@ -692,7 +702,7 @@ bool Preprocessor::ConstExpressionExpansion(vector<RawToken> & exp)
                     {
 
                         vector<RawToken>::iterator IDIterator = it;
-                        //expend the augument
+                        //expand the augument
                         //read argument
                         int argNum = def.m_Arguments.size();
                         vector< vector<RawToken> > arg;
@@ -711,7 +721,9 @@ bool Preprocessor::ConstExpressionExpansion(vector<RawToken> & exp)
                                 arg[num].push_back(*it);
                                 it++;
                             }
+                            #if PREPROCESSOR_DEBUG
                             DumpExp(arg[num]);
+                            #endif
                             //it++;
                         }
 
@@ -722,14 +734,18 @@ bool Preprocessor::ConstExpressionExpansion(vector<RawToken> & exp)
 
                         MacroExpansion(expand,def,arg);
 
-                        //finally, insert the expend
+                        //finally, insert the expand
                         it=exp.erase(IDIterator,rightParenIterator+1); //remove the current tok;
                         //general replacement,quite simple
                         for(vector<RawToken>::iterator itExpand=expand.begin() ; itExpand < expand.end(); itExpand++)
                         {
                             it=exp.insert(it,*itExpand);
                         }
+                        #if PREPROCESSOR_DEBUG
                         DumpExp(exp);
+                        #endif
+
+
 
                     }
                     else
@@ -740,8 +756,9 @@ bool Preprocessor::ConstExpressionExpansion(vector<RawToken> & exp)
                         {
                             it=exp.insert(it,*itDef);
                         }
+                        #if PREPROCESSOR_DEBUG
                         DumpExp(exp);
-
+                        #endif
                     }
 
                     //As we do a replacement, so we need a next pass
@@ -749,7 +766,7 @@ bool Preprocessor::ConstExpressionExpansion(vector<RawToken> & exp)
                 }
                 else
                 {
-                    cout<<"Can not expend an identifier:"<<(*it).type_id()<<endl;
+                    cout<<"Can not expand an identifier:"<<(*it).type_id()<<endl;
                     cout<<"return false"<<endl;
                     return false; //this identifier is not defined, so return false;
                 }
@@ -767,7 +784,7 @@ bool Preprocessor::ConstExpressionExpansion(vector<RawToken> & exp)
     return true;
 
 }
-void Preprocessor::MacroExpansion(vector<RawToken> &expend,MacroDefine &def, vector<vector<RawToken> > &arg)
+void Preprocessor::MacroExpansion(vector<RawToken> &expand,MacroDefine &def, vector<vector<RawToken> > &arg)
 {
     //loop the definition, and do the expension
     for(vector<RawToken>::iterator itDef=def.m_DefineValue.begin() ; itDef < def.m_DefineValue.end(); itDef++)
@@ -782,19 +799,22 @@ void Preprocessor::MacroExpansion(vector<RawToken> &expend,MacroDefine &def, vec
                 {
                     //do a replacement
                     replaced = true;
-                    expend.insert(expend.end(),arg[i].begin(),arg[i].end());
-
-                    DumpExp(expend);
-
+                    expand.insert(expand.end(),arg[i].begin(),arg[i].end());
+                    #if PREPROCESSOR_DEBUG
+                    DumpExp(expand);
+                    #endif
                 }
             }
             if(replaced==false)
-                expend.push_back(*itDef);
+                expand.push_back(*itDef);
 
         }
         else
-            expend.push_back(*itDef);
-        DumpExp(expend);
+            expand.push_back(*itDef);
+        #if PREPROCESSOR_DEBUG
+        DumpExp(expand);
+        #endif
+
     }
 }
 
@@ -826,7 +846,9 @@ void Preprocessor::ReadMacroActualArgument(vector<vector<RawToken> > &arg, int a
 
         }// go to the next id
         while( true );
+        #if PREPROCESSOR_DEBUG
         DumpExp(arg[num]);
+        #endif
     }
 
 }

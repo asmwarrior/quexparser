@@ -1,6 +1,19 @@
 #include "expressionevaluator.h"
 
 
+#define EXPRESSION_DEBUG 0
+
+
+#if EXPRESSION_DEBUG
+
+#define TRACE(format, args...)\
+    printf(format , ## args);\
+    printf("\n")
+#else
+#define TRACE(format, ...)
+#define DebugLog(format,...)
+#endif
+
 int OperatorPrecedenceTable::eval_uminus(int a1, int a2)
 {
     return -a1;
@@ -17,7 +30,7 @@ int OperatorPrecedenceTable::eval_div(int a1, int a2)
 {
     if(!a2)
     {
-        fprintf(stderr, "ERROR: Division by zero\n");
+        TRACE("ERROR: Division by zero");
         return 0;
     }
     return a1/a2;
@@ -28,7 +41,7 @@ int OperatorPrecedenceTable::eval_mod(int a1, int a2)
 {
     if(!a2)
     {
-        fprintf(stderr, "ERROR: Division by zero\n");
+        TRACE("ERROR: Division by zero");
         return 0;
     }
     return a1%a2;
@@ -135,7 +148,7 @@ bool ConstExpression::PushOperatorStack(Operator *op)
 {
     if(m_OperatorStackSize>MAXOPSTACK-1)
     {
-        fprintf(stderr, "ERROR: Operator stack overflow\n");
+        TRACE("ERROR: Operator stack overflow");
         return false;
     }
     m_OperatorStack[m_OperatorStackSize++]=op;
@@ -146,7 +159,7 @@ Operator *ConstExpression::PopOperatorStack()
 {
     if(!m_OperatorStackSize)
     {
-        fprintf(stderr, "ERROR: Operator stack empty\n");
+        TRACE("ERROR: Operator stack empty");
         return NULL;
     }
     return m_OperatorStack[--m_OperatorStackSize];
@@ -156,7 +169,7 @@ bool ConstExpression::PushNumberStack(int num)
 {
     if(m_NumberStackSize>MAXNUMSTACK-1)
     {
-        fprintf(stderr, "ERROR: Number stack overflow\n");
+        TRACE("ERROR: Number stack overflow");
         return false;
     }
     m_NumberStack[m_NumberStackSize++]=num;
@@ -167,7 +180,7 @@ int ConstExpression::PopNumberStack()
 {
     if(!m_NumberStackSize)
     {
-        fprintf(stderr, "ERROR: Number stack empty\n");
+        TRACE("ERROR: Number stack empty");
         return 0; //FIXME:need to use a more detailed return value
     }
     return m_NumberStack[--m_NumberStackSize];
@@ -178,36 +191,34 @@ void ConstExpression::DumpStack()
 
     if(!m_NumberStackSize)
     {
-        fprintf(stderr, "dump_stack() num stack: EMPTY!!!");
+        TRACE("dump_stack() num stack: EMPTY!!!");
     }
     else
     {
         // plot the number stack
         //
-        fprintf(stdout, "dump_stack() num stack: ");
+        TRACE("dump_stack() num stack: ");
         for(int i=0;i<m_NumberStackSize;i++)
-            fprintf(stdout, "%d ",m_NumberStack[i]);
+            TRACE("%d ",m_NumberStack[i]);
     }
-    fprintf(stdout, "\n");
 
 
     if(!m_OperatorStackSize)
     {
-        fprintf(stderr, "dump_stack() op stack: EMPTY!!!");
+        TRACE("dump_stack() op stack: EMPTY!!!");
     }
     else
     {
         // plot the operator stack
-        fprintf(stdout, "dump_stack() op stack: ");
+        TRACE("dump_stack() op stack: ");
         for(int i=0;i<m_OperatorStackSize;i++)
         {
             int id = m_OperatorStack[i]->op;
             quex::tiny_lexer::token_type tk;
             const char * name = tk.map_id_to_name(id);
-            fprintf(stdout, "%s ",name);
+            TRACE("%s ",name);
         }
     }
-    fprintf(stdout, "\n");
 
 }
 
@@ -255,7 +266,7 @@ int ConstExpression::expression_eval(quex::Token *tokenInput)
                     ;                         //handle this normally
                 else
                 {
-                    fprintf(stderr, "ERROR: not allowed unary operator (%c)\n", op->op);
+                    TRACE("ERROR: not allowed unary operator (%c)\n", op->op);
                     return 0;
                 }
             }
@@ -297,7 +308,7 @@ int ConstExpression::expression_eval(quex::Token *tokenInput)
         }
         else
         {
-            fprintf(stderr, "ERROR: Syntax error, the OP should be either an op or a number\n");
+            TRACE("ERROR: Syntax error, the OP should be either an op or a number");
             return 0;
         }
         //debug only
@@ -320,7 +331,7 @@ int ConstExpression::expression_eval(quex::Token *tokenInput)
 
     if(m_NumberStackSize!=1)
     {
-        fprintf(stderr, "ERROR: Number stack has %d elements after evaluation. Should be 1.\n", m_NumberStackSize);
+        TRACE("ERROR: Number stack has %d elements after evaluation. Should be 1.", m_NumberStackSize);
         return 0;
     }
     printf("%d\n", m_NumberStack[0]);
@@ -354,7 +365,7 @@ bool ConstExpression::ShuntOperator(Operator *op)
 
     if(!op)
     {
-        fprintf(stderr, "ERROR: op is NULL\n");
+        TRACE("ERROR: op is NULL");
         return false;
     }
 
@@ -382,7 +393,7 @@ bool ConstExpression::ShuntOperator(Operator *op)
 
         if(!(pop=PopOperatorStack()) || pop->op!=TKN_L_PAREN)
         {
-            fprintf(stderr, "ERROR: Stack error. No matching \'(\'\n");
+            TRACE("ERROR: Stack error. No matching \'(\'");
             return false;
         }
         return true;
