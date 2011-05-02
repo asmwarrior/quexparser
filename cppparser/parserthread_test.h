@@ -109,16 +109,16 @@ struct ParserThreadContext
 
     void EndStatement()
     {
-        type.clear();
-        name.clear();
+        typeQueue.clear();
+        nameQueue.clear();
     }
 
     void Dump()
     {
         cout<<"Dump Context...\n";
         cout<<"Type information list\n";
-        ScopeQueue::iterator it = type.begin();
-        for(;it!=type.end();it++)
+        ScopeQueue::iterator it = typeQueue.begin();
+        for(;it!=typeQueue.end();it++)
         {
             cout<<(*it).name<< " ";
             ArgumentList::iterator it2 = (*it).templateArgumentList.begin();
@@ -129,8 +129,8 @@ struct ParserThreadContext
             cout<<endl;
         }
         cout<<"Name information list\n";
-        it = name.begin();
-        for(;it!=name.end();it++)
+        it = nameQueue.begin();
+        for(;it!=nameQueue.end();it++)
         {
             cout<<(*it).name<< " ";
             ArgumentList::iterator it2 = (*it).templateArgumentList.begin();
@@ -147,14 +147,14 @@ struct ParserThreadContext
       * in this statement, we should step until the last ';" to determine this
       * is a Token named 'varA', every token before 'varA' will be pushed to 'type', see below
       */
-    ScopeQueue name;
+    ScopeQueue nameQueue;
 
     /** type information of a function or a variable
       * for a function declaration below:
       * ClassC::returnValue ClassA::FunctionB();
       * type =  ClassC::returnValue
       */
-    ScopeQueue type;
+    ScopeQueue typeQueue;
 
     /** parent Token, for example, you are parsing in a class declearation, then this member
       * keep the pointer to the current class Token
@@ -305,9 +305,7 @@ private:
     void PopContext();
     bool GetTemplateArgs();
     void ReadEnumList();
-    Token *DoAddToken(TokenKind kind,
-                      const cc_string& name,
-                      int line);
+    Token *DoAddToken(TokenKind kind, RawToken &tk);
 
     // consume a token
     inline RawToken *ConsumeToken()
