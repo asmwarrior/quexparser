@@ -130,25 +130,21 @@ void ParserThread::SkipStatementBlock()
         id = tk->type_id();
         while(PeekToken()->type_id()!=TKN_SEMICOLON)
         {
+            if(PeekToken()->type_id()==TKN_L_PAREN)
+            {
+                SkipParentheses();
+                continue;
+            }
+
             if (PeekToken()->type_id()==TKN_R_PAREN)
                 return;
-            tk = ConsumeToken();
-            id = tk->type_id();
-            if (id == TKN_L_BRACE)  // {     ---> skip { xxx } block
-            {
-                //SkipToId(TKN_R_BRACE);
-                int level = 1;
 
-                while(level>0)
-                {
-                    tk = ConsumeToken();
-                    id = tk->type_id();
-                    if (id == TKN_L_BRACE)
-                        level++;
-                    else if (id == TKN_R_BRACE)
-                        level--;
-                }
+            if (PeekToken()->type_id() == TKN_L_BRACE)  // {     ---> skip { xxx } block
+            {
+                SkipBrace();
+                continue;
             }
+            ConsumeToken();
 
         }
     }
@@ -275,16 +271,23 @@ void ParserThread::DoParse()
         }
         case TKN_FOR:
         case TKN_WHILE:
+        case TKN_IF:
+        case TKN_SWITCH:
         {
             TRACE("handling for or while block");
             HandleForWhile();
+            break;
         }
-        case TKN_SWITCH:
-        case TKN_IF:
         case TKN_ELSE:
         {
-            SkipParentheses();
-            SkipStatementBlock();
+            ConsumeToken();
+            if(PeekToken()->type_id()==TKN_IF)
+            {
+                ConsumeToken();
+                HandleForWhile();
+            }
+            else
+                SkipStatementBlock();
             break;
         }
         case TKN_CLASS:
@@ -382,6 +385,8 @@ void ParserThread::DoParse()
             case TKN_L_SHIFT_ASSIGN:
             case TKN_R_SHIFT:
             case TKN_R_SHIFT_ASSIGN:
+            case TKN_DOT:
+            case TKN_ARROW:
                 ConsumeToken();
                 SkipStatementBlock();
                 break;
@@ -719,10 +724,11 @@ void ParserThread::HandleFunction()
         TRACE("Function definition");
         DoAddToken(tkFunction, m_Context.nameQueue.back().name);
         //newToken->m_Args = args;
-        SkipBrace();
-//        PushContext();
-//        DoParse();
-//        PopContext();
+//        SkipBrace();
+        ConsumeToken();
+        PushContext();
+        DoParse();
+        PopContext();
 
     }
     else if (peek->type_id() == TKN_SEMICOLON)
