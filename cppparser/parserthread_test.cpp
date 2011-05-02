@@ -111,18 +111,7 @@ void ParserThread::SkipStatementBlock()
 
     if (id == TKN_L_BRACE)
     {
-        //SkipToId(TKN_R_BRACE);
-        int level = 1;
-
-        while(level>0)
-        {
-            tk = ConsumeToken();
-            id = tk->type_id();
-            if (id == TKN_L_BRACE)
-                level++;
-            else if (id == TKN_R_BRACE)
-                level--;
-        }
+        SkipBrace();
     }
     else
     {
