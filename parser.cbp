@@ -38,6 +38,10 @@
 		<Unit filename="cppparser\preprocessor.cpp" />
 		<Unit filename="cppparser\preprocessor.h" />
 		<Unit filename="cppparser\preprocessor_test.cpp" />
+		<Unit filename="cppparser\searchtree.cpp" />
+		<Unit filename="cppparser\searchtree.h" />
+		<Unit filename="cppparser\symbol.cpp" />
+		<Unit filename="cppparser\symbol.h" />
 		<Unit filename="cppparser\tokenizer.cpp" />
 		<Unit filename="cppparser\tokenizer.h" />
 		<Extensions>
