@@ -16,6 +16,7 @@ Symbol::Symbol()
 }
 Symbol::Symbol(SymbolKind kind,RawToken &name)
 {
+    m_SymbolKind = kind;
     m_Name = name;
 }
 

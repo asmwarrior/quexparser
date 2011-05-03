@@ -17,7 +17,7 @@ _GLIBCXX_BEGIN_NESTED_NAMESPACE(std, _GLIBCXX_STD_D)
 	typename _Tp_alloc_type::pointer _M_finish;
 	typename _Tp_alloc_type::pointer _M_end_of_storage;
 
-	_Vector_impl()
+			_Vector_impl()
 	: _Tp_alloc_type(), _M_start(0), _M_finish(0), _M_end_of_storage(0)
 	{ }
 
