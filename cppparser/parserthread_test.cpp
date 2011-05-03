@@ -50,6 +50,7 @@ cc_string GetSymbolKindString(SymbolKind type)
         case  tkWhile           : return _T("while");
         case  tkTry             : return _T("try");
         case  tkDoWhile         : return _T("do while");
+        case  tkParameter       : return _T("parameter");
     }
 }
 
@@ -171,25 +172,12 @@ void ParserThread::ReadFunctionArguments(ArgumentList &args)
 {
     //TKN_L_PAREN
     args.clear();
+    ConsumeToken();//remove the first TKN_L_PAREN
 
-    RawToken * tk = ConsumeToken();//remove the first TKN_L_PAREN
-
-    QUEX_TYPE_TOKEN_ID id = tk->type_id();
-
-    int level = 1;
-    TRACE("Skip Parentheses Start at line(%d)column(%d)\n",tk->line_number(),tk->column_number());
-    while(level>0)
-    {
-        tk = ConsumeToken();
-        id = tk->type_id();
-        if (id == TKN_L_PAREN)
-            level++;
-        else if (id == TKN_R_PAREN)
-            level--;
-        else
-            args.push_back(*tk) ;
-    }
-    TRACE("Skip Parentheses End at line(%d)column(%d)\n",tk->line_number(),tk->column_number());
+    PushContext();
+    m_Context.parseType = FunctionParameter;
+    DoParse();
+    PopContext();
 
 }
 void ParserThread::SkipBlock()
@@ -209,6 +197,7 @@ bool ParserThread::Parse()
     TRACE("Start parsing!...................");
     m_Context.inTypedef = false;
     m_Context.parentToken = 0;
+    m_Context.parseType = Normal;
 
     try
     {
@@ -248,6 +237,12 @@ void ParserThread::DoParse()
         {
             TRACE("DoParse(): return from%s%d:%d",tk->get_string().c_str(),tk->line_number(),tk->column_number());
             ConsumeToken();
+            if(m_Context.parseType==FunctionParameter
+               && m_Context.typeQueue.size()>0
+               && m_Context.nameQueue.size()>0)
+            {
+                DoAddToken(tkParameter, m_Context.nameQueue.back().name);
+            }
             return;
         }
         case TKN_L_PAREN :       // (
