@@ -72,7 +72,8 @@ enum SymbolKind
     tkFor                 ,
     tkWhile               ,
     tkTry                 ,
-    tkDoWhile
+    tkDoWhile             ,
+    tkParameter
 
 };
 

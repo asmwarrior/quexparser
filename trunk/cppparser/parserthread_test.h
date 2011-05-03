@@ -12,13 +12,20 @@ using namespace std;
 #include "preprocessor.h"
 #include "symbol.h"
 
+enum ParseType{
+    Normal = 0,
+    FunctionParameter,
+    Emunator
+};
+
 
 struct ParserThreadContext
 {
 
     ParserThreadContext():
         accessScope(tsUndefined) ,
-        inTypedef(false)
+        inTypedef(false),
+        parseType(Normal)
     {
 
     };
@@ -92,6 +99,8 @@ struct ParserThreadContext
 
     /** type qualifier like: const, static.... */
     DeclarationModifier   typeQualifier;
+
+    ParseType             parseType;
 
 
 };
