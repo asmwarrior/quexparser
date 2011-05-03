@@ -10,91 +10,7 @@
 using namespace std;
 
 #include "preprocessor.h"
-
-class Token
-{
-
-};
-
-enum TokenScope
-{
-    tsUndefined = 0,
-    tsPrivate,
-    tsProtected,
-    tsPublic
-};
-
-enum TokenKind
-{
-
-    tkUndefined        = 0,
-    tkNamespace           ,
-    tkClass               ,
-    tkTemplateClass       ,
-    tkEnum                ,
-    tkTypedef             ,
-    tkConstructor         ,
-    tkDestructor          ,
-    tkFunction            ,
-    tkTemplateFunction    ,
-    tkVariable            ,
-    tkEnumerator          ,
-    tkMacroDefine         ,
-    tkMacroUsage 	      ,
-    tkUsingNamespace      ,
-    tkFor                 ,
-    tkWhile               ,
-    tkTry                 ,
-    tkDoWhile
-
-};
-
-struct DeclarationModifier
-{
-    bool isConst;
-    bool isConstructor;
-    bool isDestructor;
-    bool isVirtual;
-    bool isOperator;
-    bool isTemplate;
-    bool isAuto;
-    bool isRegister;
-    bool isExtern;
-    bool isExplicit;
-    bool isFriend;
-    bool isVolatile;
-    bool isStatic;
-    bool isInline;
-    bool isMutable;
-    bool isPointer;
-    bool isReference;
-};
-
-/** one argument
-  * for example: void f(int a=0, float b=3);
-  * then there are two SingleArgument
-  * "int   a 0"
-  * "float b 3"
-  */
-struct SingleArgument
-{
-    RawToken type;
-    RawToken name;
-    RawToken defaultValue;
-};
-typedef std::vector<RawToken> ArgumentList;
-
-/** for a template type definition, we have such format
-  *   AAA<typename T1 = int, class T2 = float>::
-  */
-struct ScopeBlock
-{
-    RawToken     name;
-    ArgumentList templateArgumentList;
-};
-
-/** AAA<typename T1 = int, class T2 = float>::BBB */
-typedef std::vector<ScopeBlock> ScopeQueue;
+#include "symbol.h"
 
 
 struct ParserThreadContext
@@ -159,12 +75,12 @@ struct ParserThreadContext
     /** parent Token, for example, you are parsing in a class declearation, then this member
       * keep the pointer to the current class Token
       */
-    Token* parentToken;
+    Symbol* parentToken;
 
     /** this member define the scope type of member variables, which is: public or private
       * protected or undefined
       */
-    TokenScope  accessScope;
+    SymbolScope  accessScope;
 
 
     /** this makes a difference in unnamed class/struct/enum handling */
@@ -305,7 +221,7 @@ private:
     void PopContext();
     bool GetTemplateArgs();
     void ReadEnumList();
-    Token *DoAddToken(TokenKind kind, RawToken &tk);
+    Symbol *DoAddToken(SymbolKind kind, RawToken &tk);
 
     // consume a token
     inline RawToken *ConsumeToken()
@@ -362,6 +278,8 @@ private:
     ParserThreadContext m_Context;
 
     std::stack<ParserThreadContext> m_ContextStack;
+
+    SymbolTree m_SymbolTree;
 
 };
 

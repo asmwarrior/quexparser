@@ -25,9 +25,9 @@
 
 #define _T(a) a
 
-cc_string GetTokenKindString(TokenKind type);
+cc_string GetSymbolKindString(SymbolKind type);
 
-cc_string GetTokenKindString(TokenKind type)
+cc_string GetSymbolKindString(SymbolKind type)
 {
     switch (type)
     {
@@ -209,19 +209,15 @@ bool ParserThread::Parse()
     m_Context.inTypedef = false;
     m_Context.parentToken = 0;
 
-    do
+    try
     {
-        try
-        {
-            DoParse();
-        }
-        catch(ParserException& e)
-        {
-            TRACE("Parse(): End of file");
-        }
+        DoParse();
     }
-    while(false);
-
+    catch(ParserException& e)
+    {
+        TRACE("Parse(): End of file");
+    }
+    m_SymbolTree.Dump();
     return true;
 }
 
@@ -775,7 +771,7 @@ void ParserThread::HandleEnum()
 
     ConsumeToken();
     RawToken * tk = ConsumeToken();    // the token after "enum"
-    Token * newToken = 0;
+    //Token * newToken = 0;
     if (tk->type_id() == TKN_IDENTIFIER)           // enum XXX
     {
         RawToken *pk = PeekToken();
@@ -810,10 +806,6 @@ void ParserThread::HandleEnum()
     // Token's implement End line information added
     tk = ConsumeToken();
     //we are now after the }
-    if(newToken)
-    {
-        //newToken->m_ImplLineEnd = tk->line_number();
-    }
 
     // if we find a ;, good, end of definition of enum
     // if we find an id, then this is something like enum XXX{...} A,B;
@@ -1033,7 +1025,7 @@ bool ParserThread::ParseArgumentList(ArgumentList &argumentList)
 
 void ParserThread::HandleForWhile()
 {
-    TokenKind id;
+    SymbolKind id;
     RawToken * tok = ConsumeToken(); //eat for or while key word
     id = (tok->type_id()==TKN_FOR)? tkFor:tkWhile;
     DoAddToken(id,*tok);
@@ -1082,17 +1074,21 @@ void ParserThread::TestFunction()
         default:
             break;
         }
-
     }
 }
 
-Token *ParserThread::DoAddToken(TokenKind kind, RawToken & tok)
+Symbol *ParserThread::DoAddToken(SymbolKind kind, RawToken & tok)
 {
     // add token
     for(int i=0;i<m_ContextStack.size();i++)
         cout<<"   ";
 
-    cout<<GetTokenKindString(kind)<<" "<<tok.get_text()<<" "<<tok.line_number()<<":"<<tok.column_number()<<endl;
+    cout<<GetSymbolKindString(kind)<<" "<<tok.get_text()<<" "<<tok.line_number()<<":"<<tok.column_number()<<endl;
+
+    Symbol * newSymbol = new Symbol(kind,tok);
+
+    m_SymbolTree.insert(newSymbol);
+
     return NULL;
 }
 

@@ -131,7 +131,7 @@ bool Tokenizer::ReadFile()
 
         (void)m_Quex.token_p_switch(&m_TokenBuffer[0]);
 
-        cout<< "set buffer size" << (int)QUEX_SETTING_BUFFER_SIZE <<endl;
+        cout<< "Macro: QUEX_SETTING_BUFFER_SIZE=" << (int)QUEX_SETTING_BUFFER_SIZE <<endl;
 
         return true;
 
