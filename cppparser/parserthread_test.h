@@ -27,6 +27,7 @@ struct ParserThreadContext
     {
         typeQueue.clear();
         nameQueue.clear();
+        templateArgument.clear();
     }
 
     void Dump()

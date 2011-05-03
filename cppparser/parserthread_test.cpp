@@ -43,6 +43,7 @@ cc_string GetSymbolKindString(SymbolKind type)
         case  tkTemplateFunction: return _T("template function");
         case  tkVariable        : return _T("variable");
         case  tkEnumerator      : return _T("enumerator");
+        case  tkMacroDefine     : return _T("macro define");
         case  tkMacroUsage 	    : return _T("macro usage");
         case  tkUsingNamespace  : return _T("using");
         case  tkFor             : return _T("for");
@@ -315,8 +316,15 @@ void ParserThread::DoParse()
                 if(m_Context.nameQueue.empty())   // AAA(
                 {
                     //HandleMacro();
-                    //SkipParentheses();
-                    HandleFunction();
+                    if(   m_Context.parentToken!= NULL
+                       && m_Context.parentToken->m_SymbolKind == tkClass
+                       && m_Context.parentToken->m_Name.get_text() == tk->get_text())
+                        HandleFunction();
+                    else
+                    {
+                        SkipParentheses();
+                    }
+
                 }
                 else                            // AAA BBB(
                 {
@@ -548,10 +556,10 @@ void ParserThread::HandleNamespace()
     pk = PeekToken();
     if(pk->type_id()==TKN_L_BRACE)
     {
-        DoAddToken(tkNamespace,name);
         ConsumeToken();
-        // parse inside anonymous namespace
+        Symbol * sym = DoAddToken(tkNamespace,name);
         PushContext();
+        m_Context.parentToken = sym;
         DoParse();
         PopContext();
         TRACE("end of namespace\n");
@@ -645,16 +653,16 @@ void ParserThread::HandleClass(EClassType ct)
         next = PeekToken();
         if ( next->type_id() == TKN_L_BRACE)   // class AAA {, we find the "{" here
         {
-            DoAddToken(tkClass, *current);
-            ParserThreadContext savedContext = m_Context;
+
+            //ParserThreadContext savedContext = m_Context;
             //m_Context.EndStatement();
             //m_Context.parentToken = newToken;
             ConsumeToken();// consume {
+            Symbol * sym = DoAddToken(tkClass, *current);
             PushContext();
+            m_Context.parentToken = sym;
             DoParse();  // when meet a }, we should return from DoParse()
             PopContext();
-            //assert(CurrentToken()->type_id()==TKN_R_BRACE);
-
             current = ConsumeToken();
             if(current->type_id()==TKN_SEMICOLON)  // class A {.....};
                 return;
@@ -707,11 +715,12 @@ void ParserThread::HandleFunction()
     if (peek->type_id() == TKN_L_BRACE)   // function definition
     {
         TRACE("Function definition");
-        DoAddToken(tkFunction, m_Context.nameQueue.back().name);
-        //newToken->m_Args = args;
-//        SkipBrace();
+
+        //SkipBrace();
         ConsumeToken();
+        Symbol * sym = DoAddToken(tkFunction, m_Context.nameQueue.back().name);
         PushContext();
+        m_Context.parentToken = sym;
         DoParse();
         PopContext();
 
@@ -835,14 +844,15 @@ void ParserThread::HandleTypedef()
     RawToken * peek;
     while(true)
     {
-        cur  = ConsumeToken();
-        peek = PeekToken();
 
+        peek = PeekToken();
         if(peek->type_id() == TKN_SEMICOLON)
         {
             ConsumeToken();
             break;
         }
+        else
+            cur  = ConsumeToken();
 
     }
 
@@ -1028,11 +1038,10 @@ void ParserThread::HandleForWhile()
     SymbolKind id;
     RawToken * tok = ConsumeToken(); //eat for or while key word
     id = (tok->type_id()==TKN_FOR)? tkFor:tkWhile;
-    DoAddToken(id,*tok);
-
+    Symbol * sym = DoAddToken(id,*tok);
     ConsumeToken(); //eat the left parenthesis
     PushContext();  //save the old context
-    m_Context.EndStatement();
+    m_Context.parentToken=sym;
     DoParse();      // do a parse, and should returned on an unbalanced right parenthesis
     PopContext();   // restore the old context
 
@@ -1041,7 +1050,7 @@ void ParserThread::HandleForWhile()
     {
         ConsumeToken(); //eat {
         PushContext();  //save the old context
-        m_Context.EndStatement();
+        m_Context.parentToken=sym;
         DoParse();      // do a parse, and should returned on an unbalanced right brace
         PopContext();   // restore the old context
     }
@@ -1089,7 +1098,7 @@ Symbol *ParserThread::DoAddToken(SymbolKind kind, RawToken & tok)
 
     m_SymbolTree.insert(newSymbol);
 
-    return NULL;
+    return newSymbol;
 }
 
 
