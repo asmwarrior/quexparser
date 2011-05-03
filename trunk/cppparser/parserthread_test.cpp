@@ -403,16 +403,12 @@ void ParserThread::DoParse()
                         DoAddToken(tkVariable, m_Context.nameQueue.back().name);
                     ConsumeToken();       //consume , or =
                     // tk is updated
-                    if(tk->type_id()  == TKN_ASSIGN)
+                    if(peek->type_id()  == TKN_ASSIGN)
                     {
-                        int idArray[2] = {TKN_COMMA,TKN_SEMICOLON};
-                        SkipToOneOfId(idArray,2);
-
-                        if(tk->type_id() == TKN_SEMICOLON)
-                            m_Context.EndStatement();
+                        SkipStatementBlock();
                     }
-
-                    m_Context.nameQueue.clear();  // clear name information, because we need to read another name
+                    else
+                        m_Context.nameQueue.clear();  // clear name information, because we need to read another name
 
                 }
                 break;
@@ -990,6 +986,7 @@ bool ParserThread::ParseScopeQueue(ScopeQueue& scopeQueue)
             bool parseResult = ParseArgumentList(scope.templateArgumentList);
             if (!parseResult) // this means we have the format A<......;, this is not a template
             {
+                m_Context.EndStatement();
                 return false;
             }
             scopeQueue.push_back(scope);
@@ -1005,27 +1002,44 @@ bool ParserThread::ParseArgumentList(ArgumentList &argumentList)
 
     // shoud be a (xxxx) or <xxxxx>
     RawToken * tk = ConsumeToken();
+
     TRACE("ParserThread::ParseArgumentList() Enter...");
-    if(tk->type_id() == TKN_LESS)
+    int level = 1;
+    argumentList.clear();
+    argumentList.push_back(*tk); // push <while(true)
+
+
+    while(true)
     {
-        int level = 1;
-        argumentList.clear();
-        argumentList.push_back(*tk); // push <
-        tk = ConsumeToken();// get a token
-        // should match a >
-        while(tk->type_id()!=TKN_GREATER)
+
+        tk = PeekToken();//
+
+        if(tk->type_id() == TKN_LESS)
         {
-            if(tk->type_id()==TKN_SEMICOLON or tk->type_id()==TKN_R_BRACE)
-            {
-                m_Context.EndStatement();
-                return false;
-            }
-            //std::cout<<*tk<<std::endl;
+            ConsumeToken();
             argumentList.push_back(*tk);
-            tk = ConsumeToken();// comsume this one;
+            level++;
 
         }
-        assert(tk->type_id() == TKN_GREATER);
+        else if (tk->type_id() == TKN_GREATER)
+        {
+            level--;
+            ConsumeToken();
+            argumentList.push_back(*tk);
+            if(level <= 0)
+                break;
+        }
+        else if(tk->type_id()==TKN_SEMICOLON || tk->type_id()==TKN_R_BRACE)
+        {
+            m_Context.EndStatement();
+            return false;
+        }
+        else
+        {
+            //std::cout<<*tk<<std::endl;
+            argumentList.push_back(*tk);
+            ConsumeToken();
+        }
     }
 
     //cout<<"currentToken"<<*(CurrentToken())<<endl;
@@ -1106,7 +1120,7 @@ Symbol *ParserThread::DoAddToken(SymbolKind kind, RawToken & tok)
 
 int main()
 {
-    ParserThread parser("test_vector.cpp");
+    ParserThread parser("test1.cpp");
     parser.Parse();
     return 0;
 }
