@@ -135,6 +135,11 @@ void ParserThread::SkipStatementBlock()
                 SkipBrace();
                 continue;
             }
+            if(PeekToken()->type_id() == TKN_COMMA && m_Context.parseType == FunctionParameter)
+            {
+                ConsumeToken();
+                break;
+            }
             ConsumeToken();
 
         }
@@ -395,8 +400,15 @@ void ParserThread::DoParse()
                     TRACE("Variable Find name(%s) type(%s)",variableName.c_str(),variableType.c_str());
                     //Add variable to tokenstree
                     if (m_Options.handleVars)
-                        DoAddToken(tkVariable, m_Context.nameQueue.back().name);
+                    {
+                        if(m_Context.parseType == FunctionParameter)
+                            DoAddToken(tkParameter, m_Context.nameQueue.back().name);
+                        else
+                            DoAddToken(tkVariable, m_Context.nameQueue.back().name);
+                    }
+
                     ConsumeToken();       //consume , or =
+
                     // tk is updated
                     if(peek->type_id()  == TKN_ASSIGN)
                     {
@@ -675,6 +687,13 @@ void ParserThread::HandleFunction()
     //TRACE("HandleFunction() : %s %s()",m_Context.type.back().name.get_text().c_str(),name.c_str());
 
     // should always at the ( , so we firstly read the parentheses
+    if(m_Context.nameQueue.size()==0)
+    {
+        m_Context.nameQueue = m_Context.typeQueue;
+        m_Context.typeQueue.clear();
+    }
+    Symbol * sym = DoAddToken(tkFunction, m_Context.nameQueue.back().name);
+
     ArgumentList args;
     ReadFunctionArguments(args);
 
@@ -696,11 +715,7 @@ void ParserThread::HandleFunction()
         }
     }
 
-    if(m_Context.nameQueue.size()==0)
-    {
-        m_Context.nameQueue = m_Context.typeQueue;
-        m_Context.typeQueue.clear();
-    }
+
 
     peek = PeekToken();
     if (peek->type_id() == TKN_L_BRACE)   // function definition
@@ -709,7 +724,7 @@ void ParserThread::HandleFunction()
 
         //SkipBrace();
         ConsumeToken();
-        Symbol * sym = DoAddToken(tkFunction, m_Context.nameQueue.back().name);
+        //Symbol * sym = DoAddToken(tkFunction, m_Context.nameQueue.back().name);
         PushContext();
         m_Context.parentToken = sym;
         DoParse();
@@ -719,7 +734,7 @@ void ParserThread::HandleFunction()
     else if (peek->type_id() == TKN_SEMICOLON)
     {
         TRACE("Function declaration");
-        DoAddToken(tkFunction, m_Context.nameQueue.back().name);
+        //DoAddToken(tkFunction, m_Context.nameQueue.back().name);
         //newToken->m_Args = args;
         ConsumeToken();
     }
