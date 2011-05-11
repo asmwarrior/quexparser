@@ -39,6 +39,8 @@
 		<Unit filename="cppparser\preprocessor.h" />
 		<Unit filename="cppparser\searchtree.cpp" />
 		<Unit filename="cppparser\searchtree.h" />
+		<Unit filename="cppparser\statementsolver.cpp" />
+		<Unit filename="cppparser\statementsolver.h" />
 		<Unit filename="cppparser\symbol.cpp" />
 		<Unit filename="cppparser\symbol.h" />
 		<Unit filename="cppparser\tokenizer.cpp" />

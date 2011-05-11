@@ -1130,7 +1130,7 @@ Symbol *ParserThread::DoAddToken(SymbolKind kind, Token & tok)
 
 int main()
 {
-    ParserThread parser("test1.cpp");
+    ParserThread parser("test_vector.cpp");
     parser.Parse();
     return 0;
 }

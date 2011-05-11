@@ -55,25 +55,25 @@ enum SymbolKind
 {
 
     tkUndefined        = 0,
-    tkNamespace           ,
-    tkClass               ,
-    tkTemplateClass       ,
-    tkEnum                ,
-    tkTypedef             ,
-    tkConstructor         ,
-    tkDestructor          ,
-    tkFunction            ,
-    tkTemplateFunction    ,
-    tkVariable            ,
-    tkEnumerator          ,
-    tkMacroDefine         ,
-    tkMacroUsage 	      ,
-    tkUsingNamespace      ,
-    tkFor                 ,
-    tkWhile               ,
-    tkTry                 ,
-    tkDoWhile             ,
-    tkParameter
+    tkNamespace        = 1,
+    tkClass            = 1<<1,
+    tkTemplateClass    = 1<<2,
+    tkEnum             = 1<<3,
+    tkTypedef          = 1<<4,
+    tkConstructor      = 1<<5,
+    tkDestructor       = 1<<6,
+    tkFunction         = 1<<7,
+    tkTemplateFunction = 1<<8,
+    tkVariable         = 1<<9,
+    tkEnumerator       = 1<<10,
+    tkMacroDefine      = 1<<11,
+    tkMacroUsage 	   = 1<<12,
+    tkUsingNamespace   = 1<<13,
+    tkFor              = 1<<14,
+    tkWhile            = 1<<15,
+    tkTry              = 1<<16,
+    tkDoWhile          = 1<<17,
+    tkParameter        = 1<<18
 
 };
 
@@ -147,11 +147,14 @@ public:
 
         // STL compatibility functions
         void clear();
+        inline Symbol* operator[](int idx) { return GetSymbolAt(idx); }
+        inline Symbol* at(int idx)         { return GetSymbolAt(idx); }
+        Symbol* GetSymbolAt(int idx);
 
         size_t insert(Symbol* newSymbol);
         void erase(Symbol* oldSymbol);
 
-		size_t FindMatches(const cc_string& s,SymbolIdxSet& result);
+		size_t FindMatches(const cc_string& s,SymbolIdxSet& result,bool caseSensitive, bool is_prefix, SymbolKind kindMask);
 		void Dump();
 private:
         SymbolList m_SymbolList; /// Contains the pointers to all the tokens
