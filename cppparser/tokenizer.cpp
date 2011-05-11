@@ -155,7 +155,7 @@ bool Tokenizer::ReadFile()
 }
 
 
-RawToken* Tokenizer::GetToken()
+Token* Tokenizer::GetToken()
 {
     //m_UndoToken = m_Token;
         // move a forward step
@@ -175,7 +175,7 @@ RawToken* Tokenizer::GetToken()
     return &m_TokenBuffer[m_Index];
 }
 
-RawToken* Tokenizer::CurrentToken()
+Token* Tokenizer::CurrentToken()
 {
     return &m_TokenBuffer[m_Index];
 }
@@ -187,7 +187,7 @@ void  Tokenizer::DoAdvanceGetToken(int n)
 }
 
 
-RawToken* Tokenizer::PeekToken(int step)
+Token* Tokenizer::PeekToken(int step)
 {
     assert(step<=2);
     int n = (m_Index+step)%TOKEN_BUFFER_SIZE;;
@@ -242,7 +242,7 @@ cc_string Tokenizer::MacroReplace(const cc_string str)
 
 void Tokenizer::RunTest()
 {
-    RawToken* token;
+    Token* token;
 
     while(1)
     {
@@ -259,7 +259,7 @@ void Tokenizer::RunTest()
 
 }
 
-void Tokenizer::FetchToken(RawToken * pToken)
+void Tokenizer::FetchToken(Token * pToken)
 {
     pToken->text.clear();
     (void)m_Quex.token_p_switch(pToken);

@@ -15,18 +15,18 @@ using namespace std;
   */
 struct SingleArgument
 {
-    RawToken type;
-    RawToken name;
-    RawToken defaultValue;
+    Token type;
+    Token name;
+    Token defaultValue;
 };
-typedef std::vector<RawToken> ArgumentList;
+typedef std::vector<Token> ArgumentList;
 
 /** for a template type definition, we have such format
   *   AAA<typename T1 = int, class T2 = float>::
   */
 struct ScopeBlock
 {
-    RawToken     name;
+    Token     name;
     ArgumentList templateArgumentList;
 };
 
@@ -104,7 +104,7 @@ class Symbol
        friend class SymbolTree;
 public:
         Symbol();
-        Symbol(SymbolKind kind,RawToken&name);
+        Symbol(SymbolKind kind,Token&name);
         ~Symbol();
 
         //void AddChild(int child);
@@ -114,7 +114,7 @@ public:
 
 		ScopeQueue m_NameQueue;
 		ScopeQueue m_TypeQueue;
-		RawToken   m_Name;
+		Token   m_Name;
 
         ArgumentList m_FunctionArgument;
 		ArgumentList m_TemplateArgument;

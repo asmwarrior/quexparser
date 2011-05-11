@@ -12,7 +12,7 @@
 #include <map>
 
 
-typedef quex::Token RawToken;
+typedef quex::Token Token;
 
 
 class ParserException
@@ -30,10 +30,10 @@ public:
     bool Init(const cc_string& filename = cc_text(""), LoaderBase* loader = 0);
     bool InitFromBuffer(const cc_string& buffer);
 
-    RawToken*  GetToken();
-    RawToken*  CurrentToken();
-    RawToken*  PeekToken(int step = 1);
-    void FetchToken(RawToken * pToken);
+    Token*  GetToken();
+    Token*  CurrentToken();
+    Token*  PeekToken(int step = 1);
+    void FetchToken(Token * pToken);
 
     void UngetToken();
 

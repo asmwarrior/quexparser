@@ -73,7 +73,7 @@ ParserThread::~ParserThread()
 
 void ParserThread::SkipToOneOfId(const int * idArray, const int num)
 {
-    RawToken * tk;
+    Token * tk;
     tk = ConsumeToken();
     bool find = false;
     int id = tk->type_id();
@@ -107,7 +107,7 @@ for () {xxx;}
 */
 void ParserThread::SkipStatementBlock()
 {
-    RawToken * tk = PeekToken();
+    Token * tk = PeekToken();
     QUEX_TYPE_TOKEN_ID id = tk->type_id();
     TRACE("Skip statement block Start line(%d) column(%d)\n",tk->line_number(),tk->column_number());
 
@@ -151,7 +151,7 @@ void ParserThread::SkipStatementBlock()
 void ParserThread::SkipParentheses()
 {
     //TKN_L_PAREN
-    RawToken * tk=ConsumeToken();//remove the first TKN_L_PAREN
+    Token * tk=ConsumeToken();//remove the first TKN_L_PAREN
 
     QUEX_TYPE_TOKEN_ID id;
     int level = 1;
@@ -221,7 +221,7 @@ void ParserThread::DoParse()
 
     while (true)
     {
-        RawToken* tk = PeekToken();
+        Token* tk = PeekToken();
 
         switch (tk->type_id())
         {
@@ -307,7 +307,7 @@ void ParserThread::DoParse()
             ParseFullIdentifer();
             // we are interested in the following token.
 
-            RawToken * peek = PeekToken();
+            Token * peek = PeekToken();
             int peekID = peek-> type_id();
             switch (peekID)
             {
@@ -431,7 +431,7 @@ void ParserThread::DoParse()
         case TKN_PUBLIC:
         {
             ConsumeToken();
-            RawToken * peek = PeekToken();
+            Token * peek = PeekToken();
             if(peek->type_id() == TKN_COLON)
             {
                 m_Context.accessScope = tsPublic;
@@ -443,7 +443,7 @@ void ParserThread::DoParse()
         case TKN_PRIVATE:
         {
             ConsumeToken();
-            RawToken * peek = PeekToken();
+            Token * peek = PeekToken();
             if(peek->type_id() == TKN_COLON)
             {
                 m_Context.accessScope = tsPrivate;
@@ -455,7 +455,7 @@ void ParserThread::DoParse()
         case TKN_PROTECT:
         {
             ConsumeToken();
-            RawToken * peek = PeekToken();
+            Token * peek = PeekToken();
             if(peek->type_id() == TKN_COLON)
             {
                 m_Context.accessScope = tsProtected;
@@ -511,7 +511,7 @@ void ParserThread::DoParse()
         case TKN_OPERATOR:
         {
             ConsumeToken(); //eat the operator keyword
-            RawToken *op = ConsumeToken();
+            Token *op = ConsumeToken();
 
             // eat the operator pair
             if(op->type_id()==TKN_L_PAREN || op->type_id()==TKN_L_SQUARE)
@@ -520,7 +520,7 @@ void ParserThread::DoParse()
             ScopeBlock Operator;
             Operator.name = *op;
             m_Context.nameQueue.push_back(Operator);
-            RawToken *peek = PeekToken();
+            Token *peek = PeekToken();
             if(peek->type_id()==TKN_L_PAREN)
             {
                 HandleFunction();
@@ -530,7 +530,7 @@ void ParserThread::DoParse()
         default:
         {
             //cout<<"Skip unhandled"<<*tk<<endl;
-            // As the tk is only a pointer to the RawToken buffer, so it may changed by
+            // As the tk is only a pointer to the Token buffer, so it may changed by
             // some function calling on ConsumeToken or PeekToken
             ConsumeToken();
             break;
@@ -544,8 +544,8 @@ void ParserThread::DoParse()
 void ParserThread::HandleNamespace()
 {
     ConsumeToken();
-    RawToken *pk = PeekToken();
-    RawToken name;
+    Token *pk = PeekToken();
+    Token name;
     if(pk->type_id()==TKN_IDENTIFIER)
     {
         name = *pk;
@@ -578,7 +578,7 @@ void ParserThread::ReadVarNames()
 void ParserThread::ParseUsing()
 {
     ConsumeToken();
-    RawToken * peek = PeekToken();
+    Token * peek = PeekToken();
     if(peek->type_id() == TKN_NAMESPACE)
     {
         //Handleing using space directive
@@ -611,8 +611,8 @@ void ParserThread::HandleClass(EClassType ct)
     ConsumeToken();
 
 
-    RawToken * current =  ConsumeToken();      // class name
-    RawToken * next    =  PeekToken();
+    Token * current =  ConsumeToken();      // class name
+    Token * next    =  PeekToken();
 
     TRACE("HandleClass() : Found class '%s'", current->get_text().c_str() );
 
@@ -697,7 +697,7 @@ void ParserThread::HandleFunction()
     ArgumentList args;
     ReadFunctionArguments(args);
 
-    RawToken * peek = PeekToken();
+    Token * peek = PeekToken();
 
     if(peek->type_id() == TKN_CONST)
         ConsumeToken();
@@ -743,8 +743,8 @@ void ParserThread::HandleFunction()
 
 void ParserThread::ReadEnumList()
 {
-    RawToken *current;
-    RawToken *peek;
+    Token *current;
+    Token *peek;
     do
     {
         current = ConsumeToken();
@@ -766,7 +766,7 @@ void ParserThread::ReadEnumList()
             }
             else if (peek->type_id() == TKN_IDENTIFIER)      // id p1 p2
             {
-                RawToken * peek2 = PeekToken(2);
+                Token * peek2 = PeekToken(2);
             }
             else if (peek->type_id() == TKN_COMMA)     // a,....
             {
@@ -785,11 +785,11 @@ void ParserThread::HandleEnum()
     // enum [xxx] { type1 name1 [= 1][, [type2 name2 [= 2]]] };
 
     ConsumeToken();
-    RawToken * tk = ConsumeToken();    // the token after "enum"
+    Token * tk = ConsumeToken();    // the token after "enum"
     //Token * newToken = 0;
     if (tk->type_id() == TKN_IDENTIFIER)           // enum XXX
     {
-        RawToken *pk = PeekToken();
+        Token *pk = PeekToken();
         if(pk->type_id() == TKN_L_BRACE )  //enum XXX {
         {
             // Do Add Token of enum
@@ -846,8 +846,8 @@ void ParserThread::HandleTypedef()
 
     TRACE("Typedef find");
     //find the token before semicolon
-    RawToken * cur;
-    RawToken * peek;
+    Token * cur;
+    Token * peek;
     while(true)
     {
 
@@ -894,7 +894,7 @@ bool ParserThread::GetTemplateArgs()
 
     while (true)
     {
-        RawToken * tk = ConsumeToken();
+        Token * tk = ConsumeToken();
 
         if (tk->type_id() == TKN_LESS) // <
         {
@@ -938,7 +938,7 @@ void ParserThread::SkipBrace()
 
     while (true)
     {
-        RawToken * tk = ConsumeToken();
+        Token * tk = ConsumeToken();
 
         if (tk->type_id() == TKN_L_BRACE)
         {
@@ -975,7 +975,7 @@ bool ParserThread::ParseFullIdentifer()
 }
 bool ParserThread::ParseScopeQueue(ScopeQueue& scopeQueue)
 {
-    RawToken * currentToken = ConsumeToken();
+    Token * currentToken = ConsumeToken();
     assert(currentToken->type_id() == TKN_IDENTIFIER);
 
     ScopeBlock scope;
@@ -1011,7 +1011,7 @@ bool ParserThread::ParseArgumentList(ArgumentList &argumentList)
        return true;
 
     // shoud be a (xxxx) or <xxxxx>
-    RawToken * tk = ConsumeToken();
+    Token * tk = ConsumeToken();
 
     TRACE("ParserThread::ParseArgumentList() Enter...");
     int level = 1;
@@ -1060,7 +1060,7 @@ bool ParserThread::ParseArgumentList(ArgumentList &argumentList)
 void ParserThread::HandleForWhile()
 {
     SymbolKind id;
-    RawToken * tok = ConsumeToken(); //eat for or while key word
+    Token * tok = ConsumeToken(); //eat for or while key word
     id = (tok->type_id()==TKN_FOR)? tkFor:tkWhile;
     Symbol * sym = DoAddToken(id,*tok);
     ConsumeToken(); //eat the left parenthesis
@@ -1088,7 +1088,7 @@ void ParserThread::TestFunction()
 {
     while (true)
     {
-        RawToken* tk = ConsumeToken();
+        Token* tk = ConsumeToken();
         std::cout<<*tk<<std::endl;
         int type = tk->type_id();
         switch (type)
@@ -1110,7 +1110,7 @@ void ParserThread::TestFunction()
     }
 }
 
-Symbol *ParserThread::DoAddToken(SymbolKind kind, RawToken & tok)
+Symbol *ParserThread::DoAddToken(SymbolKind kind, Token & tok)
 {
     // add token
     for(int i=0;i<m_ContextStack.size();i++)

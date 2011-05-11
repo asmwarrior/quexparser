@@ -95,7 +95,7 @@ struct ParserThreadContext
     bool     inTypedef;
 
     /** temporary record the template argument list information*/
-    vector<RawToken>  templateArgument;
+    vector<Token>  templateArgument;
 
     /** type qualifier like: const, static.... */
     DeclarationModifier   typeQualifier;
@@ -231,22 +231,22 @@ private:
     void PopContext();
     bool GetTemplateArgs();
     void ReadEnumList();
-    Symbol *DoAddToken(SymbolKind kind, RawToken &tk);
+    Symbol *DoAddToken(SymbolKind kind, Token &tk);
 
     // consume a token
-    inline RawToken *ConsumeToken()
+    inline Token *ConsumeToken()
     {
         if (TestDestroy())
         {
             throw ParserException();
         }
-        RawToken *tk = m_Preprocessor.GetToken();
+        Token *tk = m_Preprocessor.GetToken();
         return tk;
 
     }
 
     // peek a token, the default step was 1 (the next after the current one)
-    inline RawToken *PeekToken(int step = 1)
+    inline Token *PeekToken(int step = 1)
     {
         if (TestDestroy())
         {
