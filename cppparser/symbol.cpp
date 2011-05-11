@@ -60,9 +60,42 @@ void SymbolTree::erase(Symbol* oldSymbol)
 
 }
 
-size_t SymbolTree::FindMatches(const cc_string& s,SymbolIdxSet& result)
+size_t SymbolTree::FindMatches(const cc_string& key,SymbolIdxSet& result,bool caseSensitive, bool is_prefix, SymbolKind kindMask)
 {
+    set<size_t> lists;
+    result.clear();
+    int numitems = m_SymbolIdxTree.FindMatches(key,lists,caseSensitive,is_prefix);
+    if(!numitems)
+        return 0;
+    // now the lists contains indexes to all the matching keywords
+    SymbolIdxSet* curset;
+    set<size_t>::iterator it;
+    SymbolIdxSet::iterator it2;
+    // first loop will find all the keywords
+    for(it = lists.begin(); it != lists.end(); it++)
+    {
+        curset = &(m_SymbolIdxTree.GetItemAtPos(*it));
+        // second loop will get all the items maped by the same keyword,
+        // for example, we have ClassA::foo, ClassB::foo ...
+        for(it2 = curset->begin();it2 != curset->end(); it2++)
+        {
+            if (kindMask == 0xffff || (at(*it)->m_SymbolKind & kindMask))
+                result.insert(*it2);
+        }
+    }
+    return result.size();
+
+
+
     return 0;
+}
+
+Symbol* SymbolTree::GetSymbolAt(int idx)
+{
+    if (idx < 0 || (size_t)idx >= m_SymbolIdxTree.size())
+        return 0;
+
+    return m_SymbolList[idx];
 }
 
 void SymbolTree::Dump()
