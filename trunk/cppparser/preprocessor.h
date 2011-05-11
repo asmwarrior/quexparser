@@ -24,10 +24,10 @@ public:
             std::cout<<m_DefineValue[i].get_string()<<std::endl;
     }
 
-    RawToken m_Name;
+    Token m_Name;
     bool m_IsFunctionLike;
-    std::vector<RawToken> m_Arguments;
-    std::vector<RawToken> m_DefineValue;
+    std::vector<Token> m_Arguments;
+    std::vector<Token> m_DefineValue;
     int  m_FileIndex;
 };
 
@@ -61,9 +61,9 @@ public:
     void  DumpTokenList();
 
     // Token manipulation
-    RawToken*  GetToken();
-    RawToken*  CurrentToken();
-    RawToken*  PeekToken(int step = 1);
+    Token*  GetToken();
+    Token*  CurrentToken();
+    Token*  PeekToken(int step = 1);
     void  UngetToken();
 
     bool CheckMacroExist(std::string key);
@@ -71,9 +71,9 @@ public:
 private:
     bool ConstExpressionValue();
     void AddMacroDefinition();
-    bool ConstExpressionExpansion(std::vector<RawToken> & exp);
-    void ReadMacroActualArgument(std::vector<std::vector<RawToken> > &arg, int argNum);
-    void MacroExpansion(std::vector<RawToken> &expend,MacroDefine &def, std::vector<std::vector<RawToken> > &arg);
+    bool ConstExpressionExpansion(std::vector<Token> & exp);
+    void ReadMacroActualArgument(std::vector<std::vector<Token> > &arg, int argNum);
+    void MacroExpansion(std::vector<Token> &expend,MacroDefine &def, std::vector<std::vector<Token> > &arg);
 
     void HandleIf();
     void HandleElif();
@@ -85,8 +85,8 @@ private:
     void SkipToNextBranch();
 
 private:
-    std::list<RawToken*> m_TokenList;
-    std::list<RawToken*>::iterator m_Current;
+    std::list<Token*> m_TokenList;
+    std::list<Token*>::iterator m_Current;
     Tokenizer m_Tokenizer;
     MacroTable m_MacroTable;
     BranchStack m_BranchStack;
