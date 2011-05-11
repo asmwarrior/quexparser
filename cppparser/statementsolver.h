@@ -14,8 +14,7 @@ public:
 class StatementSolver
 {
 public:
-    StatementSolver(cc_string &statement,SearchTree* tree);
-    void ReadBuffer(cc_string &statement);
+    StatementSolver(cc_string &statement,SymbolTree* tree);
     void Dump();
     void SetInitialSearchScope(SymbolIdxSet &scope);
     int  SuggestionList(SymbolIdxSet &result);
@@ -24,7 +23,7 @@ public:
 private:
     std::vector<Piece> m_PieceQueue;
     Tokenizer          m_Tokenizer;
-    SearchTree         *m_SymbolTree;
+    SymbolTree         *m_SymbolTree;
 };
 
 

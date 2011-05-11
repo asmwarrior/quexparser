@@ -53,6 +53,17 @@ token_type {
    }
 
    body {
+   
+        inline bool operator==(uint32_t value)
+        {
+            return _id==value;
+        }
+        
+        inline bool operator!=(uint32_t value)
+        {
+            return _id!=value;
+        }   
+        
         typedef std::basic_string<QUEX_TYPE_CHARACTER> __string;
 
         operator 
@@ -163,6 +174,8 @@ token_type {
         inline std::ostream&
         operator<<(std::ostream& ostr, const QUEX_TYPE_TOKEN& Tok)
         { ostr << std::string(Tok); return ostr; }
+        
+
    }
 }
 

@@ -642,7 +642,7 @@ QUEX_NAME_TOKEN(take_text)(Token*           __this,
     (void)__this;
     (void)__analyzer;
 
-#   line 121 "cpp.qx"
+#   line 132 "cpp.qx"
 
 #       if 0
         {
@@ -689,7 +689,7 @@ QUEX_NAME_TOKEN(repetition_n_get)(QUEX_TYPE_TOKEN* __this)
 #   define self      (*__this)
     (void)__this;
     
-#   line 158 "cpp.qx"
+#   line 169 "cpp.qx"
 
        //return self.number;
    
@@ -706,7 +706,7 @@ QUEX_NAME_TOKEN(repetition_n_set)(QUEX_TYPE_TOKEN* __this, size_t N)
     (void)__this;
     (void)N;
     
-#   line 154 "cpp.qx"
+#   line 165 "cpp.qx"
 
        //self.number = N;
    

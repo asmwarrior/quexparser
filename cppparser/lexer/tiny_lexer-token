@@ -112,6 +112,17 @@ public:
 
 #   line 55 "cpp.qx"
 
+   
+        inline bool operator==(uint32_t value)
+        {
+            return _id==value;
+        }
+        
+        inline bool operator!=(uint32_t value)
+        {
+            return _id!=value;
+        }   
+        
         typedef std::basic_string<QUEX_TYPE_CHARACTER> __string;
 
         operator 
@@ -177,7 +188,7 @@ public:
 #       endif
    
 
-#   line 181 "tiny_lexer-token"
+#   line 192 "tiny_lexer-token"
 
 #   undef  self
 
@@ -191,14 +202,16 @@ public:
 
 
 
-#   line 162 "cpp.qx"
+#   line 173 "cpp.qx"
 
         inline std::ostream&
         operator<<(std::ostream& ostr, const QUEX_TYPE_TOKEN& Tok)
         { ostr << std::string(Tok); return ostr; }
+        
+
    
 
-#   line 202 "tiny_lexer-token"
+#   line 215 "tiny_lexer-token"
 
 
 } /* Closing Namespace 'quex' */
