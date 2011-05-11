@@ -97,9 +97,13 @@ bool Tokenizer::InitFromBuffer(const cc_string& buffer)
     m_BufferLen = buffer.length();
     m_Buffer.resize(m_BufferLen + 1); // + 1 => sentinel
     m_Buffer = buffer;
-    m_Buffer += cc_text(' ');
+    m_Buffer += cc_text('\0');
     m_IsOK = true;
     m_Filename.clear();
+    const char * pBuffer = m_Buffer.data();
+    m_Quex.reset_buffer((QUEX_TYPE_CHARACTER*)pBuffer,
+                            m_BufferLen+2,
+                            (QUEX_TYPE_CHARACTER*)pBuffer+m_BufferLen+1);
     return true;
 }
 

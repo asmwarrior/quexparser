@@ -8,6 +8,7 @@
 #include<iomanip>
 
 #include "parserthread_test.h"
+#include "statementsolver.h"
 
 
 #define PARSERTHREAD_DEBUG_OUTPUT 0
@@ -213,6 +214,8 @@ bool ParserThread::Parse()
         TRACE("Parse(): End of file");
     }
     m_SymbolTree.Dump();
+    cc_string statement = "aaa.bbb.ccc";
+    StatementSolver state(statement,&m_SymbolTree);
     return true;
 }
 
