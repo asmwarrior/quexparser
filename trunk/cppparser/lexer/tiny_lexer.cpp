@@ -204,6 +204,7 @@ QUEX_NAME(PROGRAM_analyzer_function)(QUEX_TYPE_ANALYZER* me)
 __REENTRY:
     me->buffer._lexeme_start_p = me->buffer._input_p;
     QUEX_LEXEME_TERMINATING_ZERO_UNDO(&me->buffer);
+
 INIT_STATE_TRANSITION_BLOCK:
     __quex_debug_init_state();
     input = *(me->buffer._input_p);
@@ -311,6 +312,7 @@ _5917:
     ++(me->buffer._input_p);
     goto INIT_STATE_TRANSITION_BLOCK;
 
+
     __quex_assert_no_passage();
 _5949:
     __quex_debug_state(5949);
@@ -390,7 +392,7 @@ _5926:
     __quex_debug_state(5926);
     ++(me->buffer._input_p);
     input = *(me->buffer._input_p);
-    if( input < 0x22) {
+    if( input < 0xB) {
         switch( input ) {
             case 0x0:     QUEX_GOTO_RELOAD(__RELOAD_FORWARD, QUEX_LABEL(5926), QUEX_LABEL(6367));
             case 0x2:     
@@ -400,41 +402,20 @@ _5926:
             case 0x6:     
             case 0x7:     
             case 0x8:     
-            case 0x9:     
-            case 0xB:     
-            case 0xC:     
-            case 0xD:     
-            case 0xE:     
-            case 0xF:     
-            case 0x10:    
-            case 0x11:    
-            case 0x12:    
-            case 0x13:    
-            case 0x14:    
-            case 0x15:    
-            case 0x16:    
-            case 0x17:    
-            case 0x18:    
-            case 0x19:    
-            case 0x1A:    
-            case 0x1B:    
-            case 0x1C:    
-            case 0x1D:    
-            case 0x1E:    
-            case 0x1F:    
-            case 0x20:    
-            case 0x21:    goto _5926;
+            case 0x9:     goto _5926;
         }
     } else {
-        if( input == 0x22 ) {
-            goto _6317;    /* '"' */
+
+        if( input < 0x22 ) {
+            goto _5926;
+        } else if( input == 0x22 ) {
+            goto _6317;
         } else if( input < 0x5C ) {
-            goto _5926;    /* ['#', '['] */
+            goto _5926;
         } else if( input == 0x5C ) {
-            goto _6289;    /* '\' */
-        } else if( input < 0x100 ) {
-            goto _5926;    /* [']', 'ÿ'] */
-        }
+            goto _6289;
+        } else {
+            goto _5926;}
     }
 _6367:
 goto __TERMINAL_ROUTER; 
@@ -496,7 +477,7 @@ _6137:
     __quex_debug_state(6137);
     ++(me->buffer._input_p);
     input = *(me->buffer._input_p);
-    if( input < 0xB) {
+    if( input < 0xA) {
         switch( input ) {
             case 0x0:     QUEX_GOTO_RELOAD(__RELOAD_FORWARD, QUEX_LABEL(6137), QUEX_LABEL(6371));
             case 0x2:     
@@ -507,16 +488,17 @@ _6137:
             case 0x7:     
             case 0x8:     
             case 0x9:     goto _6137;
-            case 0xA:     goto _6361;
         }
     } else {
-        if( input < 0x5C ) {
-            goto _6137;    /* ['\v', '['] */
+
+        if( input == 0xA ) {
+            goto _6361;
+        } else if( input < 0x5C ) {
+            goto _6137;
         } else if( input == 0x5C ) {
-            goto _6138;    /* '\' */
-        } else if( input < 0x100 ) {
-            goto _6137;    /* [']', 'ÿ'] */
-        }
+            goto _6138;
+        } else {
+            goto _6137;}
     }
 _6371:
 goto __TERMINAL_ROUTER; 
@@ -566,13 +548,13 @@ _6138:
                 case 0x20:    goto _6138;
             }
         } else {
+
             if( input < 0x5C ) {
-                goto _6137;    /* ['!', '['] */
+                goto _6137;
             } else if( input == 0x5C ) {
-                goto _6138;    /* '\' */
-            } else if( input < 0x100 ) {
-                goto _6137;    /* [']', 'ÿ'] */
-            }
+                goto _6138;
+            } else {
+                goto _6137;}
         }
     }
 _6372:
@@ -824,49 +806,17 @@ _6254:
     __quex_debug_state(6254);
     ++(me->buffer._input_p);
     input = *(me->buffer._input_p);
-    if( input < 0x22) {
-        switch( input ) {
-            case 0x0:     QUEX_GOTO_RELOAD(__RELOAD_FORWARD, QUEX_LABEL(6254), QUEX_LABEL(6384));
-            case 0x2:     
-            case 0x3:     
-            case 0x4:     
-            case 0x5:     
-            case 0x6:     
-            case 0x7:     
-            case 0x8:     
-            case 0x9:     
-            case 0xA:     
-            case 0xB:     
-            case 0xC:     
-            case 0xD:     
-            case 0xE:     
-            case 0xF:     
-            case 0x10:    
-            case 0x11:    
-            case 0x12:    
-            case 0x13:    
-            case 0x14:    
-            case 0x15:    
-            case 0x16:    
-            case 0x17:    
-            case 0x18:    
-            case 0x19:    
-            case 0x1A:    
-            case 0x1B:    
-            case 0x1C:    
-            case 0x1D:    
-            case 0x1E:    
-            case 0x1F:    
-            case 0x20:    
-            case 0x21:    goto _6254;
-        }
+
+    if( input >= 0x23 ) {
+        goto _6254;
+    } else if( input == 0x22 ) {
+        goto _6356;
+    } else if( input >= 0x2 ) {
+        goto _6254;
+    } else if( input == 0x1 ) {
+
     } else {
-        if( input == 0x22 ) {
-            goto _6356;    /* '"' */
-        } else if( input < 0x100 ) {
-            goto _6254;    /* ['#', 'ÿ'] */
-        }
-    }
+        QUEX_GOTO_RELOAD(__RELOAD_FORWARD, QUEX_LABEL(6254), QUEX_LABEL(6384));}
 _6384:
 goto __TERMINAL_ROUTER; 
 
@@ -875,20 +825,17 @@ _6256:
     __quex_debug_state(6256);
     ++(me->buffer._input_p);
     input = *(me->buffer._input_p);
-    if( input < 0x3E) {
-        if( input >= 0x2 ) {
-            goto _6256;    /* [\2, '='] */
-        } else if( input == 0x1 ) {
-        } else {
-            QUEX_GOTO_RELOAD(__RELOAD_FORWARD, QUEX_LABEL(6256), QUEX_LABEL(6385));    /* \0 */
-}
+
+    if( input >= 0x3F ) {
+        goto _6256;
+    } else if( input == 0x3E ) {
+        goto _6357;
+    } else if( input >= 0x2 ) {
+        goto _6256;
+    } else if( input == 0x1 ) {
+
     } else {
-        if( input == 0x3E ) {
-            goto _6357;    /* '>' */
-        } else if( input < 0x100 ) {
-            goto _6256;    /* ['?', 'ÿ'] */
-        }
-    }
+        QUEX_GOTO_RELOAD(__RELOAD_FORWARD, QUEX_LABEL(6256), QUEX_LABEL(6385));}
 _6385:
 goto __TERMINAL_ROUTER; 
 
@@ -912,7 +859,7 @@ _6292:
     __quex_debug_state(6292);
     ++(me->buffer._input_p);
     input = *(me->buffer._input_p);
-    if( input < 0x20) {
+    if( input < 0xE) {
         switch( input ) {
             case 0x0:     QUEX_GOTO_RELOAD(__RELOAD_FORWARD, QUEX_LABEL(6292), QUEX_LABEL(6387));
             case 0x2:     
@@ -927,40 +874,41 @@ _6292:
             case 0xB:     
             case 0xC:     goto _5926;
             case 0xD:     goto _6294;
-            case 0xE:     
-            case 0xF:     
-            case 0x10:    
-            case 0x11:    
-            case 0x12:    
-            case 0x13:    
-            case 0x14:    
-            case 0x15:    
-            case 0x16:    
-            case 0x17:    
-            case 0x18:    
-            case 0x19:    
-            case 0x1A:    
-            case 0x1B:    
-            case 0x1C:    
-            case 0x1D:    
-            case 0x1E:    
-            case 0x1F:    goto _5926;
         }
     } else {
-        if( input < 0x23) {
+        if( input < 0x22) {
             switch( input ) {
+                case 0xE:     
+                case 0xF:     
+                case 0x10:    
+                case 0x11:    
+                case 0x12:    
+                case 0x13:    
+                case 0x14:    
+                case 0x15:    
+                case 0x16:    
+                case 0x17:    
+                case 0x18:    
+                case 0x19:    
+                case 0x1A:    
+                case 0x1B:    
+                case 0x1C:    
+                case 0x1D:    
+                case 0x1E:    
+                case 0x1F:    goto _5926;
                 case 0x20:    goto _6292;
                 case 0x21:    goto _5926;
-                case 0x22:    goto _6317;
             }
         } else {
-            if( input < 0x5C ) {
-                goto _5926;    /* ['#', '['] */
+
+            if( input == 0x22 ) {
+                goto _6317;
+            } else if( input < 0x5C ) {
+                goto _5926;
             } else if( input == 0x5C ) {
-                goto _6289;    /* '\' */
-            } else if( input < 0x100 ) {
-                goto _5926;    /* [']', 'ÿ'] */
-            }
+                goto _6289;
+            } else {
+                goto _5926;}
         }
     }
 _6387:
@@ -1060,7 +1008,7 @@ _6140:
     input = *(me->buffer._input_p);
     last_acceptance                = QUEX_LABEL(6393);
     last_acceptance_input_position = QUEX_NAME(Buffer_tell_memory_adr)(&me->buffer);
-    if( input < 0xB) {
+    if( input < 0xA) {
         switch( input ) {
             case 0x0:     QUEX_GOTO_RELOAD(__RELOAD_FORWARD, QUEX_LABEL(6140), QUEX_LABEL(6394));
             case 0x2:     
@@ -1071,16 +1019,17 @@ _6140:
             case 0x7:     
             case 0x8:     
             case 0x9:     goto _6137;
-            case 0xA:     goto _6361;
         }
     } else {
-        if( input < 0x5C ) {
-            goto _6137;    /* ['\v', '['] */
+
+        if( input == 0xA ) {
+            goto _6361;
+        } else if( input < 0x5C ) {
+            goto _6137;
         } else if( input == 0x5C ) {
-            goto _6138;    /* '\' */
-        } else if( input < 0x100 ) {
-            goto _6137;    /* [']', 'ÿ'] */
-        }
+            goto _6138;
+        } else {
+            goto _6137;}
     }
 _6394:
 goto _6393;
@@ -5848,19 +5797,17 @@ _6252:
     __quex_debug_state(6252);
     ++(me->buffer._input_p);
     input = *(me->buffer._input_p);
-    if( input < 0x3E) {
-        if( input >= 0x2 ) {
-            goto _6256;    /* [\2, '='] */
-        } else if( input == 0x1 ) {
-        } else {
-            QUEX_GOTO_RELOAD(__RELOAD_FORWARD, QUEX_LABEL(6252), QUEX_LABEL(6498));    /* \0 */
-}
+
+    if( input >= 0x3F ) {
+        goto _6256;
+    } else if( input == 0x3E ) {
+
+    } else if( input >= 0x2 ) {
+        goto _6256;
+    } else if( input == 0x1 ) {
+
     } else {
-        if( input == 0x3E ) {
-        } else if( input < 0x100 ) {
-            goto _6256;    /* ['?', 'ÿ'] */
-        }
-    }
+        QUEX_GOTO_RELOAD(__RELOAD_FORWARD, QUEX_LABEL(6252), QUEX_LABEL(6498));}
 _6498:
 goto __TERMINAL_ROUTER; 
 
@@ -5869,48 +5816,17 @@ _6253:
     __quex_debug_state(6253);
     ++(me->buffer._input_p);
     input = *(me->buffer._input_p);
-    if( input < 0x22) {
-        switch( input ) {
-            case 0x0:     QUEX_GOTO_RELOAD(__RELOAD_FORWARD, QUEX_LABEL(6253), QUEX_LABEL(6499));
-            case 0x2:     
-            case 0x3:     
-            case 0x4:     
-            case 0x5:     
-            case 0x6:     
-            case 0x7:     
-            case 0x8:     
-            case 0x9:     
-            case 0xA:     
-            case 0xB:     
-            case 0xC:     
-            case 0xD:     
-            case 0xE:     
-            case 0xF:     
-            case 0x10:    
-            case 0x11:    
-            case 0x12:    
-            case 0x13:    
-            case 0x14:    
-            case 0x15:    
-            case 0x16:    
-            case 0x17:    
-            case 0x18:    
-            case 0x19:    
-            case 0x1A:    
-            case 0x1B:    
-            case 0x1C:    
-            case 0x1D:    
-            case 0x1E:    
-            case 0x1F:    
-            case 0x20:    
-            case 0x21:    goto _6254;
-        }
+
+    if( input >= 0x23 ) {
+        goto _6254;
+    } else if( input == 0x22 ) {
+
+    } else if( input >= 0x2 ) {
+        goto _6254;
+    } else if( input == 0x1 ) {
+
     } else {
-        if( input == 0x22 ) {
-        } else if( input < 0x100 ) {
-            goto _6254;    /* ['#', 'ÿ'] */
-        }
-    }
+        QUEX_GOTO_RELOAD(__RELOAD_FORWARD, QUEX_LABEL(6253), QUEX_LABEL(6499));}
 _6499:
 goto __TERMINAL_ROUTER; 
 
@@ -6641,7 +6557,7 @@ _6294:
     __quex_debug_state(6294);
     ++(me->buffer._input_p);
     input = *(me->buffer._input_p);
-    if( input < 0x23) {
+    if( input < 0x22) {
         switch( input ) {
             case 0x0:     QUEX_GOTO_RELOAD(__RELOAD_FORWARD, QUEX_LABEL(6294), QUEX_LABEL(6527));
             case 0x2:     
@@ -6676,16 +6592,17 @@ _6294:
             case 0x1F:    
             case 0x20:    
             case 0x21:    goto _5926;
-            case 0x22:    goto _6317;
         }
     } else {
-        if( input < 0x5C ) {
-            goto _5926;    /* ['#', '['] */
+
+        if( input == 0x22 ) {
+            goto _6317;
+        } else if( input < 0x5C ) {
+            goto _5926;
         } else if( input == 0x5C ) {
-            goto _6289;    /* '\' */
-        } else if( input < 0x100 ) {
-            goto _5926;    /* [']', 'ÿ'] */
-        }
+            goto _6289;
+        } else {
+            goto _5926;}
     }
 _6527:
 goto __TERMINAL_ROUTER; 
@@ -7629,7 +7546,7 @@ _5923:
     __quex_debug_state(5923);
     ++(me->buffer._input_p);
     input = *(me->buffer._input_p);
-    if( input < 0x28) {
+    if( input < 0x27) {
         switch( input ) {
             case 0x0:     QUEX_GOTO_RELOAD(__RELOAD_FORWARD, QUEX_LABEL(5923), QUEX_LABEL(6547));
             case 0x2:     
@@ -7669,16 +7586,17 @@ _5923:
             case 0x24:    
             case 0x25:    
             case 0x26:    goto _6298;
-            case 0x27:    goto _6328;
         }
     } else {
-        if( input < 0x5C ) {
-            goto _6298;    /* ['(', '['] */
+
+        if( input == 0x27 ) {
+            goto _6328;
+        } else if( input < 0x5C ) {
+            goto _6298;
         } else if( input == 0x5C ) {
-            goto _6297;    /* '\' */
-        } else if( input < 0x100 ) {
-            goto _6298;    /* [']', 'ÿ'] */
-        }
+            goto _6297;
+        } else {
+            goto _6298;}
     }
 _6547:
 goto __TERMINAL_ROUTER; 
@@ -20414,7 +20332,7 @@ _6141:
     __quex_debug_state(6141);
     ++(me->buffer._input_p);
     input = *(me->buffer._input_p);
-    if( input < 0xB) {
+    if( input < 0xA) {
         switch( input ) {
             case 0x0:     QUEX_GOTO_RELOAD(__RELOAD_FORWARD, QUEX_LABEL(6141), QUEX_LABEL(6786));
             case 0x2:     
@@ -20425,16 +20343,17 @@ _6141:
             case 0x7:     
             case 0x8:     
             case 0x9:     goto _6137;
-            case 0xA:     goto _6140;
         }
     } else {
-        if( input < 0x5C ) {
-            goto _6137;    /* ['\v', '['] */
+
+        if( input == 0xA ) {
+            goto _6140;
+        } else if( input < 0x5C ) {
+            goto _6137;
         } else if( input == 0x5C ) {
-            goto _6138;    /* '\' */
-        } else if( input < 0x100 ) {
-            goto _6137;    /* [']', 'ÿ'] */
-        }
+            goto _6138;
+        } else {
+            goto _6137;}
     }
 _6786:
 goto __TERMINAL_ROUTER; 
@@ -20662,7 +20581,7 @@ _6439:
 self_send(TKN_CASE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 20666 "tiny_lexer.cpp"
+#   line 20585 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -20682,7 +20601,7 @@ _6749:
 self_send(TKN_EXTERN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 20686 "tiny_lexer.cpp"
+#   line 20605 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -20704,7 +20623,7 @@ _6350:
 QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_ERROR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 20708 "tiny_lexer.cpp"
+#   line 20627 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -20724,7 +20643,7 @@ _6467:
 self_send(TKN_DEFAULT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 20728 "tiny_lexer.cpp"
+#   line 20647 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -20744,7 +20663,7 @@ _6745:
 self_send(TKN_EXPLICIT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 20748 "tiny_lexer.cpp"
+#   line 20667 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -20764,7 +20683,7 @@ _6406:
 self_send(TKN_BREAK);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 20768 "tiny_lexer.cpp"
+#   line 20687 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -20784,7 +20703,7 @@ _6454:
 self_send(TKN_CONST);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 20788 "tiny_lexer.cpp"
+#   line 20707 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -20804,7 +20723,7 @@ _6424:
 self_send(TKN_GOTO);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 20808 "tiny_lexer.cpp"
+#   line 20727 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -20824,7 +20743,7 @@ _6524:
 self_send(TKN_FRIEND);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 20828 "tiny_lexer.cpp"
+#   line 20747 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -20844,7 +20763,7 @@ _6768:
 self_send(TKN_SIZEOF);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 20848 "tiny_lexer.cpp"
+#   line 20767 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -20864,7 +20783,7 @@ _6685:
 self_send(TKN_THROW);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 20868 "tiny_lexer.cpp"
+#   line 20787 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -20884,7 +20803,7 @@ _6641:
 self_send(TKN_VIRTUAL);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 20888 "tiny_lexer.cpp"
+#   line 20807 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -20904,7 +20823,7 @@ _6651:
 self_send(TKN_USING);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 20908 "tiny_lexer.cpp"
+#   line 20827 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -20924,7 +20843,7 @@ _6535:
 self_send(TKN_ASM);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 20928 "tiny_lexer.cpp"
+#   line 20847 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -20944,7 +20863,7 @@ _6635:
 self_send(TKN_VOLATILE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 20948 "tiny_lexer.cpp"
+#   line 20867 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -20964,7 +20883,7 @@ _6680:
 self_send(TKN_TYPEID);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 20968 "tiny_lexer.cpp"
+#   line 20887 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -20984,7 +20903,7 @@ _6476:
 self_send(TKN_ASM_EXT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 20988 "tiny_lexer.cpp"
+#   line 20907 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21004,7 +20923,7 @@ _6774:
 self_send(TKN_STATIC);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21008 "tiny_lexer.cpp"
+#   line 20927 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21024,7 +20943,7 @@ _6674:
 self_send(TKN_TYPEDEF);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21028 "tiny_lexer.cpp"
+#   line 20947 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21044,7 +20963,7 @@ _6695:
 self_send(TKN_INLINE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21048 "tiny_lexer.cpp"
+#   line 20967 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21064,7 +20983,7 @@ _6544:
 self_send(TKN_AUTO);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21068 "tiny_lexer.cpp"
+#   line 20987 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21084,7 +21003,7 @@ _6491:
 QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_IF);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21088 "tiny_lexer.cpp"
+#   line 21007 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21104,7 +21023,7 @@ _6687:
 self_send(TKN_THIS);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21108 "tiny_lexer.cpp"
+#   line 21027 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21124,7 +21043,7 @@ _6723:
 self_send(TKN_REGISTER);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21128 "tiny_lexer.cpp"
+#   line 21047 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21144,7 +21063,7 @@ _6678:
 self_send(TKN_TYPENAME);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21148 "tiny_lexer.cpp"
+#   line 21067 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21164,7 +21083,7 @@ _6785:
 self_send(TKN_MUTABLE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21168 "tiny_lexer.cpp"
+#   line 21087 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21184,7 +21103,7 @@ _6690:
 self_send(TKN_IF);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21188 "tiny_lexer.cpp"
+#   line 21107 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21204,7 +21123,7 @@ _6420:
 self_send(TKN_OPERATOR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21208 "tiny_lexer.cpp"
+#   line 21127 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21224,7 +21143,7 @@ _6755:
 self_send(TKN_ELSE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21228 "tiny_lexer.cpp"
+#   line 21147 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21245,7 +21164,7 @@ QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_star
 self_send(TKN_NUMBER);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21249 "tiny_lexer.cpp"
+#   line 21168 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21268,7 +21187,7 @@ QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_star
 self_send(TKN_STRING);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21272 "tiny_lexer.cpp"
+#   line 21191 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21292,7 +21211,7 @@ QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_star
 self_send(TKN_QUOTED_CHAR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21296 "tiny_lexer.cpp"
+#   line 21215 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21316,7 +21235,7 @@ QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_star
 self_send(TKN_NUMBER);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21320 "tiny_lexer.cpp"
+#   line 21239 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21340,7 +21259,7 @@ QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_star
 self_send(TKN_NUMBER);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21344 "tiny_lexer.cpp"
+#   line 21263 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21364,7 +21283,7 @@ QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_star
 self_send(TKN_NUMBER);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21368 "tiny_lexer.cpp"
+#   line 21287 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21388,7 +21307,7 @@ QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_star
 self_send(TKN_NUMBER);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21392 "tiny_lexer.cpp"
+#   line 21311 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21494,7 +21413,7 @@ _6763:
 self_send(TKN_SWITCH);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21498 "tiny_lexer.cpp"
+#   line 21417 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21514,7 +21433,7 @@ _6526:
 self_send(TKN_FOR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21518 "tiny_lexer.cpp"
+#   line 21437 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21534,7 +21453,7 @@ _6460:
 self_send(TKN_DO);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21538 "tiny_lexer.cpp"
+#   line 21457 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21557,7 +21476,7 @@ QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_star
 self_send(TKN_PP_INCLUDE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21561 "tiny_lexer.cpp"
+#   line 21480 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21577,7 +21496,7 @@ _6732:
 self_send(TKN_WHILE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21581 "tiny_lexer.cpp"
+#   line 21500 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21600,7 +21519,7 @@ QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_star
 self_send(TKN_PP_INCLUDE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21604 "tiny_lexer.cpp"
+#   line 21523 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21622,7 +21541,7 @@ _6358:
 QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_IFDEF);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21626 "tiny_lexer.cpp"
+#   line 21545 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21644,7 +21563,7 @@ _6332:
 self_send(TKN_L_PAREN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21648 "tiny_lexer.cpp"
+#   line 21567 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21666,7 +21585,7 @@ _6336:
 self_send(TKN_R_PAREN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21670 "tiny_lexer.cpp"
+#   line 21589 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21688,7 +21607,7 @@ _6312:
 QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_DEFINE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21692 "tiny_lexer.cpp"
+#   line 21611 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21710,7 +21629,7 @@ _6327:
 self_send(TKN_L_BRACE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21714 "tiny_lexer.cpp"
+#   line 21633 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21732,7 +21651,7 @@ _6326:
 self_send(TKN_R_BRACE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21736 "tiny_lexer.cpp"
+#   line 21655 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21754,7 +21673,7 @@ _6342:
 self_send(TKN_L_SQUARE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21758 "tiny_lexer.cpp"
+#   line 21677 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21776,7 +21695,7 @@ _6345:
 self_send(TKN_R_SQUARE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21780 "tiny_lexer.cpp"
+#   line 21699 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21796,7 +21715,7 @@ _6586:
 self_send(TKN_DOT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21800 "tiny_lexer.cpp"
+#   line 21719 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21818,7 +21737,7 @@ _6340:
 self_send(TKN_ELLIPSIS);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21822 "tiny_lexer.cpp"
+#   line 21741 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21838,7 +21757,7 @@ _6608:
 self_send(TKN_NAMESPACE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21842 "tiny_lexer.cpp"
+#   line 21761 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21858,7 +21777,7 @@ _6573:
 self_send(TKN_COLON);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21862 "tiny_lexer.cpp"
+#   line 21781 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21880,7 +21799,7 @@ _6318:
 self_send(TKN_DOUBLE_COLON);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21884 "tiny_lexer.cpp"
+#   line 21803 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21902,7 +21821,7 @@ _6341:
 self_send(TKN_SEMICOLON);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21906 "tiny_lexer.cpp"
+#   line 21825 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21924,7 +21843,7 @@ _6353:
 QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_ELIF);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21928 "tiny_lexer.cpp"
+#   line 21847 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21946,7 +21865,7 @@ _6347:
 self_send(TKN_COMMA);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21950 "tiny_lexer.cpp"
+#   line 21869 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21968,7 +21887,7 @@ _6335:
 self_send(TKN_QUESTION);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21972 "tiny_lexer.cpp"
+#   line 21891 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -21990,7 +21909,7 @@ _6321:
 self_send(TKN_ARROW);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 21994 "tiny_lexer.cpp"
+#   line 21913 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22010,7 +21929,7 @@ _6568:
 self_send(TKN_ASSIGN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22014 "tiny_lexer.cpp"
+#   line 21933 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22030,7 +21949,7 @@ _6443:
 self_send(TKN_CLASS);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22034 "tiny_lexer.cpp"
+#   line 21953 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22050,7 +21969,7 @@ _6560:
 self_send(TKN_PLUS);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22054 "tiny_lexer.cpp"
+#   line 21973 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22072,7 +21991,7 @@ _6338:
 self_send(TKN_PLUS_ASSIGN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22076 "tiny_lexer.cpp"
+#   line 21995 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22094,7 +22013,7 @@ _6339:
 self_send(TKN_DOUBLE_PLUS);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22098 "tiny_lexer.cpp"
+#   line 22017 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22114,7 +22033,7 @@ _6571:
 self_send(TKN_MINUS);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22118 "tiny_lexer.cpp"
+#   line 22037 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22136,7 +22055,7 @@ _6319:
 self_send(TKN_DOUBLE_MINUS);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22140 "tiny_lexer.cpp"
+#   line 22059 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22158,7 +22077,7 @@ _6360:
 QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_IFNDEF);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22162 "tiny_lexer.cpp"
+#   line 22081 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22180,7 +22099,7 @@ _6320:
 self_send(TKN_MINUS_ASSIGN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22184 "tiny_lexer.cpp"
+#   line 22103 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22200,7 +22119,7 @@ _6551:
 self_send(TKN_MULT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22204 "tiny_lexer.cpp"
+#   line 22123 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22222,7 +22141,7 @@ _6316:
 self_send(TKN_MULT_ASSIGN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22226 "tiny_lexer.cpp"
+#   line 22145 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22242,7 +22161,7 @@ _6576:
 self_send(TKN_DIV);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22246 "tiny_lexer.cpp"
+#   line 22165 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22264,7 +22183,7 @@ _6346:
 self_send(TKN_DIV_ASSIGN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22268 "tiny_lexer.cpp"
+#   line 22187 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22284,7 +22203,7 @@ _6562:
 self_send(TKN_MODULO);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22288 "tiny_lexer.cpp"
+#   line 22207 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22306,7 +22225,7 @@ _6337:
 self_send(TKN_MODULO_ASSIGN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22310 "tiny_lexer.cpp"
+#   line 22229 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22326,7 +22245,7 @@ _6517:
 self_send(TKN_L_SHIFT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22330 "tiny_lexer.cpp"
+#   line 22249 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22348,7 +22267,7 @@ _6315:
 self_send(TKN_L_SHIFT_ASSIGN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22352 "tiny_lexer.cpp"
+#   line 22271 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22370,7 +22289,7 @@ _6352:
 QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_ELSE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22374 "tiny_lexer.cpp"
+#   line 22293 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22390,7 +22309,7 @@ _6426:
 self_send(TKN_R_SHIFT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22394 "tiny_lexer.cpp"
+#   line 22313 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22412,7 +22331,7 @@ _6325:
 self_send(TKN_R_SHIFT_ASSIGN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22416 "tiny_lexer.cpp"
+#   line 22335 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22434,7 +22353,7 @@ _6323:
 self_send(TKN_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22438 "tiny_lexer.cpp"
+#   line 22357 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22455,7 +22374,7 @@ QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_star
 self_send(TKN_IDENTIFIER);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22459 "tiny_lexer.cpp"
+#   line 22378 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22477,7 +22396,7 @@ _6362:
 QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_PRAGMA);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22481 "tiny_lexer.cpp"
+#   line 22400 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22497,7 +22416,7 @@ _6736:
 self_send(TKN_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22501 "tiny_lexer.cpp"
+#   line 22420 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22517,7 +22436,7 @@ _6566:
 self_send(TKN_GREATER);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22521 "tiny_lexer.cpp"
+#   line 22440 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22539,7 +22458,7 @@ _6324:
 self_send(TKN_GREATER_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22543 "tiny_lexer.cpp"
+#   line 22462 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22559,7 +22478,7 @@ _6554:
 self_send(TKN_LESS);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22563 "tiny_lexer.cpp"
+#   line 22482 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22581,7 +22500,7 @@ _6314:
 self_send(TKN_LESS_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22585 "tiny_lexer.cpp"
+#   line 22504 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22601,7 +22520,7 @@ _6589:
 self_send(TKN_NOT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22605 "tiny_lexer.cpp"
+#   line 22524 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22621,7 +22540,7 @@ _6647:
 self_send(TKN_UNION);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22625 "tiny_lexer.cpp"
+#   line 22544 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22643,7 +22562,7 @@ _6311:
 QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_UNDEF);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22647 "tiny_lexer.cpp"
+#   line 22566 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22663,7 +22582,7 @@ _6610:
 self_send(TKN_NOT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22667 "tiny_lexer.cpp"
+#   line 22586 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22685,7 +22604,7 @@ _6313:
 self_send(TKN_NOT_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22689 "tiny_lexer.cpp"
+#   line 22608 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22705,7 +22624,7 @@ _6778:
 self_send(TKN_STRUCT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22709 "tiny_lexer.cpp"
+#   line 22628 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22725,7 +22644,7 @@ _6752:
 self_send(TKN_ENUM);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22729 "tiny_lexer.cpp"
+#   line 22648 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22898,7 +22817,7 @@ _6659:
 self_send(TKN_TRY);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22902 "tiny_lexer.cpp"
+#   line 22821 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22920,7 +22839,7 @@ _6349:
 QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_ENDIF);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22924 "tiny_lexer.cpp"
+#   line 22843 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22940,7 +22859,7 @@ _6614:
 self_send(TKN_NOT_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22944 "tiny_lexer.cpp"
+#   line 22863 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22960,7 +22879,7 @@ _6557:
 self_send(TKN_BITOR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 22964 "tiny_lexer.cpp"
+#   line 22883 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -22997,7 +22916,7 @@ _6437:
 self_send(TKN_CATCH);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 23001 "tiny_lexer.cpp"
+#   line 22920 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -23017,7 +22936,7 @@ _6452:
 self_send(TKN_CONTINUE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 23021 "tiny_lexer.cpp"
+#   line 22940 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -23037,7 +22956,7 @@ _6402:
 self_send(TKN_BITOR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 23041 "tiny_lexer.cpp"
+#   line 22960 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -23059,7 +22978,7 @@ _6343:
 self_send(TKN_OR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 23063 "tiny_lexer.cpp"
+#   line 22982 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -23096,7 +23015,7 @@ _6409:
 self_send(TKN_OR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 23100 "tiny_lexer.cpp"
+#   line 23019 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -23118,7 +23037,7 @@ _6344:
 self_send(TKN_OR_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 23122 "tiny_lexer.cpp"
+#   line 23041 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -23138,7 +23057,7 @@ _6714:
 self_send(TKN_PUBLIC);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 23142 "tiny_lexer.cpp"
+#   line 23061 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -23158,7 +23077,7 @@ _6413:
 self_send(TKN_OR_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 23162 "tiny_lexer.cpp"
+#   line 23081 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -23178,7 +23097,7 @@ _6549:
 self_send(TKN_XOR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 23182 "tiny_lexer.cpp"
+#   line 23101 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -23198,7 +23117,7 @@ _6621:
 self_send(TKN_XOR);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 23202 "tiny_lexer.cpp"
+#   line 23121 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -23220,7 +23139,7 @@ _6322:
 self_send(TKN_XOR_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 23224 "tiny_lexer.cpp"
+#   line 23143 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -23240,7 +23159,7 @@ _6704:
 self_send(TKN_PRIVATE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 23244 "tiny_lexer.cpp"
+#   line 23163 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -23260,7 +23179,7 @@ _6626:
 self_send(TKN_XOR_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 23264 "tiny_lexer.cpp"
+#   line 23183 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -23282,7 +23201,7 @@ _6333:
 self_send(TKN_COMPL);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 23286 "tiny_lexer.cpp"
+#   line 23205 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -23302,7 +23221,7 @@ _6600:
 self_send(TKN_NEW);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 23306 "tiny_lexer.cpp"
+#   line 23225 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -23322,7 +23241,7 @@ _6457:
 self_send(TKN_COMPL);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 23326 "tiny_lexer.cpp"
+#   line 23245 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -23342,7 +23261,7 @@ _6594:
 self_send(TKN_BITAND);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 23346 "tiny_lexer.cpp"
+#   line 23265 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -23362,7 +23281,7 @@ _6471:
 self_send(TKN_DELETE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 23366 "tiny_lexer.cpp"
+#   line 23285 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -23382,7 +23301,7 @@ _6400:
 self_send(TKN_BITAND);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 23386 "tiny_lexer.cpp"
+#   line 23305 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -23404,7 +23323,7 @@ _6348:
 self_send(TKN_AND);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 23408 "tiny_lexer.cpp"
+#   line 23327 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -23424,7 +23343,7 @@ _6537:
 self_send(TKN_AND);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 23428 "tiny_lexer.cpp"
+#   line 23347 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -23444,7 +23363,7 @@ _6709:
 self_send(TKN_PROTECT);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 23448 "tiny_lexer.cpp"
+#   line 23367 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -23466,7 +23385,7 @@ _6351:
 self_send(TKN_AND_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 23470 "tiny_lexer.cpp"
+#   line 23389 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -23486,7 +23405,7 @@ _6666:
 self_send(TKN_TEMPLATE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 23490 "tiny_lexer.cpp"
+#   line 23409 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -23506,7 +23425,7 @@ _6727:
 self_send(TKN_RETURN);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 23510 "tiny_lexer.cpp"
+#   line 23429 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -23526,7 +23445,7 @@ _6541:
 self_send(TKN_AND_EQ);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 23530 "tiny_lexer.cpp"
+#   line 23449 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -23544,7 +23463,7 @@ _4699: /* TERMINAL: END_OF_STREAM */
 QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, LexemeNull, LexemeNull);
 self_send(TKN_TERMINATION);
 
-#   line 23548 "tiny_lexer.cpp"
+#   line 23467 "tiny_lexer.cpp"
 
     }
      /* End of Stream causes a return from the lexical analyzer, so that no
@@ -23577,7 +23496,7 @@ QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_star
 self_send(TKN_FAILURE);
 QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
-#   line 23581 "tiny_lexer.cpp"
+#   line 23500 "tiny_lexer.cpp"
 
     }
      goto __REENTRY_PREPARATION;
@@ -24451,6 +24370,7 @@ QUEX_NAME(PREPROCESSOR_analyzer_function)(QUEX_TYPE_ANALYZER* me)
 __REENTRY:
     me->buffer._lexeme_start_p = me->buffer._input_p;
     QUEX_LEXEME_TERMINATING_ZERO_UNDO(&me->buffer);
+
 INIT_STATE_TRANSITION_BLOCK:
     __quex_debug_init_state();
     input = *(me->buffer._input_p);
@@ -24558,6 +24478,7 @@ _7918:
     ++(me->buffer._input_p);
     goto INIT_STATE_TRANSITION_BLOCK;
 
+
     __quex_assert_no_passage();
 _7967:
     __quex_debug_state(7967);
@@ -24637,7 +24558,7 @@ _7952:
     __quex_debug_state(7952);
     ++(me->buffer._input_p);
     input = *(me->buffer._input_p);
-    if( input < 0x22) {
+    if( input < 0xB) {
         switch( input ) {
             case 0x0:     QUEX_GOTO_RELOAD(__RELOAD_FORWARD, QUEX_LABEL(7952), QUEX_LABEL(8275));
             case 0x2:     
@@ -24647,41 +24568,20 @@ _7952:
             case 0x6:     
             case 0x7:     
             case 0x8:     
-            case 0x9:     
-            case 0xB:     
-            case 0xC:     
-            case 0xD:     
-            case 0xE:     
-            case 0xF:     
-            case 0x10:    
-            case 0x11:    
-            case 0x12:    
-            case 0x13:    
-            case 0x14:    
-            case 0x15:    
-            case 0x16:    
-            case 0x17:    
-            case 0x18:    
-            case 0x19:    
-            case 0x1A:    
-            case 0x1B:    
-            case 0x1C:    
-            case 0x1D:    
-            case 0x1E:    
-            case 0x1F:    
-            case 0x20:    
-            case 0x21:    goto _7952;
+            case 0x9:     goto _7952;
         }
     } else {
-        if( input == 0x22 ) {
-            goto _6317;    /* '"' */
+
+        if( input < 0x22 ) {
+            goto _7952;
+        } else if( input == 0x22 ) {
+            goto _6317;
         } else if( input < 0x5C ) {
-            goto _7952;    /* ['#', '['] */
+            goto _7952;
         } else if( input == 0x5C ) {
-            goto _8118;    /* '\' */
-        } else if( input < 0x100 ) {
-            goto _7952;    /* [']', 'ÿ'] */
-        }
+            goto _8118;
+        } else {
+            goto _7952;}
     }
 _8275:
 goto __TERMINAL_ROUTER; 
@@ -24720,7 +24620,7 @@ _8239:
     __quex_debug_state(8239);
     ++(me->buffer._input_p);
     input = *(me->buffer._input_p);
-    if( input < 0xB) {
+    if( input < 0xA) {
         switch( input ) {
             case 0x0:     QUEX_GOTO_RELOAD(__RELOAD_FORWARD, QUEX_LABEL(8239), QUEX_LABEL(8277));
             case 0x2:     
@@ -24731,16 +24631,17 @@ _8239:
             case 0x7:     
             case 0x8:     
             case 0x9:     goto _8239;
-            case 0xA:     goto _8269;
         }
     } else {
-        if( input < 0x5C ) {
-            goto _8239;    /* ['\v', '['] */
+
+        if( input == 0xA ) {
+            goto _8269;
+        } else if( input < 0x5C ) {
+            goto _8239;
         } else if( input == 0x5C ) {
-            goto _8243;    /* '\' */
-        } else if( input < 0x100 ) {
-            goto _8239;    /* [']', 'ÿ'] */
-        }
+            goto _8243;
+        } else {
+            goto _8239;}
     }
 _8277:
 goto __TERMINAL_ROUTER; 
@@ -24813,13 +24714,13 @@ _8243:
                 case 0x20:    goto _8243;
             }
         } else {
+
             if( input < 0x5C ) {
-                goto _8239;    /* ['!', '['] */
+                goto _8239;
             } else if( input == 0x5C ) {
-                goto _8243;    /* '\' */
-            } else if( input < 0x100 ) {
-                goto _8239;    /* [']', 'ÿ'] */
-            }
+                goto _8243;
+            } else {
+                goto _8239;}
         }
     }
 _8279:
@@ -24977,7 +24878,7 @@ _8244:
     input = *(me->buffer._input_p);
     last_acceptance                = QUEX_LABEL(8284);
     last_acceptance_input_position = QUEX_NAME(Buffer_tell_memory_adr)(&me->buffer);
-    if( input < 0xB) {
+    if( input < 0xA) {
         switch( input ) {
             case 0x0:     QUEX_GOTO_RELOAD(__RELOAD_FORWARD, QUEX_LABEL(8244), QUEX_LABEL(8285));
             case 0x2:     
@@ -24988,16 +24889,17 @@ _8244:
             case 0x7:     
             case 0x8:     
             case 0x9:     goto _8239;
-            case 0xA:     goto _8269;
         }
     } else {
-        if( input < 0x5C ) {
-            goto _8239;    /* ['\v', '['] */
+
+        if( input == 0xA ) {
+            goto _8269;
+        } else if( input < 0x5C ) {
+            goto _8239;
         } else if( input == 0x5C ) {
-            goto _8243;    /* '\' */
-        } else if( input < 0x100 ) {
-            goto _8239;    /* [']', 'ÿ'] */
-        }
+            goto _8243;
+        } else {
+            goto _8239;}
     }
 _8285:
 goto _8284;
@@ -25145,7 +25047,7 @@ _8120:
     __quex_debug_state(8120);
     ++(me->buffer._input_p);
     input = *(me->buffer._input_p);
-    if( input < 0x20) {
+    if( input < 0xE) {
         switch( input ) {
             case 0x0:     QUEX_GOTO_RELOAD(__RELOAD_FORWARD, QUEX_LABEL(8120), QUEX_LABEL(8292));
             case 0x2:     
@@ -25160,40 +25062,41 @@ _8120:
             case 0xB:     
             case 0xC:     goto _7952;
             case 0xD:     goto _8123;
-            case 0xE:     
-            case 0xF:     
-            case 0x10:    
-            case 0x11:    
-            case 0x12:    
-            case 0x13:    
-            case 0x14:    
-            case 0x15:    
-            case 0x16:    
-            case 0x17:    
-            case 0x18:    
-            case 0x19:    
-            case 0x1A:    
-            case 0x1B:    
-            case 0x1C:    
-            case 0x1D:    
-            case 0x1E:    
-            case 0x1F:    goto _7952;
         }
     } else {
-        if( input < 0x23) {
+        if( input < 0x22) {
             switch( input ) {
+                case 0xE:     
+                case 0xF:     
+                case 0x10:    
+                case 0x11:    
+                case 0x12:    
+                case 0x13:    
+                case 0x14:    
+                case 0x15:    
+                case 0x16:    
+                case 0x17:    
+                case 0x18:    
+                case 0x19:    
+                case 0x1A:    
+                case 0x1B:    
+                case 0x1C:    
+                case 0x1D:    
+                case 0x1E:    
+                case 0x1F:    goto _7952;
                 case 0x20:    goto _8120;
                 case 0x21:    goto _7952;
-                case 0x22:    goto _6317;
             }
         } else {
-            if( input < 0x5C ) {
-                goto _7952;    /* ['#', '['] */
+
+            if( input == 0x22 ) {
+                goto _6317;
+            } else if( input < 0x5C ) {
+                goto _7952;
             } else if( input == 0x5C ) {
-                goto _8118;    /* '\' */
-            } else if( input < 0x100 ) {
-                goto _7952;    /* [']', 'ÿ'] */
-            }
+                goto _8118;
+            } else {
+                goto _7952;}
         }
     }
 _8292:
@@ -28234,7 +28137,7 @@ _8245:
     __quex_debug_state(8245);
     ++(me->buffer._input_p);
     input = *(me->buffer._input_p);
-    if( input < 0xB) {
+    if( input < 0xA) {
         switch( input ) {
             case 0x0:     QUEX_GOTO_RELOAD(__RELOAD_FORWARD, QUEX_LABEL(8245), QUEX_LABEL(8337));
             case 0x2:     
@@ -28245,16 +28148,17 @@ _8245:
             case 0x7:     
             case 0x8:     
             case 0x9:     goto _8239;
-            case 0xA:     goto _8244;
         }
     } else {
-        if( input < 0x5C ) {
-            goto _8239;    /* ['\v', '['] */
+
+        if( input == 0xA ) {
+            goto _8244;
+        } else if( input < 0x5C ) {
+            goto _8239;
         } else if( input == 0x5C ) {
-            goto _8243;    /* '\' */
-        } else if( input < 0x100 ) {
-            goto _8239;    /* [']', 'ÿ'] */
-        }
+            goto _8243;
+        } else {
+            goto _8239;}
     }
 _8337:
 goto __TERMINAL_ROUTER; 
@@ -29108,7 +29012,7 @@ _7932:
     __quex_debug_state(7932);
     ++(me->buffer._input_p);
     input = *(me->buffer._input_p);
-    if( input < 0x28) {
+    if( input < 0x27) {
         switch( input ) {
             case 0x0:     QUEX_GOTO_RELOAD(__RELOAD_FORWARD, QUEX_LABEL(7932), QUEX_LABEL(8356));
             case 0x2:     
@@ -29148,16 +29052,17 @@ _7932:
             case 0x24:    
             case 0x25:    
             case 0x26:    goto _8235;
-            case 0x27:    goto _6328;
         }
     } else {
-        if( input < 0x5C ) {
-            goto _8235;    /* ['(', '['] */
+
+        if( input == 0x27 ) {
+            goto _6328;
+        } else if( input < 0x5C ) {
+            goto _8235;
         } else if( input == 0x5C ) {
-            goto _8237;    /* '\' */
-        } else if( input < 0x100 ) {
-            goto _8235;    /* [']', 'ÿ'] */
-        }
+            goto _8237;
+        } else {
+            goto _8235;}
     }
 _8356:
 goto __TERMINAL_ROUTER; 
@@ -39925,7 +39830,7 @@ _8123:
     __quex_debug_state(8123);
     ++(me->buffer._input_p);
     input = *(me->buffer._input_p);
-    if( input < 0x23) {
+    if( input < 0x22) {
         switch( input ) {
             case 0x0:     QUEX_GOTO_RELOAD(__RELOAD_FORWARD, QUEX_LABEL(8123), QUEX_LABEL(8516));
             case 0x2:     
@@ -39960,16 +39865,17 @@ _8123:
             case 0x1F:    
             case 0x20:    
             case 0x21:    goto _7952;
-            case 0x22:    goto _6317;
         }
     } else {
-        if( input < 0x5C ) {
-            goto _7952;    /* ['#', '['] */
+
+        if( input == 0x22 ) {
+            goto _6317;
+        } else if( input < 0x5C ) {
+            goto _7952;
         } else if( input == 0x5C ) {
-            goto _8118;    /* '\' */
-        } else if( input < 0x100 ) {
-            goto _7952;    /* [']', 'ÿ'] */
-        }
+            goto _8118;
+        } else {
+            goto _7952;}
     }
 _8516:
 goto __TERMINAL_ROUTER; 
