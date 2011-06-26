@@ -10,6 +10,7 @@
 
 
 enum {ASSOC_NONE=0, ASSOC_LEFT, ASSOC_RIGHT};
+enum {OP_BINARY=0, OP_UNARY};
 
 struct Operator
 {
@@ -52,8 +53,8 @@ public:
     void AddDefaultOperators()
     {
 
-        AddOperator(TKN_L_PAREN,       0, ASSOC_NONE, 0, NULL);
-        AddOperator(TKN_R_PAREN,       0, ASSOC_NONE, 0, NULL);
+        //AddOperator(TKN_L_PAREN,       0, ASSOC_NONE, 0, NULL);
+        //AddOperator(TKN_R_PAREN,       0, ASSOC_NONE, 0, NULL);
 
         AddOperator(TKN_NOT,           11, ASSOC_RIGHT, 1, eval_not);
         AddOperator(TKN_HASH,          10, ASSOC_RIGHT, 1, eval_uminus);
@@ -83,11 +84,11 @@ public:
         AddOperator(TKN_OR,            1, ASSOC_LEFT, 0, eval_or);
     }
 
-    Operator *GetOperatorInfo(QUEX_TYPE_TOKEN_ID ch)
+    Operator *GetOperatorInfo(QUEX_TYPE_TOKEN_ID ch, int unary = 0)
     {
         for(unsigned int i=0; i<m_Operators.size(); ++i)
         {
-            if(m_Operators[i].op==ch)
+            if(m_Operators[i].op==ch && m_Operators[i].unary==unary )
                 return &(m_Operators[i]);
         }
         return NULL;
@@ -127,9 +128,9 @@ public:
     static OperatorPrecedenceTable s_Operators;
 
 
-    Operator *GetOperator(QUEX_TYPE_TOKEN_ID ch)
+    Operator *GetOperator(QUEX_TYPE_TOKEN_ID ch, int a)
     {
-        return s_Operators.GetOperatorInfo(ch);
+        return s_Operators.GetOperatorInfo(ch, a);
     }
 
 
@@ -146,10 +147,22 @@ public:
     int PopNumberStack();
     void DumpStack();
 
+    quex::Token *m_InputToken;
+
 
     bool ShuntOperator(Operator *op);
 
     int expression_eval(quex::Token *tokenInput);
+
+    int Exp(int pre);
+
+
+    int Expect(QUEX_TYPE_TOKEN_ID op);
+    int P();
+    int MakeNode(Operator *op, int v1, int v2);
+    quex::Token * Next();
+    void Consume();
+
 
 };
 
