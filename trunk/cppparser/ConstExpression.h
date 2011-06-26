@@ -57,15 +57,18 @@ public:
         //AddOperator(TKN_R_PAREN,       0, ASSOC_NONE, 0, NULL);
 
         AddOperator(TKN_NOT,           11, ASSOC_RIGHT, 1, eval_not);
-        AddOperator(TKN_HASH,          10, ASSOC_RIGHT, 1, eval_uminus);
+        //AddOperator(TKN_HASH,          10, ASSOC_RIGHT, 1, eval_uminus);
 
 
         AddOperator(TKN_MULT,          9, ASSOC_LEFT, 0, eval_mul);
         AddOperator(TKN_DIV,           9, ASSOC_LEFT, 0, eval_div);
         AddOperator(TKN_MODULO,        9, ASSOC_LEFT, 0, eval_mod);
 
-        AddOperator(TKN_PLUS,          8, ASSOC_LEFT, 0, eval_add);
-        AddOperator(TKN_MINUS,         8, ASSOC_LEFT, 0, eval_sub);
+        AddOperator(TKN_MINUS,         8, ASSOC_LEFT, 1, eval_uminus);
+
+        AddOperator(TKN_PLUS,          7, ASSOC_LEFT, 0, eval_add);
+        AddOperator(TKN_MINUS,         7, ASSOC_LEFT, 0, eval_sub);
+
 
 //    AddOperator(TKN_L_SHIFT,       7, ASSOC_LEFT, 0, NULL);
 //    AddOperator(TKN_R_SHIFT,       7, ASSOC_LEFT, 0, NULL);
