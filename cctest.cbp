@@ -105,9 +105,6 @@
 			<Option target="Release" />
 			<Option target="preprocessor test" />
 		</Unit>
-		<Unit filename="cppparser\expression_eval.cpp">
-			<Option target="ExpressionDebug" />
-		</Unit>
 		<Unit filename="cppparser\expression_main.cpp">
 			<Option target="ExpressionDebug" />
 		</Unit>

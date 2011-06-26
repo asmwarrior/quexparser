@@ -212,201 +212,141 @@ void ConstExpression::DumpStack()
 }
 
 
-int ConstExpression::expression_eval(quex::Token *tokenInput)
+
+
+
+/**
+Eparser is
+   var t : Tree
+   t := Exp( 0 )
+   expect( end )
+   return t
+
+Exp( p ) is
+    var t : Tree
+    t := P
+    while next is a binary operator and prec(binary(next)) >= p
+       const op := binary(next)
+       consume
+       const q := case associativity(op)
+                  of Right: prec( op )
+                     Left:  1+prec( op )
+       const t1 := Exp( q )
+       t := mkNode( op, t, t1)
+    return t
+
+P is
+    if next is a unary operator
+         const op := unary(next)
+         consume
+         q := prec( op )
+         const t := Exp( q )
+         return mkNode( op, t )
+    else if next = "("
+         consume
+         const t := Exp( 0 )
+         expect ")"
+         return t
+    else if next is a v
+         const t := mkLeaf( next )
+         consume
+         return t
+    else
+         error
+**/
+
+
+
+int ConstExpression::Exp(int pre)
 {
-    // a pointer walk through the expression input from left to right
-    quex::Token *expr;
+    int t = P();
 
-    /* Dummy operator to mark start */
-    Operator nilOperator = {TKN_ASM, 0, ASSOC_NONE, 0, NULL};
-    Operator    * lastOperatorType =&nilOperator ;
-
-
-    Operator *op=NULL;
-    int n1, n2;
-
-
-    for(expr=tokenInput; expr->type_id()!=TKN_TERMINATION; ++expr)
+    Operator *op;
+    while( Next()->type_id()>0
+          && (op=GetOperator(Next()->type_id(),0))
+          && op->prec >= pre)
     {
-
-        op = GetOperator(expr->type_id());
-
-        // check if it is a valid operator, otherwise, it should be a number
-
-        if( op )//this is an operator or left/right parenthesis
-        {
-            // check if it was a unary operator
-            if( lastOperatorType
-               && (lastOperatorType == &nilOperator
-                  || lastOperatorType->op == TKN_L_PAREN
-                  || lastOperatorType->op == TKN_PLUS
-                  || lastOperatorType->op == TKN_MINUS))
-            {
-                // currently, only three type of unary operators are used
-                // they are: unary - ; unary + ; unary !
-                // this minus is a negative unary operator
-                if(op->op==TKN_MINUS)
-                    op=GetOperator(TKN_HASH); // unary -
-                else if (op->op==TKN_NOT)
-                    ;                         // unary !, handle this normally
-                else if (op->op==TKN_PLUS)
-                    continue;                 // just skip the unary +
-                else if (op->op==TKN_L_PAREN)
-                    ;                         //handle this normally
-                else
-                {
-                    fprintf(stderr, "ERROR: not allowed unary operator (%c)\n", op->op);
-                    return 0;
-                }
-            }
-            //handling this operator
-            if(!ShuntOperator(op))
-                return 0;
-            //save the current op
-
-            lastOperatorType = op;
-        }
-        else if( expr->type_id() == TKN_NUMBER ) // if it is not an operator, it should be a number
-        {
-            PushNumberStack(atoi(expr->get_text().c_str()));
-            lastOperatorType = NULL;
-        }
-        else
-        {
-            fprintf(stderr, "ERROR: Syntax error, the OP should be either an op or a number\n");
-            return 0;
-        }
-        //debug only
-        DumpStack();
+        Consume();
+        int q;
+        if(op->assoc == ASSOC_LEFT)
+            q = op->prec+1;
+        else if (op->assoc == ASSOC_RIGHT)
+            q = op->prec;
+        int t1 = Exp(q);
+        t = MakeNode( op, t, t1);
     }
+    return t;
 
+}
 
-    while(m_OperatorStackSize)
+/**
+expect( tok ) is
+   if next = tok
+       consume
+   else
+       error
+*/
+int ConstExpression::Expect(QUEX_TYPE_TOKEN_ID op)
+{
+    if (Next()->type_id() == op)
+        Consume();
+    else
+        exit(0);
+
+}
+int ConstExpression::P()
+{
+    Operator *op;
+    if(op=GetOperator(Next()->type_id(),1)) // unary
     {
-        op=PopOperatorStack();
-        n1=PopNumberStack();
-        if(op->unary)
-            PushNumberStack(op->eval(n1, 0));
-        else
-        {
-            n2=PopNumberStack();
-            PushNumberStack(op->eval(n2, n1));
-        }
+        Consume();
+        int q = op->prec;
+        int t = Exp(q);
+        return MakeNode(op,t,0);
     }
-
-    if(m_NumberStackSize!=1)
+    else if(Next()->type_id()==TKN_L_PAREN)
     {
-        fprintf(stderr, "ERROR: Number stack has %d elements after evaluation. Should be 1.\n", m_NumberStackSize);
-        return EXIT_FAILURE;
+        Consume();
+        int t = Exp(0);
+        Expect(TKN_R_PAREN);
+        return t;
     }
-    printf("%d\n", m_NumberStack[0]);
+    else if(Next()->type_id()==TKN_NUMBER)
+    {
+        int t = atoi(Next()->get_text().c_str());
+        Consume();
+        return t;
+    }
+    else
+        exit(0);
 
-    // need to clear all the stack!!
+}
+int ConstExpression::MakeNode(Operator *op, int v1, int v2)
+{
+    return op->eval(v1,v2);
+}
 
-    for (int i = 0; i< MAXOPSTACK; i++)
-        m_OperatorStack[i] = NULL;
-    m_OperatorStackSize=0;
+quex::Token *ConstExpression::Next()
+{
+        return m_InputToken;
+}
 
-    for (int i = 0; i< MAXNUMSTACK; i++)
-        m_NumberStack[i]=0;
-    m_NumberStackSize=0;
-
-
-    return EXIT_SUCCESS;
+void ConstExpression::Consume()
+{
+    if(m_InputToken->type_id()!=TKN_TERMINATION)
+        m_InputToken++;
 }
 
 
 
 
-bool ConstExpression::ShuntOperator(Operator *op)
+int ConstExpression::expression_eval(quex::Token *tokenInput)
 {
-    Operator *pop;
-    int n1, n2;
-
-    if(!op)
-    {
-        fprintf(stderr, "ERROR: op is NULL\n");
-        return false;
-    }
-
-    // handling parentheses firstly, since they have no assoc
-    if(op->op==TKN_L_PAREN)
-    {
-        return PushOperatorStack(op);
-
-    }
-    else if(op->op==TKN_R_PAREN)
-    {
-        while(m_OperatorStackSize>0 && m_OperatorStack[m_OperatorStackSize-1]->op!=TKN_L_PAREN)
-        {
-            pop=PopOperatorStack();
-            n1=PopNumberStack();
-
-            if(pop->unary)
-                PushNumberStack(pop->eval(n1, 0));
-            else
-            {
-                n2=PopNumberStack();
-                PushNumberStack(pop->eval(n2, n1));
-            }
-        }
-
-        if(!(pop=PopOperatorStack()) || pop->op!=TKN_L_PAREN)
-        {
-            fprintf(stderr, "ERROR: Stack error. No matching \'(\'\n");
-            return false;
-        }
-        return true;
-    }
-
-    if(op->assoc==ASSOC_RIGHT)
-    {
-
-        while (m_OperatorStackSize && op->prec < m_OperatorStack[m_OperatorStackSize-1]->prec )
-        {
-
-            //when going here, means the meeted op has lower precedence as on the OperatorStack
-            //so, we just pop up
-
-            //pay attention: equal is not allowed, this means for a right_assoc op, we just push!
-            //so once the op stack was poped, the later pushed op (as we move from left to right) will
-            //be calculated firstly, this confirmed the right_assoc rule.
-
-            pop=PopOperatorStack();// this will internally change the nopstack
-            n1=PopNumberStack();// this will internally change the nnumstack
-
-            if(pop->unary)
-                PushNumberStack(pop->eval(n1, 0));
-            else
-            {
-                n2=PopNumberStack();
-                PushNumberStack(pop->eval(n2, n1));
-            }
-        }
-    }
-    else     //left assoc
-    {
-        while (m_OperatorStackSize && op->prec <= m_OperatorStack[m_OperatorStackSize-1]->prec )
-        {
-
-            // if it is a left_assoc op, then equal precedence is allowed, once meat this, the op in the
-            // stack should be calculated firstly (thus, the left op was calculated firstly).
-
-            pop=PopOperatorStack();
-            n1=PopNumberStack();
-            if(pop->unary)
-                PushNumberStack(pop->eval(n1, 0));
-            else
-            {
-                n2=PopNumberStack();
-                PushNumberStack(pop->eval(n2, n1));
-            }
-        }
-    }
-    if(!PushOperatorStack(op))
-        return false;
-
-    return true;
+    m_InputToken = tokenInput;
+    int t = Exp(0);
+    Expect(TKN_TERMINATION);
+    std::cout<<t<<std::endl;
+    return EXIT_SUCCESS;
 }
 
 
