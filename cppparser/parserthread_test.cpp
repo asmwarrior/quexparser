@@ -53,6 +53,7 @@ cc_string GetSymbolKindString(SymbolKind type)
         case  tkDoWhile         : return _T("do while");
         case  tkParameter       : return _T("parameter");
     }
+    return _T("");
 }
 
 
@@ -60,11 +61,16 @@ cc_string GetSymbolKindString(SymbolKind type)
 ParserThread::ParserThread(const cc_string& bufferOrFilename)
 {
     m_Preprocessor.LoadFile(bufferOrFilename);
+
+#ifdef PERFORMANCE_TEST
+    m_Preprocessor.RunTestPerformance();
+#else
     m_Preprocessor.Preprocess();
-//    std::cout<<"------------DUMP MACRO----------------------------\n";
-//    m_Preprocessor.DumpMacroTable();
-//    std::cout<<"------------DUMP Token List----------------------- \n";
-//    m_Preprocessor.DumpTokenList();
+    std::cout<<"------------DUMP MACRO----------------------------\n";
+    m_Preprocessor.DumpMacroTable();
+    std::cout<<"------------DUMP Token List----------------------- \n";
+    m_Preprocessor.DumpTokenList();
+#endif
 }
 
 ParserThread::~ParserThread()
@@ -1116,7 +1122,7 @@ void ParserThread::TestFunction()
 Symbol *ParserThread::DoAddToken(SymbolKind kind, Token & tok)
 {
     // add token
-    for(int i=0;i<m_ContextStack.size();i++)
+    for(size_t i=0;i<m_ContextStack.size();i++)
         cout<<"   ";
 
     cout<<GetSymbolKindString(kind)<<" "<<tok.get_text()<<" "<<tok.line_number()<<":"<<tok.column_number()<<endl;
@@ -1133,8 +1139,8 @@ Symbol *ParserThread::DoAddToken(SymbolKind kind, Token & tok)
 
 int main()
 {
-    ParserThread parser("test_vector.cpp");
-    parser.Parse();
+    ParserThread parser("Editor.cxx");
+    //parser.Parse();
     return 0;
 }
 
