@@ -262,7 +262,7 @@ void Preprocessor::AddMacroDefinition()
     if(token.type_id()==TKN_L_PAREN)   //function like macro
     {
         entry.m_IsFunctionLike=true;
-        //read the argument
+        //read the formal parameters
         do
         {
             m_Tokenizer.FetchToken(&token);
