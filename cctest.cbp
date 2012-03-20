@@ -127,13 +127,12 @@
 		<Unit filename="cppparser\parserthread.h">
 			<Option target="Debug" />
 			<Option target="Release" />
-			<Option target="preprocessor test" />
 		</Unit>
 		<Unit filename="cppparser\parserthread_test.cpp">
-			<Option target="preprocessor test" />
+			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="cppparser\parserthread_test.h">
-			<Option target="preprocessor test" />
+			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="cppparser\preprocessor.cpp">
 			<Option target="Debug" />
@@ -158,15 +157,19 @@
 			<Option target="Release" />
 			<Option target="preprocessor test" />
 		</Unit>
+		<Unit filename="cppparser\symbol.cpp">
+			<Option target="preprocessor test" />
+		</Unit>
+		<Unit filename="cppparser\symbol.h">
+			<Option target="preprocessor test" />
+		</Unit>
 		<Unit filename="cppparser\token.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
-			<Option target="preprocessor test" />
 		</Unit>
 		<Unit filename="cppparser\token.h">
 			<Option target="Debug" />
 			<Option target="Release" />
-			<Option target="preprocessor test" />
 		</Unit>
 		<Unit filename="cppparser\tokenizer.cpp">
 			<Option target="Debug" />
