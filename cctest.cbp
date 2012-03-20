@@ -77,6 +77,16 @@
 					<Add option="-DQUEX_OPTION_ASSERTS_DISABLED" />
 				</Compiler>
 			</Target>
+			<Target title="parser test">
+				<Option output="bin\Debug\parsertest" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Debug\" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-DQUEX_OPTION_ASSERTS_DISABLED" />
+				</Compiler>
+			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
@@ -104,21 +114,25 @@
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="preprocessor test" />
+			<Option target="parser test" />
 		</Unit>
 		<Unit filename="cppparser\expression_main.cpp">
 			<Option target="ExpressionDebug" />
 		</Unit>
 		<Unit filename="cppparser\expressionevaluator.cpp">
 			<Option target="preprocessor test" />
+			<Option target="parser test" />
 		</Unit>
 		<Unit filename="cppparser\expressionevaluator.h">
 			<Option target="preprocessor test" />
+			<Option target="parser test" />
 		</Unit>
 		<Unit filename="cppparser\lexer\tiny_lexer.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ExpressionDebug" />
 			<Option target="preprocessor test" />
+			<Option target="parser test" />
 		</Unit>
 		<Unit filename="cppparser\parserthread.cpp">
 			<Option target="Debug" />
@@ -129,20 +143,22 @@
 			<Option target="Release" />
 		</Unit>
 		<Unit filename="cppparser\parserthread_test.cpp">
-			<Option target="&lt;{~None~}&gt;" />
+			<Option target="parser test" />
 		</Unit>
 		<Unit filename="cppparser\parserthread_test.h">
-			<Option target="&lt;{~None~}&gt;" />
+			<Option target="parser test" />
 		</Unit>
 		<Unit filename="cppparser\preprocessor.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="preprocessor test" />
+			<Option target="parser test" />
 		</Unit>
 		<Unit filename="cppparser\preprocessor.h">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="preprocessor test" />
+			<Option target="parser test" />
 		</Unit>
 		<Unit filename="cppparser\preprocessor_test.cpp">
 			<Option target="preprocessor test" />
@@ -151,17 +167,21 @@
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="preprocessor test" />
+			<Option target="parser test" />
 		</Unit>
 		<Unit filename="cppparser\searchtree.h">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="preprocessor test" />
+			<Option target="parser test" />
 		</Unit>
 		<Unit filename="cppparser\symbol.cpp">
 			<Option target="preprocessor test" />
+			<Option target="parser test" />
 		</Unit>
 		<Unit filename="cppparser\symbol.h">
 			<Option target="preprocessor test" />
+			<Option target="parser test" />
 		</Unit>
 		<Unit filename="cppparser\token.cpp">
 			<Option target="Debug" />
@@ -175,11 +195,13 @@
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="preprocessor test" />
+			<Option target="parser test" />
 		</Unit>
 		<Unit filename="cppparser\tokenizer.h">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="preprocessor test" />
+			<Option target="parser test" />
 		</Unit>
 		<Unit filename="frame.cpp">
 			<Option target="GUITester" />
