@@ -221,7 +221,7 @@ bool ParserThread::Parse()
     }
     m_SymbolTree.Dump();
     cc_string statement = "aaa.bbb.ccc";
-    StatementSolver state(statement,&m_SymbolTree);
+    //StatementSolver state(statement,&m_SymbolTree);
     return true;
 }
 
@@ -1139,8 +1139,8 @@ Symbol *ParserThread::DoAddToken(SymbolKind kind, Token & tok)
 
 int main()
 {
-    ParserThread parser("Editor.cxx");
-    //parser.Parse();
+    ParserThread parser("test_function.cpp");
+    parser.Parse();
     return 0;
 }
 
