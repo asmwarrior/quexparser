@@ -9,7 +9,6 @@ using namespace std;
 void DumpExp(vector<Token> & exp);
 
 #include "expressionevaluator.h"
-
 #include "timer.h"
 
 #define PREPROCESSOR_DEBUG 0
@@ -78,6 +77,7 @@ Preprocessor::Preprocessor()
 Preprocessor::~Preprocessor()
 {
     std::list<Token*>::iterator it;
+
     //clear list
     for ( it=m_TokenList.begin() ; it != m_TokenList.end(); it++ )
     {
@@ -88,7 +88,7 @@ Preprocessor::~Preprocessor()
 void Preprocessor::DumpTokenList()
 {
     std::list<Token*>::iterator it;
-    //clear list
+
     for ( it=m_TokenList.begin() ; it != m_TokenList.end(); it++ )
     {
         std::cout<<(*it)->line_number()<<":"<<(*it)->column_number()<<" "<<*(*it)<<std::endl;
@@ -183,21 +183,18 @@ void  Preprocessor::Preprocess()
             default:
                 delete pToken;
                 SkipCurrentPreprocessorDirective();
-
             }
-
-
         }
         else if( pToken->type_id() == TKN_IDENTIFIER )
         {
             if (CheckMacroExist(pToken->get_text()))
             {
-                //We should do a macro replacement, so
+                //We should do a macro replacement
                 Token tok = *pToken;
                 delete pToken;
                 //macro exist
                 MacroDefine &def = m_MacroTable[tok.get_text()];
-                if(def.m_IsFunctionLike == true) //function like
+                if(def.m_IsFunctionLike == true) //function like macro
                 {
 
                     //read argument
@@ -209,7 +206,7 @@ void  Preprocessor::Preprocess()
                     vector<Token> expand;
                     MacroExpansion(expand,def,arg);
 
-                    //finally, insert the expended
+                    //finally, insert the expanded tokens
                     for(vector<Token>::iterator itExpend=expand.begin() ; itExpend < expand.end(); itExpend++)
                     {
                         Token * p = new Token;
@@ -217,7 +214,7 @@ void  Preprocessor::Preprocess()
                         m_TokenList.push_back(p);
                     }
                 }
-                else                             //object like
+                else                             //object like macro
                 {
                     for(vector<Token>::iterator itDef=def.m_DefineValue.begin() ; itDef < def.m_DefineValue.end(); itDef++)
                     {
@@ -228,8 +225,7 @@ void  Preprocessor::Preprocess()
 
                 }
 
-
-            } // not a macro definition, so just push it
+            } // not a macro, so just push it to normal token list
             else
             {
                 m_TokenList.push_back(pToken);
@@ -256,10 +252,11 @@ void Preprocessor::AddMacroDefinition()
     MacroDefine entry;
     m_Tokenizer.FetchToken(&(entry.m_Name));
     m_Tokenizer.FetchToken(&token);
+
     if(token.type_id()==TKN_TERMINATION)
         return;
 
-    if(token.type_id()==TKN_L_PAREN)   //function like macro
+    if(token.type_id()==TKN_L_PAREN)   //function like macro #define A(a,b)  a+b
     {
         entry.m_IsFunctionLike=true;
         //read the formal parameters
@@ -268,6 +265,7 @@ void Preprocessor::AddMacroDefinition()
             m_Tokenizer.FetchToken(&token);
             if(token.type_id()==TKN_TERMINATION)
                 return;
+
             if(token.type_id()==TKN_R_PAREN)
                 break;
             else if(token.type_id()!=TKN_COMMA)
@@ -275,7 +273,7 @@ void Preprocessor::AddMacroDefinition()
         }
         while(true);
     }
-    else
+    else                                //object like macro
     {
         if(token.type_id()!=TKN_PP_FINISH)
             entry.m_DefineValue.push_back(token);
@@ -293,7 +291,7 @@ void Preprocessor::AddMacroDefinition()
             break;
     }
     while(true);
-    // add this entry
+    // add this macro definition to the macro table
     m_MacroTable[entry.m_Name.get_text()]=entry;
 
 }
@@ -342,24 +340,7 @@ void Preprocessor::UngetToken()
 
 bool  Preprocessor::ConstExpressionValue()
 {
-//    Token token;
-//    int value;
-//    while(true)
-//    {
-//        m_Tokenizer.FetchToken(&token);
-//        if(token.type_id()==TKN_NUMBER)
-//        {
-//            value = atoi(token.get_text().c_str());
-//            break;
-//        }
-//    }
-//    SkipCurrentPreprocessorDirective();
-//
-//    if(value==0)
-//        return false;
-//    else
-//        return true;
-
+    //read the current logic line of the preprocessor directive
     Token token;
     vector<Token> exp;
     while(true)
@@ -637,7 +618,7 @@ void DumpExp(vector<Token> & exp)
 
 bool Preprocessor::ConstExpressionExpansion(vector<Token> & exp)
 {
-    // defined (XXX) will correctly caculated first
+    // defined (XXX) will correctly calculated first
 
     bool needNextPass = false;
     int count = 0;
@@ -648,7 +629,7 @@ bool Preprocessor::ConstExpressionExpansion(vector<Token> & exp)
     //  #define B A
     //  These kind of recursion can be avoid.
 
-    while(count<2)
+    while(count<2) //for simplicity, we only do two round macro expansion, this can avoid recursion
     {
         count++;
         needNextPass = false;
@@ -667,9 +648,10 @@ bool Preprocessor::ConstExpressionExpansion(vector<Token> & exp)
                     InParentheses = true;
                     it++;
                 }
+
                 if((*it).type_id()==TKN_IDENTIFIER)
                 {
-                    //Chech this Id in the symbol table
+                    //Check this Id in the symbol table
                     bool exist = CheckMacroExist((*it).get_text());
                     if (exist==true)
                         value = true;
@@ -680,19 +662,23 @@ bool Preprocessor::ConstExpressionExpansion(vector<Token> & exp)
                 if(InParentheses==true)//skip the right parenthesis
                     it++;
 
-                // remove from beginOfDefineCheck to endIdx
-                (*beginOfDefineCheck).set(TKN_NUMBER);
+                // remove from beginOfDefineCheck to endIdx by replace it with a TKN_NUMBER token
+                (*beginOfDefineCheck).set(TKN_NUMBER); //Set the token ID
+
                 cc_string valueString;
-                if(value==true)
+                if(value==true) //Set the number string
                     valueString="1";
                 else
                     valueString="0";
-
                 (*beginOfDefineCheck).set_text(valueString);
+
+                //remove the left tokens: either (ID) or ID
                 exp.erase(beginOfDefineCheck+1,it+1);
+
+                //adjust the iterator
                 it=beginOfDefineCheck;
             }
-            else if((*it).type_id() == TKN_IDENTIFIER )
+            else if((*it).type_id() == TKN_IDENTIFIER ) //Try to expand every identifier
             {
                 if (CheckMacroExist((*it).get_text()))
                 {
@@ -702,13 +688,15 @@ bool Preprocessor::ConstExpressionExpansion(vector<Token> & exp)
                     {
 
                         vector<Token>::iterator IDIterator = it;
-                        //expand the augument
-                        //read argument
+                        //expand the arguments
+
+                        //read argument from macro definition
                         int argNum = def.m_Arguments.size();
                         vector< vector<Token> > arg;
                         vector<Token> single;
-                        //consider semicolon and toplevel parenthese
-                        it++; // move to left parenthesis
+
+                        //consider semicolon and top level parentheses
+                        it++; // move the iterator to left parenthesis
 
                         for(int num = 0; num<argNum; num++)
                         {
@@ -724,34 +712,35 @@ bool Preprocessor::ConstExpressionExpansion(vector<Token> & exp)
                             #if PREPROCESSOR_DEBUG
                             DumpExp(arg[num]);
                             #endif
-                            //it++;
                         }
 
-                        //*it should be a right parenthesis
+                        // *it should be a right parenthesis
                         vector<Token>::iterator rightParenIterator = it;
-                        //replace
-                        vector<Token> expand;
 
+                        //generated new tokens
+                        vector<Token> expand;
                         MacroExpansion(expand,def,arg);
 
-                        //finally, insert the expand
-                        it=exp.erase(IDIterator,rightParenIterator+1); //remove the current tok;
-                        //general replacement,quite simple
-                        for(vector<Token>::iterator itExpand=expand.begin() ; itExpand < expand.end(); itExpand++)
+                        //finally, insert the expand (replacement)
+                        //remove old tokens
+                        it=exp.erase(IDIterator,rightParenIterator+1); //remove the current tokens;
+
+                        // insert new tokens
+                        for(vector<Token>::iterator itExpand=expand.begin();
+                            itExpand < expand.end();
+                            itExpand++)
                         {
                             it=exp.insert(it,*itExpand);
                         }
+
                         #if PREPROCESSOR_DEBUG
                         DumpExp(exp);
                         #endif
-
-
-
-                    }
+                    }// function like macro handling
                     else
                     {
-                        exp.erase(it); //remove the current tok;
-                        //general replacement,quite simple
+                        exp.erase(it); //remove the current token;
+                        //replacement
                         for(vector<Token>::iterator itDef=def.m_DefineValue.begin() ; itDef < def.m_DefineValue.end(); itDef++)
                         {
                             it=exp.insert(it,*itDef);
@@ -760,11 +749,10 @@ bool Preprocessor::ConstExpressionExpansion(vector<Token> & exp)
                         DumpExp(exp);
                         #endif
                     }
-
                     //As we do a replacement, so we need a next pass
                     needNextPass = true;
                 }
-                else
+                else //This identifier is not a macro, so we have no way to calculate the expression
                 {
                     cout<<"Can not expand an identifier:"<<(*it).type_id()<<endl;
                     cout<<"return false"<<endl;
@@ -774,20 +762,21 @@ bool Preprocessor::ConstExpressionExpansion(vector<Token> & exp)
         }
         if (needNextPass == false)
             break;
-
     }
 
     //dump the result
-    cout<<"After Expension\n";
+    cout<<"After Expansion\n";
     for(vector<Token>::iterator it=exp.begin() ; it < exp.end(); it++)
         cout<<*it<<endl;
     return true;
 
 }
-void Preprocessor::MacroExpansion(vector<Token> &expand,MacroDefine &def, vector<vector<Token> > &arg)
+void Preprocessor::MacroExpansion(vector<Token> &expand, MacroDefine &def, vector<vector<Token> > &arg)
 {
-    //loop the definition, and do the expension
-    for(vector<Token>::iterator itDef=def.m_DefineValue.begin() ; itDef < def.m_DefineValue.end(); itDef++)
+    //loop the definition, and do the expansion
+    for(vector<Token>::iterator itDef=def.m_DefineValue.begin();
+        itDef < def.m_DefineValue.end();
+        itDef++)
     {
         if((*itDef).type_id() == TKN_IDENTIFIER )
         {
@@ -807,14 +796,13 @@ void Preprocessor::MacroExpansion(vector<Token> &expand,MacroDefine &def, vector
             }
             if(replaced==false)
                 expand.push_back(*itDef);
-
         }
         else
             expand.push_back(*itDef);
+
         #if PREPROCESSOR_DEBUG
         DumpExp(expand);
         #endif
-
     }
 }
 
@@ -822,7 +810,7 @@ void Preprocessor::ReadMacroActualArgument(vector<vector<Token> > &arg, int argN
 {
 
     vector<Token> single;
-    //consider semicolon and toplevel parenthese
+    //consider semicolon and top-level parentheses
     Token tok;
     m_Tokenizer.FetchToken(&tok); // should be a left parenthesis
     //read next
@@ -831,7 +819,6 @@ void Preprocessor::ReadMacroActualArgument(vector<vector<Token> > &arg, int argN
 
     for(int num = 0; num<argNum; num++)
     {
-
         arg.push_back(single);
         do
         {
@@ -846,9 +833,9 @@ void Preprocessor::ReadMacroActualArgument(vector<vector<Token> > &arg, int argN
 
         }// go to the next id
         while( true );
+
         #if PREPROCESSOR_DEBUG
         DumpExp(arg[num]);
         #endif
     }
-
 }
