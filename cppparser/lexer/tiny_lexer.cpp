@@ -23400,10 +23400,9 @@ _5737: /* (5737 from 5736) */
      * There is a temporary zero stored at the end of each lexeme, if the action 
      * references to the 'Lexeme'. 'LexemeNull' provides a reference to an empty
      * zero terminated string.                                                    */
-
 #if defined(QUEX_OPTION_ASSERTS)
 #   define Lexeme       QUEX_NAME(access_Lexeme)((const char*)__FILE__, (size_t)__LINE__, &me->buffer)
-#   define LexemeBegin  QUEX_NAME(access_Lexeme)((const char*)__FILE__, (size_t)__LINE__, &me->buffer)
+#   define LexemeBegin  QUEX_NAME(access_LexemeBegin)((const char*)__FILE__, (size_t)__LINE__, &me->buffer)
 #   define LexemeL      QUEX_NAME(access_LexemeL)((const char*)__FILE__, (size_t)__LINE__, &me->buffer)
 #   define LexemeEnd    QUEX_NAME(access_LexemeEnd)((const char*)__FILE__, (size_t)__LINE__, &me->buffer)
 #else
@@ -23417,777 +23416,482 @@ _5737: /* (5737 from 5736) */
 
 TERMINAL_1031:
     __quex_debug("* terminal 1031:   case\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 4);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 4);
     {
-
-#   line 467 "cpp.qx"
-self_send(TKN_CASE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 23435 "tiny_lexer.cpp"
+#   line 457 "cpp.qx"
+    self_send(TKN_CASE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23426 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_526:
     __quex_debug("* terminal 526:   extern\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 6);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 6);
     {
-
-#   line 431 "cpp.qx"
-self_send(TKN_EXTERN);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 23456 "tiny_lexer.cpp"
+#   line 421 "cpp.qx"
+    self_send(TKN_EXTERN);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23439 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1369:
     __quex_debug("* terminal 1369:   \"#\"[ \\t]*\"error\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end +=     ((size_t)(me->buffer._input_p - me->buffer._lexeme_start_p)));
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, LexemeL);
     {
-
-#   line 510 "cpp.qx"
-QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_ERROR);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 23477 "tiny_lexer.cpp"
+#   line 500 "cpp.qx"
+    QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_ERROR);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23452 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1051:
     __quex_debug("* terminal 1051:   default\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 7);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 7);
     {
-
-#   line 468 "cpp.qx"
-self_send(TKN_DEFAULT);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 23498 "tiny_lexer.cpp"
+#   line 458 "cpp.qx"
+    self_send(TKN_DEFAULT);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23465 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_549:
     __quex_debug("* terminal 549:   explicit\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 8);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 8);
     {
-
-#   line 432 "cpp.qx"
-self_send(TKN_EXPLICIT);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 23519 "tiny_lexer.cpp"
+#   line 422 "cpp.qx"
+    self_send(TKN_EXPLICIT);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23478 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1065:
     __quex_debug("* terminal 1065:   break\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 5);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 5);
     {
-
-#   line 469 "cpp.qx"
-self_send(TKN_BREAK);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 23540 "tiny_lexer.cpp"
+#   line 459 "cpp.qx"
+    self_send(TKN_BREAK);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23491 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_563:
     __quex_debug("* terminal 563:   const\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 5);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 5);
     {
-
-#   line 433 "cpp.qx"
-self_send(TKN_CONST);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 23561 "tiny_lexer.cpp"
+#   line 423 "cpp.qx"
+    self_send(TKN_CONST);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23504 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1076:
     __quex_debug("* terminal 1076:   goto\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 4);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 4);
     {
-
-#   line 470 "cpp.qx"
-self_send(TKN_GOTO);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 23582 "tiny_lexer.cpp"
+#   line 460 "cpp.qx"
+    self_send(TKN_GOTO);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23517 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_580:
     __quex_debug("* terminal 580:   friend\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 6);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 6);
     {
-
-#   line 434 "cpp.qx"
-self_send(TKN_FRIEND);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 23603 "tiny_lexer.cpp"
+#   line 424 "cpp.qx"
+    self_send(TKN_FRIEND);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23530 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1093:
     __quex_debug("* terminal 1093:   sizeof\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 6);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 6);
     {
-
-#   line 471 "cpp.qx"
-self_send(TKN_SIZEOF);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 23624 "tiny_lexer.cpp"
+#   line 461 "cpp.qx"
+    self_send(TKN_SIZEOF);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23543 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1107:
     __quex_debug("* terminal 1107:   throw\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 5);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 5);
     {
-
-#   line 472 "cpp.qx"
-self_send(TKN_THROW);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 23645 "tiny_lexer.cpp"
+#   line 462 "cpp.qx"
+    self_send(TKN_THROW);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23556 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_600:
     __quex_debug("* terminal 600:   virtual\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 7);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 7);
     {
-
-#   line 435 "cpp.qx"
-self_send(TKN_VIRTUAL);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 23666 "tiny_lexer.cpp"
+#   line 425 "cpp.qx"
+    self_send(TKN_VIRTUAL);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23569 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1121:
     __quex_debug("* terminal 1121:   using\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 5);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 5);
     {
-
-#   line 474 "cpp.qx"
-self_send(TKN_USING);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 23687 "tiny_lexer.cpp"
+#   line 464 "cpp.qx"
+    self_send(TKN_USING);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23582 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1129:
     __quex_debug("* terminal 1129:   asm\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 3);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 3);
     {
-
-#   line 475 "cpp.qx"
-self_send(TKN_ASM);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 23708 "tiny_lexer.cpp"
+#   line 465 "cpp.qx"
+    self_send(TKN_ASM);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23595 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_623:
     __quex_debug("* terminal 623:   volatile\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 8);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 8);
     {
-
-#   line 436 "cpp.qx"
-self_send(TKN_VOLATILE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 23729 "tiny_lexer.cpp"
+#   line 426 "cpp.qx"
+    self_send(TKN_VOLATILE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23608 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1180:
     __quex_debug("* terminal 1180:   typeid\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 6);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 6);
     {
-
-#   line 478 "cpp.qx"
-self_send(TKN_TYPEID);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 23750 "tiny_lexer.cpp"
+#   line 468 "cpp.qx"
+    self_send(TKN_TYPEID);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23621 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1143:
     __quex_debug("* terminal 1143:   __asm\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 5);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 5);
     {
-
-#   line 476 "cpp.qx"
-self_send(TKN_ASM_EXT);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 23771 "tiny_lexer.cpp"
+#   line 466 "cpp.qx"
+    self_send(TKN_ASM_EXT);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23634 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_640:
     __quex_debug("* terminal 640:   static\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 6);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 6);
     {
-
-#   line 437 "cpp.qx"
-self_send(TKN_STATIC);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 23792 "tiny_lexer.cpp"
+#   line 427 "cpp.qx"
+    self_send(TKN_STATIC);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23647 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1163:
     __quex_debug("* terminal 1163:   typedef\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 7);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 7);
     {
-
-#   line 477 "cpp.qx"
-self_send(TKN_TYPEDEF);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 23813 "tiny_lexer.cpp"
+#   line 467 "cpp.qx"
+    self_send(TKN_TYPEDEF);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23660 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_657:
     __quex_debug("* terminal 657:   inline\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 6);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 6);
     {
-
-#   line 438 "cpp.qx"
-self_send(TKN_INLINE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 23834 "tiny_lexer.cpp"
+#   line 428 "cpp.qx"
+    self_send(TKN_INLINE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23673 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_668:
     __quex_debug("* terminal 668:   auto\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 4);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 4);
     {
-
-#   line 439 "cpp.qx"
-self_send(TKN_AUTO);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 23855 "tiny_lexer.cpp"
+#   line 429 "cpp.qx"
+    self_send(TKN_AUTO);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23686 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1306:
     __quex_debug("* terminal 1306:   \"#\"[ \\t]*\"if\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end +=     ((size_t)(me->buffer._input_p - me->buffer._lexeme_start_p)));
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, LexemeL);
     {
-
-#   line 503 "cpp.qx"
-QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_IF);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 23876 "tiny_lexer.cpp"
+#   line 493 "cpp.qx"
+    QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_IF);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23699 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1191:
     __quex_debug("* terminal 1191:   this\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 4);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 4);
     {
-
-#   line 479 "cpp.qx"
-self_send(TKN_THIS);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 23897 "tiny_lexer.cpp"
+#   line 469 "cpp.qx"
+    self_send(TKN_THIS);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23712 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_691:
     __quex_debug("* terminal 691:   register\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 8);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 8);
     {
-
-#   line 440 "cpp.qx"
-self_send(TKN_REGISTER);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 23918 "tiny_lexer.cpp"
+#   line 430 "cpp.qx"
+    self_send(TKN_REGISTER);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23725 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1214:
     __quex_debug("* terminal 1214:   typename\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 8);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 8);
     {
-
-#   line 481 "cpp.qx"
-self_send(TKN_TYPENAME);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 23939 "tiny_lexer.cpp"
+#   line 471 "cpp.qx"
+    self_send(TKN_TYPENAME);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23738 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_711:
     __quex_debug("* terminal 711:   mutable\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 7);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 7);
     {
-
-#   line 441 "cpp.qx"
-self_send(TKN_MUTABLE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 23960 "tiny_lexer.cpp"
+#   line 431 "cpp.qx"
+    self_send(TKN_MUTABLE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23751 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_716:
     __quex_debug("* terminal 716:   if\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 443 "cpp.qx"
-self_send(TKN_IF);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 23981 "tiny_lexer.cpp"
+#   line 433 "cpp.qx"
+    self_send(TKN_IF);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23764 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1237:
     __quex_debug("* terminal 1237:   operator\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 8);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 8);
     {
-
-#   line 482 "cpp.qx"
-self_send(TKN_OPERATOR);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24002 "tiny_lexer.cpp"
+#   line 472 "cpp.qx"
+    self_send(TKN_OPERATOR);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23777 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_727:
     __quex_debug("* terminal 727:   else\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 4);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 4);
     {
-
-#   line 444 "cpp.qx"
-self_send(TKN_ELSE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24023 "tiny_lexer.cpp"
+#   line 434 "cpp.qx"
+    self_send(TKN_ELSE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23790 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1241:
     __quex_debug("* terminal 1241:   {P_NUMBER}\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end +=     ((size_t)(me->buffer._input_p - me->buffer._lexeme_start_p)));
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, LexemeL);
     {
-
-#   line 485 "cpp.qx"
-QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
-self_send(TKN_NUMBER);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24045 "tiny_lexer.cpp"
+#   line 475 "cpp.qx"
+    QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
+    self_send(TKN_NUMBER);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23804 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1243:
     __quex_debug("* terminal 1243:   {P_STRING}\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    QUEX_NAME(Counter_count)(&self.counter, self.buffer._lexeme_start_p, self.buffer._input_p);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_VOID(self.counter);
     {
-
-#   line 486 "cpp.qx"
-QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
-self_send(TKN_STRING);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24067 "tiny_lexer.cpp"
+#   line 476 "cpp.qx"
+    QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
+    self_send(TKN_STRING);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23818 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1245:
     __quex_debug("* terminal 1245:   {P_QUOTED_CHAR}\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    QUEX_NAME(Counter_count)(&self.counter, self.buffer._lexeme_start_p, self.buffer._input_p);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_VOID(self.counter);
     {
-
-#   line 487 "cpp.qx"
-QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
-self_send(TKN_QUOTED_CHAR);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24089 "tiny_lexer.cpp"
+#   line 477 "cpp.qx"
+    QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
+    self_send(TKN_QUOTED_CHAR);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23832 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1247:
     __quex_debug("* terminal 1247:   {decimal_constant}\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end +=     ((size_t)(me->buffer._input_p - me->buffer._lexeme_start_p)));
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, LexemeL);
     {
-
-#   line 489 "cpp.qx"
-QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
-self_send(TKN_NUMBER);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24111 "tiny_lexer.cpp"
+#   line 479 "cpp.qx"
+    QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
+    self_send(TKN_NUMBER);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23846 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1249:
     __quex_debug("* terminal 1249:   {octal_constant}\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end +=     ((size_t)(me->buffer._input_p - me->buffer._lexeme_start_p)));
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, LexemeL);
     {
-
-#   line 490 "cpp.qx"
-QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
-self_send(TKN_NUMBER);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24133 "tiny_lexer.cpp"
+#   line 480 "cpp.qx"
+    QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
+    self_send(TKN_NUMBER);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23860 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1251:
     __quex_debug("* terminal 1251:   {hex_constant}\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end +=     ((size_t)(me->buffer._input_p - me->buffer._lexeme_start_p)));
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, LexemeL);
     {
-
-#   line 491 "cpp.qx"
-QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
-self_send(TKN_NUMBER);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24155 "tiny_lexer.cpp"
+#   line 481 "cpp.qx"
+    QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
+    self_send(TKN_NUMBER);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23874 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1253:
     __quex_debug("* terminal 1253:   {floating_constant}\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end +=     ((size_t)(me->buffer._input_p - me->buffer._lexeme_start_p)));
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, LexemeL);
     {
-
-#   line 492 "cpp.qx"
-QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
-self_send(TKN_NUMBER);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24177 "tiny_lexer.cpp"
+#   line 482 "cpp.qx"
+    QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
+    self_send(TKN_NUMBER);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23888 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1254:
     __quex_debug("* terminal 1254:   [ \\r\\n\\t]\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    QUEX_NAME(Counter_count)(&self.counter, self.buffer._lexeme_start_p, self.buffer._input_p);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_VOID(self.counter);
     {
     /* Character set skipper state */
 
@@ -24199,1318 +23903,838 @@ TERMINAL_1254:
     QUEX_BUFFER_ASSERT_CONSISTENCY(&me->buffer);
     __quex_assert(QUEX_NAME(Buffer_content_size)(&me->buffer) >= 1);
 
-    /* NOTE: For simple skippers the end of content does not have to be overwriten 
-     *       with anything (as done for range skippers). This is so, because the abort
-     *       criteria is that a character occurs which does not belong to the trigger 
-     *       set. The BufferLimitCode, though, does never belong to any trigger set and
-     *       thus, no special character is to be set.                                   */
+    /* NOTE: For simple skippers the end of content does not have to be overwriten
+        *       with anything (as done for range skippers). This is so, because the abort
+        *       criteria is that a character occurs which does not belong to the trigger
+        *       set. The BufferLimitCode, though, does never belong to any trigger set and
+        *       thus, no special character is to be set.                                   */
 _4696_LOOP:
     input = *(me->buffer._input_p);
 
-    __QUEX_IF_COUNT_IF( input == (QUEX_TYPE_CHARACTER)'\n' ) { 
-        __QUEX_IF_COUNT_LINES_ADD((size_t)1);
-        __QUEX_IF_COUNT_COLUMNS_SET((size_t)0);
-        __QUEX_IF_COUNT_COLUMNS(reference_p = QUEX_NAME(Buffer_tell_memory_adr)(&me->buffer));
+    __QUEX_IF_COUNT_IF( input == (QUEX_TYPE_CHARACTER)'\n' ) {
+                __QUEX_IF_COUNT_LINES_ADD((size_t)1);
+                __QUEX_IF_COUNT_COLUMNS_SET((size_t)0);
+                __QUEX_IF_COUNT_COLUMNS(reference_p = QUEX_NAME(Buffer_tell_memory_adr)(&me->buffer));
     }
 
     switch( input ) {
-        case 0x0: goto _4697;
+                case 0x0: goto _4697;
 
-        case 0x9: 
-        case 0xA: 
-        case 0xD: 
-        case 0x20: ++(me->buffer._input_p); goto _4696_LOOP;
+                case 0x9:
+                case 0xA:
+                case 0xD:
+                case 0x20: ++(me->buffer._input_p); goto _4696_LOOP;
 
 
     }
     __QUEX_IF_COUNT_COLUMNS_ADD((size_t)(me->buffer._input_p - reference_p));
 
-    /* There was no buffer limit code, so no end of buffer or end of file --> continue analysis 
-     * The character we just swallowed must be re-considered by the main state machine.
-     * But, note that the initial state does not increment '_input_p'!
-     *
-     * No need for re-entry preparation. Acceptance flags and modes are untouched after skipping. */
+    /* There was no buffer limit code, so no end of buffer or end of file --> continue analysis
+        * The character we just swallowed must be re-considered by the main state machine.
+        * But, note that the initial state does not increment '_input_p'!
+        *
+        * No need for re-entry preparation. Acceptance flags and modes are untouched after skipping. */
     goto __REENTRY;
 
 _4697:
     /* -- When loading new content it is always taken care that the beginning of the lexeme
-     *    is not 'shifted' out of the buffer. In the case of skipping, we do not care about
-     *    the lexeme at all, so do not restrict the load procedure and set the lexeme start
-     *    to the actual input position.                                                   
-     * -- The input_p will at this point in time always point to the buffer border.        */
+        *    is not 'shifted' out of the buffer. In the case of skipping, we do not care about
+        *    the lexeme at all, so do not restrict the load procedure and set the lexeme start
+        *    to the actual input position.
+        * -- The input_p will at this point in time always point to the buffer border.        */
     __quex_assert(input == QUEX_SETTING_BUFFER_LIMIT_CODE);
     QUEX_BUFFER_ASSERT_CONSISTENCY(&me->buffer);
     __QUEX_IF_COUNT_COLUMNS_ADD((size_t)(me->buffer._input_p - reference_p));
 
     me->buffer._lexeme_start_p = me->buffer._input_p;
     if( QUEX_NAME(Buffer_is_end_of_file)(&me->buffer) ) {
-        goto _4700;
+                goto _4700;
     } else {
-        QUEX_NAME(buffer_reload_forward)(&me->buffer, (QUEX_TYPE_CHARACTER_POSITION*)position, PositionRegisterN);
-        QUEX_BUFFER_ASSERT_CONSISTENCY(&me->buffer);
-        ++(me->buffer._input_p); /* Now, BLC cannot occur. See above. */
-       __QUEX_IF_COUNT_COLUMNS(reference_p = me->buffer._input_p);
+                QUEX_NAME(buffer_reload_forward)(&me->buffer, (QUEX_TYPE_CHARACTER_POSITION*)position, PositionRegisterN);
+                QUEX_BUFFER_ASSERT_CONSISTENCY(&me->buffer);
+                ++(me->buffer._input_p); /* Now, BLC cannot occur. See above. */
+            __QUEX_IF_COUNT_COLUMNS(reference_p = me->buffer._input_p);
 
-        goto _4696_LOOP;
-    } 
+                goto _4696_LOOP;
+    }
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_744:
     __quex_debug("* terminal 744:   switch\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 6);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 6);
     {
-
-#   line 445 "cpp.qx"
-self_send(TKN_SWITCH);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24277 "tiny_lexer.cpp"
+#   line 435 "cpp.qx"
+    self_send(TKN_SWITCH);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23973 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_752:
     __quex_debug("* terminal 752:   for\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 3);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 3);
     {
-
-#   line 446 "cpp.qx"
-self_send(TKN_FOR);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24298 "tiny_lexer.cpp"
+#   line 436 "cpp.qx"
+    self_send(TKN_FOR);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23986 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_757:
     __quex_debug("* terminal 757:   do\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 447 "cpp.qx"
-self_send(TKN_DO);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24319 "tiny_lexer.cpp"
+#   line 437 "cpp.qx"
+    self_send(TKN_DO);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 23999 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1272:
     __quex_debug("* terminal 1272:   \"#\"[ \\t]*\"include\"[ \\t]*{P_INCLUDE_FILE2}\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    QUEX_NAME(Counter_count)(&self.counter, self.buffer._lexeme_start_p, self.buffer._input_p);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_VOID(self.counter);
     {
-
-#   line 500 "cpp.qx"
-QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
-self_send(TKN_PP_INCLUDE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24341 "tiny_lexer.cpp"
+#   line 490 "cpp.qx"
+    QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
+    self_send(TKN_PP_INCLUDE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24013 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_771:
     __quex_debug("* terminal 771:   while\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 5);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 5);
     {
-
-#   line 448 "cpp.qx"
-self_send(TKN_WHILE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24362 "tiny_lexer.cpp"
+#   line 438 "cpp.qx"
+    self_send(TKN_WHILE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24026 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1288:
     __quex_debug("* terminal 1288:   \"#\"[ \\t]*\"include\"[ \\t]*{P_INCLUDE_FILE1}\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    QUEX_NAME(Counter_count)(&self.counter, self.buffer._lexeme_start_p, self.buffer._input_p);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_VOID(self.counter);
     {
-
-#   line 501 "cpp.qx"
-QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
-self_send(TKN_PP_INCLUDE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24384 "tiny_lexer.cpp"
+#   line 491 "cpp.qx"
+    QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
+    self_send(TKN_PP_INCLUDE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24040 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1324:
     __quex_debug("* terminal 1324:   \"#\"[ \\t]*\"ifdef\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end +=     ((size_t)(me->buffer._input_p - me->buffer._lexeme_start_p)));
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, LexemeL);
     {
-
-#   line 505 "cpp.qx"
-QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_IFDEF);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24405 "tiny_lexer.cpp"
+#   line 495 "cpp.qx"
+    QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_IFDEF);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24053 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_270:
     __quex_debug("* terminal 270:   \"(\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 350 "cpp.qx"
-self_send(TKN_L_PAREN);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24426 "tiny_lexer.cpp"
+#   line 340 "cpp.qx"
+    self_send(TKN_L_PAREN);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24066 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_272:
     __quex_debug("* terminal 272:   \")\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 351 "cpp.qx"
-self_send(TKN_R_PAREN);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24447 "tiny_lexer.cpp"
+#   line 341 "cpp.qx"
+    self_send(TKN_R_PAREN);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24079 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1297:
     __quex_debug("* terminal 1297:   \"#\"[ \\t]*\"define\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end +=     ((size_t)(me->buffer._input_p - me->buffer._lexeme_start_p)));
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, LexemeL);
     {
-
-#   line 502 "cpp.qx"
-QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_DEFINE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24468 "tiny_lexer.cpp"
+#   line 492 "cpp.qx"
+    QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_DEFINE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24092 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_274:
     __quex_debug("* terminal 274:   \"{\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 352 "cpp.qx"
-self_send(TKN_L_BRACE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24489 "tiny_lexer.cpp"
+#   line 342 "cpp.qx"
+    self_send(TKN_L_BRACE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24105 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_276:
     __quex_debug("* terminal 276:   \"}\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 353 "cpp.qx"
-self_send(TKN_R_BRACE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24510 "tiny_lexer.cpp"
+#   line 343 "cpp.qx"
+    self_send(TKN_R_BRACE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24118 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_278:
     __quex_debug("* terminal 278:   \"[\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 354 "cpp.qx"
-self_send(TKN_L_SQUARE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24531 "tiny_lexer.cpp"
+#   line 344 "cpp.qx"
+    self_send(TKN_L_SQUARE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24131 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_280:
     __quex_debug("* terminal 280:   \"]\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 355 "cpp.qx"
-self_send(TKN_R_SQUARE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24552 "tiny_lexer.cpp"
+#   line 345 "cpp.qx"
+    self_send(TKN_R_SQUARE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24144 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_282:
     __quex_debug("* terminal 282:   \".\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 357 "cpp.qx"
-self_send(TKN_DOT);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24573 "tiny_lexer.cpp"
+#   line 347 "cpp.qx"
+    self_send(TKN_DOT);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24157 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_284:
     __quex_debug("* terminal 284:   \"...\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 3);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 3);
     {
-
-#   line 358 "cpp.qx"
-self_send(TKN_ELLIPSIS);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24594 "tiny_lexer.cpp"
+#   line 348 "cpp.qx"
+    self_send(TKN_ELLIPSIS);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24170 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_797:
     __quex_debug("* terminal 797:   namespace\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 9);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 9);
     {
-
-#   line 450 "cpp.qx"
-self_send(TKN_NAMESPACE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24615 "tiny_lexer.cpp"
+#   line 440 "cpp.qx"
+    self_send(TKN_NAMESPACE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24183 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_286:
     __quex_debug("* terminal 286:   \":\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 359 "cpp.qx"
-self_send(TKN_COLON);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24636 "tiny_lexer.cpp"
+#   line 349 "cpp.qx"
+    self_send(TKN_COLON);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24196 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_288:
     __quex_debug("* terminal 288:   \"::\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 360 "cpp.qx"
-self_send(TKN_DOUBLE_COLON);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24657 "tiny_lexer.cpp"
+#   line 350 "cpp.qx"
+    self_send(TKN_DOUBLE_COLON);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24209 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_290:
     __quex_debug("* terminal 290:   \";\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 361 "cpp.qx"
-self_send(TKN_SEMICOLON);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24678 "tiny_lexer.cpp"
+#   line 351 "cpp.qx"
+    self_send(TKN_SEMICOLON);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24222 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1315:
     __quex_debug("* terminal 1315:   \"#\"[ \\t]*\"elif\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end +=     ((size_t)(me->buffer._input_p - me->buffer._lexeme_start_p)));
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, LexemeL);
     {
-
-#   line 504 "cpp.qx"
-QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_ELIF);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24699 "tiny_lexer.cpp"
+#   line 494 "cpp.qx"
+    QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_ELIF);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24235 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_292:
     __quex_debug("* terminal 292:   \",\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 362 "cpp.qx"
-self_send(TKN_COMMA);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24720 "tiny_lexer.cpp"
+#   line 352 "cpp.qx"
+    self_send(TKN_COMMA);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24248 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_294:
     __quex_debug("* terminal 294:   \"?\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 363 "cpp.qx"
-self_send(TKN_QUESTION);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24741 "tiny_lexer.cpp"
+#   line 353 "cpp.qx"
+    self_send(TKN_QUESTION);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24261 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_296:
     __quex_debug("* terminal 296:   \"->\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 364 "cpp.qx"
-self_send(TKN_ARROW);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24762 "tiny_lexer.cpp"
+#   line 354 "cpp.qx"
+    self_send(TKN_ARROW);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24274 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_298:
     __quex_debug("* terminal 298:   \"=\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 367 "cpp.qx"
-self_send(TKN_ASSIGN);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24783 "tiny_lexer.cpp"
+#   line 357 "cpp.qx"
+    self_send(TKN_ASSIGN);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24287 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_811:
     __quex_debug("* terminal 811:   class\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 5);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 5);
     {
-
-#   line 451 "cpp.qx"
-self_send(TKN_CLASS);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24804 "tiny_lexer.cpp"
+#   line 441 "cpp.qx"
+    self_send(TKN_CLASS);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24300 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_300:
     __quex_debug("* terminal 300:   \"+\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 368 "cpp.qx"
-self_send(TKN_PLUS);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24825 "tiny_lexer.cpp"
+#   line 358 "cpp.qx"
+    self_send(TKN_PLUS);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24313 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_302:
     __quex_debug("* terminal 302:   \"+=\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 369 "cpp.qx"
-self_send(TKN_PLUS_ASSIGN);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24846 "tiny_lexer.cpp"
+#   line 359 "cpp.qx"
+    self_send(TKN_PLUS_ASSIGN);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24326 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_304:
     __quex_debug("* terminal 304:   \"++\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 370 "cpp.qx"
-self_send(TKN_DOUBLE_PLUS);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24867 "tiny_lexer.cpp"
+#   line 360 "cpp.qx"
+    self_send(TKN_DOUBLE_PLUS);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24339 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_306:
     __quex_debug("* terminal 306:   \"-\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 371 "cpp.qx"
-self_send(TKN_MINUS);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24888 "tiny_lexer.cpp"
+#   line 361 "cpp.qx"
+    self_send(TKN_MINUS);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24352 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_308:
     __quex_debug("* terminal 308:   \"--\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 372 "cpp.qx"
-self_send(TKN_DOUBLE_MINUS);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24909 "tiny_lexer.cpp"
+#   line 362 "cpp.qx"
+    self_send(TKN_DOUBLE_MINUS);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24365 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1333:
     __quex_debug("* terminal 1333:   \"#\"[ \\t]*\"ifndef\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end +=     ((size_t)(me->buffer._input_p - me->buffer._lexeme_start_p)));
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, LexemeL);
     {
-
-#   line 506 "cpp.qx"
-QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_IFNDEF);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24930 "tiny_lexer.cpp"
+#   line 496 "cpp.qx"
+    QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_IFNDEF);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24378 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_310:
     __quex_debug("* terminal 310:   \"-=\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 373 "cpp.qx"
-self_send(TKN_MINUS_ASSIGN);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24951 "tiny_lexer.cpp"
+#   line 363 "cpp.qx"
+    self_send(TKN_MINUS_ASSIGN);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24391 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_312:
     __quex_debug("* terminal 312:   \"*\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 375 "cpp.qx"
-self_send(TKN_MULT);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24972 "tiny_lexer.cpp"
+#   line 365 "cpp.qx"
+    self_send(TKN_MULT);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24404 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_314:
     __quex_debug("* terminal 314:   \"*=\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 376 "cpp.qx"
-self_send(TKN_MULT_ASSIGN);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 24993 "tiny_lexer.cpp"
+#   line 366 "cpp.qx"
+    self_send(TKN_MULT_ASSIGN);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24417 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_316:
     __quex_debug("* terminal 316:   \"/\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 377 "cpp.qx"
-self_send(TKN_DIV);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25014 "tiny_lexer.cpp"
+#   line 367 "cpp.qx"
+    self_send(TKN_DIV);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24430 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_318:
     __quex_debug("* terminal 318:   \"/=\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 378 "cpp.qx"
-self_send(TKN_DIV_ASSIGN);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25035 "tiny_lexer.cpp"
+#   line 368 "cpp.qx"
+    self_send(TKN_DIV_ASSIGN);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24443 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_320:
     __quex_debug("* terminal 320:   \"%\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 379 "cpp.qx"
-self_send(TKN_MODULO);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25056 "tiny_lexer.cpp"
+#   line 369 "cpp.qx"
+    self_send(TKN_MODULO);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24456 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_322:
     __quex_debug("* terminal 322:   \"%=\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 380 "cpp.qx"
-self_send(TKN_MODULO_ASSIGN);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25077 "tiny_lexer.cpp"
+#   line 370 "cpp.qx"
+    self_send(TKN_MODULO_ASSIGN);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24469 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_324:
     __quex_debug("* terminal 324:   \"<<\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 383 "cpp.qx"
-self_send(TKN_L_SHIFT);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25098 "tiny_lexer.cpp"
+#   line 373 "cpp.qx"
+    self_send(TKN_L_SHIFT);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24482 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_326:
     __quex_debug("* terminal 326:   \"<<=\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 3);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 3);
     {
-
-#   line 384 "cpp.qx"
-self_send(TKN_L_SHIFT_ASSIGN);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25119 "tiny_lexer.cpp"
+#   line 374 "cpp.qx"
+    self_send(TKN_L_SHIFT_ASSIGN);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24495 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1351:
     __quex_debug("* terminal 1351:   \"#\"[ \\t]*\"else\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end +=     ((size_t)(me->buffer._input_p - me->buffer._lexeme_start_p)));
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, LexemeL);
     {
-
-#   line 508 "cpp.qx"
-QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_ELSE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25140 "tiny_lexer.cpp"
+#   line 498 "cpp.qx"
+    QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_ELSE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24508 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_328:
     __quex_debug("* terminal 328:   \">>\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 385 "cpp.qx"
-self_send(TKN_R_SHIFT);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25161 "tiny_lexer.cpp"
+#   line 375 "cpp.qx"
+    self_send(TKN_R_SHIFT);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24521 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_330:
     __quex_debug("* terminal 330:   \">>=\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 3);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 3);
     {
-
-#   line 386 "cpp.qx"
-self_send(TKN_R_SHIFT_ASSIGN);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25182 "tiny_lexer.cpp"
+#   line 376 "cpp.qx"
+    self_send(TKN_R_SHIFT_ASSIGN);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24534 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_332:
     __quex_debug("* terminal 332:   \"==\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 389 "cpp.qx"
-self_send(TKN_EQ);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25203 "tiny_lexer.cpp"
+#   line 379 "cpp.qx"
+    self_send(TKN_EQ);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24547 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1421:
     __quex_debug("* terminal 1421:   {P_IDENTIFIER}\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end +=     ((size_t)(me->buffer._input_p - me->buffer._lexeme_start_p)));
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, LexemeL);
     {
-
-#   line 484 "cpp.qx"
-QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
-self_send(TKN_IDENTIFIER);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25225 "tiny_lexer.cpp"
+#   line 474 "cpp.qx"
+    QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
+    self_send(TKN_IDENTIFIER);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24561 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1360:
     __quex_debug("* terminal 1360:   \"#\"[ \\t]*\"pragma\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end +=     ((size_t)(me->buffer._input_p - me->buffer._lexeme_start_p)));
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, LexemeL);
     {
-
-#   line 509 "cpp.qx"
-QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_PRAGMA);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25246 "tiny_lexer.cpp"
+#   line 499 "cpp.qx"
+    QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_PRAGMA);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24574 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_337:
     __quex_debug("* terminal 337:   eq\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 390 "cpp.qx"
-self_send(TKN_EQ);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25267 "tiny_lexer.cpp"
+#   line 380 "cpp.qx"
+    self_send(TKN_EQ);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24587 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_339:
     __quex_debug("* terminal 339:   \">\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 392 "cpp.qx"
-self_send(TKN_GREATER);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25288 "tiny_lexer.cpp"
+#   line 382 "cpp.qx"
+    self_send(TKN_GREATER);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24600 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_341:
     __quex_debug("* terminal 341:   \">=\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 393 "cpp.qx"
-self_send(TKN_GREATER_EQ);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25309 "tiny_lexer.cpp"
+#   line 383 "cpp.qx"
+    self_send(TKN_GREATER_EQ);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24613 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_343:
     __quex_debug("* terminal 343:   \"<\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 394 "cpp.qx"
-self_send(TKN_LESS);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25330 "tiny_lexer.cpp"
+#   line 384 "cpp.qx"
+    self_send(TKN_LESS);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24626 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_345:
     __quex_debug("* terminal 345:   \"<=\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 395 "cpp.qx"
-self_send(TKN_LESS_EQ);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25351 "tiny_lexer.cpp"
+#   line 385 "cpp.qx"
+    self_send(TKN_LESS_EQ);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24639 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_347:
     __quex_debug("* terminal 347:   \"!\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 397 "cpp.qx"
-self_send(TKN_NOT);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25372 "tiny_lexer.cpp"
+#   line 387 "cpp.qx"
+    self_send(TKN_NOT);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24652 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_865:
     __quex_debug("* terminal 865:   union\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 5);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 5);
     {
-
-#   line 454 "cpp.qx"
-self_send(TKN_UNION);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25393 "tiny_lexer.cpp"
+#   line 444 "cpp.qx"
+    self_send(TKN_UNION);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24665 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1378:
     __quex_debug("* terminal 1378:   \"#\"[ \\t]*\"undef\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end +=     ((size_t)(me->buffer._input_p - me->buffer._lexeme_start_p)));
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, LexemeL);
     {
-
-#   line 511 "cpp.qx"
-QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_UNDEF);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25414 "tiny_lexer.cpp"
+#   line 501 "cpp.qx"
+    QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_UNDEF);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24678 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_355:
     __quex_debug("* terminal 355:   not\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 3);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 3);
     {
-
-#   line 398 "cpp.qx"
-self_send(TKN_NOT);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25435 "tiny_lexer.cpp"
+#   line 388 "cpp.qx"
+    self_send(TKN_NOT);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24691 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_357:
     __quex_debug("* terminal 357:   \"!=\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 399 "cpp.qx"
-self_send(TKN_NOT_EQ);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25456 "tiny_lexer.cpp"
+#   line 389 "cpp.qx"
+    self_send(TKN_NOT_EQ);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24704 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_828:
     __quex_debug("* terminal 828:   struct\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 6);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 6);
     {
-
-#   line 452 "cpp.qx"
-self_send(TKN_STRUCT);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25477 "tiny_lexer.cpp"
+#   line 442 "cpp.qx"
+    self_send(TKN_STRUCT);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24717 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_876:
     __quex_debug("* terminal 876:   enum\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 4);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 4);
     {
-
-#   line 455 "cpp.qx"
-self_send(TKN_ENUM);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25498 "tiny_lexer.cpp"
+#   line 445 "cpp.qx"
+    self_send(TKN_ENUM);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24730 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1256:
     __quex_debug("* terminal 1256:   \"/*\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
     /*                          Delimiter: '*', '/',  */
 
     text_end = QUEX_NAME(Buffer_text_end)(&me->buffer);
@@ -25523,221 +24747,182 @@ _4694:
     __quex_assert(QUEX_NAME(Buffer_content_size)(&me->buffer) >= Skipper4693L );
 
     /* NOTE: If _input_p == end of buffer, then it will drop out immediately out of the
-     *       loop below and drop into the buffer reload procedure.                      */
+        *       loop below and drop into the buffer reload procedure.                      */
 
     /* Loop eating characters: Break-out as soon as the First Character of the Delimiter
-     * (FCD) is reached. Thus, the FCD plays also the role of the Buffer Limit Code. There
-     * are two reasons for break-out:
-     *    (1) we reached a limit (end-of-file or buffer-limit)
-     *    (2) there was really the FCD in the character stream
-     * This must be distinguished after the loop was exited. But, during the 'swallowing' we
-     * are very fast, because we do not have to check for two different characters.        */
+        * (FCD) is reached. Thus, the FCD plays also the role of the Buffer Limit Code. There
+        * are two reasons for break-out:
+        *    (1) we reached a limit (end-of-file or buffer-limit)
+        *    (2) there was really the FCD in the character stream
+        * This must be distinguished after the loop was exited. But, during the 'swallowing' we
+        * are very fast, because we do not have to check for two different characters.        */
     *text_end = Skipper4693[0]; /* Overwrite BufferLimitCode (BLC).  */
 _4693_LOOP:
-            input = *(me->buffer._input_p);
- 
-        if( input == Skipper4693[0] ) {
+                    input = *(me->buffer._input_p);
 
-            goto _4693_LOOP_EXIT;
-        }
+            if( input == Skipper4693[0] ) {
 
-    __QUEX_IF_COUNT_IF( input == (QUEX_TYPE_CHARACTER)'\n' ) { 
-        __QUEX_IF_COUNT_LINES_ADD((size_t)1);
-        __QUEX_IF_COUNT_COLUMNS_SET((size_t)0);
-        __QUEX_IF_COUNT_COLUMNS(reference_p = QUEX_NAME(Buffer_tell_memory_adr)(&me->buffer));
+                    goto _4693_LOOP_EXIT;
+            }
+
+    __QUEX_IF_COUNT_IF( input == (QUEX_TYPE_CHARACTER)'\n' ) {
+            __QUEX_IF_COUNT_LINES_ADD((size_t)1);
+            __QUEX_IF_COUNT_COLUMNS_SET((size_t)0);
+            __QUEX_IF_COUNT_COLUMNS(reference_p = QUEX_NAME(Buffer_tell_memory_adr)(&me->buffer));
     }
 
-        ++(me->buffer._input_p); /* Now, BLC cannot occur. See above. */
+            ++(me->buffer._input_p); /* Now, BLC cannot occur. See above. */
     goto _4693_LOOP;
 _4693_LOOP_EXIT:
 
     *text_end = QUEX_SETTING_BUFFER_LIMIT_CODE; /* Reset BLC. */
 
-    /* Case (1) and (2) from above can be distinguished easily: 
-     *
-     *   (1) Distance to text end == 0: 
-     *         End-of-File or Buffer-Limit. 
-     *         => goto to drop-out handling
-     *
-     *   (2) Else:                      
-     *         First character of delimit reached. 
-     *         => For the verification of the tail of the delimiter it is 
-     *            essential that it is loaded completely into the buffer. 
-     *            For this, it must be required:
-     *
-     *                Distance to text end >= Delimiter length 
-     *
-     *                _input_p    end
-     *                    |        |           end - _input_p >= 3
-     *                [ ][R][E][M][#]          
-     * 
-     *         The case of reload should be seldom and is costy anyway. 
-     *         Thus let's say, that in this case we simply enter the drop 
-     *         out and start the search for the delimiter all over again.
-     *
-     *         (2.1) Distance to text end < Delimiter length
-     *                => goto to drop-out handling
-     *         (2.2) Start detection of tail of delimiter
-     *
-     */
+    /* Case (1) and (2) from above can be distinguished easily:
+        *
+        *   (1) Distance to text end == 0:
+        *         End-of-File or Buffer-Limit.
+        *         => goto to drop-out handling
+        *
+        *   (2) Else:
+        *         First character of delimit reached.
+        *         => For the verification of the tail of the delimiter it is
+        *            essential that it is loaded completely into the buffer.
+        *            For this, it must be required:
+        *
+        *                Distance to text end >= Delimiter length
+        *
+        *                _input_p    end
+        *                    |        |           end - _input_p >= 3
+        *                [ ][R][E][M][#]
+        *
+        *         The case of reload should be seldom and is costy anyway.
+        *         Thus let's say, that in this case we simply enter the drop
+        *         out and start the search for the delimiter all over again.
+        *
+        *         (2.1) Distance to text end < Delimiter length
+        *                => goto to drop-out handling
+        *         (2.2) Start detection of tail of delimiter
+        *
+        */
     if( QUEX_NAME(Buffer_distance_input_to_text_end)(&me->buffer) < (ptrdiff_t)Skipper4693L ) {
-        /* (2.1) Reload required. */
-        goto _4695;
+            /* (2.1) Reload required. */
+            goto _4695;
     }
-    
+
     /* (2.2) Test the remaining delimiter, but note, that the check must restart at '_input_p + 1'
-     *       if any later check fails. */
+        *       if any later check fails. */
     ++(me->buffer._input_p);
-    /* Example: Delimiter = '*', '/'; if we get ...[*][*][/]... then the the first "*" causes 
-     *          a drop out out of the 'swallowing loop' and the second "*" will mismatch 
-     *          the required "/". But, then the second "*" must be presented to the
-     *          swallowing loop and the letter after it completes the 'match'.
-     * (The whole discussion, of course, is superflous if the range delimiter has length 1.)  */
+    /* Example: Delimiter = '*', '/'; if we get ...[*][*][/]... then the the first "*" causes
+        *          a drop out out of the 'swallowing loop' and the second "*" will mismatch
+        *          the required "/". But, then the second "*" must be presented to the
+        *          swallowing loop and the letter after it completes the 'match'.
+        * (The whole discussion, of course, is superflous if the range delimiter has length 1.)  */
     input = *(me->buffer._input_p);
     if( input != Skipper4693[1] ) {
-         goto _4694;    }            
+                goto _4694;    }
     {
-        /* NOTE: The initial state does not increment the input_p. When it detects that
-         * it is located on a buffer border, it automatically triggers a reload. No 
-         * need here to reload the buffer. */
+            /* NOTE: The initial state does not increment the input_p. When it detects that
+                * it is located on a buffer border, it automatically triggers a reload. No
+                * need here to reload the buffer. */
 QUEX_NAME(Buffer_input_p_add_offset)(&me->buffer, 1);
-        __QUEX_IF_COUNT_COLUMNS_ADD((size_t)(QUEX_NAME(Buffer_tell_memory_adr)(&me->buffer)
-                                    - reference_p));
+            __QUEX_IF_COUNT_COLUMNS_ADD((size_t)(QUEX_NAME(Buffer_tell_memory_adr)(&me->buffer)
+                                - reference_p));
 
-        /* No need for re-entry preparation. Acceptance flags and modes are untouched after skipping. */
-        goto __REENTRY; /* End of range reached. */
+            /* No need for re-entry preparation. Acceptance flags and modes are untouched after skipping. */
+            goto __REENTRY; /* End of range reached. */
     }
 
 _4695:
     QUEX_BUFFER_ASSERT_CONSISTENCY_LIGHT(&me->buffer);
     /* -- When loading new content it is checked that the beginning of the lexeme
-     *    is not 'shifted' out of the buffer. In the case of skipping, we do not care about
-     *    the lexeme at all, so do not restrict the load procedure and set the lexeme start
-     *    to the actual input position.                                                    */
+        *    is not 'shifted' out of the buffer. In the case of skipping, we do not care about
+        *    the lexeme at all, so do not restrict the load procedure and set the lexeme start
+        *    to the actual input position.                                                    */
     me->buffer._lexeme_start_p = me->buffer._input_p;
 
     __QUEX_IF_COUNT_COLUMNS_ADD((size_t)(QUEX_NAME(Buffer_tell_memory_adr)(&me->buffer)
-                                - reference_p));
+                            - reference_p));
 
     /* -- According to case (2.1) is is possible that the _input_p does not point to the end
-     *    of the buffer, thus we record the current position in the lexeme start pointer and
-     *    recover it after the loading. */
+        *    of the buffer, thus we record the current position in the lexeme start pointer and
+        *    recover it after the loading. */
     me->buffer._input_p = text_end;
     if( QUEX_NAME(Buffer_is_end_of_file)(&me->buffer) == false ) {
-        QUEX_NAME(buffer_reload_forward)(&me->buffer, (QUEX_TYPE_CHARACTER_POSITION*)position, PositionRegisterN);
-        /* Recover '_input_p' from lexeme start 
-         * (inverse of what we just did before the loading) */
-        me->buffer._input_p = me->buffer._lexeme_start_p;
-        /* After reload, we need to increment _input_p. That's how the game is supposed to be played. 
-         * But, we recovered from lexeme start pointer, and this one does not need to be incremented. */
-        text_end = QUEX_NAME(Buffer_text_end)(&me->buffer);
-        __QUEX_IF_COUNT_COLUMNS(reference_p = QUEX_NAME(Buffer_tell_memory_adr)(&me->buffer));
+            QUEX_NAME(buffer_reload_forward)(&me->buffer, (QUEX_TYPE_CHARACTER_POSITION*)position, PositionRegisterN);
+            /* Recover '_input_p' from lexeme start
+                * (inverse of what we just did before the loading) */
+            me->buffer._input_p = me->buffer._lexeme_start_p;
+            /* After reload, we need to increment _input_p. That's how the game is supposed to be played.
+                * But, we recovered from lexeme start pointer, and this one does not need to be incremented. */
+            text_end = QUEX_NAME(Buffer_text_end)(&me->buffer);
+            __QUEX_IF_COUNT_COLUMNS(reference_p = QUEX_NAME(Buffer_tell_memory_adr)(&me->buffer));
 
-        QUEX_BUFFER_ASSERT_CONSISTENCY(&me->buffer);
-        goto _4694;
+            QUEX_BUFFER_ASSERT_CONSISTENCY(&me->buffer);
+            goto _4694;
     }
     /* Here, either the loading failed or it is not enough space to carry a closing delimiter */
     me->buffer._input_p = me->buffer._lexeme_start_p;
     QUEX_ERROR_EXIT("\nLexical analyzer mode 'PROGRAM':\n"
-                "End of file occurred before closing skip range delimiter!\n"                "The 'on_skip_range_open' handler has not been specified.");
+                        "End of file occurred before closing skip range delimiter!\n"                "The 'on_skip_range_open' handler has not been specified.");
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_884:
     __quex_debug("* terminal 884:   try\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 3);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 3);
     {
-
-#   line 456 "cpp.qx"
-self_send(TKN_TRY);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25664 "tiny_lexer.cpp"
+#   line 446 "cpp.qx"
+    self_send(TKN_TRY);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24880 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1342:
     __quex_debug("* terminal 1342:   \"#\"[ \\t]*\"endif\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end +=     ((size_t)(me->buffer._input_p - me->buffer._lexeme_start_p)));
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, LexemeL);
     {
-
-#   line 507 "cpp.qx"
-QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_ENDIF);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25685 "tiny_lexer.cpp"
+#   line 497 "cpp.qx"
+    QUEX_NAME(enter_mode)(&self, &PREPROCESSOR);self_send(TKN_PP_ENDIF);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24893 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_374:
     __quex_debug("* terminal 374:   not_eq\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 6);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 6);
     {
-
-#   line 400 "cpp.qx"
-self_send(TKN_NOT_EQ);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25706 "tiny_lexer.cpp"
+#   line 390 "cpp.qx"
+    self_send(TKN_NOT_EQ);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24906 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_376:
     __quex_debug("* terminal 376:   \"|\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 402 "cpp.qx"
-self_send(TKN_BITOR);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25727 "tiny_lexer.cpp"
+#   line 392 "cpp.qx"
+    self_send(TKN_BITOR);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24919 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1407:
     __quex_debug("* terminal 1407:   \"//\"([^\\n]|\\\\[ \\t]*\\r?\\n)*\\r?\\n\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    QUEX_NAME(Counter_count)(&self.counter, self.buffer._lexeme_start_p, self.buffer._input_p);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_VOID(self.counter);
     {
 
     }
@@ -25745,99 +24930,59 @@ TERMINAL_1407:
 
 TERMINAL_898:
     __quex_debug("* terminal 898:   catch\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 5);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 5);
     {
-
-#   line 457 "cpp.qx"
-self_send(TKN_CATCH);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25763 "tiny_lexer.cpp"
+#   line 447 "cpp.qx"
+    self_send(TKN_CATCH);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24940 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1003:
     __quex_debug("* terminal 1003:   continue\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 8);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 8);
     {
-
-#   line 465 "cpp.qx"
-self_send(TKN_CONTINUE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25784 "tiny_lexer.cpp"
+#   line 455 "cpp.qx"
+    self_send(TKN_CONTINUE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24953 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_390:
     __quex_debug("* terminal 390:   bitor\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 5);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 5);
     {
-
-#   line 403 "cpp.qx"
-self_send(TKN_BITOR);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25805 "tiny_lexer.cpp"
+#   line 393 "cpp.qx"
+    self_send(TKN_BITOR);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24966 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_392:
     __quex_debug("* terminal 392:   \"||\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 404 "cpp.qx"
-self_send(TKN_OR);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25826 "tiny_lexer.cpp"
+#   line 394 "cpp.qx"
+    self_send(TKN_OR);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 24979 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1419:
     __quex_debug("* terminal 1419:   \\\\[ \\t]*\\r?\\n\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_end += 1);
-    __QUEX_IF_COUNT_COLUMNS_SET((size_t)1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_FIXED_COLUMN_N_ZERO(self.counter, 1);
     {
 
     }
@@ -25845,480 +24990,298 @@ TERMINAL_1419:
 
 TERMINAL_397:
     __quex_debug("* terminal 397:   or\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 405 "cpp.qx"
-self_send(TKN_OR);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25863 "tiny_lexer.cpp"
+#   line 395 "cpp.qx"
+    self_send(TKN_OR);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 25000 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_399:
     __quex_debug("* terminal 399:   \"|=\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 406 "cpp.qx"
-self_send(TKN_OR_EQ);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25884 "tiny_lexer.cpp"
+#   line 396 "cpp.qx"
+    self_send(TKN_OR_EQ);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 25013 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_915:
     __quex_debug("* terminal 915:   public\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 6);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 6);
     {
-
-#   line 459 "cpp.qx"
-self_send(TKN_PUBLIC);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25905 "tiny_lexer.cpp"
+#   line 449 "cpp.qx"
+    self_send(TKN_PUBLIC);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 25026 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_413:
     __quex_debug("* terminal 413:   or_eq\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 5);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 5);
     {
-
-#   line 407 "cpp.qx"
-self_send(TKN_OR_EQ);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25926 "tiny_lexer.cpp"
+#   line 397 "cpp.qx"
+    self_send(TKN_OR_EQ);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 25039 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_415:
     __quex_debug("* terminal 415:   \"^\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 409 "cpp.qx"
-self_send(TKN_XOR);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25947 "tiny_lexer.cpp"
+#   line 399 "cpp.qx"
+    self_send(TKN_XOR);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 25052 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_423:
     __quex_debug("* terminal 423:   xor\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 3);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 3);
     {
-
-#   line 410 "cpp.qx"
-self_send(TKN_XOR);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25968 "tiny_lexer.cpp"
+#   line 400 "cpp.qx"
+    self_send(TKN_XOR);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 25065 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_425:
     __quex_debug("* terminal 425:   \"^=\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 411 "cpp.qx"
-self_send(TKN_XOR_EQ);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 25989 "tiny_lexer.cpp"
+#   line 401 "cpp.qx"
+    self_send(TKN_XOR_EQ);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 25078 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_955:
     __quex_debug("* terminal 955:   private\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 7);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 7);
     {
-
-#   line 461 "cpp.qx"
-self_send(TKN_PRIVATE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 26010 "tiny_lexer.cpp"
+#   line 451 "cpp.qx"
+    self_send(TKN_PRIVATE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 25091 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_445:
     __quex_debug("* terminal 445:   xor_equ\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 7);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 7);
     {
-
-#   line 412 "cpp.qx"
-self_send(TKN_XOR_EQ);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 26031 "tiny_lexer.cpp"
+#   line 402 "cpp.qx"
+    self_send(TKN_XOR_EQ);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 25104 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_447:
     __quex_debug("* terminal 447:   \"~\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 414 "cpp.qx"
-self_send(TKN_COMPL);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 26052 "tiny_lexer.cpp"
+#   line 404 "cpp.qx"
+    self_send(TKN_COMPL);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 25117 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_963:
     __quex_debug("* terminal 963:   new\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 3);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 3);
     {
-
-#   line 463 "cpp.qx"
-self_send(TKN_NEW);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 26073 "tiny_lexer.cpp"
+#   line 453 "cpp.qx"
+    self_send(TKN_NEW);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 25130 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_461:
     __quex_debug("* terminal 461:   compl\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 5);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 5);
     {
-
-#   line 415 "cpp.qx"
-self_send(TKN_COMPL);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 26094 "tiny_lexer.cpp"
+#   line 405 "cpp.qx"
+    self_send(TKN_COMPL);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 25143 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_463:
     __quex_debug("* terminal 463:   \"&\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 417 "cpp.qx"
-self_send(TKN_BITAND);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 26115 "tiny_lexer.cpp"
+#   line 407 "cpp.qx"
+    self_send(TKN_BITAND);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 25156 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_980:
     __quex_debug("* terminal 980:   delete\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 6);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 6);
     {
-
-#   line 464 "cpp.qx"
-self_send(TKN_DELETE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 26136 "tiny_lexer.cpp"
+#   line 454 "cpp.qx"
+    self_send(TKN_DELETE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 25169 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_480:
     __quex_debug("* terminal 480:   bitand\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 6);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 6);
     {
-
-#   line 418 "cpp.qx"
-self_send(TKN_BITAND);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 26157 "tiny_lexer.cpp"
+#   line 408 "cpp.qx"
+    self_send(TKN_BITAND);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 25182 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_482:
     __quex_debug("* terminal 482:   \"&&\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 419 "cpp.qx"
-self_send(TKN_AND);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 26178 "tiny_lexer.cpp"
+#   line 409 "cpp.qx"
+    self_send(TKN_AND);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 25195 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_490:
     __quex_debug("* terminal 490:   and\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 3);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 3);
     {
-
-#   line 420 "cpp.qx"
-self_send(TKN_AND);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 26199 "tiny_lexer.cpp"
+#   line 410 "cpp.qx"
+    self_send(TKN_AND);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 25208 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_935:
     __quex_debug("* terminal 935:   protect\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 7);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 7);
     {
-
-#   line 460 "cpp.qx"
-self_send(TKN_PROTECT);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 26220 "tiny_lexer.cpp"
+#   line 450 "cpp.qx"
+    self_send(TKN_PROTECT);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 25221 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_492:
     __quex_debug("* terminal 492:   \"&=\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 421 "cpp.qx"
-self_send(TKN_AND_EQ);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 26241 "tiny_lexer.cpp"
+#   line 411 "cpp.qx"
+    self_send(TKN_AND_EQ);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 25234 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_851:
     __quex_debug("* terminal 851:   template\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 8);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 8);
     {
-
-#   line 453 "cpp.qx"
-self_send(TKN_TEMPLATE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 26262 "tiny_lexer.cpp"
+#   line 443 "cpp.qx"
+    self_send(TKN_TEMPLATE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 25247 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_1020:
     __quex_debug("* terminal 1020:   return\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 6);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 6);
     {
-
-#   line 466 "cpp.qx"
-self_send(TKN_RETURN);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 26283 "tiny_lexer.cpp"
+#   line 456 "cpp.qx"
+    self_send(TKN_RETURN);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 25260 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_509:
     __quex_debug("* terminal 509:   and_eq\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 6);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 6);
     {
-
-#   line 422 "cpp.qx"
-self_send(TKN_AND_EQ);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 26304 "tiny_lexer.cpp"
+#   line 412 "cpp.qx"
+    self_send(TKN_AND_EQ);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 25273 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 _4700: /* TERMINAL: END_OF_STREAM */
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_END_OF_STREAM_EVENT(self.counter);
     {
-
-#   line 342 "cpp.qx"
-QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, LexemeNull, LexemeNull);
-self_send(TKN_TERMINATION);
-
-#   line 26322 "tiny_lexer.cpp"
+#   line 332 "cpp.qx"
+    QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, LexemeNull, LexemeNull);
+    self_send(TKN_TERMINATION);
+    
+#   line 25285 "tiny_lexer.cpp"
 
     }
     /* End of Stream causes a return from the lexical analyzer, so that no
@@ -26338,21 +25301,14 @@ _5740: /* TERMINAL: FAILURE */
             ++(me->buffer._input_p);
         }
     }
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    QUEX_NAME(Counter_count)(&self.counter, self.buffer._lexeme_start_p, self.buffer._input_p);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_VOID(self.counter);
     {
-
-#   line 343 "cpp.qx"
-QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
-self_send(TKN_FAILURE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
-#   line 26356 "tiny_lexer.cpp"
+#   line 333 "cpp.qx"
+    QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
+    self_send(TKN_FAILURE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
+#   line 25312 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
@@ -49908,10 +48864,9 @@ _7419:
      * There is a temporary zero stored at the end of each lexeme, if the action 
      * references to the 'Lexeme'. 'LexemeNull' provides a reference to an empty
      * zero terminated string.                                                    */
-
 #if defined(QUEX_OPTION_ASSERTS)
 #   define Lexeme       QUEX_NAME(access_Lexeme)((const char*)__FILE__, (size_t)__LINE__, &me->buffer)
-#   define LexemeBegin  QUEX_NAME(access_Lexeme)((const char*)__FILE__, (size_t)__LINE__, &me->buffer)
+#   define LexemeBegin  QUEX_NAME(access_LexemeBegin)((const char*)__FILE__, (size_t)__LINE__, &me->buffer)
 #   define LexemeL      QUEX_NAME(access_LexemeL)((const char*)__FILE__, (size_t)__LINE__, &me->buffer)
 #   define LexemeEnd    QUEX_NAME(access_LexemeEnd)((const char*)__FILE__, (size_t)__LINE__, &me->buffer)
 #else
@@ -49925,20 +48880,12 @@ _7419:
 
 TERMINAL_1031:
     __quex_debug("* terminal 1031:   case\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 4);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 4);
     {
-
-#   line 467 "cpp.qx"
-self_send(TKN_CASE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 457 "cpp.qx"
+    self_send(TKN_CASE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -49946,20 +48893,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_526:
     __quex_debug("* terminal 526:   extern\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 6);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 6);
     {
-
-#   line 431 "cpp.qx"
-self_send(TKN_EXTERN);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 421 "cpp.qx"
+    self_send(TKN_EXTERN);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -49967,20 +48906,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1051:
     __quex_debug("* terminal 1051:   default\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 7);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 7);
     {
-
-#   line 468 "cpp.qx"
-self_send(TKN_DEFAULT);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 458 "cpp.qx"
+    self_send(TKN_DEFAULT);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -49988,20 +48919,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_549:
     __quex_debug("* terminal 549:   explicit\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 8);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 8);
     {
-
-#   line 432 "cpp.qx"
-self_send(TKN_EXPLICIT);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 422 "cpp.qx"
+    self_send(TKN_EXPLICIT);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50009,20 +48932,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1065:
     __quex_debug("* terminal 1065:   break\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 5);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 5);
     {
-
-#   line 469 "cpp.qx"
-self_send(TKN_BREAK);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 459 "cpp.qx"
+    self_send(TKN_BREAK);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50030,20 +48945,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_563:
     __quex_debug("* terminal 563:   const\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 5);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 5);
     {
-
-#   line 433 "cpp.qx"
-self_send(TKN_CONST);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 423 "cpp.qx"
+    self_send(TKN_CONST);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50051,20 +48958,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1076:
     __quex_debug("* terminal 1076:   goto\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 4);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 4);
     {
-
-#   line 470 "cpp.qx"
-self_send(TKN_GOTO);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 460 "cpp.qx"
+    self_send(TKN_GOTO);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50072,20 +48971,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_580:
     __quex_debug("* terminal 580:   friend\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 6);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 6);
     {
-
-#   line 434 "cpp.qx"
-self_send(TKN_FRIEND);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 424 "cpp.qx"
+    self_send(TKN_FRIEND);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50093,20 +48984,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1093:
     __quex_debug("* terminal 1093:   sizeof\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 6);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 6);
     {
-
-#   line 471 "cpp.qx"
-self_send(TKN_SIZEOF);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 461 "cpp.qx"
+    self_send(TKN_SIZEOF);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50114,20 +48997,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1107:
     __quex_debug("* terminal 1107:   throw\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 5);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 5);
     {
-
-#   line 472 "cpp.qx"
-self_send(TKN_THROW);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 462 "cpp.qx"
+    self_send(TKN_THROW);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50135,20 +49010,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_600:
     __quex_debug("* terminal 600:   virtual\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 7);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 7);
     {
-
-#   line 435 "cpp.qx"
-self_send(TKN_VIRTUAL);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 425 "cpp.qx"
+    self_send(TKN_VIRTUAL);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50156,20 +49023,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1121:
     __quex_debug("* terminal 1121:   using\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 5);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 5);
     {
-
-#   line 474 "cpp.qx"
-self_send(TKN_USING);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 464 "cpp.qx"
+    self_send(TKN_USING);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50177,20 +49036,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1129:
     __quex_debug("* terminal 1129:   asm\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 3);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 3);
     {
-
-#   line 475 "cpp.qx"
-self_send(TKN_ASM);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 465 "cpp.qx"
+    self_send(TKN_ASM);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50198,20 +49049,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_623:
     __quex_debug("* terminal 623:   volatile\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 8);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 8);
     {
-
-#   line 436 "cpp.qx"
-self_send(TKN_VOLATILE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 426 "cpp.qx"
+    self_send(TKN_VOLATILE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50219,20 +49062,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1180:
     __quex_debug("* terminal 1180:   typeid\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 6);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 6);
     {
-
-#   line 478 "cpp.qx"
-self_send(TKN_TYPEID);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 468 "cpp.qx"
+    self_send(TKN_TYPEID);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50240,20 +49075,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1143:
     __quex_debug("* terminal 1143:   __asm\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 5);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 5);
     {
-
-#   line 476 "cpp.qx"
-self_send(TKN_ASM_EXT);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 466 "cpp.qx"
+    self_send(TKN_ASM_EXT);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50261,20 +49088,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_640:
     __quex_debug("* terminal 640:   static\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 6);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 6);
     {
-
-#   line 437 "cpp.qx"
-self_send(TKN_STATIC);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 427 "cpp.qx"
+    self_send(TKN_STATIC);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50282,20 +49101,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1163:
     __quex_debug("* terminal 1163:   typedef\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 7);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 7);
     {
-
-#   line 477 "cpp.qx"
-self_send(TKN_TYPEDEF);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 467 "cpp.qx"
+    self_send(TKN_TYPEDEF);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50303,20 +49114,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_657:
     __quex_debug("* terminal 657:   inline\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 6);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 6);
     {
-
-#   line 438 "cpp.qx"
-self_send(TKN_INLINE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 428 "cpp.qx"
+    self_send(TKN_INLINE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50324,20 +49127,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_668:
     __quex_debug("* terminal 668:   auto\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 4);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 4);
     {
-
-#   line 439 "cpp.qx"
-self_send(TKN_AUTO);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 429 "cpp.qx"
+    self_send(TKN_AUTO);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50345,20 +49140,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1191:
     __quex_debug("* terminal 1191:   this\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 4);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 4);
     {
-
-#   line 479 "cpp.qx"
-self_send(TKN_THIS);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 469 "cpp.qx"
+    self_send(TKN_THIS);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50366,20 +49153,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_691:
     __quex_debug("* terminal 691:   register\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 8);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 8);
     {
-
-#   line 440 "cpp.qx"
-self_send(TKN_REGISTER);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 430 "cpp.qx"
+    self_send(TKN_REGISTER);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50387,20 +49166,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1214:
     __quex_debug("* terminal 1214:   typename\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 8);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 8);
     {
-
-#   line 481 "cpp.qx"
-self_send(TKN_TYPENAME);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 471 "cpp.qx"
+    self_send(TKN_TYPENAME);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50408,20 +49179,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_711:
     __quex_debug("* terminal 711:   mutable\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 7);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 7);
     {
-
-#   line 441 "cpp.qx"
-self_send(TKN_MUTABLE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 431 "cpp.qx"
+    self_send(TKN_MUTABLE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50429,20 +49192,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_716:
     __quex_debug("* terminal 716:   if\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 443 "cpp.qx"
-self_send(TKN_IF);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 433 "cpp.qx"
+    self_send(TKN_IF);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50450,20 +49205,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1237:
     __quex_debug("* terminal 1237:   operator\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 8);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 8);
     {
-
-#   line 482 "cpp.qx"
-self_send(TKN_OPERATOR);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 472 "cpp.qx"
+    self_send(TKN_OPERATOR);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50471,20 +49218,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_727:
     __quex_debug("* terminal 727:   else\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 4);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 4);
     {
-
-#   line 444 "cpp.qx"
-self_send(TKN_ELSE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 434 "cpp.qx"
+    self_send(TKN_ELSE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50492,21 +49231,13 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1241:
     __quex_debug("* terminal 1241:   {P_NUMBER}\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end +=     ((size_t)(me->buffer._input_p - me->buffer._lexeme_start_p)));
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, LexemeL);
     {
-
-#   line 485 "cpp.qx"
-QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
-self_send(TKN_NUMBER);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 475 "cpp.qx"
+    QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
+    self_send(TKN_NUMBER);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50514,21 +49245,13 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1243:
     __quex_debug("* terminal 1243:   {P_STRING}\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    QUEX_NAME(Counter_count)(&self.counter, self.buffer._lexeme_start_p, self.buffer._input_p);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_VOID(self.counter);
     {
-
-#   line 486 "cpp.qx"
-QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
-self_send(TKN_STRING);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 476 "cpp.qx"
+    QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
+    self_send(TKN_STRING);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50536,21 +49259,13 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1245:
     __quex_debug("* terminal 1245:   {P_QUOTED_CHAR}\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    QUEX_NAME(Counter_count)(&self.counter, self.buffer._lexeme_start_p, self.buffer._input_p);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_VOID(self.counter);
     {
-
-#   line 487 "cpp.qx"
-QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
-self_send(TKN_QUOTED_CHAR);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 477 "cpp.qx"
+    QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
+    self_send(TKN_QUOTED_CHAR);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50558,21 +49273,13 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1247:
     __quex_debug("* terminal 1247:   {decimal_constant}\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end +=     ((size_t)(me->buffer._input_p - me->buffer._lexeme_start_p)));
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, LexemeL);
     {
-
-#   line 489 "cpp.qx"
-QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
-self_send(TKN_NUMBER);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 479 "cpp.qx"
+    QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
+    self_send(TKN_NUMBER);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50580,21 +49287,13 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1249:
     __quex_debug("* terminal 1249:   {octal_constant}\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end +=     ((size_t)(me->buffer._input_p - me->buffer._lexeme_start_p)));
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, LexemeL);
     {
-
-#   line 490 "cpp.qx"
-QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
-self_send(TKN_NUMBER);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 480 "cpp.qx"
+    QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
+    self_send(TKN_NUMBER);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50602,21 +49301,13 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1251:
     __quex_debug("* terminal 1251:   {hex_constant}\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end +=     ((size_t)(me->buffer._input_p - me->buffer._lexeme_start_p)));
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, LexemeL);
     {
-
-#   line 491 "cpp.qx"
-QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
-self_send(TKN_NUMBER);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 481 "cpp.qx"
+    QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
+    self_send(TKN_NUMBER);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50624,21 +49315,13 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1253:
     __quex_debug("* terminal 1253:   {floating_constant}\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end +=     ((size_t)(me->buffer._input_p - me->buffer._lexeme_start_p)));
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, LexemeL);
     {
-
-#   line 492 "cpp.qx"
-QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
-self_send(TKN_NUMBER);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 482 "cpp.qx"
+    QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
+    self_send(TKN_NUMBER);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50646,20 +49329,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_744:
     __quex_debug("* terminal 744:   switch\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 6);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 6);
     {
-
-#   line 445 "cpp.qx"
-self_send(TKN_SWITCH);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 435 "cpp.qx"
+    self_send(TKN_SWITCH);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50667,20 +49342,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_752:
     __quex_debug("* terminal 752:   for\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 3);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 3);
     {
-
-#   line 446 "cpp.qx"
-self_send(TKN_FOR);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 436 "cpp.qx"
+    self_send(TKN_FOR);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50688,20 +49355,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_757:
     __quex_debug("* terminal 757:   do\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 447 "cpp.qx"
-self_send(TKN_DO);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 437 "cpp.qx"
+    self_send(TKN_DO);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50709,20 +49368,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_771:
     __quex_debug("* terminal 771:   while\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 5);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 5);
     {
-
-#   line 448 "cpp.qx"
-self_send(TKN_WHILE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 438 "cpp.qx"
+    self_send(TKN_WHILE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50730,20 +49381,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_270:
     __quex_debug("* terminal 270:   \"(\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 350 "cpp.qx"
-self_send(TKN_L_PAREN);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 340 "cpp.qx"
+    self_send(TKN_L_PAREN);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50751,20 +49394,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_272:
     __quex_debug("* terminal 272:   \")\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 351 "cpp.qx"
-self_send(TKN_R_PAREN);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 341 "cpp.qx"
+    self_send(TKN_R_PAREN);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50772,20 +49407,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_274:
     __quex_debug("* terminal 274:   \"{\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 352 "cpp.qx"
-self_send(TKN_L_BRACE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 342 "cpp.qx"
+    self_send(TKN_L_BRACE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50793,20 +49420,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_276:
     __quex_debug("* terminal 276:   \"}\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 353 "cpp.qx"
-self_send(TKN_R_BRACE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 343 "cpp.qx"
+    self_send(TKN_R_BRACE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50814,20 +49433,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_278:
     __quex_debug("* terminal 278:   \"[\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 354 "cpp.qx"
-self_send(TKN_L_SQUARE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 344 "cpp.qx"
+    self_send(TKN_L_SQUARE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50835,20 +49446,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_280:
     __quex_debug("* terminal 280:   \"]\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 355 "cpp.qx"
-self_send(TKN_R_SQUARE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 345 "cpp.qx"
+    self_send(TKN_R_SQUARE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50856,20 +49459,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_282:
     __quex_debug("* terminal 282:   \".\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 357 "cpp.qx"
-self_send(TKN_DOT);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 347 "cpp.qx"
+    self_send(TKN_DOT);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50877,20 +49472,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_284:
     __quex_debug("* terminal 284:   \"...\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 3);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 3);
     {
-
-#   line 358 "cpp.qx"
-self_send(TKN_ELLIPSIS);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 348 "cpp.qx"
+    self_send(TKN_ELLIPSIS);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50898,20 +49485,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_797:
     __quex_debug("* terminal 797:   namespace\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 9);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 9);
     {
-
-#   line 450 "cpp.qx"
-self_send(TKN_NAMESPACE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 440 "cpp.qx"
+    self_send(TKN_NAMESPACE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50919,20 +49498,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_286:
     __quex_debug("* terminal 286:   \":\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 359 "cpp.qx"
-self_send(TKN_COLON);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 349 "cpp.qx"
+    self_send(TKN_COLON);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50940,20 +49511,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_288:
     __quex_debug("* terminal 288:   \"::\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 360 "cpp.qx"
-self_send(TKN_DOUBLE_COLON);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 350 "cpp.qx"
+    self_send(TKN_DOUBLE_COLON);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50961,20 +49524,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_290:
     __quex_debug("* terminal 290:   \";\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 361 "cpp.qx"
-self_send(TKN_SEMICOLON);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 351 "cpp.qx"
+    self_send(TKN_SEMICOLON);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -50982,20 +49537,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_292:
     __quex_debug("* terminal 292:   \",\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 362 "cpp.qx"
-self_send(TKN_COMMA);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 352 "cpp.qx"
+    self_send(TKN_COMMA);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51003,20 +49550,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_294:
     __quex_debug("* terminal 294:   \"?\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 363 "cpp.qx"
-self_send(TKN_QUESTION);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 353 "cpp.qx"
+    self_send(TKN_QUESTION);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51024,20 +49563,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_296:
     __quex_debug("* terminal 296:   \"->\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 364 "cpp.qx"
-self_send(TKN_ARROW);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 354 "cpp.qx"
+    self_send(TKN_ARROW);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51045,20 +49576,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_298:
     __quex_debug("* terminal 298:   \"=\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 367 "cpp.qx"
-self_send(TKN_ASSIGN);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 357 "cpp.qx"
+    self_send(TKN_ASSIGN);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51066,20 +49589,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_811:
     __quex_debug("* terminal 811:   class\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 5);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 5);
     {
-
-#   line 451 "cpp.qx"
-self_send(TKN_CLASS);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 441 "cpp.qx"
+    self_send(TKN_CLASS);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51087,20 +49602,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_300:
     __quex_debug("* terminal 300:   \"+\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 368 "cpp.qx"
-self_send(TKN_PLUS);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 358 "cpp.qx"
+    self_send(TKN_PLUS);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51108,20 +49615,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_302:
     __quex_debug("* terminal 302:   \"+=\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 369 "cpp.qx"
-self_send(TKN_PLUS_ASSIGN);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 359 "cpp.qx"
+    self_send(TKN_PLUS_ASSIGN);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51129,20 +49628,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_304:
     __quex_debug("* terminal 304:   \"++\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 370 "cpp.qx"
-self_send(TKN_DOUBLE_PLUS);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 360 "cpp.qx"
+    self_send(TKN_DOUBLE_PLUS);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51150,20 +49641,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_306:
     __quex_debug("* terminal 306:   \"-\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 371 "cpp.qx"
-self_send(TKN_MINUS);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 361 "cpp.qx"
+    self_send(TKN_MINUS);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51171,20 +49654,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_308:
     __quex_debug("* terminal 308:   \"--\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 372 "cpp.qx"
-self_send(TKN_DOUBLE_MINUS);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 362 "cpp.qx"
+    self_send(TKN_DOUBLE_MINUS);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51192,20 +49667,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_310:
     __quex_debug("* terminal 310:   \"-=\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 373 "cpp.qx"
-self_send(TKN_MINUS_ASSIGN);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 363 "cpp.qx"
+    self_send(TKN_MINUS_ASSIGN);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51213,20 +49680,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_312:
     __quex_debug("* terminal 312:   \"*\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 375 "cpp.qx"
-self_send(TKN_MULT);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 365 "cpp.qx"
+    self_send(TKN_MULT);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51234,20 +49693,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_314:
     __quex_debug("* terminal 314:   \"*=\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 376 "cpp.qx"
-self_send(TKN_MULT_ASSIGN);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 366 "cpp.qx"
+    self_send(TKN_MULT_ASSIGN);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51255,20 +49706,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_316:
     __quex_debug("* terminal 316:   \"/\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 377 "cpp.qx"
-self_send(TKN_DIV);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 367 "cpp.qx"
+    self_send(TKN_DIV);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51276,20 +49719,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_318:
     __quex_debug("* terminal 318:   \"/=\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 378 "cpp.qx"
-self_send(TKN_DIV_ASSIGN);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 368 "cpp.qx"
+    self_send(TKN_DIV_ASSIGN);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51297,20 +49732,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_320:
     __quex_debug("* terminal 320:   \"%\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 379 "cpp.qx"
-self_send(TKN_MODULO);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 369 "cpp.qx"
+    self_send(TKN_MODULO);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51318,20 +49745,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_322:
     __quex_debug("* terminal 322:   \"%=\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 380 "cpp.qx"
-self_send(TKN_MODULO_ASSIGN);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 370 "cpp.qx"
+    self_send(TKN_MODULO_ASSIGN);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51339,20 +49758,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_324:
     __quex_debug("* terminal 324:   \"<<\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 383 "cpp.qx"
-self_send(TKN_L_SHIFT);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 373 "cpp.qx"
+    self_send(TKN_L_SHIFT);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51360,20 +49771,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_326:
     __quex_debug("* terminal 326:   \"<<=\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 3);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 3);
     {
-
-#   line 384 "cpp.qx"
-self_send(TKN_L_SHIFT_ASSIGN);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 374 "cpp.qx"
+    self_send(TKN_L_SHIFT_ASSIGN);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51381,20 +49784,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_328:
     __quex_debug("* terminal 328:   \">>\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 385 "cpp.qx"
-self_send(TKN_R_SHIFT);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 375 "cpp.qx"
+    self_send(TKN_R_SHIFT);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51402,20 +49797,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_330:
     __quex_debug("* terminal 330:   \">>=\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 3);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 3);
     {
-
-#   line 386 "cpp.qx"
-self_send(TKN_R_SHIFT_ASSIGN);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 376 "cpp.qx"
+    self_send(TKN_R_SHIFT_ASSIGN);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51423,20 +49810,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_332:
     __quex_debug("* terminal 332:   \"==\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 389 "cpp.qx"
-self_send(TKN_EQ);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 379 "cpp.qx"
+    self_send(TKN_EQ);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51444,20 +49823,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_337:
     __quex_debug("* terminal 337:   eq\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 390 "cpp.qx"
-self_send(TKN_EQ);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 380 "cpp.qx"
+    self_send(TKN_EQ);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51465,20 +49836,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_339:
     __quex_debug("* terminal 339:   \">\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 392 "cpp.qx"
-self_send(TKN_GREATER);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 382 "cpp.qx"
+    self_send(TKN_GREATER);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51486,20 +49849,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_341:
     __quex_debug("* terminal 341:   \">=\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 393 "cpp.qx"
-self_send(TKN_GREATER_EQ);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 383 "cpp.qx"
+    self_send(TKN_GREATER_EQ);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51507,20 +49862,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_343:
     __quex_debug("* terminal 343:   \"<\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 394 "cpp.qx"
-self_send(TKN_LESS);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 384 "cpp.qx"
+    self_send(TKN_LESS);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51528,20 +49875,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_345:
     __quex_debug("* terminal 345:   \"<=\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 395 "cpp.qx"
-self_send(TKN_LESS_EQ);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 385 "cpp.qx"
+    self_send(TKN_LESS_EQ);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51549,20 +49888,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_347:
     __quex_debug("* terminal 347:   \"!\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 397 "cpp.qx"
-self_send(TKN_NOT);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 387 "cpp.qx"
+    self_send(TKN_NOT);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51570,20 +49901,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_865:
     __quex_debug("* terminal 865:   union\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 5);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 5);
     {
-
-#   line 454 "cpp.qx"
-self_send(TKN_UNION);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 444 "cpp.qx"
+    self_send(TKN_UNION);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51591,20 +49914,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_355:
     __quex_debug("* terminal 355:   not\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 3);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 3);
     {
-
-#   line 398 "cpp.qx"
-self_send(TKN_NOT);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 388 "cpp.qx"
+    self_send(TKN_NOT);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51612,20 +49927,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_357:
     __quex_debug("* terminal 357:   \"!=\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 399 "cpp.qx"
-self_send(TKN_NOT_EQ);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 389 "cpp.qx"
+    self_send(TKN_NOT_EQ);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51633,20 +49940,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_828:
     __quex_debug("* terminal 828:   struct\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 6);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 6);
     {
-
-#   line 452 "cpp.qx"
-self_send(TKN_STRUCT);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 442 "cpp.qx"
+    self_send(TKN_STRUCT);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51654,20 +49953,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_876:
     __quex_debug("* terminal 876:   enum\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 4);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 4);
     {
-
-#   line 455 "cpp.qx"
-self_send(TKN_ENUM);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 445 "cpp.qx"
+    self_send(TKN_ENUM);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51675,20 +49966,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_884:
     __quex_debug("* terminal 884:   try\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 3);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 3);
     {
-
-#   line 456 "cpp.qx"
-self_send(TKN_TRY);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 446 "cpp.qx"
+    self_send(TKN_TRY);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51696,20 +49979,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_374:
     __quex_debug("* terminal 374:   not_eq\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 6);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 6);
     {
-
-#   line 400 "cpp.qx"
-self_send(TKN_NOT_EQ);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 390 "cpp.qx"
+    self_send(TKN_NOT_EQ);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51717,20 +49992,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_376:
     __quex_debug("* terminal 376:   \"|\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 402 "cpp.qx"
-self_send(TKN_BITOR);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 392 "cpp.qx"
+    self_send(TKN_BITOR);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51738,20 +50005,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_898:
     __quex_debug("* terminal 898:   catch\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 5);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 5);
     {
-
-#   line 457 "cpp.qx"
-self_send(TKN_CATCH);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 447 "cpp.qx"
+    self_send(TKN_CATCH);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51759,20 +50018,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1003:
     __quex_debug("* terminal 1003:   continue\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 8);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 8);
     {
-
-#   line 465 "cpp.qx"
-self_send(TKN_CONTINUE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 455 "cpp.qx"
+    self_send(TKN_CONTINUE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51780,20 +50031,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_390:
     __quex_debug("* terminal 390:   bitor\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 5);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 5);
     {
-
-#   line 403 "cpp.qx"
-self_send(TKN_BITOR);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 393 "cpp.qx"
+    self_send(TKN_BITOR);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51801,20 +50044,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_392:
     __quex_debug("* terminal 392:   \"||\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 404 "cpp.qx"
-self_send(TKN_OR);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 394 "cpp.qx"
+    self_send(TKN_OR);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51822,20 +50057,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_397:
     __quex_debug("* terminal 397:   or\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 405 "cpp.qx"
-self_send(TKN_OR);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 395 "cpp.qx"
+    self_send(TKN_OR);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51843,14 +50070,7 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1422:
     __quex_debug("* terminal 1422:   [ \\r\\t]\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
     /* Character set skipper state */
 
@@ -51862,73 +50082,65 @@ TERMINAL_1422:
     QUEX_BUFFER_ASSERT_CONSISTENCY(&me->buffer);
     __quex_assert(QUEX_NAME(Buffer_content_size)(&me->buffer) >= 1);
 
-    /* NOTE: For simple skippers the end of content does not have to be overwriten 
-     *       with anything (as done for range skippers). This is so, because the abort
-     *       criteria is that a character occurs which does not belong to the trigger 
-     *       set. The BufferLimitCode, though, does never belong to any trigger set and
-     *       thus, no special character is to be set.                                   */
+    /* NOTE: For simple skippers the end of content does not have to be overwriten
+        *       with anything (as done for range skippers). This is so, because the abort
+        *       criteria is that a character occurs which does not belong to the trigger
+        *       set. The BufferLimitCode, though, does never belong to any trigger set and
+        *       thus, no special character is to be set.                                   */
 _6145_LOOP:
     input = *(me->buffer._input_p);
 
     switch( input ) {
-        case 0x0: goto _6146;
+                case 0x0: goto _6146;
 
-        case 0x9: 
-        case 0xD: 
-        case 0x20: ++(me->buffer._input_p); goto _6145_LOOP;
+                case 0x9:
+                case 0xD:
+                case 0x20: ++(me->buffer._input_p); goto _6145_LOOP;
 
 
     }
     __QUEX_IF_COUNT_COLUMNS_ADD((size_t)(me->buffer._input_p - reference_p));
 
-    /* There was no buffer limit code, so no end of buffer or end of file --> continue analysis 
-     * The character we just swallowed must be re-considered by the main state machine.
-     * But, note that the initial state does not increment '_input_p'!
-     *
-     * No need for re-entry preparation. Acceptance flags and modes are untouched after skipping. */
+    /* There was no buffer limit code, so no end of buffer or end of file --> continue analysis
+        * The character we just swallowed must be re-considered by the main state machine.
+        * But, note that the initial state does not increment '_input_p'!
+        *
+        * No need for re-entry preparation. Acceptance flags and modes are untouched after skipping. */
     goto __REENTRY;
 
 _6146:
     /* -- When loading new content it is always taken care that the beginning of the lexeme
-     *    is not 'shifted' out of the buffer. In the case of skipping, we do not care about
-     *    the lexeme at all, so do not restrict the load procedure and set the lexeme start
-     *    to the actual input position.                                                   
-     * -- The input_p will at this point in time always point to the buffer border.        */
+        *    is not 'shifted' out of the buffer. In the case of skipping, we do not care about
+        *    the lexeme at all, so do not restrict the load procedure and set the lexeme start
+        *    to the actual input position.
+        * -- The input_p will at this point in time always point to the buffer border.        */
     __quex_assert(input == QUEX_SETTING_BUFFER_LIMIT_CODE);
     QUEX_BUFFER_ASSERT_CONSISTENCY(&me->buffer);
     __QUEX_IF_COUNT_COLUMNS_ADD((size_t)(me->buffer._input_p - reference_p));
 
     me->buffer._lexeme_start_p = me->buffer._input_p;
     if( QUEX_NAME(Buffer_is_end_of_file)(&me->buffer) ) {
-        goto _4700;
+                goto _4700;
     } else {
-        QUEX_NAME(buffer_reload_forward)(&me->buffer, (QUEX_TYPE_CHARACTER_POSITION*)position, PositionRegisterN);
-        QUEX_BUFFER_ASSERT_CONSISTENCY(&me->buffer);
-        ++(me->buffer._input_p); /* Now, BLC cannot occur. See above. */
-       __QUEX_IF_COUNT_COLUMNS(reference_p = me->buffer._input_p);
+                QUEX_NAME(buffer_reload_forward)(&me->buffer, (QUEX_TYPE_CHARACTER_POSITION*)position, PositionRegisterN);
+                QUEX_BUFFER_ASSERT_CONSISTENCY(&me->buffer);
+                ++(me->buffer._input_p); /* Now, BLC cannot occur. See above. */
+            __QUEX_IF_COUNT_COLUMNS(reference_p = me->buffer._input_p);
 
-        goto _6145_LOOP;
-    } 
+                goto _6145_LOOP;
+    }
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_399:
     __quex_debug("* terminal 399:   \"|=\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 406 "cpp.qx"
-self_send(TKN_OR_EQ);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 396 "cpp.qx"
+    self_send(TKN_OR_EQ);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -51936,16 +50148,8 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1424:
     __quex_debug("* terminal 1424:   \"/*\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
     /*                          Delimiter: '*', '/',  */
 
     text_end = QUEX_NAME(Buffer_text_end)(&me->buffer);
@@ -51958,143 +50162,135 @@ _6143:
     __quex_assert(QUEX_NAME(Buffer_content_size)(&me->buffer) >= Skipper6143L );
 
     /* NOTE: If _input_p == end of buffer, then it will drop out immediately out of the
-     *       loop below and drop into the buffer reload procedure.                      */
+        *       loop below and drop into the buffer reload procedure.                      */
 
     /* Loop eating characters: Break-out as soon as the First Character of the Delimiter
-     * (FCD) is reached. Thus, the FCD plays also the role of the Buffer Limit Code. There
-     * are two reasons for break-out:
-     *    (1) we reached a limit (end-of-file or buffer-limit)
-     *    (2) there was really the FCD in the character stream
-     * This must be distinguished after the loop was exited. But, during the 'swallowing' we
-     * are very fast, because we do not have to check for two different characters.        */
+        * (FCD) is reached. Thus, the FCD plays also the role of the Buffer Limit Code. There
+        * are two reasons for break-out:
+        *    (1) we reached a limit (end-of-file or buffer-limit)
+        *    (2) there was really the FCD in the character stream
+        * This must be distinguished after the loop was exited. But, during the 'swallowing' we
+        * are very fast, because we do not have to check for two different characters.        */
     *text_end = Skipper6143[0]; /* Overwrite BufferLimitCode (BLC).  */
 _6143_LOOP:
-            input = *(me->buffer._input_p);
- 
-        if( input == Skipper6143[0] ) {
+                    input = *(me->buffer._input_p);
 
-            goto _6143_LOOP_EXIT;
-        }
+            if( input == Skipper6143[0] ) {
 
-    __QUEX_IF_COUNT_IF( input == (QUEX_TYPE_CHARACTER)'\n' ) { 
-        __QUEX_IF_COUNT_LINES_ADD((size_t)1);
-        __QUEX_IF_COUNT_COLUMNS_SET((size_t)0);
-        __QUEX_IF_COUNT_COLUMNS(reference_p = QUEX_NAME(Buffer_tell_memory_adr)(&me->buffer));
+                    goto _6143_LOOP_EXIT;
+            }
+
+    __QUEX_IF_COUNT_IF( input == (QUEX_TYPE_CHARACTER)'\n' ) {
+            __QUEX_IF_COUNT_LINES_ADD((size_t)1);
+            __QUEX_IF_COUNT_COLUMNS_SET((size_t)0);
+            __QUEX_IF_COUNT_COLUMNS(reference_p = QUEX_NAME(Buffer_tell_memory_adr)(&me->buffer));
     }
 
-        ++(me->buffer._input_p); /* Now, BLC cannot occur. See above. */
+            ++(me->buffer._input_p); /* Now, BLC cannot occur. See above. */
     goto _6143_LOOP;
 _6143_LOOP_EXIT:
 
     *text_end = QUEX_SETTING_BUFFER_LIMIT_CODE; /* Reset BLC. */
 
-    /* Case (1) and (2) from above can be distinguished easily: 
-     *
-     *   (1) Distance to text end == 0: 
-     *         End-of-File or Buffer-Limit. 
-     *         => goto to drop-out handling
-     *
-     *   (2) Else:                      
-     *         First character of delimit reached. 
-     *         => For the verification of the tail of the delimiter it is 
-     *            essential that it is loaded completely into the buffer. 
-     *            For this, it must be required:
-     *
-     *                Distance to text end >= Delimiter length 
-     *
-     *                _input_p    end
-     *                    |        |           end - _input_p >= 3
-     *                [ ][R][E][M][#]          
-     * 
-     *         The case of reload should be seldom and is costy anyway. 
-     *         Thus let's say, that in this case we simply enter the drop 
-     *         out and start the search for the delimiter all over again.
-     *
-     *         (2.1) Distance to text end < Delimiter length
-     *                => goto to drop-out handling
-     *         (2.2) Start detection of tail of delimiter
-     *
-     */
+    /* Case (1) and (2) from above can be distinguished easily:
+        *
+        *   (1) Distance to text end == 0:
+        *         End-of-File or Buffer-Limit.
+        *         => goto to drop-out handling
+        *
+        *   (2) Else:
+        *         First character of delimit reached.
+        *         => For the verification of the tail of the delimiter it is
+        *            essential that it is loaded completely into the buffer.
+        *            For this, it must be required:
+        *
+        *                Distance to text end >= Delimiter length
+        *
+        *                _input_p    end
+        *                    |        |           end - _input_p >= 3
+        *                [ ][R][E][M][#]
+        *
+        *         The case of reload should be seldom and is costy anyway.
+        *         Thus let's say, that in this case we simply enter the drop
+        *         out and start the search for the delimiter all over again.
+        *
+        *         (2.1) Distance to text end < Delimiter length
+        *                => goto to drop-out handling
+        *         (2.2) Start detection of tail of delimiter
+        *
+        */
     if( QUEX_NAME(Buffer_distance_input_to_text_end)(&me->buffer) < (ptrdiff_t)Skipper6143L ) {
-        /* (2.1) Reload required. */
-        goto _6144;
+            /* (2.1) Reload required. */
+            goto _6144;
     }
-    
+
     /* (2.2) Test the remaining delimiter, but note, that the check must restart at '_input_p + 1'
-     *       if any later check fails. */
+        *       if any later check fails. */
     ++(me->buffer._input_p);
-    /* Example: Delimiter = '*', '/'; if we get ...[*][*][/]... then the the first "*" causes 
-     *          a drop out out of the 'swallowing loop' and the second "*" will mismatch 
-     *          the required "/". But, then the second "*" must be presented to the
-     *          swallowing loop and the letter after it completes the 'match'.
-     * (The whole discussion, of course, is superflous if the range delimiter has length 1.)  */
+    /* Example: Delimiter = '*', '/'; if we get ...[*][*][/]... then the the first "*" causes
+        *          a drop out out of the 'swallowing loop' and the second "*" will mismatch
+        *          the required "/". But, then the second "*" must be presented to the
+        *          swallowing loop and the letter after it completes the 'match'.
+        * (The whole discussion, of course, is superflous if the range delimiter has length 1.)  */
     input = *(me->buffer._input_p);
     if( input != Skipper6143[1] ) {
-         goto _6143;    }            
+                goto _6143;    }
     {
-        /* NOTE: The initial state does not increment the input_p. When it detects that
-         * it is located on a buffer border, it automatically triggers a reload. No 
-         * need here to reload the buffer. */
+            /* NOTE: The initial state does not increment the input_p. When it detects that
+                * it is located on a buffer border, it automatically triggers a reload. No
+                * need here to reload the buffer. */
 QUEX_NAME(Buffer_input_p_add_offset)(&me->buffer, 1);
-        __QUEX_IF_COUNT_COLUMNS_ADD((size_t)(QUEX_NAME(Buffer_tell_memory_adr)(&me->buffer)
-                                    - reference_p));
+            __QUEX_IF_COUNT_COLUMNS_ADD((size_t)(QUEX_NAME(Buffer_tell_memory_adr)(&me->buffer)
+                                - reference_p));
 
-        /* No need for re-entry preparation. Acceptance flags and modes are untouched after skipping. */
-        goto __REENTRY; /* End of range reached. */
+            /* No need for re-entry preparation. Acceptance flags and modes are untouched after skipping. */
+            goto __REENTRY; /* End of range reached. */
     }
 
 _6144:
     QUEX_BUFFER_ASSERT_CONSISTENCY_LIGHT(&me->buffer);
     /* -- When loading new content it is checked that the beginning of the lexeme
-     *    is not 'shifted' out of the buffer. In the case of skipping, we do not care about
-     *    the lexeme at all, so do not restrict the load procedure and set the lexeme start
-     *    to the actual input position.                                                    */
+        *    is not 'shifted' out of the buffer. In the case of skipping, we do not care about
+        *    the lexeme at all, so do not restrict the load procedure and set the lexeme start
+        *    to the actual input position.                                                    */
     me->buffer._lexeme_start_p = me->buffer._input_p;
 
     __QUEX_IF_COUNT_COLUMNS_ADD((size_t)(QUEX_NAME(Buffer_tell_memory_adr)(&me->buffer)
-                                - reference_p));
+                            - reference_p));
 
     /* -- According to case (2.1) is is possible that the _input_p does not point to the end
-     *    of the buffer, thus we record the current position in the lexeme start pointer and
-     *    recover it after the loading. */
+        *    of the buffer, thus we record the current position in the lexeme start pointer and
+        *    recover it after the loading. */
     me->buffer._input_p = text_end;
     if( QUEX_NAME(Buffer_is_end_of_file)(&me->buffer) == false ) {
-        QUEX_NAME(buffer_reload_forward)(&me->buffer, (QUEX_TYPE_CHARACTER_POSITION*)position, PositionRegisterN);
-        /* Recover '_input_p' from lexeme start 
-         * (inverse of what we just did before the loading) */
-        me->buffer._input_p = me->buffer._lexeme_start_p;
-        /* After reload, we need to increment _input_p. That's how the game is supposed to be played. 
-         * But, we recovered from lexeme start pointer, and this one does not need to be incremented. */
-        text_end = QUEX_NAME(Buffer_text_end)(&me->buffer);
-        __QUEX_IF_COUNT_COLUMNS(reference_p = QUEX_NAME(Buffer_tell_memory_adr)(&me->buffer));
+            QUEX_NAME(buffer_reload_forward)(&me->buffer, (QUEX_TYPE_CHARACTER_POSITION*)position, PositionRegisterN);
+            /* Recover '_input_p' from lexeme start
+                * (inverse of what we just did before the loading) */
+            me->buffer._input_p = me->buffer._lexeme_start_p;
+            /* After reload, we need to increment _input_p. That's how the game is supposed to be played.
+                * But, we recovered from lexeme start pointer, and this one does not need to be incremented. */
+            text_end = QUEX_NAME(Buffer_text_end)(&me->buffer);
+            __QUEX_IF_COUNT_COLUMNS(reference_p = QUEX_NAME(Buffer_tell_memory_adr)(&me->buffer));
 
-        QUEX_BUFFER_ASSERT_CONSISTENCY(&me->buffer);
-        goto _6143;
+            QUEX_BUFFER_ASSERT_CONSISTENCY(&me->buffer);
+            goto _6143;
     }
     /* Here, either the loading failed or it is not enough space to carry a closing delimiter */
     me->buffer._input_p = me->buffer._lexeme_start_p;
     QUEX_ERROR_EXIT("\nLexical analyzer mode 'PREPROCESSOR':\n"
-                "End of file occurred before closing skip range delimiter!\n"                "The 'on_skip_range_open' handler has not been specified.");
+                        "End of file occurred before closing skip range delimiter!\n"                "The 'on_skip_range_open' handler has not been specified.");
 
     }
     goto __REENTRY_PREPARATION;
 
 TERMINAL_915:
     __quex_debug("* terminal 915:   public\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 6);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 6);
     {
-
-#   line 459 "cpp.qx"
-self_send(TKN_PUBLIC);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 449 "cpp.qx"
+    self_send(TKN_PUBLIC);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -52102,20 +50298,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_413:
     __quex_debug("* terminal 413:   or_eq\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 5);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 5);
     {
-
-#   line 407 "cpp.qx"
-self_send(TKN_OR_EQ);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 397 "cpp.qx"
+    self_send(TKN_OR_EQ);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -52123,20 +50311,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_415:
     __quex_debug("* terminal 415:   \"^\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 409 "cpp.qx"
-self_send(TKN_XOR);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 399 "cpp.qx"
+    self_send(TKN_XOR);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -52144,20 +50324,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1444:
     __quex_debug("* terminal 1444:   defined\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 7);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 7);
     {
-
-#   line 524 "cpp.qx"
-self_send(TKN_DEFINED);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 514 "cpp.qx"
+    self_send(TKN_DEFINED);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -52165,20 +50337,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1446:
     __quex_debug("* terminal 1446:   \"#\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 525 "cpp.qx"
-self_send(TKN_HASH);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 515 "cpp.qx"
+    self_send(TKN_HASH);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -52186,20 +50350,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_423:
     __quex_debug("* terminal 423:   xor\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 3);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 3);
     {
-
-#   line 410 "cpp.qx"
-self_send(TKN_XOR);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 400 "cpp.qx"
+    self_send(TKN_XOR);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -52207,20 +50363,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1448:
     __quex_debug("* terminal 1448:   \"##\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 526 "cpp.qx"
-self_send(TKN_DOUBLE_HASH);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 516 "cpp.qx"
+    self_send(TKN_DOUBLE_HASH);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -52228,20 +50376,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_425:
     __quex_debug("* terminal 425:   \"^=\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 411 "cpp.qx"
-self_send(TKN_XOR_EQ);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 401 "cpp.qx"
+    self_send(TKN_XOR_EQ);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -52249,20 +50389,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_955:
     __quex_debug("* terminal 955:   private\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 7);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 7);
     {
-
-#   line 461 "cpp.qx"
-self_send(TKN_PRIVATE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 451 "cpp.qx"
+    self_send(TKN_PRIVATE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -52270,20 +50402,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_445:
     __quex_debug("* terminal 445:   xor_equ\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 7);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 7);
     {
-
-#   line 412 "cpp.qx"
-self_send(TKN_XOR_EQ);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 402 "cpp.qx"
+    self_send(TKN_XOR_EQ);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -52291,20 +50415,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_447:
     __quex_debug("* terminal 447:   \"~\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 414 "cpp.qx"
-self_send(TKN_COMPL);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 404 "cpp.qx"
+    self_send(TKN_COMPL);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -52312,20 +50428,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_963:
     __quex_debug("* terminal 963:   new\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 3);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 3);
     {
-
-#   line 463 "cpp.qx"
-self_send(TKN_NEW);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 453 "cpp.qx"
+    self_send(TKN_NEW);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -52333,20 +50441,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1477:
     __quex_debug("* terminal 1477:   \"//\"([^\\n]|\\\\[ \\t]*\\r?\\n)*\\r?\\n\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    QUEX_NAME(Counter_count)(&self.counter, self.buffer._lexeme_start_p, self.buffer._input_p);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_VOID(self.counter);
     {
-
-#   line 527 "cpp.qx"
-QUEX_NAME(enter_mode)(&self, &PROGRAM);self_send(TKN_PP_FINISH);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 517 "cpp.qx"
+    QUEX_NAME(enter_mode)(&self, &PROGRAM);self_send(TKN_PP_FINISH);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -52354,21 +50454,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1479:
     __quex_debug("* terminal 1479:   \"\\n\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_end += 1);
-    __QUEX_IF_COUNT_COLUMNS_SET((size_t)1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_FIXED_COLUMN_N_ZERO(self.counter, 1);
     {
-
-#   line 528 "cpp.qx"
-QUEX_NAME(enter_mode)(&self, &PROGRAM);self_send(TKN_PP_FINISH);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 518 "cpp.qx"
+    QUEX_NAME(enter_mode)(&self, &PROGRAM);self_send(TKN_PP_FINISH);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -52376,20 +50467,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_461:
     __quex_debug("* terminal 461:   compl\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 5);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 5);
     {
-
-#   line 415 "cpp.qx"
-self_send(TKN_COMPL);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 405 "cpp.qx"
+    self_send(TKN_COMPL);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -52397,20 +50480,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_463:
     __quex_debug("* terminal 463:   \"&\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 1);
     {
-
-#   line 417 "cpp.qx"
-self_send(TKN_BITAND);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 407 "cpp.qx"
+    self_send(TKN_BITAND);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -52418,15 +50493,7 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1491:
     __quex_debug("* terminal 1491:   \\\\[ \\t]*\\r?\\n\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_end += 1);
-    __QUEX_IF_COUNT_COLUMNS_SET((size_t)1);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_FIXED_COLUMN_N_ZERO(self.counter, 1);
     {
 
     }
@@ -52434,20 +50501,12 @@ TERMINAL_1491:
 
 TERMINAL_980:
     __quex_debug("* terminal 980:   delete\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 6);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 6);
     {
-
-#   line 464 "cpp.qx"
-self_send(TKN_DELETE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 454 "cpp.qx"
+    self_send(TKN_DELETE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -52455,21 +50514,13 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1493:
     __quex_debug("* terminal 1493:   {P_IDENTIFIER}\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end +=     ((size_t)(me->buffer._input_p - me->buffer._lexeme_start_p)));
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, LexemeL);
     {
-
-#   line 484 "cpp.qx"
-QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
-self_send(TKN_IDENTIFIER);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 474 "cpp.qx"
+    QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
+    self_send(TKN_IDENTIFIER);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -52477,20 +50528,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_480:
     __quex_debug("* terminal 480:   bitand\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 6);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 6);
     {
-
-#   line 418 "cpp.qx"
-self_send(TKN_BITAND);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 408 "cpp.qx"
+    self_send(TKN_BITAND);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -52498,20 +50541,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_482:
     __quex_debug("* terminal 482:   \"&&\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 419 "cpp.qx"
-self_send(TKN_AND);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 409 "cpp.qx"
+    self_send(TKN_AND);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -52519,20 +50554,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_490:
     __quex_debug("* terminal 490:   and\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 3);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 3);
     {
-
-#   line 420 "cpp.qx"
-self_send(TKN_AND);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 410 "cpp.qx"
+    self_send(TKN_AND);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -52540,20 +50567,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_935:
     __quex_debug("* terminal 935:   protect\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 7);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 7);
     {
-
-#   line 460 "cpp.qx"
-self_send(TKN_PROTECT);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 450 "cpp.qx"
+    self_send(TKN_PROTECT);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -52561,20 +50580,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_492:
     __quex_debug("* terminal 492:   \"&=\"\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 2);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 2);
     {
-
-#   line 421 "cpp.qx"
-self_send(TKN_AND_EQ);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 411 "cpp.qx"
+    self_send(TKN_AND_EQ);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -52582,20 +50593,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_851:
     __quex_debug("* terminal 851:   template\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 8);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 8);
     {
-
-#   line 453 "cpp.qx"
-self_send(TKN_TEMPLATE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 443 "cpp.qx"
+    self_send(TKN_TEMPLATE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -52603,20 +50606,12 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_1020:
     __quex_debug("* terminal 1020:   return\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 6);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 6);
     {
-
-#   line 466 "cpp.qx"
-self_send(TKN_RETURN);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 456 "cpp.qx"
+    self_send(TKN_RETURN);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -52624,38 +50619,24 @@ QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
 
 TERMINAL_509:
     __quex_debug("* terminal 509:   and_eq\n");
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_end += 6);
-    __QUEX_ASSERT_COUNTER_CONSISTENCY(&self.counter);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_NEWLINE_N_ZERO_COLUMN_N_FIXED(self.counter, 6);
     {
-
-#   line 422 "cpp.qx"
-self_send(TKN_AND_EQ);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 412 "cpp.qx"
+    self_send(TKN_AND_EQ);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
     goto __REENTRY_PREPARATION;
 
 _4700: /* TERMINAL: END_OF_STREAM */
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_END_OF_STREAM_EVENT(self.counter);
     {
-
-#   line 342 "cpp.qx"
-QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, LexemeNull, LexemeNull);
-self_send(TKN_TERMINATION);
-
+#   line 332 "cpp.qx"
+    QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, LexemeNull, LexemeNull);
+    self_send(TKN_TERMINATION);
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -52676,20 +50657,13 @@ _5740: /* TERMINAL: FAILURE */
             ++(me->buffer._input_p);
         }
     }
-
-#   ifdef __QUEX_OPTION_COUNTER
-    __QUEX_IF_COUNT_LINES(self.counter._line_number_at_begin     = self.counter._line_number_at_end);
-    __QUEX_IF_COUNT_COLUMNS(self.counter._column_number_at_begin = self.counter._column_number_at_end);
-    QUEX_NAME(Counter_count)(&self.counter, self.buffer._lexeme_start_p, self.buffer._input_p);
-    __quex_debug_counter();
-#   endif
+    __QUEX_COUNT_VOID(self.counter);
     {
-
-#   line 343 "cpp.qx"
-QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
-self_send(TKN_FAILURE);
-QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
-
+#   line 333 "cpp.qx"
+    QUEX_NAME_TOKEN(take_text)(self_write_token_p(), &self, self.buffer._lexeme_start_p, self.buffer._input_p);
+    self_send(TKN_FAILURE);
+    QUEX_SETTING_AFTER_SEND_CONTINUE_OR_RETURN();
+    
 #   line 32767 "tiny_lexer.cpp"
 
     }
@@ -53589,12 +51563,12 @@ QUEX_NAME_TOKEN(map_id_to_name)(const QUEX_TYPE_TOKEN_ID TokenID)
        __QUEX_STD_sprintf(error_string, "<UNKNOWN TOKEN-ID: %i>", (int)TokenID);
        return error_string;
    }
-   case __QUEX_SETTING_TOKEN_ID_TERMINATION:       return termination_string;
-   case __QUEX_SETTING_TOKEN_ID_UNINITIALIZED:     return uninitialized_string;
+   case TKN_TERMINATION:    return termination_string;
+   case TKN_UNINITIALIZED:  return uninitialized_string;
 #  if defined(QUEX_OPTION_INDENTATION_TRIGGER)
-   case __QUEX_SETTING_TOKEN_ID_INDENT:     return indent_string;
-   case __QUEX_SETTING_TOKEN_ID_DEDENT:     return dedent_string;
-   case __QUEX_SETTING_TOKEN_ID_NODENT:     return nodent_string;
+   case TKN_INDENT:         return indent_string;
+   case TKN_DEDENT:         return dedent_string;
+   case TKN_NODENT:         return nodent_string;
 #  endif
    case TKN_AND:            return token_id_str_AND;
    case TKN_AND_EQ:         return token_id_str_AND_EQ;
