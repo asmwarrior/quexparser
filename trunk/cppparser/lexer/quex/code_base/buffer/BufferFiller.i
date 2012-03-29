@@ -384,7 +384,9 @@ QUEX_NAMESPACE_MAIN_OPEN
         QUEX_TYPE_CHARACTER*     ContentBack  = QUEX_NAME(Buffer_content_back)(buffer);
         ptrdiff_t                BackwardDistance              = (ptrdiff_t)-1;
         ptrdiff_t                NewContentCharacterIndexBegin = (ptrdiff_t)-1;
+#       if defined(QUEX_OPTION_ASSERTS)
         size_t                   LoadedN                       = (size_t)-1;
+#       endif
 
 #       ifdef QUEX_OPTION_STRANGE_ISTREAM_IMPLEMENTATION
         QUEX_ERROR_EXIT(__QUEX_MESSAGE_BUFFER_FILLER_ON_STRANGE_STREAM_IN_BACKWARD_LOAD);
@@ -472,7 +474,12 @@ QUEX_NAMESPACE_MAIN_OPEN
          *    the buffer refers is always 0 and no backward loading will ever happen.  
          * -- If the file content >= buffer size, then backward loading must always fill  
          *    the buffer. */
-        LoadedN = QUEX_NAME(__BufferFiller_read_characters)(buffer, ContentFront, BackwardDistance);
+#       if defined(QUEX_OPTION_ASSERTS)
+        LoadedN = 
+#       else
+        (void)
+#       endif
+        QUEX_NAME(__BufferFiller_read_characters)(buffer, ContentFront, BackwardDistance);
         __quex_assert(LoadedN == (size_t)BackwardDistance);
 
         /*________________________________________________________________________________
@@ -622,8 +629,8 @@ QUEX_NAMESPACE_MAIN_OPEN
             End         = buffer->_memory._back; 
             iterator    = buffer->_lexeme_start_p; 
 
-            __QUEX_CONVERTER_STRING(QUEX_SETTING_CODEC, utf8)(&iterator, End,
-                                                              &witerator, WEnd);
+            QUEX_CONVERTER_STRING(QUEX_SETTING_CHARACTER_CODEC, utf8)(&iterator, End, &witerator, WEnd);
+
             message[0] = '\0';
             /* No use of 'snprintf()' because not all systems seem to support it propperly. */
             __QUEX_STD_strncat(message, 

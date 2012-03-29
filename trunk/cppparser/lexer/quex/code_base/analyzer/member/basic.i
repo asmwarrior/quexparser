@@ -61,15 +61,13 @@ QUEX_NAMESPACE_MAIN_OPEN
             me->token = 0x0;     
 #           else
             me->token = &me->__memory_token;     
-#              ifdef __QUEX_OPTION_PLAIN_C
-               QUEX_NAME_TOKEN(construct)(me->token);
-#              endif
+#           ifdef __QUEX_OPTION_PLAIN_C
+            QUEX_NAME_TOKEN(construct)(me->token);
+#           endif
 #           endif
 #       endif
        
-#       ifdef __QUEX_OPTION_COUNTER
-        QUEX_NAME(Counter_construct)(&me->counter);
-#       endif
+        __QUEX_IF_COUNT( QUEX_NAME(Counter_construct)(&me->counter); )
 
 #       ifdef QUEX_OPTION_STRING_ACCUMULATOR
         QUEX_NAME(Accumulator_construct)(&me->accumulator, (QUEX_TYPE_ANALYZER*)me);
@@ -121,9 +119,7 @@ QUEX_NAMESPACE_MAIN_OPEN
                            const size_t         TranslationBufferMemorySize)
         /* Reset of Components of the Lexical Analyzer Engine ____________________________*/
     {
-#       ifdef __QUEX_OPTION_COUNTER
-        QUEX_NAME(Counter_reset)(&me->counter);
-#       endif
+        __QUEX_IF_COUNT( QUEX_NAME(Counter_reset)(&me->counter); )
 
 #       ifdef QUEX_OPTION_TOKEN_POLICY_QUEUE
         QUEX_NAME(TokenQueue_reset)(&me->_token_queue);
@@ -185,8 +181,6 @@ QUEX_NAMESPACE_MAIN_OPEN
     QUEX_INLINE void 
     QUEX_NAME(buffer_reload_backward)(QUEX_NAME(Buffer)* buffer)
     {
-        size_t                 LoadedCharacterN = 0;
-
         __quex_assert(buffer != 0x0);
         __quex_assert(buffer->filler != 0x0);
 
@@ -197,7 +191,7 @@ QUEX_NAMESPACE_MAIN_OPEN
                                              QUEX_NAME(Buffer_text_end)(buffer));
         }
 
-        LoadedCharacterN = QUEX_NAME(BufferFiller_load_backward)(buffer);
+        (void)QUEX_NAME(BufferFiller_load_backward)(buffer);
         
         /* Backward lexing happens in two cases:
          *
