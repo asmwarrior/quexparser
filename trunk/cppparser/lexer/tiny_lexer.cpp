@@ -23412,7 +23412,7 @@ _5737: /* (5737 from 5736) */
 #   define LexemeEnd    me->buffer._input_p
 #endif
 
-#define LexemeNull      (&QUEX_NAME(LexemeNullObject))
+#define LexemeNull      (&QUEX_LEXEME_NULL_IN_NAMESPACE_MAIN)
 
 TERMINAL_1031:
     __quex_debug("* terminal 1031:   case\n");
@@ -48876,7 +48876,7 @@ _7419:
 #   define LexemeEnd    me->buffer._input_p
 #endif
 
-#define LexemeNull      (&QUEX_NAME(LexemeNullObject))
+#define LexemeNull      (&QUEX_LEXEME_NULL_IN_NAMESPACE_MAIN)
 
 TERMINAL_1031:
     __quex_debug("* terminal 1031:   case\n");
