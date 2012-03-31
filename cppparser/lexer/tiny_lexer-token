@@ -1,4 +1,4 @@
-/* -*- C++ -*-   vim: set syntax=cpp:
+/* -*- C++ -*-   vim: set syntax=cpp: 
  * (C) 2004-2009 Frank-Rene Schaefer
  * ABSOLUTELY NO WARRANTY
  */
@@ -11,7 +11,7 @@
 
 /* LexemeNull object may be used for 'take_text'. */
 QUEX_NAMESPACE_MAIN_OPEN
-extern QUEX_TYPE_CHARACTER  QUEX_NAME(LexemeNullObject);
+extern QUEX_TYPE_CHARACTER   QUEX_LEXEME_NULL_IN_NAMESPACE_MAIN;
 QUEX_NAMESPACE_MAIN_CLOSE
 
 
@@ -21,11 +21,11 @@ QUEX_NAMESPACE_MAIN_CLOSE
        #include <iostream>
        #include <string>
 #include <quex/code_base/converter_helper/identity>
-
+   
 
 #   line 27 "tiny_lexer-token"
 
-
+ 
 namespace quex {
 
 
@@ -38,23 +38,23 @@ extern const char*  QUEX_NAME_TOKEN(map_id_to_name)(const QUEX_TYPE_TOKEN_ID);
 inline void    QUEX_NAME_TOKEN(construct)(Token* __this);
 inline void    QUEX_NAME_TOKEN(destruct)(Token* __this);
 inline void    QUEX_NAME_TOKEN(copy)(Token* me, const Token* That);
-inline bool    QUEX_NAME_TOKEN(take_text)(Token*            __this,
-                                          QUEX_TYPE_ANALYZER*         analyzer,
-                                          const QUEX_TYPE_CHARACTER*  Begin,
+inline bool    QUEX_NAME_TOKEN(take_text)(Token*            __this, 
+                                          QUEX_TYPE_ANALYZER*         analyzer, 
+                                          const QUEX_TYPE_CHARACTER*  Begin, 
                                           const QUEX_TYPE_CHARACTER*  End);
 
 #ifdef QUEX_OPTION_TOKEN_REPETITION_SUPPORT
 inline size_t  QUEX_NAME_TOKEN(repetition_n_get)(Token* __this);
 inline void    QUEX_NAME_TOKEN(repetition_n_set)(Token* __this, size_t N);
-#endif
+#endif 
 
 class Token {
 public:
     Token();
     Token(const Token& That);
-    /* operator=(..): USE WITH CAUTION--POSSIBLE MAJOR PERFORMANCE DECREASE!
+    /* operator=(..): USE WITH CAUTION--POSSIBLE MAJOR PERFORMANCE DECREASE! 
      *                BETTER USE __copy(That)                                */
-    Token& operator=(const Token& That)
+    Token& operator=(const Token& That) 
     { QUEX_NAME_TOKEN(copy)(this, &That); return *this; }
     ~Token();
 
@@ -78,8 +78,8 @@ public:
 
 
     public:
-        /* _line_n, _column_n, and _id are public, so that the token policy
-         * can access it. making it private would imply complications for
+        /* _line_n, _column_n, and _id are public, so that the token policy 
+         * can access it. making it private would imply complications for 
          * user customized token classes. The token policies should be the
          * same for C and Cpp.                                               */
         QUEX_TYPE_TOKEN_ID    _id;
@@ -106,25 +106,25 @@ public:
 
 #   line 45 "cpp.qx"
 
-
+   
         inline bool operator==(uint32_t value)
         {
             return _id==value;
         }
-
+        
         inline bool operator!=(uint32_t value)
         {
             return _id!=value;
-        }
-
+        }   
+        
         typedef std::basic_string<QUEX_TYPE_CHARACTER> __string;
 
-        operator
+        operator 
         const std::string() const
         { return get_string(); }
 
         const std::string
-        get_string() const
+        get_string() const 
         {
             std::string             tmp;
 
@@ -134,8 +134,8 @@ public:
 
             return tmp;
         }
-
-        const std::string
+    
+        const std::string 
         pretty_char_text() const
         {
 #           if defined(__QUEX_OPTION_CONVERTER_HELPER)
@@ -156,7 +156,7 @@ public:
         }
 
 #       if ! defined(__QUEX_OPTION_WCHAR_T_DISABLED)
-        const std::wstring
+        const std::wstring 
         pretty_wchar_text() const
         {
 #           if defined(__QUEX_OPTION_CONVERTER_HELPER)
@@ -166,7 +166,7 @@ public:
              * is used and the character size is 1.                                          */
             __quex_assert(sizeof(QUEX_TYPE_CHARACTER) == 1);
             std::wstring             tmp;
-            for(std::basic_string<QUEX_TYPE_CHARACTER>::const_iterator it = self.text.begin();
+            for(std::basic_string<QUEX_TYPE_CHARACTER>::const_iterator it = self.text.begin(); 
                 it != self.text.end(); ++it) {
                 tmp += (wchar_t)*it;
             }
@@ -180,7 +180,7 @@ public:
             return tmp;
         }
 #       endif
-
+   
 
 #   line 186 "tiny_lexer-token"
 
@@ -188,9 +188,9 @@ public:
 
     private:
         friend void QUEX_NAME_TOKEN(copy)(Token* me, const Token* That);
-        friend bool QUEX_NAME_TOKEN(take_text)(Token*               __this,
-                                               QUEX_TYPE_ANALYZER*         analyzer,
-                                               const QUEX_TYPE_CHARACTER*  Begin,
+        friend bool QUEX_NAME_TOKEN(take_text)(Token*               __this, 
+                                               QUEX_TYPE_ANALYZER*         analyzer, 
+                                               const QUEX_TYPE_CHARACTER*  Begin, 
                                                const QUEX_TYPE_CHARACTER*  End);
 };
 
@@ -203,9 +203,9 @@ public:
         inline std::ostream&
         operator<<(std::ostream& ostr, const QUEX_TYPE_TOKEN& Tok)
         { ostr << std::string(Tok); return ostr; }
+        
 
-
-
+   
 
 #   line 211 "tiny_lexer-token"
 
@@ -214,7 +214,7 @@ public:
 
 #endif /* __QUEX_INCLUDE_GUARD__TOKEN__GENERATED____QUEX____TOKEN */
 
-/* -*- C++ -*-   vim: set syntax=cpp:
+/* -*- C++ -*-   vim: set syntax=cpp: 
  * (C) 2004-2009 Frank-Rene Schaefer
  * ABSOLUTELY NO WARRANTY
  */
@@ -224,7 +224,7 @@ public:
 #include <quex/code_base/definitions>
 
 QUEX_NAMESPACE_MAIN_OPEN
-extern QUEX_TYPE_CHARACTER  QUEX_NAME(LexemeNullObject);
+extern QUEX_TYPE_CHARACTER   QUEX_LEXEME_NULL_IN_NAMESPACE_MAIN;
 QUEX_NAMESPACE_MAIN_CLOSE
 
 
@@ -266,7 +266,7 @@ QUEX_NAME_TOKEN(construct)(Token* __this)
 QUEX_INLINE void
 QUEX_NAME_TOKEN(destruct)(Token* __this)
 {
-    __this->Token::~Token();
+    __this->Token::~Token();  
 }
 
 QUEX_INLINE void
@@ -290,7 +290,7 @@ QUEX_NAME_TOKEN(copy)(Token* __this, const Token* __That)
             self._column_n = Other._column_n;
     #       endif
     #   endif
-
+   
 
 #   line 296 "tiny_lexer-token"
 
@@ -307,10 +307,10 @@ QUEX_NAME_TOKEN(copy)(Token* __this, const Token* __That)
 #endif
 }
 
-QUEX_INLINE bool
-QUEX_NAME_TOKEN(take_text)(Token*              __this,
-                           QUEX_TYPE_ANALYZER*        __analyzer,
-                           const QUEX_TYPE_CHARACTER* Begin,
+QUEX_INLINE bool 
+QUEX_NAME_TOKEN(take_text)(Token*              __this, 
+                           QUEX_TYPE_ANALYZER*        __analyzer, 
+                           const QUEX_TYPE_CHARACTER* Begin, 
                            const QUEX_TYPE_CHARACTER* End)
 {
 #   define self      (*__this)
@@ -347,10 +347,10 @@ QUEX_NAME_TOKEN(take_text)(Token*              __this,
         }
 #       endif
 
-        /* This token copied the text from the chunk into the string,
+        /* This token copied the text from the chunk into the string, 
          * so we do not claim owneship over it.                       */
-        return false;
-
+        return false;      
+   
 
 #   line 356 "tiny_lexer-token"
 
@@ -359,33 +359,33 @@ QUEX_NAME_TOKEN(take_text)(Token*              __this,
 }
 
 #ifdef QUEX_OPTION_TOKEN_REPETITION_SUPPORT
-QUEX_INLINE size_t
+QUEX_INLINE size_t 
 QUEX_NAME_TOKEN(repetition_n_get)(Token* __this)
 {
 #   define self (*__this)
     (void)__this;
-
+    
 #   line 159 "cpp.qx"
 
        //return self.number;
-
+   
 
 #   line 374 "tiny_lexer-token"
 
 #   undef self
 }
 
-QUEX_INLINE void
+QUEX_INLINE void 
 QUEX_NAME_TOKEN(repetition_n_set)(Token* __this, size_t N)
 {
 #   define self (*__this)
     (void)__this;
     (void)N;
-
+    
 #   line 155 "cpp.qx"
 
        //self.number = N;
-
+   
 
 #   line 391 "tiny_lexer-token"
 
