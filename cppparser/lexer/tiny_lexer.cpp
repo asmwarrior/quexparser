@@ -132,7 +132,7 @@ QUEX_NAMESPACE_MAIN_CLOSE
 
 /* #include "tiny_lexer"*/
 QUEX_NAMESPACE_MAIN_OPEN
-QUEX_TYPE_CHARACTER  QUEX_NAME(LexemeNullObject) = (QUEX_TYPE_CHARACTER)0;
+QUEX_TYPE_CHARACTER  QUEX_LEXEME_NULL_IN_ITS_NAMESPACE = (QUEX_TYPE_CHARACTER)0;
 
 #include <quex/code_base/analyzer/member/basic>
 #include <quex/code_base/buffer/Buffer>
@@ -23412,7 +23412,7 @@ _5737: /* (5737 from 5736) */
 #   define LexemeEnd    me->buffer._input_p
 #endif
 
-#define LexemeNull      (&QUEX_LEXEME_NULL_IN_NAMESPACE_MAIN)
+#define LexemeNull      (&QUEX_LEXEME_NULL)
 
 TERMINAL_1031:
     __quex_debug("* terminal 1031:   case\n");
@@ -26142,7 +26142,7 @@ __STATE_ROUTER:
 
     /* Prevent compiler warning 'unused variable': use variables once in a part of the code*/
     /* that is never reached (and deleted by the compiler anyway).*/
-    (void)QUEX_NAME(LexemeNullObject);
+    (void)QUEX_LEXEME_NULL;
     (void)QUEX_NAME_TOKEN(DumpedTokenIdObject);
     QUEX_ERROR_EXIT("Unreachable code has been reached.\n");
 #   undef PROGRAM
@@ -48876,7 +48876,7 @@ _7419:
 #   define LexemeEnd    me->buffer._input_p
 #endif
 
-#define LexemeNull      (&QUEX_LEXEME_NULL_IN_NAMESPACE_MAIN)
+#define LexemeNull      (&QUEX_LEXEME_NULL)
 
 TERMINAL_1031:
     __quex_debug("* terminal 1031:   case\n");
@@ -51415,7 +51415,7 @@ __STATE_ROUTER:
 
     /* Prevent compiler warning 'unused variable': use variables once in a part of the code*/
     /* that is never reached (and deleted by the compiler anyway).*/
-    (void)QUEX_NAME(LexemeNullObject);
+    (void)QUEX_LEXEME_NULL;
     (void)QUEX_NAME_TOKEN(DumpedTokenIdObject);
     QUEX_ERROR_EXIT("Unreachable code has been reached.\n");
 #   undef PROGRAM
